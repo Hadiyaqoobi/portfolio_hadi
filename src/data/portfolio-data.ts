@@ -23,6 +23,11 @@ export const portfolioData = {
       logo: "/logos/boston-university.png",
       year: "2023",
       description: "STEM Master's degree with a focus on data analytics, business intelligence, and quantitative decision-making.",
+      honors: [
+        "Dean's List",
+        "Graduate Research Excellence Award",
+        "Analytics Capstone Project - Top 5%",
+      ],
     },
     {
       degree: "Bachelor of Science",
@@ -31,6 +36,10 @@ export const portfolioData = {
       logo: "/logos/kocaeli.png",
       year: "2019",
       description: "Comprehensive program covering aviation operations, management principles, and industry regulations.",
+      honors: [
+        "High Honors Graduate",
+        "Outstanding Student Award",
+      ],
     },
     {
       degree: "MicroBachelor",
@@ -39,6 +48,9 @@ export const portfolioData = {
       logo: "/logos/nyu.png",
       year: "2022",
       description: "Focused curriculum in programming fundamentals, algorithms, and software development.",
+      honors: [
+        "Certificate of Completion with Distinction",
+      ],
     },
   ],
 

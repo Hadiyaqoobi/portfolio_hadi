@@ -93,9 +93,34 @@ export const Education = () => {
               </div>
 
               {/* Description */}
-              <p className="text-sm text-muted-foreground/80 leading-relaxed">
+              <p className="text-sm text-muted-foreground/80 leading-relaxed mb-4">
                 {edu.description}
               </p>
+
+              {/* Honors & Achievements */}
+              {edu.honors && edu.honors.length > 0 && (
+                <div className="mt-4 pt-4 border-t border-border/30">
+                  <h4 className="text-xs font-semibold text-neon-cyan mb-2 flex items-center gap-2">
+                    <span className="inline-block w-1 h-1 bg-neon-cyan rounded-full"></span>
+                    HONORS & ACHIEVEMENTS
+                  </h4>
+                  <ul className="space-y-1.5">
+                    {edu.honors.map((honor, idx) => (
+                      <motion.li
+                        key={idx}
+                        initial={{ opacity: 0, x: -10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: idx * 0.1 }}
+                        className="text-xs text-muted-foreground/90 flex items-start gap-2"
+                      >
+                        <span className="text-neon-magenta mt-0.5">▸</span>
+                        <span>{honor}</span>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
               {/* Scan Line Effect */}
               <motion.div
