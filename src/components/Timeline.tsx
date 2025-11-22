@@ -1,6 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Clock, Briefcase, Rocket } from "lucide-react";
+import { Clock, Briefcase, Rocket, Terminal, Code, Database, Cpu, Server, Binary } from "lucide-react";
 import { portfolioData } from "@/data/portfolio-data";
 
 const getIcon = (type: string) => {
@@ -46,10 +46,45 @@ export const Timeline = () => {
         </motion.div>
 
         <div className="relative">
-          {/* Timeline line */}
-          <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-accent to-neon-magenta" />
+          {/* Animated Timeline line */}
+          <motion.div 
+            className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-accent to-neon-magenta"
+            initial={{ scaleY: 0 }}
+            whileInView={{ scaleY: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            style={{ transformOrigin: "top" }}
+          />
 
-          <div className="space-y-12">
+          {/* Floating computer symbols */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            {[Terminal, Code, Database, Cpu, Server, Binary].map((Icon, i) => (
+              <motion.div
+                key={i}
+                className="absolute text-primary/10"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ 
+                  opacity: [0.1, 0.3, 0.1],
+                  y: [20, -20, 20],
+                  x: [0, Math.random() * 20 - 10, 0]
+                }}
+                transition={{
+                  duration: 8 + i * 2,
+                  repeat: Infinity,
+                  delay: i * 1.5,
+                  ease: "easeInOut"
+                }}
+                style={{
+                  left: `${10 + i * 15}%`,
+                  top: `${20 + (i % 3) * 25}%`
+                }}
+              >
+                <Icon size={32} />
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="space-y-12 relative z-10">
             {timeline.map((item, index) => {
               const Icon = getIcon(item.type);
               const color = getColor(item.type);
@@ -103,12 +138,47 @@ const TimelineItem = ({
           whileHover={{ scale: 1.02 }}
           className="border border-primary/30 bg-card/50 backdrop-blur-sm rounded-lg p-6 relative overflow-hidden group"
         >
+          {/* Animated binary background */}
+          <div className="absolute inset-0 opacity-5 terminal-font text-xs overflow-hidden">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <motion.div
+                key={i}
+                animate={{ x: [0, -100] }}
+                transition={{ duration: 15, repeat: Infinity, delay: i * 2 }}
+                className="whitespace-nowrap"
+              >
+                01001000 01100101 01101100 01101100 01101111 00100000 01010111 01101111 01110010
+              </motion.div>
+            ))}
+          </div>
+
           {/* Glow effect on hover */}
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           
+          {/* Animated corner brackets */}
+          <motion.div 
+            className="absolute top-2 left-2 text-primary/50 text-2xl"
+            animate={{ opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            &lt;
+          </motion.div>
+          <motion.div 
+            className="absolute bottom-2 right-2 text-primary/50 text-2xl"
+            animate={{ opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+          >
+            /&gt;
+          </motion.div>
+          
           <div className="relative z-10">
             <div className="flex items-center gap-3 mb-4">
-              <Icon className={`text-${color}`} size={24} />
+              <motion.div
+                animate={{ rotate: [0, 360] }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              >
+                <Icon className={`text-${color}`} size={24} />
+              </motion.div>
               <span className="text-sm text-muted-foreground terminal-font">
                 {item.year}
               </span>
@@ -152,9 +222,20 @@ const TimelineItem = ({
           initial={{ scale: 0 }}
           animate={isInView ? { scale: 1 } : {}}
           transition={{ delay: 0.2 }}
-          className="w-16 h-16 rounded-full border-2 border-primary bg-background flex items-center justify-center"
+          className="w-16 h-16 rounded-full border-2 border-primary bg-background flex items-center justify-center relative"
         >
-          <Icon className={`text-${color}`} size={24} />
+          {/* Pulsing ring effect */}
+          <motion.div
+            className="absolute inset-0 rounded-full border-2 border-primary"
+            animate={{ scale: [1, 1.5], opacity: [0.5, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          />
+          <motion.div
+            animate={{ rotate: [0, 360] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+          >
+            <Icon className={`text-${color}`} size={24} />
+          </motion.div>
         </motion.div>
       </div>
 
