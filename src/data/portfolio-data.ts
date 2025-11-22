@@ -15,6 +15,33 @@ export const portfolioData = {
     interests: ["Data Science", "IT BSA", "Analytics", "Automation", "Product & Systems"],
   },
 
+  education: [
+    {
+      degree: "Master of Science in Management Studies",
+      field: "Data Analytics (STEM)",
+      institution: "Boston University - Questrom School of Business",
+      logo: "/logos/boston-university.png",
+      year: "2023",
+      description: "STEM Master's degree with a focus on data analytics, business intelligence, and quantitative decision-making.",
+    },
+    {
+      degree: "Bachelor of Science",
+      field: "Aviation Management",
+      institution: "Kocaeli University",
+      logo: "/logos/kocaeli.png",
+      year: "2019",
+      description: "Comprehensive program covering aviation operations, management principles, and industry regulations.",
+    },
+    {
+      degree: "MicroBachelor",
+      field: "Computer Science",
+      institution: "New York University (NYU)",
+      logo: "/logos/nyu.png",
+      year: "2022",
+      description: "Focused curriculum in programming fundamentals, algorithms, and software development.",
+    },
+  ],
+
   timeline: [
     {
       year: "2024 – 2025",
