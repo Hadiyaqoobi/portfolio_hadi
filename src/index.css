@@ -120,6 +120,13 @@ All colors MUST be HSL.
     background-clip: text;
   }
 
+  .text-gradient {
+    background: var(--gradient-neon);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
   .animate-float {
     animation: float 6s ease-in-out infinite;
   }
