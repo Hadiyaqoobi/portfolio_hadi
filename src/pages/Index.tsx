@@ -2,7 +2,6 @@ import { Background } from "@/components/Background";
 import { Navigation } from "@/components/Navigation";
 import { Hero } from "@/components/Hero";
 import { Timeline } from "@/components/Timeline";
-import { About } from "@/components/About";
 import { Education } from "@/components/Education";
 import { Skills } from "@/components/Skills";
 import { Projects } from "@/components/Projects";
@@ -18,7 +17,6 @@ const Index = () => {
       <main className="relative z-10">
         <Hero />
         <Timeline />
-        <About />
         <Education />
         <Skills />
         <Projects />
