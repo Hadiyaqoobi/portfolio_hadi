@@ -194,9 +194,17 @@ const TimelineItem = ({
               </p>
             )}
 
-            <p className="text-muted-foreground mb-4">
-              {item.description}
-            </p>
+            {item.skills && (
+              <p className="text-sm text-muted-foreground mb-4">
+                <span className="font-semibold">Skills:</span>{" "}
+                {item.skills.map((skill: string, idx: number) => (
+                  <span key={idx}>
+                    <span className="font-semibold">{skill}</span>
+                    {idx < item.skills.length - 1 && " · "}
+                  </span>
+                ))}
+              </p>
+            )}
 
             <ul className="space-y-2">
               {item.highlights.map((highlight: string, idx: number) => (

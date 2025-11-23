@@ -60,7 +60,7 @@ export const portfolioData = {
       title: "IT Business & Systems Analyst",
       company: "Equity Residential",
       location: "Boston, MA",
-      description: "Focus: SQL automation, API testing, rent-reporting workflows, fee-transparency dashboards",
+      skills: ["SQL (T-SQL, Stored Procedures)", "API Testing (Postman)", "Power BI", "Data Validation & QA", "Jira", "Azure DevOps", "Agile/Scrum"],
       highlights: [
         "Automated weekly/monthly rent delinquency reports using stored procedures and scheduling",
         "Collaborated with DevOps/QA and business stakeholders to improve data quality and workflows",
@@ -73,7 +73,7 @@ export const portfolioData = {
       title: "Data Analytics & Operations",
       company: "Various Roles",
       location: "",
-      description: "Work with SQL, Python, Excel, and BI tools",
+      skills: ["SQL", "Python", "Excel Advanced", "Power BI", "Tableau", "As-Is/To-Be Workflows", "BRD/FRD Documentation"],
       highlights: [
         "Experience with As-Is / To-Be workflows, BRD/FRD documentation",
         "Stakeholder communication and requirements gathering",
@@ -86,7 +86,7 @@ export const portfolioData = {
       title: "Data & AI-Driven Product Leader",
       company: "Vision",
       location: "",
-      description: "Growing toward advanced data science, AI, and product-centric roles",
+      skills: ["Machine Learning", "AI Systems", "Product Strategy", "Data Science", "Cross-functional Leadership", "Analytics"],
       highlights: [
         "Leveraging data science and machine learning for business impact",
         "Building intelligent systems and data-driven products",
