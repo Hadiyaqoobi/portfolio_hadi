@@ -1,9 +1,17 @@
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import { Award, Search, Filter, X } from "lucide-react";
+import { Award, Search, Filter, X, Star, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
-import { CertificateCard } from "@/components/CertificateCard";
-import { certificates, certificateProviders, certificateCategories } from "@/data/certificates";
+import { CertificateCategorySection } from "@/components/CertificateCategorySection";
+import {
+  certificates,
+  certificateProviders,
+  categoryOrder,
+  getCertificatesGroupedByCategory,
+  getFeaturedCertificates,
+  CertificateCategory,
+  categoryIcons,
+} from "@/data/certificates";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -14,13 +22,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { CertificateCard } from "@/components/CertificateCard";
 
 export default function Certificates() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedProvider, setSelectedProvider] = useState<string>("all");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [showFeaturedOnly, setShowFeaturedOnly] = useState(false);
 
-  // Filtered and searched certificates
+  // Filtered certificates
   const filteredCertificates = useMemo(() => {
     return certificates.filter((cert) => {
       const matchesSearch =
@@ -37,18 +47,42 @@ export default function Certificates() {
       const matchesCategory =
         selectedCategory === "all" || cert.category === selectedCategory;
 
-      return matchesSearch && matchesProvider && matchesCategory;
+      const matchesFeatured = !showFeaturedOnly || cert.featured;
+
+      return matchesSearch && matchesProvider && matchesCategory && matchesFeatured;
     });
-  }, [searchQuery, selectedProvider, selectedCategory]);
+  }, [searchQuery, selectedProvider, selectedCategory, showFeaturedOnly]);
+
+  // Group filtered certificates by category
+  const groupedFilteredCertificates = useMemo(() => {
+    const grouped: Partial<Record<CertificateCategory, typeof filteredCertificates>> = {};
+    
+    categoryOrder.forEach((category) => {
+      const certs = filteredCertificates
+        .filter((cert) => cert.category === category)
+        .sort((a, b) => (a.priority || 99) - (b.priority || 99));
+      if (certs.length > 0) {
+        grouped[category] = certs;
+      }
+    });
+    
+    return grouped;
+  }, [filteredCertificates]);
 
   const clearFilters = () => {
     setSearchQuery("");
     setSelectedProvider("all");
     setSelectedCategory("all");
+    setShowFeaturedOnly(false);
   };
 
   const hasActiveFilters =
-    searchQuery !== "" || selectedProvider !== "all" || selectedCategory !== "all";
+    searchQuery !== "" ||
+    selectedProvider !== "all" ||
+    selectedCategory !== "all" ||
+    showFeaturedOnly;
+
+  const featuredCerts = getFeaturedCertificates();
 
   return (
     <div className="min-h-screen bg-background relative">
@@ -65,7 +99,7 @@ export default function Certificates() {
               <div>
                 <Link
                   to="/"
-                  className="text-sm text-muted-foreground hover:text-primary mb-2 inline-block"
+                  className="text-sm text-muted-foreground hover:text-primary mb-2 inline-block transition-colors"
                 >
                   ← Back to Home
                 </Link>
@@ -73,11 +107,10 @@ export default function Certificates() {
                   <Award className="w-8 h-8 text-primary" />
                   <div>
                     <h1 className="text-3xl md:text-4xl font-bold text-foreground">
-                      All <span className="text-gradient">Certificates</span>
+                      Certificates & <span className="text-gradient">Education</span>
                     </h1>
                     <p className="text-sm text-muted-foreground mt-1">
-                      {filteredCertificates.length} certificate
-                      {filteredCertificates.length !== 1 ? "s" : ""} found
+                      {filteredCertificates.length} of {certificates.length} certificates
                     </p>
                   </div>
                 </div>
@@ -105,6 +138,19 @@ export default function Certificates() {
                   <span className="text-sm text-muted-foreground">Filters:</span>
                 </div>
 
+                {/* Featured toggle */}
+                <Button
+                  variant={showFeaturedOnly ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setShowFeaturedOnly(!showFeaturedOnly)}
+                  className={showFeaturedOnly 
+                    ? "bg-yellow-500/20 border-yellow-500/40 text-yellow-500 hover:bg-yellow-500/30" 
+                    : "border-primary/20"}
+                >
+                  <Star className={`w-3 h-3 mr-1 ${showFeaturedOnly ? "fill-yellow-500" : ""}`} />
+                  Core Only
+                </Button>
+
                 {/* Provider filter */}
                 <Select value={selectedProvider} onValueChange={setSelectedProvider}>
                   <SelectTrigger className="w-[180px] bg-background/50 border-primary/20">
@@ -122,14 +168,14 @@ export default function Certificates() {
 
                 {/* Category filter */}
                 <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                  <SelectTrigger className="w-[180px] bg-background/50 border-primary/20">
+                  <SelectTrigger className="w-[280px] bg-background/50 border-primary/20">
                     <SelectValue placeholder="Category" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">All Categories</SelectItem>
-                    {certificateCategories.map((category) => (
+                    {categoryOrder.map((category) => (
                       <SelectItem key={category} value={category}>
-                        {category}
+                        {categoryIcons[category]} {category}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -148,35 +194,74 @@ export default function Certificates() {
                   </Button>
                 )}
               </div>
-
-              {/* Category chips */}
-              {certificateCategories.length > 0 && (
-                <div className="flex flex-wrap gap-2">
-                  <Badge
-                    variant={selectedCategory === "all" ? "default" : "outline"}
-                    className="cursor-pointer hover:bg-primary/20"
-                    onClick={() => setSelectedCategory("all")}
-                  >
-                    All
-                  </Badge>
-                  {certificateCategories.map((category) => (
-                    <Badge
-                      key={category}
-                      variant={selectedCategory === category ? "default" : "outline"}
-                      className="cursor-pointer hover:bg-primary/20"
-                      onClick={() => setSelectedCategory(category)}
-                    >
-                      {category}
-                    </Badge>
-                  ))}
-                </div>
-              )}
             </div>
           </div>
         </div>
 
-        {/* Certificates grid */}
+        {/* Main content */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          {/* Philosophy banner */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-12 p-6 rounded-lg bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 border border-primary/20"
+          >
+            <p className="text-center text-muted-foreground italic">
+              "This is not random online learning — this is a coherent, degree-level technical 
+              education path aligned with IT Business & Systems Analysis, Data Science, and Product roles."
+            </p>
+          </motion.div>
+
+          {/* Featured section (only when no filters) */}
+          {!hasActiveFilters && featuredCerts.length > 0 && (
+            <motion.section
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-16"
+            >
+              <div className="flex items-center gap-3 mb-6">
+                <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-yellow-500/10 border border-yellow-500/30">
+                  <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
+                </div>
+                <div>
+                  <h2 className="text-2xl md:text-3xl font-bold text-foreground">
+                    Core Certifications
+                  </h2>
+                  <p className="text-sm text-muted-foreground">
+                    Foundation credentials that define my technical expertise
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {featuredCerts.map((cert, index) => (
+                  <motion.div
+                    key={cert.id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="relative"
+                  >
+                    <div className="absolute -top-2 -right-2 z-10">
+                      <div className="flex items-center gap-1 px-2 py-1 rounded-full bg-yellow-500/20 border border-yellow-500/40">
+                        <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
+                        <span className="text-[10px] font-mono text-yellow-500 uppercase">Core</span>
+                      </div>
+                    </div>
+                    <CertificateCard
+                      logo={cert.providerLogo}
+                      title={cert.title}
+                      provider={cert.provider}
+                      skills={cert.skills}
+                      pdfUrl={cert.pdfUrl}
+                    />
+                  </motion.div>
+                ))}
+              </div>
+            </motion.section>
+          )}
+
+          {/* Category sections */}
           {filteredCertificates.length === 0 ? (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -195,23 +280,17 @@ export default function Certificates() {
               </Button>
             </motion.div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {filteredCertificates.map((cert, index) => (
-                <motion.div
-                  key={cert.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.05 }}
-                >
-                  <CertificateCard
-                    logo={cert.providerLogo}
-                    title={cert.title}
-                    provider={cert.provider}
-                    skills={cert.skills}
-                    pdfUrl={cert.pdfUrl}
+            <div className="space-y-12">
+              {Object.entries(groupedFilteredCertificates).map(
+                ([category, certs], index) => (
+                  <CertificateCategorySection
+                    key={category}
+                    category={category as CertificateCategory}
+                    certificates={certs!}
+                    index={index}
                   />
-                </motion.div>
-              ))}
+                )
+              )}
             </div>
           )}
         </div>
