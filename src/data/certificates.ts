@@ -39,8 +39,47 @@ export type Certificate = {
 
 export const certificates: Certificate[] = [
   // ============================================
-  // FEATURED / CORE CERTIFICATIONS
+  // FEATURED / CORE CERTIFICATIONS - Harvard CS50 Series
   // ============================================
+  
+  {
+    id: "harvard-cs50x",
+    title: "CS50x: Introduction to Computer Science",
+    provider: "Harvard University",
+    providerLogo: "/logos/harvard.png",
+    skills: ["C", "Python", "SQL", "Algorithms", "Data Structures"],
+    date: "2025",
+    pdfUrl: "/certs/harvard_cs50x.pdf",
+    featured: true,
+    category: "Computer Science & Software Foundations",
+    priority: 1,
+  },
+  
+  {
+    id: "harvard-cs50p",
+    title: "CS50P: Introduction to Programming with Python",
+    provider: "Harvard University",
+    providerLogo: "/logos/harvard.png",
+    skills: ["Python", "OOP", "Unit Testing", "File I/O"],
+    date: "2025",
+    pdfUrl: "/certs/harvard_cs50p.pdf",
+    featured: true,
+    category: "Computer Science & Software Foundations",
+    priority: 2,
+  },
+  
+  {
+    id: "harvard-cs50-sql",
+    title: "CS50 SQL: Introduction to Databases with SQL",
+    provider: "Harvard University",
+    providerLogo: "/logos/harvard.png",
+    skills: ["SQL", "Database Design", "Query Optimization", "SQLite"],
+    date: "2024",
+    pdfUrl: "/certs/harvard_cs50_sql.pdf",
+    featured: true,
+    category: "Computer Science & Software Foundations",
+    priority: 3,
+  },
   
   // Stanford Algorithms - CS Foundations (FEATURED)
   {
@@ -53,10 +92,14 @@ export const certificates: Certificate[] = [
     pdfUrl: "/certs/stanford_algorithms.pdf",
     featured: true,
     category: "Computer Science & Software Foundations",
-    priority: 1,
+    priority: 4,
   },
   
-  // Discrete Mathematics - CS Foundations (FEATURED)
+  // ============================================
+  // Computer Science & Software Foundations
+  // ============================================
+  
+  // Discrete Mathematics
   {
     id: "discrete-math",
     title: "Introduction to Discrete Mathematics for Computer Science",
@@ -65,42 +108,10 @@ export const certificates: Certificate[] = [
     skills: ["Combinatorics", "Probability", "Graph Theory", "Number Theory", "Cryptography"],
     date: "2025",
     pdfUrl: "/certs/discrete_math.pdf",
-    featured: true,
+    featured: false,
     category: "Computer Science & Software Foundations",
-    priority: 2,
+    priority: 5,
   },
-  
-  // Google BI - Data Science (FEATURED)
-  {
-    id: "google-bi",
-    title: "Google Business Intelligence Professional Certificate",
-    provider: "Google",
-    providerLogo: "/logos/google.png",
-    skills: ["Data Modeling", "ETL Pipelines", "Dashboards", "BigQuery"],
-    date: "2024",
-    pdfUrl: "/certs/google_bi.pdf",
-    featured: true,
-    category: "Data Science, Analytics & Machine Learning",
-    priority: 1,
-  },
-  
-  // Google IT Automation - DevOps (FEATURED)
-  {
-    id: "google-it-automation",
-    title: "Google IT Automation with Python Professional Certificate",
-    provider: "Google",
-    providerLogo: "/logos/google.png",
-    skills: ["Python", "Git", "Configuration Management", "Cloud Automation"],
-    date: "2020",
-    pdfUrl: "/certs/google_it_automation.pdf",
-    featured: true,
-    category: "IT Systems, DevOps & Automation",
-    priority: 1,
-  },
-  
-  // ============================================
-  // Computer Science & Software Foundations
-  // ============================================
   
   {
     id: "python-everybody",
@@ -112,7 +123,7 @@ export const certificates: Certificate[] = [
     pdfUrl: "/certs/python_for_everybody.pdf",
     featured: false,
     category: "Computer Science & Software Foundations",
-    priority: 3,
+    priority: 6,
   },
   
   {
@@ -125,18 +136,81 @@ export const certificates: Certificate[] = [
     pdfUrl: "/certs/linux_foundation_oss.pdf",
     featured: false,
     category: "Computer Science & Software Foundations",
-    priority: 4,
+    priority: 7,
+  },
+  
+  {
+    id: "delft-unix-tools",
+    title: "Unix Tools: Data, Software and Production Engineering",
+    provider: "TU Delft",
+    providerLogo: "/logos/delft.png",
+    skills: ["Unix", "Shell Scripting", "Data Processing", "Production Engineering"],
+    date: "2021",
+    pdfUrl: "/certs/delft_unix_tools.pdf",
+    featured: false,
+    category: "Computer Science & Software Foundations",
+    priority: 8,
+  },
+  
+  {
+    id: "delft-software-testing",
+    title: "Automated Software Testing: Unit Testing, Coverage & Design for Testability",
+    provider: "TU Delft",
+    providerLogo: "/logos/delft.png",
+    skills: ["Unit Testing", "Test Coverage", "TDD", "Software Quality"],
+    date: "2021",
+    pdfUrl: "/certs/delft_software_testing.pdf",
+    featured: false,
+    category: "Computer Science & Software Foundations",
+    priority: 9,
   },
   
   // ============================================
   // Data Science, Analytics & Machine Learning
   // ============================================
   
-  // (Placeholder for HarvardX Data Science series - user will add more)
+  {
+    id: "google-bi",
+    title: "Google Business Intelligence Professional Certificate",
+    provider: "Google",
+    providerLogo: "/logos/google.png",
+    skills: ["Data Modeling", "ETL Pipelines", "Dashboards", "BigQuery"],
+    date: "2024",
+    pdfUrl: "/certs/google_bi.pdf",
+    featured: false,
+    category: "Data Science, Analytics & Machine Learning",
+    priority: 1,
+  },
+  
+  {
+    id: "harvard-fat-chance",
+    title: "Fat Chance: Probability from the Ground Up",
+    provider: "Harvard University",
+    providerLogo: "/logos/harvard.png",
+    skills: ["Probability Theory", "Statistics", "Mathematical Reasoning"],
+    date: "2021",
+    pdfUrl: "/certs/harvard_fat_chance.pdf",
+    featured: false,
+    category: "Data Science, Analytics & Machine Learning",
+    priority: 2,
+  },
   
   // ============================================
   // IT Systems, DevOps & Automation
   // ============================================
+  
+  {
+    id: "google-it-automation",
+    title: "Google IT Automation with Python Professional Certificate",
+    provider: "Google",
+    providerLogo: "/logos/google.png",
+    skills: ["Python", "Git", "Configuration Management", "Cloud Automation"],
+    date: "2020",
+    pdfUrl: "/certs/google_it_automation.pdf",
+    featured: false,
+    category: "IT Systems, DevOps & Automation",
+    priority: 1,
+  },
   
   {
     id: "google-it-support",
@@ -177,6 +251,19 @@ export const certificates: Certificate[] = [
     priority: 6,
   },
   
+  {
+    id: "curtin-iot-bigdata",
+    title: "IoT Programming and Big Data",
+    provider: "Curtin University",
+    providerLogo: "/logos/curtin.png",
+    skills: ["IoT Programming", "Big Data", "Data Analytics"],
+    date: "2018",
+    pdfUrl: "/certs/curtin_iot_bigdata.pdf",
+    featured: false,
+    category: "IT Systems, DevOps & Automation",
+    priority: 7,
+  },
+  
   // ============================================
   // Ethics, Security & Responsible Technology
   // ============================================
@@ -192,6 +279,19 @@ export const certificates: Certificate[] = [
     featured: false,
     category: "Ethics, Security & Responsible Technology",
     priority: 1,
+  },
+  
+  {
+    id: "delft-responsible-innovation",
+    title: "Responsible Innovation: Ethics, Safety and Technology",
+    provider: "TU Delft",
+    providerLogo: "/logos/delft.png",
+    skills: ["Ethics", "Responsible Tech", "Safety Engineering", "Innovation"],
+    date: "2021",
+    pdfUrl: "/certs/delft_responsible_innovation.pdf",
+    featured: false,
+    category: "Ethics, Security & Responsible Technology",
+    priority: 2,
   },
 ];
 
