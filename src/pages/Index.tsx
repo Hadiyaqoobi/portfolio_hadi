@@ -1,12 +1,11 @@
 import { Background } from "@/components/Background";
 import { Navigation } from "@/components/Navigation";
 import { Hero } from "@/components/Hero";
-import { Timeline } from "@/components/Timeline";
-import { Education } from "@/components/Education";
-import { Skills } from "@/components/Skills";
-import { Projects } from "@/components/Projects";
-import { FeaturedCertificates } from "@/components/FeaturedCertificates";
-import { Contact } from "@/components/Contact";
+import { ImpactResults } from "@/components/ImpactResults";
+import { HowIWork } from "@/components/HowIWork";
+import { ProjectsSection } from "@/components/ProjectsSection";
+import { EngineeringFootprint } from "@/components/EngineeringFootprint";
+import { ContactCTA } from "@/components/ContactCTA";
 
 const Index = () => {
   return (
@@ -16,12 +15,11 @@ const Index = () => {
       
       <main className="relative z-10">
         <Hero />
-        <Timeline />
-        <Education />
-        <Skills />
-        <Projects />
-        <FeaturedCertificates />
-        <Contact />
+        <ImpactResults />
+        <HowIWork />
+        <ProjectsSection />
+        <EngineeringFootprint />
+        <ContactCTA />
       </main>
     </div>
   );

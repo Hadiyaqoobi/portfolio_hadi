@@ -1,0 +1,8 @@
+{
+  "repositories": [
+    { "name": "data-pipeline-automation", "commits": 187, "net_loc": 32400, "language": "Python" },
+    { "name": "portfolio-website", "commits": 156, "net_loc": 28300, "language": "TypeScript" },
+    { "name": "sql-reporting-suite", "commits": 134, "net_loc": 19500, "language": "SQL" },
+    { "name": "bi-dashboard-tools", "commits": 98, "net_loc": 15200, "language": "Python" }
+  ]
+}

@@ -4,13 +4,11 @@ import { Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 const navItems = [
-  { label: "Home", href: "/", type: "route" },
-  { label: "Timeline", href: "/#timeline", type: "route" },
-  { label: "Skills", href: "/#skills", type: "route" },
-  { label: "Projects", href: "/#projects", type: "route" },
-  { label: "Blog", href: "/blog", type: "route" },
-  { label: "Certificates", href: "/certificates", type: "route" },
-  { label: "Contact", href: "/#contact", type: "route" },
+  { label: "Home", href: "/" },
+  { label: "Timeline", href: "/timeline" },
+  { label: "Education", href: "/education" },
+  { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export const Navigation = () => {
