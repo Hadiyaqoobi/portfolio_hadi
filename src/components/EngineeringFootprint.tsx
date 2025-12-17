@@ -28,10 +28,10 @@ const LoadingSkeleton = () => (
 );
 
 export const EngineeringFootprint = () => {
-  const { summary, languages, repos, loading, error, formatNumber } = useGitHubAnalytics();
+  const { summary, languages, repos, loading, error, formatNumber, isLive } = useGitHubAnalytics();
 
   if (loading) return <LoadingSkeleton />;
-  if (error || !summary) return null;
+  if (!summary) return null;
 
   const stats = [
     { icon: Code2, value: formatNumber(summary.net_lines_of_code), label: "Net LOC", color: "text-primary" },
@@ -142,20 +142,26 @@ export const EngineeringFootprint = () => {
               <div className="grid grid-cols-3 text-xs text-muted-foreground pb-2 border-b border-primary/10">
                 <span>Repository</span>
                 <span className="text-center">Commits</span>
-                <span className="text-right">Net LOC</span>
+                <span className="text-right">Stars</span>
               </div>
               {repos.map((repo, index) => (
-                <div key={index} className="grid grid-cols-3 items-center text-sm py-2 hover:bg-primary/5 rounded px-1">
+                <a 
+                  key={index} 
+                  href={repo.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="grid grid-cols-3 items-center text-sm py-2 hover:bg-primary/5 rounded px-1 transition-colors"
+                >
                   <span className="text-foreground truncate">{repo.name}</span>
                   <span className="text-center text-muted-foreground">{repo.commits}</span>
-                  <span className="text-right text-neon-green">+{formatNumber(repo.net_loc)}</span>
-                </div>
+                  <span className="text-right text-neon-yellow">★ {repo.stars}</span>
+                </a>
               ))}
             </div>
             <div className="flex justify-between items-center mt-6 pt-4 border-t border-primary/20">
               <span className="text-xs text-muted-foreground">Showing top {repos.length} of {summary.total_repos}</span>
               <a 
-                href="https://github.com/mhadiyaqoobi" 
+                href="https://github.com/hadiyaqoobi" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-xs text-primary hover:text-primary/80 flex items-center gap-1"
@@ -176,10 +182,12 @@ export const EngineeringFootprint = () => {
           <div className="inline-flex items-center gap-4 bg-card/30 border border-primary/20 rounded-full px-6 py-2 backdrop-blur-sm">
             <div className="flex items-center gap-2">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-green opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-neon-green"></span>
+                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${isLive ? 'bg-neon-green' : 'bg-neon-yellow'} opacity-75`}></span>
+                <span className={`relative inline-flex rounded-full h-2 w-2 ${isLive ? 'bg-neon-green' : 'bg-neon-yellow'}`}></span>
               </span>
-              <span className="text-xs text-muted-foreground terminal-font">DATA SYNCED</span>
+              <span className={`text-xs terminal-font ${isLive ? 'text-neon-green' : 'text-neon-yellow'}`}>
+                {isLive ? 'LIVE DATA' : 'CACHED DATA'}
+              </span>
             </div>
             <span className="text-xs text-muted-foreground">{lastUpdated}</span>
           </div>
