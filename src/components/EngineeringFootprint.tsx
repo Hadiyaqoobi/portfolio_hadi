@@ -7,7 +7,8 @@ import {
   Activity, 
   Calendar,
   ExternalLink,
-  Github
+  Brain,
+  Cloud
 } from "lucide-react";
 import { useGitHubAnalytics } from "@/hooks/useGitHubAnalytics";
 
@@ -28,7 +29,7 @@ const LoadingSkeleton = () => (
 );
 
 export const EngineeringFootprint = () => {
-  const { summary, languages, repos, loading, error, formatNumber, isLive } = useGitHubAnalytics();
+  const { summary, languages, repos, aiMlSkills, devOpsSkills, loading, formatNumber, isLive } = useGitHubAnalytics();
 
   if (loading) return <LoadingSkeleton />;
   if (!summary) return null;
@@ -88,6 +89,87 @@ export const EngineeringFootprint = () => {
           })}
         </div>
 
+        {/* Detected Skills Section */}
+        {(aiMlSkills.length > 0 || devOpsSkills.length > 0) && (
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
+            {/* AI/ML Skills */}
+            {aiMlSkills.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="border border-neon-magenta/30 bg-card/50 backdrop-blur-sm rounded-lg p-6"
+              >
+                <div className="flex items-center gap-2 mb-4">
+                  <Brain className="w-5 h-5 text-neon-magenta" />
+                  <h3 className="font-bold text-lg text-foreground">AI & Machine Learning</h3>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {aiMlSkills.map((skill, index) => (
+                    <motion.span
+                      key={skill.name}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.05 }}
+                      className="px-3 py-1.5 rounded-full text-sm font-medium border"
+                      style={{ 
+                        backgroundColor: `${skill.color}20`,
+                        borderColor: `${skill.color}50`,
+                        color: skill.color
+                      }}
+                      title={`Found in: ${skill.repos.join(', ')}`}
+                    >
+                      {skill.name}
+                    </motion.span>
+                  ))}
+                </div>
+                <p className="text-xs text-muted-foreground mt-3">
+                  Detected from {aiMlSkills.reduce((acc, s) => acc + s.repos.length, 0)} repositories
+                </p>
+              </motion.div>
+            )}
+
+            {/* DevOps & Cloud Skills */}
+            {devOpsSkills.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="border border-accent/30 bg-card/50 backdrop-blur-sm rounded-lg p-6"
+              >
+                <div className="flex items-center gap-2 mb-4">
+                  <Cloud className="w-5 h-5 text-accent" />
+                  <h3 className="font-bold text-lg text-foreground">DevOps & Cloud</h3>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {devOpsSkills.map((skill, index) => (
+                    <motion.span
+                      key={skill.name}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.05 }}
+                      className="px-3 py-1.5 rounded-full text-sm font-medium border"
+                      style={{ 
+                        backgroundColor: `${skill.color}20`,
+                        borderColor: `${skill.color}50`,
+                        color: skill.color
+                      }}
+                      title={`Found in: ${skill.repos.join(', ')}`}
+                    >
+                      {skill.name}
+                    </motion.span>
+                  ))}
+                </div>
+                <p className="text-xs text-muted-foreground mt-3">
+                  Detected from {devOpsSkills.reduce((acc, s) => acc + s.repos.length, 0)} repositories
+                </p>
+              </motion.div>
+            )}
+          </div>
+        )}
+
         {/* Two Column Layout */}
         <div className="grid md:grid-cols-2 gap-6 mb-8">
           {/* Language Distribution Panel */}
@@ -122,8 +204,8 @@ export const EngineeringFootprint = () => {
               ))}
             </div>
             <div className="flex justify-between items-center mt-6 pt-4 border-t border-primary/20">
-              <span className="text-sm text-muted-foreground">Total Languages</span>
-              <span className="text-sm font-bold text-primary">{summary.languages_count}</span>
+              <span className="text-sm text-muted-foreground">Showing top {languages.length} languages</span>
+              <span className="text-sm font-bold text-primary">Job-relevant only</span>
             </div>
           </motion.div>
 
@@ -141,7 +223,7 @@ export const EngineeringFootprint = () => {
             <div className="space-y-3">
               <div className="grid grid-cols-3 text-xs text-muted-foreground pb-2 border-b border-primary/10">
                 <span>Repository</span>
-                <span className="text-center">Commits</span>
+                <span className="text-center">LOC</span>
                 <span className="text-right">Stars</span>
               </div>
               {repos.map((repo, index) => (
@@ -153,7 +235,7 @@ export const EngineeringFootprint = () => {
                   className="grid grid-cols-3 items-center text-sm py-2 hover:bg-primary/5 rounded px-1 transition-colors"
                 >
                   <span className="text-foreground truncate">{repo.name}</span>
-                  <span className="text-center text-muted-foreground">{repo.commits}</span>
+                  <span className="text-center text-muted-foreground">{formatNumber(repo.commits)}</span>
                   <span className="text-right text-neon-yellow">★ {repo.stars}</span>
                 </a>
               ))}
