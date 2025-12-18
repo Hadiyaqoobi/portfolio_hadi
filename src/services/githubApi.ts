@@ -1,15 +1,16 @@
 /**
- * GitHub Data Service - JOB-FOCUSED VERSION
+ * GitHub Data Service - IT BSA & DATA FOCUSED VERSION
  * 
  * Features:
- * - Only shows job-relevant languages (filters out Jupyter Notebook, etc.)
- * - Detects AI/ML frameworks (TensorFlow, PyTorch, scikit-learn, etc.)
- * - Detects cloud/DevOps tools (AWS, Docker, Kubernetes, etc.)
- * - Shows skills that matter for job applications
+ * - Prioritizes SQL and database skills
+ * - Detects AI/ML frameworks
+ * - Detects DevOps, Cloud, Database, BI, and BSA tools
+ * - Filters out irrelevant languages
+ * - Caches for 1 hour to prevent rate limiting
  */
 
 const GITHUB_USERNAME = 'hadiyaqoobi';
-const CACHE_KEY = 'github_stats_job_focused';
+const CACHE_KEY = 'github_stats_bsa_focused';
 const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
 
 // ============================================
@@ -23,6 +24,7 @@ const JOB_RELEVANT_LANGUAGES = new Set([
   'Java',
   'C++',
   'C#',
+  'C',
   'Go',
   'Rust',
   'Ruby',
@@ -32,9 +34,10 @@ const JOB_RELEVANT_LANGUAGES = new Set([
   'Scala',
   'R',
   'SQL',
-  'Shell',
-  'C',
+  'PLSQL',
+  'TSQL',
   'PLpgSQL',
+  'Shell',
 ]);
 
 const EXCLUDE_LANGUAGES = new Set([
@@ -52,6 +55,8 @@ const EXCLUDE_LANGUAGES = new Set([
   'Emacs Lisp',
   'TeX',
   'Roff',
+  'Procfile',
+  'Nix',
 ]);
 
 // ============================================
@@ -87,38 +92,103 @@ const AI_ML_FRAMEWORKS: Record<string, { name: string; category: string; color: 
   'gradio': { name: 'Gradio', category: 'ML Deployment', color: '#F97316' },
   'mlflow': { name: 'MLflow', category: 'MLOps', color: '#0194E2' },
   'wandb': { name: 'Weights & Biases', category: 'MLOps', color: '#FFBE00' },
-  'dvc': { name: 'DVC', category: 'MLOps', color: '#945DD6' },
 };
 
 // ============================================
-// CLOUD & DEVOPS TO DETECT
+// CLOUD, DEVOPS, DATABASE, BI & BSA TOOLS
 // ============================================
 
 const CLOUD_DEVOPS: Record<string, { name: string; category: string; color: string }> = {
+  // DATABASES - SQL
+  'sql': { name: 'SQL', category: 'Database', color: '#e38c00' },
+  'mysql': { name: 'MySQL', category: 'Database', color: '#4479A1' },
+  'postgresql': { name: 'PostgreSQL', category: 'Database', color: '#4169E1' },
+  'postgres': { name: 'PostgreSQL', category: 'Database', color: '#4169E1' },
+  'oracle': { name: 'Oracle DB', category: 'Database', color: '#F80000' },
+  'sqlserver': { name: 'SQL Server', category: 'Database', color: '#CC2927' },
+  'mssql': { name: 'SQL Server', category: 'Database', color: '#CC2927' },
+  'sqlite': { name: 'SQLite', category: 'Database', color: '#003B57' },
+  'mariadb': { name: 'MariaDB', category: 'Database', color: '#003545' },
+  
+  // DATABASES - NoSQL
+  'mongodb': { name: 'MongoDB', category: 'Database', color: '#47A248' },
+  'redis': { name: 'Redis', category: 'Database', color: '#DC382D' },
+  'elasticsearch': { name: 'Elasticsearch', category: 'Database', color: '#005571' },
+  'dynamodb': { name: 'DynamoDB', category: 'Database', color: '#4053D6' },
+  'cassandra': { name: 'Cassandra', category: 'Database', color: '#1287B1' },
+  'couchdb': { name: 'CouchDB', category: 'Database', color: '#E42528' },
+  
+  // DATA WAREHOUSES
+  'snowflake': { name: 'Snowflake', category: 'Data Warehouse', color: '#29B5E8' },
+  'bigquery': { name: 'BigQuery', category: 'Data Warehouse', color: '#4285F4' },
+  'redshift': { name: 'Redshift', category: 'Data Warehouse', color: '#8C4FFF' },
+  'databricks': { name: 'Databricks', category: 'Data Platform', color: '#FF3621' },
+  
+  // DATA ENGINEERING
+  'etl': { name: 'ETL', category: 'Data Engineering', color: '#FF6B6B' },
+  'dbt': { name: 'dbt', category: 'Data Engineering', color: '#FF694B' },
+  'airflow': { name: 'Apache Airflow', category: 'Data Engineering', color: '#017CEE' },
+  'spark': { name: 'Apache Spark', category: 'Big Data', color: '#E25A1C' },
+  'pyspark': { name: 'PySpark', category: 'Big Data', color: '#E25A1C' },
+  'hadoop': { name: 'Hadoop', category: 'Big Data', color: '#66CCFF' },
+  'kafka': { name: 'Apache Kafka', category: 'Data Streaming', color: '#231F20' },
+  'flink': { name: 'Apache Flink', category: 'Data Streaming', color: '#E6526F' },
+  
+  // BI & ANALYTICS
+  'tableau': { name: 'Tableau', category: 'BI/Analytics', color: '#E97627' },
+  'powerbi': { name: 'Power BI', category: 'BI/Analytics', color: '#F2C811' },
+  'looker': { name: 'Looker', category: 'BI/Analytics', color: '#4285F4' },
+  'metabase': { name: 'Metabase', category: 'BI/Analytics', color: '#509EE3' },
+  'superset': { name: 'Apache Superset', category: 'BI/Analytics', color: '#20A6C9' },
+  
+  // BSA / PROJECT MANAGEMENT
+  'jira': { name: 'Jira', category: 'Project Management', color: '#0052CC' },
+  'confluence': { name: 'Confluence', category: 'Documentation', color: '#172B4D' },
+  'agile': { name: 'Agile', category: 'Methodology', color: '#47C1BF' },
+  'scrum': { name: 'Scrum', category: 'Methodology', color: '#6554C0' },
+  'kanban': { name: 'Kanban', category: 'Methodology', color: '#00C7E6' },
+  'uml': { name: 'UML', category: 'Documentation', color: '#FABD14' },
+  'bpmn': { name: 'BPMN', category: 'Process Modeling', color: '#FF6B00' },
+  'erwin': { name: 'ERwin', category: 'Data Modeling', color: '#FF4500' },
+  'lucidchart': { name: 'Lucidchart', category: 'Diagramming', color: '#F96B13' },
+  
+  // CLOUD PLATFORMS
   'aws': { name: 'AWS', category: 'Cloud', color: '#FF9900' },
   'boto3': { name: 'AWS (boto3)', category: 'Cloud', color: '#FF9900' },
   's3': { name: 'AWS S3', category: 'Cloud', color: '#569A31' },
+  'lambda': { name: 'AWS Lambda', category: 'Serverless', color: '#FF9900' },
   'sagemaker': { name: 'AWS SageMaker', category: 'ML Cloud', color: '#FF9900' },
   'azure': { name: 'Azure', category: 'Cloud', color: '#0078D4' },
   'gcp': { name: 'Google Cloud', category: 'Cloud', color: '#4285F4' },
   'firebase': { name: 'Firebase', category: 'Cloud', color: '#FFCA28' },
+  
+  // DEVOPS
   'docker': { name: 'Docker', category: 'DevOps', color: '#2496ED' },
   'kubernetes': { name: 'Kubernetes', category: 'DevOps', color: '#326CE5' },
   'k8s': { name: 'Kubernetes', category: 'DevOps', color: '#326CE5' },
   'terraform': { name: 'Terraform', category: 'IaC', color: '#7B42BC' },
-  'redis': { name: 'Redis', category: 'Database', color: '#DC382D' },
-  'mongodb': { name: 'MongoDB', category: 'Database', color: '#47A248' },
-  'postgresql': { name: 'PostgreSQL', category: 'Database', color: '#4169E1' },
-  'mysql': { name: 'MySQL', category: 'Database', color: '#4479A1' },
-  'graphql': { name: 'GraphQL', category: 'API', color: '#E10098' },
+  'ansible': { name: 'Ansible', category: 'IaC', color: '#EE0000' },
+  'jenkins': { name: 'Jenkins', category: 'CI/CD', color: '#D24939' },
+  'nginx': { name: 'Nginx', category: 'DevOps', color: '#009639' },
+  
+  // BACKEND FRAMEWORKS
   'fastapi': { name: 'FastAPI', category: 'Backend', color: '#009688' },
   'flask': { name: 'Flask', category: 'Backend', color: '#000000' },
   'django': { name: 'Django', category: 'Backend', color: '#092E20' },
   'express': { name: 'Express.js', category: 'Backend', color: '#000000' },
-  'nextjs': { name: 'Next.js', category: 'Frontend', color: '#000000' },
+  'nodejs': { name: 'Node.js', category: 'Backend', color: '#339933' },
+  'springboot': { name: 'Spring Boot', category: 'Backend', color: '#6DB33F' },
+  
+  // FRONTEND FRAMEWORKS
   'react': { name: 'React', category: 'Frontend', color: '#61DAFB' },
+  'nextjs': { name: 'Next.js', category: 'Frontend', color: '#000000' },
   'vue': { name: 'Vue.js', category: 'Frontend', color: '#4FC08D' },
-  'supabase': { name: 'Supabase', category: 'Backend', color: '#3ECF8E' },
+  'angular': { name: 'Angular', category: 'Frontend', color: '#DD0031' },
+  
+  // API & INTEGRATION
+  'graphql': { name: 'GraphQL', category: 'API', color: '#E10098' },
+  'rest': { name: 'REST API', category: 'API', color: '#009688' },
+  'api': { name: 'API Development', category: 'API', color: '#6C5CE7' },
 };
 
 // ============================================
@@ -188,6 +258,9 @@ const LANGUAGE_COLORS: Record<string, string> = {
   'TypeScript': '#2b7489',
   'JavaScript': '#f1e05a',
   'SQL': '#e38c00',
+  'PLSQL': '#F80000',
+  'TSQL': '#CC2927',
+  'PLpgSQL': '#336791',
   'Java': '#b07219',
   'C++': '#f34b7d',
   'C#': '#239120',
@@ -201,7 +274,6 @@ const LANGUAGE_COLORS: Record<string, string> = {
   'Shell': '#89e051',
   'Scala': '#c22d40',
   'R': '#198ce7',
-  'PLpgSQL': '#336791',
 };
 
 const BYTES_PER_LINE: Record<string, number> = {
@@ -216,11 +288,13 @@ const BYTES_PER_LINE: Record<string, number> = {
   'Rust': 28,
   'Ruby': 22,
   'PHP': 28,
-  'SQL': 35,
+  'SQL': 40,
+  'PLSQL': 45,
+  'TSQL': 45,
+  'PLpgSQL': 40,
   'Shell': 25,
   'R': 30,
   'Scala': 32,
-  'PLpgSQL': 35,
   'default': 28,
 };
 
@@ -274,11 +348,12 @@ const bytesToLOC = (bytes: number, language: string): number => {
   return Math.round(bytes / bpl);
 };
 
-const detectSkillsInRepoName = (repoName: string, repoList: Map<string, string[]>, skillMap: Record<string, { name: string; category: string; color: string }>) => {
-  const lowerName = repoName.toLowerCase().replace(/[-_]/g, '');
+const detectSkillsInText = (text: string, repoName: string, repoList: Map<string, string[]>, skillMap: Record<string, { name: string; category: string; color: string }>) => {
+  const lowerText = text.toLowerCase().replace(/[-_]/g, '');
   
   for (const [keyword, skill] of Object.entries(skillMap)) {
-    if (lowerName.includes(keyword.replace(/[-_]/g, ''))) {
+    const lowerKeyword = keyword.replace(/[-_]/g, '');
+    if (lowerText.includes(lowerKeyword)) {
       const existing = repoList.get(skill.name) || [];
       if (!existing.includes(repoName)) {
         repoList.set(skill.name, [...existing, repoName]);
@@ -338,8 +413,8 @@ export const fetchGitHubData = async () => {
 
     for (const repo of repos) {
       // Detect skills from repo name
-      detectSkillsInRepoName(repo.name, aiMlRepos, AI_ML_FRAMEWORKS);
-      detectSkillsInRepoName(repo.name, devOpsRepos, CLOUD_DEVOPS);
+      detectSkillsInText(repo.name, repo.name, aiMlRepos, AI_ML_FRAMEWORKS);
+      detectSkillsInText(repo.name, repo.name, devOpsRepos, CLOUD_DEVOPS);
 
       try {
         const langRes = await fetch(
@@ -350,7 +425,7 @@ export const fetchGitHubData = async () => {
           const languages: Record<string, number> = await langRes.json();
           let totalBytes = 0;
           
-          // Only count JOB-RELEVANT languages
+          // Count languages (excluding non-relevant ones)
           for (const [lang, bytes] of Object.entries(languages)) {
             if (!EXCLUDE_LANGUAGES.has(lang)) {
               languageTotals[lang] = (languageTotals[lang] || 0) + bytes;
@@ -373,8 +448,8 @@ export const fetchGitHubData = async () => {
       }
     }
 
-    // Step 3: Also try to fetch README for skill detection (first 10 repos only to save API calls)
-    for (const repo of repos.slice(0, 10)) {
+    // Step 3: Fetch README for skill detection (first 15 repos)
+    for (const repo of repos.slice(0, 15)) {
       try {
         const readmeRes = await fetch(
           `https://api.github.com/repos/${GITHUB_USERNAME}/${repo.name}/readme`,
@@ -383,34 +458,15 @@ export const fetchGitHubData = async () => {
         
         if (readmeRes.ok) {
           const readme = await readmeRes.text();
-          const lowerReadme = readme.toLowerCase();
-          
-          // Check for AI/ML frameworks
-          for (const [keyword, skill] of Object.entries(AI_ML_FRAMEWORKS)) {
-            if (lowerReadme.includes(keyword)) {
-              const existing = aiMlRepos.get(skill.name) || [];
-              if (!existing.includes(repo.name)) {
-                aiMlRepos.set(skill.name, [...existing, repo.name]);
-              }
-            }
-          }
-          
-          // Check for DevOps tools
-          for (const [keyword, skill] of Object.entries(CLOUD_DEVOPS)) {
-            if (lowerReadme.includes(keyword)) {
-              const existing = devOpsRepos.get(skill.name) || [];
-              if (!existing.includes(repo.name)) {
-                devOpsRepos.set(skill.name, [...existing, repo.name]);
-              }
-            }
-          }
+          detectSkillsInText(readme, repo.name, aiMlRepos, AI_ML_FRAMEWORKS);
+          detectSkillsInText(readme, repo.name, devOpsRepos, CLOUD_DEVOPS);
         }
       } catch {
         // README not found, skip
       }
     }
 
-    // Step 4: Calculate totals (JOB-RELEVANT only)
+    // Step 4: Calculate totals
     const totalBytes = Object.values(languageTotals).reduce((a, b) => a + b, 0);
     
     let totalLOC = 0;
@@ -418,7 +474,7 @@ export const fetchGitHubData = async () => {
       totalLOC += bytesToLOC(bytes, lang);
     }
 
-    // Step 5: Create language stats (filtered & sorted)
+    // Step 5: Create language stats (prioritize SQL)
     const languages: LanguageStat[] = Object.entries(languageTotals)
       .filter(([name]) => JOB_RELEVANT_LANGUAGES.has(name) || !EXCLUDE_LANGUAGES.has(name))
       .map(([name, bytes]) => ({
@@ -427,8 +483,16 @@ export const fetchGitHubData = async () => {
         percentage: Math.round((bytes / totalBytes) * 1000) / 10,
         color: LANGUAGE_COLORS[name] || '#858585',
       }))
-      .sort((a, b) => b.percentage - a.percentage)
-      .slice(0, 5); // Top 5 only
+      .sort((a, b) => {
+        // Prioritize SQL variants to always show if present
+        const sqlVariants = ['SQL', 'PLSQL', 'TSQL', 'PLpgSQL'];
+        const aIsSql = sqlVariants.includes(a.name);
+        const bIsSql = sqlVariants.includes(b.name);
+        if (aIsSql && !bIsSql) return -1;
+        if (bIsSql && !aIsSql) return 1;
+        return b.percentage - a.percentage;
+      })
+      .slice(0, 6); // Show top 6 languages
 
     // Step 6: Get top repos
     const topRepos: RepoStat[] = repoLanguageData
@@ -464,7 +528,7 @@ export const fetchGitHubData = async () => {
       })
       .sort((a, b) => b.repos.length - a.repos.length);
 
-    // Step 8: Create DevOps skills array
+    // Step 8: Create DevOps/Database skills array
     const devOpsSkills: DetectedSkill[] = Array.from(devOpsRepos.entries())
       .map(([name, repos]) => {
         const tool = Object.values(CLOUD_DEVOPS).find(t => t.name === name);
@@ -503,7 +567,7 @@ export const fetchGitHubData = async () => {
 
     console.log(`✅ Stats: ${totalLOC.toLocaleString()} LOC in ${languages.length} languages`);
     console.log(`🤖 AI/ML Skills: ${aiMlSkills.map(s => s.name).join(', ') || 'None detected'}`);
-    console.log(`☁️ DevOps Skills: ${devOpsSkills.map(s => s.name).join(', ') || 'None detected'}`);
+    console.log(`🗄️ Database/DevOps Skills: ${devOpsSkills.map(s => s.name).join(', ') || 'None detected'}`);
 
     return { summary, languages, topRepos, aiMlSkills, devOpsSkills };
 
