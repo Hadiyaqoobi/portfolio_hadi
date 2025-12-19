@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Github, ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
 import { portfolioData } from "@/data/portfolio-data";
+import { Link } from "react-router-dom";
 
 export const Projects = () => {
-  const { projects } = portfolioData;
+  const featuredProjects = portfolioData.projects.filter(p => p.featured).slice(0, 6);
 
   return (
     <section id="projects" className="py-20 relative">
@@ -24,13 +25,13 @@ export const Projects = () => {
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
+          {featuredProjects.map((project, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.15 }}
+              transition={{ delay: index * 0.1 }}
               whileHover={{ y: -10 }}
               className="group"
             >
@@ -45,17 +46,12 @@ export const Projects = () => {
 
                 <div className="relative z-10 flex flex-col h-full">
                   {/* Project Title */}
-                  <h3 className="text-2xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors">
+                  <h3 className="text-xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors">
                     {project.title}
                   </h3>
 
-                  {/* Description */}
-                  <p className="text-muted-foreground mb-4">
-                    {project.description}
-                  </p>
-
                   {/* Tech Stack */}
-                  <div className="flex flex-wrap gap-2 mb-4">
+                  <div className="flex flex-wrap gap-2 mb-3">
                     {project.tech.map((tech, idx) => (
                       <span
                         key={idx}
@@ -66,55 +62,75 @@ export const Projects = () => {
                     ))}
                   </div>
 
-                  {/* Highlights */}
-                  <ul className="space-y-2 mb-6 flex-grow">
-                    {project.highlights.map((highlight, idx) => (
-                      <li
+                  {/* Description */}
+                  <p className="text-muted-foreground text-sm mb-4 flex-grow">
+                    {project.description}
+                  </p>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.tags?.map((tag, idx) => (
+                      <span
                         key={idx}
-                        className="flex items-start gap-2 text-sm text-foreground"
+                        className="px-2 py-1 border border-primary/30 rounded text-xs text-primary/80 terminal-font"
                       >
-                        <span className="text-primary mt-1 flex-shrink-0">▸</span>
-                        <span>{highlight}</span>
-                      </li>
+                        {tag}
+                      </span>
                     ))}
-                  </ul>
+                  </div>
 
                   {/* Links */}
                   <div className="flex gap-3 pt-4 border-t border-primary/20">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="flex-1 border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground"
-                      asChild
-                    >
-                      <a href={project.github} target="_blank" rel="noopener noreferrer">
-                        <Github size={16} className="mr-2" />
-                        Code
-                      </a>
-                    </Button>
+                    {project.github && project.github !== "#" && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="flex-1 border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground"
+                        asChild
+                      >
+                        <a href={project.github} target="_blank" rel="noopener noreferrer">
+                          <Github size={16} className="mr-2" />
+                          Code
+                        </a>
+                      </Button>
+                    )}
                     
                     <Button
                       size="sm"
-                      className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90"
+                      className={`${project.github && project.github !== "#" ? 'flex-1' : 'w-full'} bg-primary text-primary-foreground hover:bg-primary/90`}
                       asChild
                     >
                       <a href={project.demo} target="_blank" rel="noopener noreferrer">
                         <ExternalLink size={16} className="mr-2" />
-                        Demo
+                        View Details
                       </a>
                     </Button>
-                  </div>
-
-                  {/* Status */}
-                  <div className="mt-4 text-xs terminal-font text-muted-foreground flex items-center gap-2">
-                    <span className="text-neon-green">●</span>
-                    <span>PROJECT DEPLOYED</span>
                   </div>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
+
+        {/* View All Projects Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mt-12"
+        >
+          <Button
+            size="lg"
+            variant="outline"
+            className="border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground group"
+            asChild
+          >
+            <Link to="/projects">
+              View All Projects
+              <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </Button>
+        </motion.div>
       </div>
     </section>
   );
