@@ -1,35 +1,12 @@
 import { motion } from "framer-motion";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Github, ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
-
-const placeholderProjects = [
-  {
-    title: "Automated Reporting Pipeline",
-    subtitle: "SQL + Python + Power BI",
-    description: "Replaced 40+ hours/month of manual Excel work with an automated data pipeline that pulls from multiple sources, validates data integrity, and publishes interactive dashboards.",
-    results: ["80% Time Saved", "Zero Manual Errors", "Real-time Updates"],
-    github: "#",
-    demo: "#"
-  },
-  {
-    title: "Self-Service Analytics Portal",
-    subtitle: "Quickbase + SQL Server",
-    description: "Built a low-code application that enabled 70+ business users to query and export data without IT intervention, reducing ticket volume by 60%.",
-    results: ["60% Ticket Reduction", "70+ Users", "Self-Serve Data"],
-    github: "#",
-    demo: "#"
-  },
-  {
-    title: "Compliance Tracking System",
-    subtitle: "Azure DevOps + Jira + Confluence",
-    description: "Designed and implemented a full requirements traceability system that achieved 100% audit compliance for a regulated industry client.",
-    results: ["100% Compliance", "Audit-Ready", "Full Traceability"],
-    github: "#",
-    demo: "#"
-  }
-];
+import { portfolioData } from "@/data/portfolio-data";
+import { Link } from "react-router-dom";
 
 export const ProjectsSection = () => {
+  const featuredProjects = portfolioData.projects.filter(p => p.featured).slice(0, 6);
+
   return (
     <section className="py-20 relative">
       <div className="container mx-auto px-4">
@@ -48,7 +25,7 @@ export const ProjectsSection = () => {
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {placeholderProjects.map((project, index) => (
+          {featuredProjects.map((project, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
@@ -79,36 +56,38 @@ export const ProjectsSection = () => {
               
               <div className="relative z-10">
                 <h3 className="text-xl font-bold text-foreground mb-1">{project.title}</h3>
-                <p className="text-sm text-primary mb-3 terminal-font">{project.subtitle}</p>
+                <p className="text-sm text-primary mb-3 terminal-font">{project.tech.join(" + ")}</p>
                 <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
                   {project.description}
                 </p>
                 
                 {/* Result Tags */}
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {project.results.map((result, idx) => (
+                  {project.tags?.map((tag, idx) => (
                     <span
                       key={idx}
                       className="text-xs bg-neon-green/10 text-neon-green border border-neon-green/30 rounded-full px-3 py-1"
                     >
-                      {result}
+                      {tag}
                     </span>
                   ))}
                 </div>
                 
                 {/* Links */}
                 <div className="flex gap-3">
-                  <Button
-                    asChild
-                    size="sm"
-                    variant="outline"
-                    className="border-primary/30 text-foreground hover:bg-primary/10 gap-1"
-                  >
-                    <a href={project.github} target="_blank" rel="noopener noreferrer">
-                      <Github size={14} />
-                      Code
-                    </a>
-                  </Button>
+                  {project.github && (
+                    <Button
+                      asChild
+                      size="sm"
+                      variant="outline"
+                      className="border-primary/30 text-foreground hover:bg-primary/10 gap-1"
+                    >
+                      <a href={project.github} target="_blank" rel="noopener noreferrer">
+                        <Github size={14} />
+                        Code
+                      </a>
+                    </Button>
+                  )}
                   <Button
                     asChild
                     size="sm"
@@ -124,6 +103,26 @@ export const ProjectsSection = () => {
             </motion.div>
           ))}
         </div>
+
+        {/* View All Projects Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mt-12"
+        >
+          <Button
+            size="lg"
+            variant="outline"
+            className="border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground group"
+            asChild
+          >
+            <Link to="/projects">
+              View All Projects
+              <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </Button>
+        </motion.div>
       </div>
     </section>
   );
