@@ -19,7 +19,8 @@ export const ContactCTA = () => {
             Let's <span className="gradient-text">Connect</span>
           </h2>
           <p className="text-muted-foreground text-lg mb-8">
-            Open to IT BSA, Product Analyst, and PM opportunities
+            Open to IT BSA, Product Analyst, and PM opportunities — and always happy to connect. 
+            Whether it's coffee, a hike, or a Zoom call, don't be a stranger.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
