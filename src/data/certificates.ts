@@ -195,6 +195,97 @@ export const certificates: Certificate[] = [
     priority: 2,
   },
   
+  {
+    id: "harvard-probability",
+    title: "STAT110x: Introduction to Probability",
+    provider: "Harvard University",
+    providerLogo: "/logos/harvard.png",
+    skills: ["Probability", "Statistics", "Random Variables", "Distributions"],
+    date: "2021",
+    pdfUrl: "/certs/harvard_probability.pdf",
+    featured: false,
+    category: "Data Science, Analytics & Machine Learning",
+    priority: 3,
+  },
+  
+  {
+    id: "harvard-data-viz",
+    title: "Data Science: Visualization",
+    provider: "Harvard University",
+    providerLogo: "/logos/harvard.png",
+    skills: ["Data Visualization", "ggplot2", "R", "Exploratory Data Analysis"],
+    date: "2021",
+    pdfUrl: "/certs/harvard_data_science_visualization.pdf",
+    featured: false,
+    category: "Data Science, Analytics & Machine Learning",
+    priority: 4,
+  },
+  
+  {
+    id: "harvard-data-prob",
+    title: "Data Science: Probability",
+    provider: "Harvard University",
+    providerLogo: "/logos/harvard.png",
+    skills: ["Probability", "Monte Carlo", "Random Variables", "Central Limit Theorem"],
+    date: "2021",
+    pdfUrl: "/certs/harvard_data_science_probability.pdf",
+    featured: false,
+    category: "Data Science, Analytics & Machine Learning",
+    priority: 5,
+  },
+  
+  {
+    id: "harvard-data-inference",
+    title: "Data Science: Inference and Modeling",
+    provider: "Harvard University",
+    providerLogo: "/logos/harvard.png",
+    skills: ["Statistical Inference", "Modeling", "Confidence Intervals", "p-values"],
+    date: "2021",
+    pdfUrl: "/certs/harvard_data_science_inference.pdf",
+    featured: false,
+    category: "Data Science, Analytics & Machine Learning",
+    priority: 6,
+  },
+  
+  {
+    id: "harvard-data-wrangling",
+    title: "Data Science: Wrangling",
+    provider: "Harvard University",
+    providerLogo: "/logos/harvard.png",
+    skills: ["Data Wrangling", "Web Scraping", "String Processing", "Data Import"],
+    date: "2021",
+    pdfUrl: "/certs/harvard_data_science_wrangling.pdf",
+    featured: false,
+    category: "Data Science, Analytics & Machine Learning",
+    priority: 7,
+  },
+  
+  {
+    id: "harvard-data-productivity",
+    title: "Data Science: Productivity Tools",
+    provider: "Harvard University",
+    providerLogo: "/logos/harvard.png",
+    skills: ["R", "RStudio", "Git", "Unix", "Reproducible Research"],
+    date: "2021",
+    pdfUrl: "/certs/harvard_data_science_productivity.pdf",
+    featured: false,
+    category: "Data Science, Analytics & Machine Learning",
+    priority: 8,
+  },
+  
+  {
+    id: "harvard-python-research",
+    title: "Using Python for Research",
+    provider: "Harvard University",
+    providerLogo: "/logos/harvard.png",
+    skills: ["Python", "NumPy", "SciPy", "Statistical Learning", "Network Analysis"],
+    date: "2021",
+    pdfUrl: "/certs/harvard_python_research.pdf",
+    featured: false,
+    category: "Data Science, Analytics & Machine Learning",
+    priority: 9,
+  },
+  
   // ============================================
   // IT Systems, DevOps & Automation
   // ============================================
@@ -223,6 +314,32 @@ export const certificates: Certificate[] = [
     featured: false,
     category: "IT Systems, DevOps & Automation",
     priority: 2,
+  },
+  
+  {
+    id: "linux-serverless-kubernetes",
+    title: "Introduction to Serverless on Kubernetes",
+    provider: "The Linux Foundation",
+    providerLogo: "/logos/linux-foundation.png",
+    skills: ["Kubernetes", "Serverless", "OpenFaaS", "Cloud Native"],
+    date: "2021",
+    pdfUrl: "/certs/linux_serverless_kubernetes.pdf",
+    featured: false,
+    category: "IT Systems, DevOps & Automation",
+    priority: 3,
+  },
+  
+  {
+    id: "linux-jenkins",
+    title: "Introduction to Jenkins",
+    provider: "The Linux Foundation",
+    providerLogo: "/logos/linux-foundation.png",
+    skills: ["Jenkins", "CI/CD", "Automation", "DevOps"],
+    date: "2021",
+    pdfUrl: "/certs/linux_jenkins.pdf",
+    featured: false,
+    category: "IT Systems, DevOps & Automation",
+    priority: 4,
   },
   
   {
