@@ -286,6 +286,58 @@ export const certificates: Certificate[] = [
     priority: 9,
   },
   
+  {
+    id: "harvard-linear-regression",
+    title: "Data Science: Linear Regression",
+    provider: "Harvard University",
+    providerLogo: "/logos/harvard.png",
+    skills: ["Linear Regression", "Statistical Modeling", "R", "Prediction"],
+    date: "2025",
+    pdfUrl: "/certs/harvard_data_science_regression.pdf",
+    featured: false,
+    category: "Data Science, Analytics & Machine Learning",
+    priority: 10,
+  },
+  
+  {
+    id: "harvard-high-dimensional",
+    title: "High-Dimensional Data Analysis",
+    provider: "Harvard University",
+    providerLogo: "/logos/harvard.png",
+    skills: ["PCA", "Clustering", "Machine Learning", "Bioinformatics"],
+    date: "2021",
+    pdfUrl: "/certs/harvard_high_dimensional.pdf",
+    featured: false,
+    category: "Data Science, Analytics & Machine Learning",
+    priority: 11,
+  },
+  
+  {
+    id: "columbia-statistical-thinking",
+    title: "Statistical Thinking for Data Science and Analytics",
+    provider: "Columbia University",
+    providerLogo: "/logos/nyu.png",
+    skills: ["Statistical Thinking", "Data Analytics", "Exploratory Analysis", "Hypothesis Testing"],
+    date: "2021",
+    pdfUrl: "/certs/columbia_statistical_thinking.pdf",
+    featured: false,
+    category: "Data Science, Analytics & Machine Learning",
+    priority: 12,
+  },
+  
+  {
+    id: "columbia-ml",
+    title: "Machine Learning for Data Science and Analytics",
+    provider: "Columbia University",
+    providerLogo: "/logos/nyu.png",
+    skills: ["Machine Learning", "Classification", "Clustering", "Feature Engineering"],
+    date: "2021",
+    pdfUrl: "/certs/columbia_ml_data_science.pdf",
+    featured: false,
+    category: "Data Science, Analytics & Machine Learning",
+    priority: 13,
+  },
+  
   // ============================================
   // IT Systems, DevOps & Automation
   // ============================================
@@ -343,6 +395,19 @@ export const certificates: Certificate[] = [
   },
   
   {
+    id: "linux-networking",
+    title: "Introduction to Open Source Networking Technologies",
+    provider: "The Linux Foundation",
+    providerLogo: "/logos/linux-foundation.png",
+    skills: ["SDN", "NFV", "OpenStack", "Network Automation"],
+    date: "2021",
+    pdfUrl: "/certs/linux_networking.pdf",
+    featured: false,
+    category: "IT Systems, DevOps & Automation",
+    priority: 5,
+  },
+  
+  {
     id: "curtin-iot-intro",
     title: "Introduction to the Internet of Things (IoT)",
     provider: "Curtin University",
@@ -352,7 +417,7 @@ export const certificates: Certificate[] = [
     pdfUrl: "/certs/curtin_iot_intro.pdf",
     featured: false,
     category: "IT Systems, DevOps & Automation",
-    priority: 5,
+    priority: 6,
   },
   
   {
@@ -408,6 +473,36 @@ export const certificates: Certificate[] = [
     pdfUrl: "/certs/delft_responsible_innovation.pdf",
     featured: false,
     category: "Ethics, Security & Responsible Technology",
+    priority: 2,
+  },
+  
+  // ============================================
+  // Business, Strategy & Project Management
+  // ============================================
+  
+  {
+    id: "umd-marketing",
+    title: "Marketing Management",
+    provider: "University of Maryland",
+    providerLogo: "/logos/umich.png",
+    skills: ["Marketing Strategy", "Consumer Behavior", "Market Analysis", "Brand Management"],
+    date: "2021",
+    pdfUrl: "/certs/maryland_marketing.pdf",
+    featured: false,
+    category: "Business, Strategy & Project Management",
+    priority: 1,
+  },
+  
+  {
+    id: "umd-project-info-hubs",
+    title: "Designing Project Information Hubs for Program and Project Performance",
+    provider: "University of Maryland",
+    providerLogo: "/logos/umich.png",
+    skills: ["Project Management", "Information Architecture", "Program Performance", "Stakeholder Communication"],
+    date: "2021",
+    pdfUrl: "/certs/maryland_project_info_hubs.pdf",
+    featured: false,
+    category: "Business, Strategy & Project Management",
     priority: 2,
   },
 ];
