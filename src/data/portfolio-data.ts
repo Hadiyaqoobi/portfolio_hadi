@@ -132,8 +132,8 @@ export const portfolioData = {
     {
       year: "2015 – 2019",
       title: "Bachelor of Science in Aviation Management",
-      company: "Istanbul Aydin University",
-      location: "Istanbul, Turkey",
+      company: "Kocaeli University",
+      location: "Kocaeli, Turkey",
       skills: [],
       highlights: [
         "Graduation Thesis: Smart Airport — How IoT and New Technologies Shape the Future of Airport Industry",
