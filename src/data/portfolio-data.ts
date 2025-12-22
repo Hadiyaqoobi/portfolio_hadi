@@ -242,5 +242,15 @@ export const portfolioData = {
       demo: "#",
       featured: false,
     },
+    {
+      title: "Data Analytics & Decision Modeling",
+      description: "Analyzed real-world datasets using statistical sampling, confidence intervals, and regression modeling. Evaluated airline merger impacts using market concentration metrics (HHI), detected sampling bias in population studies, and designed a data-to-decisions framework for a personalized trail recommendation system.",
+      tech: ["R", "Statistical Analysis", "Cornell University"],
+      tags: ["Cornell University", "Statistical Sampling", "Regression Analysis", "Aviation Analytics"],
+      highlights: [],
+      github: null,
+      demo: "/projects/cornell_data_analytics.pdf",
+      featured: false,
+    },
   ],
 };
