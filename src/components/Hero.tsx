@@ -7,21 +7,21 @@ import { useState, useEffect } from "react";
 
 export const Hero = () => {
   const { personal } = portfolioData;
-  const [typedTitle, setTypedTitle] = useState("");
+  const [typedText, setTypedText] = useState("");
   const [showCursor, setShowCursor] = useState(true);
-  const fullTitle = personal.title;
+  const fullText = "I think like a strategist, design like an architect, and deliver like an engineer.";
 
   // Typing animation effect
   useEffect(() => {
     let i = 0;
     const typingInterval = setInterval(() => {
-      if (i <= fullTitle.length) {
-        setTypedTitle(fullTitle.substring(0, i));
+      if (i <= fullText.length) {
+        setTypedText(fullText.substring(0, i));
         i++;
       } else {
         clearInterval(typingInterval);
       }
-    }, 50);
+    }, 40);
 
     // Cursor blink
     const cursorInterval = setInterval(() => {
@@ -32,7 +32,7 @@ export const Hero = () => {
       clearInterval(typingInterval);
       clearInterval(cursorInterval);
     };
-  }, [fullTitle]);
+  }, [fullText]);
 
   const floatingIcons = [Terminal, Code, Cpu, Database, Binary, Braces];
 
@@ -153,37 +153,47 @@ export const Hero = () => {
             </motion.span>
           </motion.h1>
 
-          {/* Title with typing effect */}
+          {/* Line 1: Typing effect statement */}
           <motion.div
-            className="text-xl md:text-2xl text-primary font-mono flex items-center justify-center gap-2"
+            className="text-lg md:text-xl lg:text-2xl text-primary font-mono flex items-center justify-center gap-2 flex-wrap"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
           >
-            <Terminal size={24} className="text-accent" />
+            <Terminal size={24} className="text-accent flex-shrink-0" />
             <span className="text-muted-foreground">&gt;</span>
-            <span>{typedTitle}</span>
+            <span className="text-center">{typedText}</span>
             <motion.span
-              className="inline-block w-2 h-6 bg-primary ml-1"
+              className="inline-block w-2 h-6 bg-primary"
               animate={{ opacity: showCursor ? 1 : 0 }}
             />
           </motion.div>
 
-          {/* Subtitle */}
+          {/* Line 2: Subtitle */}
           <motion.p
-            className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto"
+            className="text-xl md:text-2xl text-foreground font-medium max-w-3xl mx-auto"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
           >
-            {personal.subtitle}
+            My work lives at the intersection of business and technology.
+          </motion.p>
+
+          {/* Line 3: Role line */}
+          <motion.p
+            className="text-sm md:text-base text-muted-foreground max-w-3xl mx-auto tracking-wide"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }}
+          >
+            IT Business Analyst · Data Analyst · Product Analyst · Project Manager
           </motion.p>
 
           {/* CTAs */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
+            transition={{ delay: 1.0 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
             <motion.div
