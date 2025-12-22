@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 const ResearchPublications = () => {
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-12">
           <div className="flex items-center justify-center gap-3 mb-4">
