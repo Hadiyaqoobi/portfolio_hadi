@@ -122,7 +122,7 @@ const hobbiesData: HobbyCard[] = [
 
 const funFacts = [
   { emoji: "🌍", text: "I've lived in 3 countries — Afghanistan, Turkey, and the United States" },
-  { emoji: "🗣️", text: "I speak 4 languages — English, Farsi/Dari, Turkish, and Pashto" },
+  { emoji: "🗣️", text: "I speak 3 languages — English, Farsi/Dari, and Turkish" },
   { emoji: "✈️", text: "I represented Afghanistan at an international aerospace conference with delegates from 72 countries" },
   { emoji: "🎮", text: "I contributed to Infinite Flight, a popular flight simulator with millions of users" },
   { emoji: "⚽", text: "I'll be volunteering at the FIFA World Cup 2026 in Boston" }
