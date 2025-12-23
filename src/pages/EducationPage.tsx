@@ -30,7 +30,7 @@ const EducationPage = () => {
                 <span className="gradient-text">Professional Certificates</span>
               </h2>
               <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
-                A coherent, degree-level technical education path aligned with IT Business & Systems Analysis, Data, and Product roles.
+                Targeted certifications in data analytics, systems analysis, automation, and project delivery.
               </p>
             </motion.div>
 
@@ -43,7 +43,7 @@ const EducationPage = () => {
             >
               <div className="inline-block bg-card/50 border border-primary/20 rounded-lg px-6 py-4 backdrop-blur-sm">
                 <p className="text-sm text-muted-foreground italic">
-                  "This is not random online learning — this is a <span className="text-primary font-medium">strategic education path</span> aligned with IT Business & Systems Analysis, Data, and Product roles."
+                  "Always learning. Always improving."
                 </p>
               </div>
             </motion.div>
