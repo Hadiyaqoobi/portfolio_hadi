@@ -1,4 +1,4 @@
-import { useState } from "react";
+import * as React from "react";
 import { motion } from "framer-motion";
 import { GraduationCap, Calendar, BookOpen, ExternalLink } from "lucide-react";
 import { portfolioData } from "@/data/portfolio-data";
@@ -26,7 +26,7 @@ interface EducationEntry {
 }
 
 export const Education = () => {
-  const [selectedEducation, setSelectedEducation] = useState<EducationEntry | null>(null);
+  const [selectedEducation, setSelectedEducation] = React.useState<EducationEntry | null>(null);
 
   return (
     <section id="education" className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
