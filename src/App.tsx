@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import TimelinePage from "./pages/TimelinePage";
 import EducationPage from "./pages/EducationPage";
 import ProjectsPage from "./pages/ProjectsPage";
+import BeyondWork from "./pages/BeyondWork";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import ContactPage from "./pages/ContactPage";
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/timeline" element={<TimelinePage />} />
           <Route path="/education" element={<EducationPage />} />
           <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/beyond-work" element={<BeyondWork />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/contact" element={<ContactPage />} />

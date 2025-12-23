@@ -7,6 +7,7 @@ const navItems = [
   { label: "Home", href: "/" },
   { label: "Career Timeline", href: "/timeline" },
   { label: "Education", href: "/education" },
+  { label: "Beyond Work", href: "/beyond-work" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
