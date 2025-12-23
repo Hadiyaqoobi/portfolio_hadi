@@ -200,21 +200,22 @@ export const Hero = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Button
-                size="lg"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 border-glow-cyan min-w-[200px] relative overflow-hidden group"
-                onClick={() => document.getElementById("timeline")?.scrollIntoView({ behavior: "smooth" })}
-              >
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                  animate={{ x: ["-100%", "100%"] }}
-                  transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
-                />
-                <span className="relative z-10 flex items-center">
-                  View My Timeline
-                  <ChevronDown className="ml-2" size={20} />
-                </span>
-              </Button>
+              <a href="/timeline">
+                <Button
+                  size="lg"
+                  className="bg-primary text-primary-foreground hover:bg-primary/90 border-glow-cyan min-w-[200px] relative overflow-hidden group"
+                >
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                    animate={{ x: ["-100%", "100%"] }}
+                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
+                  />
+                  <span className="relative z-10 flex items-center">
+                    View My Career Timeline
+                    <ChevronDown className="ml-2" size={20} />
+                  </span>
+                </Button>
+              </a>
             </motion.div>
             
             <motion.div
