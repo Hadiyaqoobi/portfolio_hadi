@@ -6,7 +6,7 @@ export const portfolioData = {
     location: "Boston, MA (Green Card Holder)",
     focus: ["Data Science", "Systems Analysis", "Automation"],
     email: "your.email@example.com",
-    linkedin: "https://linkedin.com/in/yourprofile",
+    linkedin: "https://www.linkedin.com/in/hadi-y-509439215/",
   },
 
   about: {
