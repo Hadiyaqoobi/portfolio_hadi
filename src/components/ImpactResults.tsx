@@ -21,7 +21,7 @@ const metrics = [
   },
   {
     icon: DollarSign,
-    value: "$100K+",
+    value: "$5M+",
     label: "Value Created",
     description: "Productivity & efficiency gains",
     outcome: "Based on time × analyst cost",
