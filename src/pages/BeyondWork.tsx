@@ -101,15 +101,15 @@ interface HobbyCard {
 
 const hobbiesData: HobbyCard[] = [
   {
-    title: "Aviation Enthusiast",
+    title: "Aviation & Aerospace Enthusiast",
     emoji: "✈️",
-    description: "From my Aviation Management degree to my Smart Airport thesis to volunteering at Fleet Week — aviation has been a lifelong passion. I love understanding how airports operate, tracking flights, and staying connected to the aerospace community.",
+    description: "I was about five years old, standing in a small village in Jaghori, Afghanistan, when I saw my first airplane — a tanker escorted by fighter jets. Most people in the village had never seen aircraft before. I remember the adults staring at the sky, certain that the big plane had just \"given birth\" to the smaller ones.\n\nI didn't know what I was looking at. But in that moment, something clicked — and it never let go.\n\nThat childhood curiosity led me to an Aviation Management degree, a thesis on Smart Airports and IoT, volunteering at San Francisco Fleet Week, and representing Afghanistan at the Space Generation Advisory Council.\n\nToday, I'm an aerospace and aviation enthusiast with a strong interest in suborbital and hypersonic flight — the next frontier. From village skies to the edge of space, the curiosity that started at five is still taking me higher.",
     icon: <Plane className="w-8 h-8" />
   },
   {
     title: "Hiking & Outdoors",
     emoji: "🥾",
-    description: "I do my best thinking on trails. Whether it's the Blue Hills near Boston or exploring new terrain, hiking keeps me grounded. It even inspired me to build TrailX — a hiking app with trail difficulty algorithms.",
+    description: "I do my best thinking on trails. Whether it's the Blue Hills near Boston, conquering Mt. Washington, or exploring new terrain — hiking keeps me grounded. I go to Mt. Washington often with friends; there's something about the challenge, the views, and the conversations that keeps pulling me back.",
     icon: <Mountain className="w-8 h-8" />
   },
   {
