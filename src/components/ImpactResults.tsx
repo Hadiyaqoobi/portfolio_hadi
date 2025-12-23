@@ -159,18 +159,6 @@ export const ImpactResults = () => {
           </p>
         </motion.div>
 
-        {/* Value Proposition */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center"
-        >
-          <p className="text-xl md:text-2xl font-bold text-foreground">
-            I turn ambiguous business problems into{" "}
-            <span className="gradient-text">automated, scalable systems</span>.
-          </p>
-        </motion.div>
       </div>
     </section>
   );
