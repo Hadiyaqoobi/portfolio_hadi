@@ -36,13 +36,13 @@ export const WhoAmICard = () => {
               </div>
               
               <div className="flex justify-between border-b border-primary/20 pb-2">
-                <span className="text-muted-foreground">Clearance:</span>
-                <span className="text-neon-green font-mono">Green Card Holder</span>
+                <span className="text-muted-foreground">Work Auth:</span>
+                <span className="text-neon-green font-mono text-xs">Green Card Holder (No Sponsorship Required)</span>
               </div>
               
               <div className="flex justify-between border-b border-primary/20 pb-2">
                 <span className="text-muted-foreground">Specialization:</span>
-                <span className="text-foreground font-mono">Data + Systems</span>
+                <span className="text-foreground font-mono text-xs">Business Analysis + Product Delivery</span>
               </div>
             </div>
           </div>
@@ -51,15 +51,27 @@ export const WhoAmICard = () => {
           <div className="space-y-4 flex flex-col justify-between">
             <div>
               <div className="text-sm text-muted-foreground mb-3">Core Competencies:</div>
-              <div className="flex flex-wrap gap-2">
-                {personal.focus.map((focus, idx) => (
-                  <span
-                    key={idx}
-                    className="px-3 py-1 bg-accent/10 border border-accent/30 rounded text-xs text-accent"
-                  >
-                    {focus}
-                  </span>
-                ))}
+              <div className="space-y-2">
+                <div className="flex flex-wrap gap-2">
+                  {["Requirements & FRDs", "SQL & Data Analysis", "Power BI", "Python"].map((skill, idx) => (
+                    <span
+                      key={idx}
+                      className="px-3 py-1 bg-accent/10 border border-accent/30 rounded text-xs text-accent"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {["SDLC & Agile", "UAT Coordination", "Process Automation", "Stakeholder Management"].map((skill, idx) => (
+                    <span
+                      key={idx}
+                      className="px-3 py-1 bg-accent/10 border border-accent/30 rounded text-xs text-accent"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
 
