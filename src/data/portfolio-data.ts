@@ -48,10 +48,6 @@ export const portfolioData = {
         "Outstanding Student Award",
         "Graduation Thesis: Smart Airport — How IoT and New Technologies Shape the Future of Airport Industry",
       ],
-      credentials: [
-        { title: "Diploma", url: "/education/kocaeli_diploma.pdf" },
-        { title: "Thesis PDF (Smart Airport)", url: "/publications/smart-airport-thesis.pdf" },
-      ],
     },
     {
       degree: "MicroBachelor",
@@ -62,9 +58,6 @@ export const portfolioData = {
       description: "Focused curriculum in programming fundamentals, algorithms, and software development.",
       honors: [
         "Certificate of Completion with Distinction",
-      ],
-      credentials: [
-        { title: "Certificate of Completion", url: "/education/nyu_certificate.pdf" },
       ],
     },
   ],
