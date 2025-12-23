@@ -21,24 +21,36 @@ export const portfolioData = {
       field: "Data Analytics (STEM)",
       institution: "Boston University - Questrom School of Business",
       logo: "/logos/boston-university.png",
-      year: "2023",
-      description: "STEM Master's degree with a focus on data analytics, business intelligence, and quantitative decision-making.",
+      year: "2024",
+      description: "STEM Master's degree with a focus on data analytics, business intelligence, and quantitative decision-making. Led 4 client and capstone projects as Project Leader, managing teams of 4-5 students.",
       honors: [
-        "Dean's List",
-        "Graduate Research Excellence Award",
-        "Analytics Capstone Project - Top 5%",
+        "Director's Honors List (3x)",
+        "Eleanor Sullivan Smith Scholarship Fund Recipient",
+        "Project Leader — Bali Blinds (Client Project)",
+        "Project Leader — Konasearch (Client Project)",
+      ],
+      credentials: [
+        { title: "Diploma (Master's Degree Certificate)", url: "/education/boston_university_diploma.pdf" },
+        { title: "Director's Honors List Certificate - Module 2 (January 2024)", url: "/education/boston_honors.pdf" },
+        { title: "Director's Honors List Certificate - Module 3 (March 2024)", url: "/education/boston_honors.pdf" },
+        { title: "Director's Honors List Certificate - Final (May 2024)", url: "/education/boston_honors.pdf" },
       ],
     },
     {
       degree: "Bachelor of Science",
       field: "Aviation Management",
-      institution: "Kocaeli University",
+      institution: "Kocaeli University · Kocaeli, Turkey",
       logo: "/logos/kocaeli.png",
       year: "2019",
       description: "Comprehensive program covering aviation operations, management principles, and industry regulations.",
       honors: [
         "High Honors Graduate",
         "Outstanding Student Award",
+        "Graduation Thesis: Smart Airport — How IoT and New Technologies Shape the Future of Airport Industry",
+      ],
+      credentials: [
+        { title: "Diploma", url: "/education/kocaeli_diploma.pdf" },
+        { title: "Thesis PDF (Smart Airport)", url: "/publications/smart-airport-thesis.pdf" },
       ],
     },
     {
@@ -50,6 +62,9 @@ export const portfolioData = {
       description: "Focused curriculum in programming fundamentals, algorithms, and software development.",
       honors: [
         "Certificate of Completion with Distinction",
+      ],
+      credentials: [
+        { title: "Certificate of Completion", url: "/education/nyu_certificate.pdf" },
       ],
     },
   ],
