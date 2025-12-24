@@ -5,7 +5,7 @@ export const portfolioData = {
     subtitle: "Bridging business requirements with technical solutions using SQL, Python, dashboards, and APIs",
     location: "Boston, MA (Green Card Holder)",
     focus: ["Data Science", "Systems Analysis", "Automation"],
-    email: "your.email@example.com",
+    email: "hyaqoobi@bu.edu",
     linkedin: "https://www.linkedin.com/in/hadi-y-509439215/",
   },
 
