@@ -208,6 +208,16 @@ export const portfolioData = {
 
   projects: [
     {
+      title: "Neural Network Housing Price Prediction",
+      description: "Designed and trained a deep neural network using H2O in R to predict Washington D.C. residential property prices. Applied LIME interpretability to explain model predictions. Achieved R² of 0.811 on 10,600+ property transactions with 108 features. Published in IEEE format as part of Cornell University's AI360 Neural Networks course.",
+      tech: ["R", "H2O", "LIME", "Neural Networks", "Cornell University"],
+      tags: ["Deep Learning", "R² = 0.811", "10,600+ Records", "IEEE Paper"],
+      highlights: [],
+      github: null,
+      demo: "/projects/neural_network_dc_housing.pdf",
+      featured: true,
+    },
+    {
       title: "EdTech Platform Development",
       description: "Led end-to-end development of two educational platforms serving 1,000+ refugee learners in Greece and Turkey. Wrote BRD/FRD documentation, built analytics dashboards, managed databases, and coordinated a team of 15 volunteers through full project lifecycle.",
       tech: ["ConnectionHub", "SQL", "Power BI"],
