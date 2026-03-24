@@ -45,7 +45,7 @@ export const Navigation = () => {
           <div className="flex items-center justify-between">
             <Link to="/">
               <span className="text-lg font-bold text-slate-100 tracking-tight">
-                Hadi Yaqoobi
+                M. Hadi Yaqoobi
               </span>
             </Link>
 

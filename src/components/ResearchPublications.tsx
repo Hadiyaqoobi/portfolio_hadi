@@ -63,7 +63,7 @@ const ResearchPublications = () => {
                 </p>
 
                 <p className="text-sm text-slate-400 mb-4">
-                  <span className="text-slate-300 font-medium">Mohammad Hadi Yaqoobi</span>
+                  <span className="text-slate-300 font-medium">M. Hadi Yaqoobi</span>
                   {" · "}
                   <span className="italic">Empirical Software Engineering (EMSE), Springer</span>
                 </p>

@@ -1,6 +1,6 @@
 export const portfolioData = {
   personal: {
-    name: "Mohammad Hadi Yaqoobi",
+    name: "M. Hadi Yaqoobi",
     title: "IT Business Systems Analyst & AI Product Builder",
     subtitle: "At Equity Residential, an 80,000-unit S&P 500 REIT, I was the person between the marketing team and the dev team. My job: make sure the technology actually solves the business problem. That meant writing SQL four hours a day, pushing an Azure authentication migration through six teams who each owned a piece of the puzzle, and making sure nothing broke when it went live. Nothing did.",
     location: "Boston, MA (Green Card Holder)",
