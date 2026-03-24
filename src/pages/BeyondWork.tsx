@@ -1,14 +1,14 @@
 import { Navigation } from "@/components/Navigation";
 import { Background } from "@/components/Background";
 import { motion } from "framer-motion";
-import { 
-  Users, 
-  GraduationCap, 
-  Heart, 
-  Globe, 
-  Plane, 
-  Mountain, 
-  Code, 
+import {
+  Users,
+  GraduationCap,
+  Heart,
+  Globe,
+  Plane,
+  Mountain,
+  Code,
   Trophy,
   Github,
   Mic,
@@ -57,7 +57,7 @@ const volunteerData: VolunteerCard[] = [
     icon: <Heart className="w-6 h-6" />
   },
   {
-    title: "Delegate — Afghanistan",
+    title: "Delegate, Afghanistan",
     organization: "Space Generation Advisory Council",
     duration: "2019 – Present",
     description: "Represented Afghanistan at the Asia Pacific Space Generation Workshop Council in 2020, addressing delegates from 72 countries on the importance of STEM and aerospace education for Afghan youth.",
@@ -103,26 +103,26 @@ const hobbiesData: HobbyCard[] = [
   {
     title: "Aviation & Aerospace Enthusiast",
     emoji: "✈️",
-    description: "I was about five years old, standing in a small village in Jaghori, Afghanistan, when I saw my first airplane — a tanker escorted by fighter jets. Most people in the village had never seen aircraft before. I remember the adults staring at the sky, certain that the big plane had just \"given birth\" to the smaller ones.\n\nI didn't know what I was looking at. But in that moment, something clicked — and it never let go.\n\nThat childhood curiosity led me to an Aviation Management degree, a thesis on Smart Airports and IoT, volunteering at San Francisco Fleet Week, and representing Afghanistan at the Space Generation Advisory Council.\n\nToday, I'm an aerospace and aviation enthusiast with a strong interest in suborbital and hypersonic flight — the next frontier. From village skies to the edge of space, the curiosity that started at five is still taking me higher.",
+    description: "I was about five years old, standing in a small village in Jaghori, Afghanistan, when I saw my first airplane: a tanker escorted by fighter jets. Most people in the village had never seen aircraft before. I remember the adults staring at the sky, certain that the big plane had just \"given birth\" to the smaller ones.\n\nI didn't know what I was looking at. But in that moment, something clicked, and it never let go.\n\nThat childhood curiosity led me to an Aviation Management degree, a thesis on Smart Airports and IoT, volunteering at San Francisco Fleet Week, and representing Afghanistan at the Space Generation Advisory Council.\n\nToday, I'm an aerospace and aviation enthusiast with a strong interest in suborbital and hypersonic flight. From village skies to the edge of space, the curiosity that started at five is still taking me higher.",
     icon: <Plane className="w-8 h-8" />
   },
   {
     title: "Hiking & Outdoors",
     emoji: "🥾",
-    description: "I do my best thinking on trails. Whether it's the Blue Hills near Boston, conquering Mt. Washington, or exploring new terrain — hiking keeps me grounded. I go to Mt. Washington often with friends; there's something about the challenge, the views, and the conversations that keeps pulling me back.",
+    description: "I do my best thinking on trails. Whether it's the Blue Hills near Boston, conquering Mt. Washington, or exploring new terrain, hiking keeps me grounded. I go to Mt. Washington often with friends; there's something about the challenge, the views, and the conversations that keeps pulling me back.",
     icon: <Mountain className="w-8 h-8" />
   },
   {
     title: "Building Things",
     emoji: "💻",
-    description: "I've been building since childhood — taking things apart, figuring out how they work, and creating something new. That curiosity never stopped. Today, I turn ideas into working products: TrailX (hiking app), MakerMind (hardware project generator), AeroValue (aircraft valuation). If I can imagine it, I'll find a way to build it.",
+    description: "I've been building since childhood. Taking things apart, figuring out how they work, and creating something new. That curiosity never stopped. Today, I turn ideas into working products: TrailX (hiking app), MakerMind (hardware project generator), AeroValue (aircraft valuation). If I can imagine it, I'll find a way to build it.",
     icon: <Code className="w-8 h-8" />
   }
 ];
 
 const funFacts = [
-  { emoji: "🌍", text: "I've lived in 3 countries — Afghanistan, Turkey, and the United States" },
-  { emoji: "🗣️", text: "I speak 3 languages — English, Farsi/Dari, and Turkish" },
+  { emoji: "🌍", text: "I've lived in 3 countries: Afghanistan, Turkey, and the United States" },
+  { emoji: "🗣️", text: "I speak 3 languages: English, Hazaragi/Dari, and Turkish" },
   { emoji: "✈️", text: "I represented Afghanistan at an international aerospace conference with delegates from 72 countries" },
   { emoji: "🎮", text: "I contributed to Infinite Flight, a popular flight simulator with millions of users" },
   { emoji: "⚽", text: "I'll be volunteering at the FIFA World Cup 2026 in Boston" }
@@ -133,7 +133,7 @@ const BeyondWork = () => {
     <div className="min-h-screen bg-background text-foreground relative overflow-hidden">
       <Background />
       <Navigation />
-      
+
       <main className="container mx-auto px-4 pt-32 pb-20">
         {/* Page Header */}
         <motion.div
@@ -143,7 +143,7 @@ const BeyondWork = () => {
           className="text-center mb-16"
         >
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="gradient-text">Beyond Work</span>
+            Beyond Work
           </h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             The experiences and passions that shape who I am outside the office.
@@ -172,11 +172,10 @@ const BeyondWork = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 + index * 0.05 }}
-                className={`relative bg-card/50 backdrop-blur-sm border rounded-xl p-6 hover:border-primary/50 transition-all duration-300 group ${
-                  item.isUpcoming 
-                    ? 'border-primary/40 shadow-[0_0_20px_rgba(0,255,255,0.15)]' 
+                className={`relative bg-card/50 backdrop-blur-sm border rounded-xl p-6 hover:border-primary/50 transition-all duration-300 group ${item.isUpcoming
+                    ? 'border-primary/40 shadow-[0_0_20px_rgba(0,255,255,0.15)]'
                     : 'border-primary/20'
-                }`}
+                  }`}
               >
                 {item.isUpcoming && (
                   <div className="absolute -top-3 right-4">
@@ -186,7 +185,7 @@ const BeyondWork = () => {
                     </Badge>
                   </div>
                 )}
-                
+
                 <div className="flex items-start gap-4">
                   <div className="p-3 rounded-lg bg-primary/10 text-primary shrink-0 group-hover:bg-primary/20 transition-colors">
                     {item.icon}
@@ -210,9 +209,9 @@ const BeyondWork = () => {
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {item.tags.map((tag, tagIndex) => (
-                        <Badge 
-                          key={tagIndex} 
-                          variant="secondary" 
+                        <Badge
+                          key={tagIndex}
+                          variant="secondary"
                           className="text-xs bg-primary/10 text-primary/80 border-primary/20"
                         >
                           {tag}

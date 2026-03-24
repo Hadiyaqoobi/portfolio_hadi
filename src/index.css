@@ -2,74 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Soft Dark Theme — Vercel/Linear inspired
+   Not pitch black, not white. Warm slate foundation with blue accent.
+   Sources: Refactoring UI, Vercel dark mode, Linear, Raycast */
 
 @layer base {
   :root {
-    /* Cyberpunk Dark Theme - Futuristic Computer Interface */
-    --background: 240 10% 5%;
-    --foreground: 180 100% 95%;
+    --background: 222 47% 11%;
+    --foreground: 214 32% 91%;
 
-    --card: 240 8% 8%;
-    --card-foreground: 180 100% 95%;
+    --card: 217 33% 17%;
+    --card-foreground: 214 32% 91%;
 
-    --popover: 240 10% 6%;
-    --popover-foreground: 180 100% 95%;
+    --popover: 217 33% 17%;
+    --popover-foreground: 214 32% 91%;
 
-    /* Neon Cyan Primary */
-    --primary: 180 100% 50%;
-    --primary-foreground: 240 10% 5%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
 
-    /* Darker secondary for cards */
-    --secondary: 240 5% 12%;
-    --secondary-foreground: 180 100% 95%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 214 32% 91%;
 
-    /* Muted tones */
-    --muted: 240 5% 15%;
-    --muted-foreground: 180 20% 60%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 16% 47%;
 
-    /* Electric Blue accent */
-    --accent: 210 100% 60%;
-    --accent-foreground: 240 10% 5%;
+    --accent: 217 33% 17%;
+    --accent-foreground: 214 32% 91%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    /* Neon borders */
-    --border: 180 50% 25%;
-    --input: 240 8% 12%;
-    --ring: 180 100% 50%;
+    --border: 217 19% 27%;
+    --input: 217 19% 27%;
+    --ring: 217 91% 60%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
-    /* Custom Cyberpunk colors */
-    --neon-cyan: 180 100% 50%;
-    --neon-magenta: 320 100% 50%;
-    --neon-blue: 210 100% 60%;
-    --terminal-green: 120 100% 50%;
-    
-    /* Gradients */
-    --gradient-cyber: linear-gradient(135deg, hsl(180 100% 50% / 0.2), hsl(320 100% 50% / 0.2));
-    --gradient-neon: linear-gradient(90deg, hsl(180 100% 50%), hsl(210 100% 60%));
-    
-    /* Glows */
-    --glow-cyan: 0 0 20px hsl(180 100% 50% / 0.5), 0 0 40px hsl(180 100% 50% / 0.3);
-    --glow-magenta: 0 0 20px hsl(320 100% 50% / 0.5), 0 0 40px hsl(320 100% 50% / 0.3);
-    --glow-blue: 0 0 20px hsl(210 100% 60% / 0.5);
-    
-    /* Animations */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 217 33% 17%;
+    --sidebar-foreground: 214 32% 91%;
+    --sidebar-primary: 217 91% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 217 33% 17%;
+    --sidebar-accent-foreground: 214 32% 91%;
+    --sidebar-border: 217 19% 27%;
+    --sidebar-ring: 217 91% 60%;
   }
 }
 
@@ -79,80 +55,149 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply bg-background text-foreground antialiased;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+    color: #E2E8F0;
+    background-color: #0F172A;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-bold tracking-tight;
-  }
-
-  .terminal-font {
-    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    @apply font-bold;
+    letter-spacing: -0.02em;
+    color: #E2E8F0;
   }
 }
 
 @layer utilities {
-  .glow-cyan {
-    text-shadow: var(--glow-cyan);
-  }
-  
-  .glow-magenta {
-    text-shadow: var(--glow-magenta);
-  }
-  
-  .glow-blue {
-    text-shadow: var(--glow-blue);
-  }
-  
-  .border-glow-cyan {
-    box-shadow: var(--glow-cyan);
-  }
-  
-  .border-glow-magenta {
-    box-shadow: var(--glow-magenta);
+
+  /* ===== CARD — Soft dark, subtle border, slight glow on hover ===== */
+  .glass-card {
+    background: #1E293B;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   }
 
+  .glass-card:hover {
+    border-color: #475569;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(59, 130, 246, 0.05);
+  }
+
+  .glass-card-featured {
+    background: #1E293B;
+    border: 1px solid #475569;
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.3);
+  }
+
+  .glass-card-featured:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.4);
+  }
+
+  /* ===== HERO GRADIENT ===== */
   .gradient-text {
-    background: var(--gradient-neon);
+    background: linear-gradient(135deg, #60A5FA, #3B82F6);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  .text-gradient {
-    background: var(--gradient-neon);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  /* ===== ACCENT LINE — Section headers ===== */
+  .accent-line {
+    width: 48px;
+    height: 3px;
+    background: #3B82F6;
+    border-radius: 2px;
   }
 
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
+  /* ===== BUTTONS ===== */
+  .btn-primary {
+    background: #3B82F6;
+    color: white;
+    border: none;
+    transition: all 0.25s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   }
 
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
+  .btn-primary:hover {
+    background: #2563EB;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
   }
 
-  .grid-pattern {
-    background-image: 
-      linear-gradient(hsl(180 100% 50% / 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(180 100% 50% / 0.05) 1px, transparent 1px);
-    background-size: 50px 50px;
+  .btn-outline {
+    background: transparent;
+    border: 1px solid #475569;
+    color: #E2E8F0;
+    transition: all 0.25s ease;
   }
 
-  @keyframes scan {
-    0% {
-      transform: translateY(-100%);
-    }
-    100% {
-      transform: translateY(100%);
-    }
+  .btn-outline:hover {
+    border-color: #3B82F6;
+    color: #60A5FA;
+    background: rgba(59, 130, 246, 0.08);
   }
 
-  .animate-scan {
-    animation: scan 8s linear infinite;
+  /* ===== METRIC NUMBERS ===== */
+  .metric-number {
+    color: #E2E8F0;
+    font-weight: 700;
   }
+
+  /* ===== SEMANTIC CATEGORY ACCENTS ===== */
+  .glow-enterprise {
+    border-color: #475569;
+  }
+
+  .glow-rnd {
+    border-color: #475569;
+  }
+
+  .glow-consulting {
+    border-color: #475569;
+  }
+}
+
+/* ===== KEYFRAMES ===== */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== CODE HIGHLIGHTING — Soft dark theme ===== */
+.code-keyword { color: #60A5FA; }
+.code-string { color: #34D399; }
+.code-comment { color: #64748B; font-style: italic; }
+.code-number { color: #FBBF24; }
+.code-function { color: #A78BFA; }
+.code-type { color: #22D3EE; }
+.code-property { color: #60A5FA; }
+.code-decorator { color: #A78BFA; }
+.code-punctuation { color: #94A3B8; }
+
+/* ===== SCROLLBAR ===== */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: #475569;
 }

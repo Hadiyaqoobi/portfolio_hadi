@@ -1,167 +1,191 @@
 import { motion } from "framer-motion";
-import { FileText, Search, BarChart3, Users } from "lucide-react";
+import { Search, PenTool, Repeat, CheckCircle } from "lucide-react";
 
-const methods = [
-  {
-    icon: FileText,
-    title: "Requirements Engineering",
-    subtitle: "Translating business needs into specs",
-    color: "primary",
-    bullets: [
-      "Stakeholder interviews & needs discovery",
-      "BRD/FRD documentation & sign-off",
-      "User stories with acceptance criteria",
-      "Requirements traceability & UAT"
-    ]
-  },
+/*
+ * Adaptive framework: 4 phases, each showing HOW the approach changes
+ * based on the problem. Real project examples prove flexibility.
+ * Apple wants: design thinking, end-to-end ownership, problem framing.
+ * Google wants: structured thinking, adaptive methodology, quantified impact.
+ */
+
+const phases = [
   {
     icon: Search,
-    title: "Systems Analysis",
-    subtitle: "Understanding how things actually work",
-    color: "accent",
-    bullets: [
-      "Current state (As-Is) documentation",
-      "Data flow & dependency mapping",
-      "Gap analysis & pain point identification",
-      "Future state (To-Be) design"
-    ]
+    step: "01",
+    title: "Understand the Problem",
+    subtitle: "I start by talking to the people who live with the system, not just the people who sponsor it.",
+    approaches: [
+      {
+        context: "Enterprise (Equity Residential)",
+        detail: "Stakeholder interviews across 6 teams to map dependencies before writing a single requirement. Gap analysis of current-state systems and processes.",
+      },
+      {
+        context: "Nonprofit (ConnectionHub)",
+        detail: "User personas built with real device specs (Samsung Galaxy A03, 2GB RAM, 0.8 Mbps 3G). Designed for the constraint, not the ideal.",
+      },
+      {
+        context: "Pro Bono (AHRC)",
+        detail: "Competitive gap analysis of 4 existing platforms (Rawadari, Afghan Witness, ACLED, HURIDOCS) to define differentiated requirements.",
+      },
+    ],
+    accentColor: "hsl(230 80% 65%)",
   },
   {
-    icon: BarChart3,
-    title: "Data & Analytics",
-    subtitle: "Turning data into decisions",
-    color: "neon-green",
-    bullets: [
-      "SQL queries & stored procedures",
-      "Python scripting & data analysis",
-      "Dashboard design (Power BI, Tableau)",
-      "Data validation & reporting automation"
-    ]
+    icon: PenTool,
+    step: "02",
+    title: "Define the Solution",
+    subtitle: "I choose the documentation depth based on the stakes. Regulatory compliance gets a 42,000-word spec. An MVP gets user stories.",
+    approaches: [
+      {
+        context: "When regulations drive the timeline",
+        detail: "BRDs and FRDs with functional requirements, data requirements, UI specs, edge cases, and acceptance criteria. Multi-state compliance (CA, VA, CO) delivered ahead of every deadline.",
+      },
+      {
+        context: "When requirements are unclear",
+        detail: "Data models, process flows, and integration architecture mapped across 6 systems (PostgreSQL, Snowflake, Salesforce, Mailchimp, GA, Zoom) with sync frequencies defined per endpoint.",
+      },
+      {
+        context: "When speed matters",
+        detail: "Agile user stories with clear definitions of done in Azure DevOps. Technical feasibility validated directly with engineering before sprint commitment.",
+      },
+    ],
+    accentColor: "hsl(170 60% 55%)",
   },
   {
-    icon: Users,
-    title: "Cross-Functional Delivery",
-    subtitle: "Getting things done with people",
-    color: "neon-magenta",
-    bullets: [
-      "Dev, QA, Ops & business alignment",
-      "Sprint ceremonies & Jira management",
-      "UAT coordination & issue triage",
-      "Go-live support & change management"
-    ]
-  }
+    icon: Repeat,
+    step: "03",
+    title: "Build and Iterate",
+    subtitle: "I adapt the execution model to the problem. Some projects need formal phases. Others need weekly feedback loops.",
+    approaches: [
+      {
+        context: "Phased Rollout (Waterfall)",
+        detail: "Azure B2C migration: 4 deployment phases across 6 teams with formal go/no-go decisions. 135,000+ accounts. Zero incidents. No room for iteration mid-rollout.",
+      },
+      {
+        context: "Agile Sprints",
+        detail: "2-week sprints, daily standups, sprint reviews, stakeholder demos. SQL validation and UAT coordination integrated into every sprint cycle.",
+      },
+      {
+        context: "Hybrid (R&D)",
+        detail: "Requirements defined up front, execution in iterative cycles. 4 AI products shipped this way at Nexuss Science, including a 79,749-line Python framework.",
+      },
+    ],
+    accentColor: "hsl(38 80% 60%)",
+  },
+  {
+    icon: CheckCircle,
+    step: "04",
+    title: "Validate and Measure",
+    subtitle: "Ship it, then prove it works. If I can't measure the impact, I haven't finished the job.",
+    approaches: [
+      {
+        context: "SQL Validation",
+        detail: "Production stored procedures checking 960+ data points per property across 380+ properties. Every billing discrepancy caught before resident impact.",
+      },
+      {
+        context: "Dashboards and Analytics",
+        detail: "8 Tableau dashboards built on Snowflake star schema. Board used them to track growth to 9,447 learning hours. Predictive models with R-squared 0.811.",
+      },
+      {
+        context: "Post-Deployment",
+        detail: "Post-deployment monitoring, issue triage, retrospectives. Continuous improvement of processes and documentation based on what the data shows.",
+      },
+    ],
+    accentColor: "hsl(260 60% 60%)",
+  },
 ];
-
-const tools = [
-  { name: "SQL Server", description: "Data & automation" },
-  { name: "Power BI", description: "Dashboards" },
-  { name: "Tableau", description: "Visualization" },
-  { name: "Python", description: "Analysis & ETL" },
-  { name: "Excel", description: "Analysis & VBA" },
-  { name: "Jira", description: "Agile delivery" },
-  { name: "Azure DevOps", description: "CI/CD & repos" },
-  { name: "Confluence", description: "Documentation" },
-  { name: "Quickbase", description: "Low-code apps" },
-  { name: "Citrix", description: "Access management" }
-];
-
-const getColorClass = (color: string) => {
-  const colorMap: Record<string, { border: string; text: string; bg: string }> = {
-    primary: { border: "border-primary/40", text: "text-primary", bg: "bg-primary/10" },
-    accent: { border: "border-accent/40", text: "text-accent", bg: "bg-accent/10" },
-    "neon-green": { border: "border-neon-green/40", text: "text-neon-green", bg: "bg-neon-green/10" },
-    "neon-magenta": { border: "border-neon-magenta/40", text: "text-neon-magenta", bg: "bg-neon-magenta/10" }
-  };
-  return colorMap[color] || colorMap.primary;
-};
 
 export const HowIWork = () => {
   return (
-    <section className="py-20 relative">
+    <section className="py-section-lg relative">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          transition={{ duration: 0.6 }}
+          className="mb-14 max-w-6xl mx-auto"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="gradient-text">How I Work</span>
+          <div className="accent-line mb-5" />
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-100 mb-3">
+            How I Work
           </h2>
-          <p className="text-muted-foreground text-lg">
-            My approach to bridging business needs with technical solutions
+          <p className="text-slate-400 text-base max-w-lg">
+            I adapt the approach to the problem. Agile, Waterfall, or hybrid — the methodology follows the constraints, not the other way around.
           </p>
         </motion.div>
 
-        {/* Method Cards */}
-        <div className="grid md:grid-cols-2 gap-6 mb-16">
-          {methods.map((method, index) => {
-            const Icon = method.icon;
-            const colors = getColorClass(method.color);
-            
+        <div className="max-w-6xl mx-auto space-y-6">
+          {phases.map((phase, index) => {
+            const Icon = phase.icon;
+
             return (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.01 }}
-                className={`border ${colors.border} bg-card/50 backdrop-blur-sm rounded-lg p-6 relative overflow-hidden group`}
+                transition={{ duration: 0.4, delay: index * 0.08 }}
+                className="group"
               >
-                {/* Glow effect on hover */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-current/5 to-transparent" />
-                
-                <div className="relative z-10">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className={`w-10 h-10 rounded-lg ${colors.bg} flex items-center justify-center`}>
-                      <Icon className={`w-5 h-5 ${colors.text}`} />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-lg text-foreground">{method.title}</h3>
-                      <p className={`text-sm ${colors.text}`}>{method.subtitle}</p>
-                    </div>
+                {/* Phase header row */}
+                <div className="flex items-start gap-4 mb-4">
+                  <div
+                    className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"
+                    style={{ background: `${phase.accentColor}15` }}
+                  >
+                    <Icon className="w-4 h-4" style={{ color: phase.accentColor }} />
                   </div>
-                  
-                  <ul className="space-y-2">
-                    {method.bullets.map((bullet, idx) => (
-                      <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
-                        <span className={`${colors.text} mt-0.5`}>▸</span>
-                        <span>{bullet}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2.5 mb-1">
+                      <span
+                        className="text-[11px] font-mono font-semibold tracking-wider"
+                        style={{ color: phase.accentColor, opacity: 0.7 }}
+                      >
+                        {phase.step}
+                      </span>
+                      <h3 className="text-base font-bold text-slate-100">
+                        {phase.title}
+                      </h3>
+                    </div>
+                    <p className="text-sm text-slate-400 leading-relaxed">
+                      {phase.subtitle}
+                    </p>
+                  </div>
                 </div>
+
+                {/* Approaches as compact cards row */}
+                <div className="grid md:grid-cols-3 gap-3 ml-12">
+                  {phase.approaches.map((approach, idx) => (
+                    <motion.div
+                      key={idx}
+                      initial={{ opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.08 + idx * 0.05 + 0.2 }}
+                      className="px-4 py-3 rounded-lg bg-slate-800/30 border border-slate-800 hover:border-slate-700 transition-colors"
+                    >
+                      <span
+                        className="text-[10px] font-semibold tracking-wide uppercase block mb-1.5"
+                        style={{ color: phase.accentColor, opacity: 0.7 }}
+                      >
+                        {approach.context}
+                      </span>
+                      <p className="text-xs text-slate-500 leading-relaxed">
+                        {approach.detail}
+                      </p>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* Divider between phases */}
+                {index !== phases.length - 1 && (
+                  <div className="border-b border-slate-800 mt-6" />
+                )}
               </motion.div>
             );
           })}
         </div>
-
-        {/* Tools & Frameworks */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center"
-        >
-          <h3 className="text-xl font-bold text-foreground mb-6">Tools & Frameworks</h3>
-          <div className="flex flex-wrap justify-center gap-3">
-            {tools.map((tool, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
-                whileHover={{ scale: 1.05 }}
-                className="bg-card/50 border border-primary/20 rounded-full px-4 py-2 backdrop-blur-sm group hover:border-primary/50 transition-colors"
-              >
-                <span className="text-sm font-medium text-foreground">{tool.name}</span>
-                <span className="text-xs text-muted-foreground ml-2">{tool.description}</span>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
       </div>
     </section>
   );

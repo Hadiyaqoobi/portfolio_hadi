@@ -1,279 +1,275 @@
 import { motion } from "framer-motion";
-import { 
-  Code2, 
-  GitCommit, 
-  FolderGit2, 
-  TrendingUp, 
-  Activity, 
-  Calendar,
+import {
   ExternalLink,
-  Brain,
-  Cloud
+  Database,
+  Cloud,
+  BarChart3,
+  Bot,
+  Terminal,
+  Users,
+  FolderGit2,
 } from "lucide-react";
 import { useGitHubAnalytics } from "@/hooks/useGitHubAnalytics";
 
-const LoadingSkeleton = () => (
-  <section className="py-20 relative">
-    <div className="container mx-auto px-4">
-      <div className="text-center mb-12">
-        <div className="h-12 w-80 bg-card/50 rounded-lg mx-auto mb-4 animate-pulse" />
-        <div className="h-6 w-64 bg-card/30 rounded mx-auto animate-pulse" />
-      </div>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-        {[...Array(6)].map((_, i) => (
-          <div key={i} className="h-28 bg-card/30 rounded-lg animate-pulse" />
-        ))}
-      </div>
-    </div>
-  </section>
-);
+const technicalCapabilities = [
+  {
+    icon: Database,
+    domain: "SQL & Data Engineering",
+    proof: "960+ data points validated per property across 380+ properties",
+    tools: "SQL Server, PostgreSQL, Snowflake, T-SQL Stored Procedures",
+    context: "Built validation engines, ETL pipelines, and data migration scripts at enterprise scale. Authored stored procedures that catch every billing discrepancy before it reaches the resident.",
+    accent: "emerald",
+  },
+  {
+    icon: Cloud,
+    domain: "Cloud & Identity Architecture",
+    proof: "135,000+ accounts migrated with zero incidents",
+    tools: "Azure B2C, Entra ID, Key Vault, mTLS, CyberArk",
+    context: "Led full SDLC for Azure B2C authentication migration across 6 teams. Managed JWT tokens, mTLS certificates, and secrets rotation across environments.",
+    accent: "violet",
+  },
+  {
+    icon: BarChart3,
+    domain: "Data Visualization & Analytics",
+    proof: "8+ dashboards driving executive and regulatory decisions",
+    tools: "Power BI, Tableau, Excel/VBA",
+    context: "Built dashboards for fee transparency compliance, property analytics, and cross-state regulatory reporting. Translated raw SQL outputs into self-service analytics for non-technical stakeholders.",
+    accent: "rose",
+  },
+  {
+    icon: Terminal,
+    domain: "Python & Automation",
+    proof: "79,749 lines → pip-installable framework tested on 51 codebases",
+    tools: "Python, FastAPI, CLI tooling, GitHub Actions",
+    context: "Built the Yaqoobi Framework for AI code governance, automation scripts replacing 104 manual process runs, and backend services for 4 production AI products.",
+    accent: "amber",
+  },
+  {
+    icon: Bot,
+    domain: "AI & Machine Learning",
+    proof: "14 custom ML models + 584-sample research validation",
+    tools: "LLM APIs (Anthropic, OpenAI, Gemini), scikit-learn, PyTorch, pgvector",
+    context: "Designed multi-agent LLM pipeline (MakerMind), 14-model ML architecture (TakveenUp), and published Springer-reviewed research on LLM statistical reliability.",
+    accent: "sky",
+  },
+  {
+    icon: Users,
+    domain: "Methods & Stakeholder Management",
+    proof: "6 enterprise teams coordinated across 4 deployment phases",
+    tools: "Agile/Scrum, Waterfall, SDLC, Azure DevOps, ServiceNow",
+    context: "Author BRDs/FRDs, facilitate requirements workshops, run UAT cycles, and manage cross-functional alignment between CloudOps, SecOps, DevOps, Infrastructure, Legal, and Finance.",
+    accent: "indigo",
+  },
+];
+
+const accentColors: Record<string, { bg: string; border: string; text: string }> = {
+  emerald: { bg: "bg-emerald-500/10", border: "border-emerald-500/30", text: "text-emerald-400" },
+  violet: { bg: "bg-violet-500/10", border: "border-violet-500/30", text: "text-violet-400" },
+  rose: { bg: "bg-rose-500/10", border: "border-rose-500/30", text: "text-rose-400" },
+  amber: { bg: "bg-amber-500/10", border: "border-amber-500/30", text: "text-amber-400" },
+  sky: { bg: "bg-sky-500/10", border: "border-sky-500/30", text: "text-sky-400" },
+  indigo: { bg: "bg-indigo-500/10", border: "border-indigo-500/30", text: "text-indigo-400" },
+};
 
 export const EngineeringFootprint = () => {
-  const { summary, languages, repos, aiMlSkills, devOpsSkills, loading, formatNumber, isLive } = useGitHubAnalytics();
-
-  if (loading) return <LoadingSkeleton />;
-  if (!summary) return null;
-
-  const stats = [
-    { icon: Code2, value: formatNumber(summary.net_lines_of_code), label: "Net LOC", color: "text-primary" },
-    { icon: GitCommit, value: formatNumber(summary.total_commits), label: "Commits", color: "text-accent" },
-    { icon: FolderGit2, value: summary.total_repos.toString(), label: "Repos", color: "text-neon-green" },
-    { icon: TrendingUp, value: "+" + formatNumber(summary.lines_added), label: "Lines Added", color: "text-neon-green" },
-    { icon: Activity, value: summary.most_active_year.toString(), label: "Most Active", color: "text-neon-magenta" },
-    { icon: Calendar, value: summary.languages_count.toString(), label: "Languages", color: "text-neon-yellow" },
-  ];
-
-  const lastUpdated = new Date(summary.last_updated).toLocaleDateString('en-US', {
-    month: 'short', day: 'numeric', year: 'numeric'
-  });
+  const { summary, languages, loading, isLive } = useGitHubAnalytics();
 
   return (
-    <section className="py-20 relative">
+    <section className="py-section relative">
       <div className="container mx-auto px-4">
-        {/* Header */}
+        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          transition={{ duration: 0.5 }}
+          className="mb-14 max-w-6xl mx-auto"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="gradient-text">Engineering Footprint</span>
+          <div className="accent-line mb-5" />
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-100 mb-3">
+            Systems & Implementation
           </h2>
-          <p className="text-muted-foreground text-lg">
-            Live metrics from my GitHub contributions
+          <p className="text-slate-400 text-base max-w-2xl leading-relaxed">
+            Every tool tied to a real outcome. SQL validation engines, cloud migrations,
+            ML architectures, and the frameworks that keep them running.
           </p>
         </motion.div>
 
-        {/* Stats Grid - 6 cards */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-12">
-          {stats.map((stat, index) => {
-            const Icon = stat.icon;
-            return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.05 }}
-                className="border border-primary/30 bg-card/50 backdrop-blur-sm rounded-lg p-4 text-center group hover:border-primary/50 transition-colors"
-              >
-                <Icon className={`w-6 h-6 ${stat.color} mx-auto mb-2`} />
-                <div className={`terminal-font text-xl md:text-2xl font-bold ${stat.color}`}>
-                  {stat.value}
-                </div>
-                <div className="text-xs text-muted-foreground">{stat.label}</div>
-              </motion.div>
-            );
-          })}
-        </div>
-
-        {/* Detected Skills Section */}
-        {(aiMlSkills.length > 0 || devOpsSkills.length > 0) && (
-          <div className="grid md:grid-cols-2 gap-6 mb-8">
-            {/* AI/ML Skills */}
-            {aiMlSkills.length > 0 && (
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="border border-neon-magenta/30 bg-card/50 backdrop-blur-sm rounded-lg p-6"
-              >
-                <div className="flex items-center gap-2 mb-4">
-                  <Brain className="w-5 h-5 text-neon-magenta" />
-                  <h3 className="font-bold text-lg text-foreground">AI & Machine Learning</h3>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {aiMlSkills.map((skill, index) => (
-                    <motion.span
-                      key={skill.name}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.05 }}
-                      className="px-3 py-1.5 rounded-full text-sm font-medium border"
-                      style={{ 
-                        backgroundColor: `${skill.color}20`,
-                        borderColor: `${skill.color}50`,
-                        color: skill.color
-                      }}
-                      title={`Found in: ${skill.repos.join(', ')}`}
-                    >
-                      {skill.name}
-                    </motion.span>
-                  ))}
-                </div>
-                <p className="text-xs text-muted-foreground mt-3">
-                  Detected from {aiMlSkills.reduce((acc, s) => acc + s.repos.length, 0)} repositories
-                </p>
-              </motion.div>
-            )}
-
-            {/* DevOps & Cloud Skills */}
-            {devOpsSkills.length > 0 && (
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="border border-accent/30 bg-card/50 backdrop-blur-sm rounded-lg p-6"
-              >
-                <div className="flex items-center gap-2 mb-4">
-                  <Cloud className="w-5 h-5 text-accent" />
-                  <h3 className="font-bold text-lg text-foreground">DevOps & Cloud</h3>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {devOpsSkills.map((skill, index) => (
-                    <motion.span
-                      key={skill.name}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.05 }}
-                      className="px-3 py-1.5 rounded-full text-sm font-medium border"
-                      style={{ 
-                        backgroundColor: `${skill.color}20`,
-                        borderColor: `${skill.color}50`,
-                        color: skill.color
-                      }}
-                      title={`Found in: ${skill.repos.join(', ')}`}
-                    >
-                      {skill.name}
-                    </motion.span>
-                  ))}
-                </div>
-                <p className="text-xs text-muted-foreground mt-3">
-                  Detected from {devOpsSkills.reduce((acc, s) => acc + s.repos.length, 0)} repositories
-                </p>
-              </motion.div>
-            )}
-          </div>
-        )}
-
-        {/* Two Column Layout */}
-        <div className="grid md:grid-cols-2 gap-6 mb-8">
-          {/* Language Distribution Panel */}
+        <div className="max-w-6xl mx-auto">
+          {/* Live GitHub Strip */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="border border-primary/30 bg-card/50 backdrop-blur-sm rounded-lg p-6"
+            transition={{ duration: 0.5 }}
+            className="glass-card p-5 mb-6"
           >
-            <div className="flex items-center gap-2 mb-6">
-              <Code2 className="w-5 h-5 text-primary" />
-              <h3 className="font-bold text-lg text-foreground">Language Distribution</h3>
-            </div>
-            <div className="space-y-4">
-              {languages.map((lang, index) => (
-                <div key={index}>
-                  <div className="flex justify-between text-sm mb-1">
-                    <span className="text-foreground">{lang.name}</span>
-                    <span className="text-muted-foreground">{lang.percentage}%</span>
-                  </div>
-                  <div className="h-2 bg-background/50 rounded-full overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${lang.percentage}%` }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1, delay: index * 0.1 }}
-                      className="h-full rounded-full"
-                      style={{ backgroundColor: lang.color }}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="flex justify-between items-center mt-6 pt-4 border-t border-primary/20">
-              <span className="text-sm text-muted-foreground">Showing top {languages.length} languages</span>
-              <span className="text-sm font-bold text-primary">Job-relevant only</span>
-            </div>
-          </motion.div>
-
-          {/* Top Repositories Panel */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="border border-primary/30 bg-card/50 backdrop-blur-sm rounded-lg p-6"
-          >
-            <div className="flex items-center gap-2 mb-6">
-              <FolderGit2 className="w-5 h-5 text-accent" />
-              <h3 className="font-bold text-lg text-foreground">Top Repositories</h3>
-            </div>
-            <div className="space-y-3">
-              <div className="grid grid-cols-3 text-xs text-muted-foreground pb-2 border-b border-primary/10">
-                <span>Repository</span>
-                <span className="text-center">LOC</span>
-                <span className="text-right">Stars</span>
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <FolderGit2 className="w-4 h-4 text-slate-500" />
+                <span className="text-sm font-semibold text-slate-300">GitHub</span>
+                {!loading && summary && (
+                  <span className="text-sm text-slate-500">
+                    {summary.total_repos} repositories · {summary.languages_count} languages
+                  </span>
+                )}
               </div>
-              {repos.map((repo, index) => (
-                <a 
-                  key={index} 
-                  href={repo.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="grid grid-cols-3 items-center text-sm py-2 hover:bg-primary/5 rounded px-1 transition-colors"
-                >
-                  <span className="text-foreground truncate">{repo.name}</span>
-                  <span className="text-center text-muted-foreground">{formatNumber(repo.commits)}</span>
-                  <span className="text-right text-neon-yellow">★ {repo.stars}</span>
-                </a>
-              ))}
+              {isLive && (
+                <span className="inline-flex items-center gap-1.5 text-[10px] text-slate-500">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  Live from GitHub API
+                </span>
+              )}
             </div>
-            <div className="flex justify-between items-center mt-6 pt-4 border-t border-primary/20">
-              <span className="text-xs text-muted-foreground">Showing top {repos.length} of {summary.total_repos}</span>
-              <a 
-                href="https://github.com/hadiyaqoobi" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-xs text-primary hover:text-primary/80 flex items-center gap-1"
-              >
-                View all <ExternalLink className="w-3 h-3" />
-              </a>
-            </div>
-          </motion.div>
-        </div>
 
-        {/* Sync Badge */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="flex justify-center"
-        >
-          <div className="inline-flex items-center gap-4 bg-card/30 border border-primary/20 rounded-full px-6 py-2 backdrop-blur-sm">
-            <div className="flex items-center gap-2">
-              <span className="relative flex h-2 w-2">
-                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${isLive ? 'bg-neon-green' : 'bg-neon-yellow'} opacity-75`}></span>
-                <span className={`relative inline-flex rounded-full h-2 w-2 ${isLive ? 'bg-neon-green' : 'bg-neon-yellow'}`}></span>
-              </span>
-              <span className={`text-xs terminal-font ${isLive ? 'text-neon-green' : 'text-neon-yellow'}`}>
-                {isLive ? 'LIVE DATA' : 'CACHED DATA'}
-              </span>
+            {/* Language bar */}
+            {languages.length > 0 && (
+              <>
+                <div className="flex rounded-full overflow-hidden h-2 mb-3">
+                  {languages.slice(0, 6).map((lang, idx) => (
+                    <div
+                      key={idx}
+                      style={{
+                        width: `${lang.percentage}%`,
+                        backgroundColor: lang.color || 'hsl(var(--muted))',
+                      }}
+                      className="transition-all duration-500"
+                      title={`${lang.name}: ${lang.percentage.toFixed(1)}%`}
+                    />
+                  ))}
+                </div>
+                <div className="flex flex-wrap gap-x-4 gap-y-1">
+                  {languages.slice(0, 6).map((lang, idx) => (
+                    <div key={idx} className="flex items-center gap-1.5">
+                      <div
+                        className="w-2 h-2 rounded-full"
+                        style={{ backgroundColor: lang.color || 'hsl(var(--muted))' }}
+                      />
+                      <span className="text-[11px] text-slate-500">
+                        {lang.name}{" "}
+                        <span className="text-slate-400">{lang.percentage.toFixed(1)}%</span>
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+
+            {loading && (
+              <div className="flex items-center gap-2 text-xs text-slate-500">
+                <div className="w-3 h-3 border border-slate-600 border-t-slate-400 rounded-full animate-spin" />
+                Loading from GitHub API...
+              </div>
+            )}
+          </motion.div>
+
+          {/* Capability Stacked List - 2 Columns on Desktop */}
+          <div className="grid md:grid-cols-2 gap-8 mb-8">
+            {/* Left Column */}
+            <div className="space-y-0">
+              {technicalCapabilities.slice(0, 3).map((cap, idx) => {
+                const Icon = cap.icon;
+                const colors = accentColors[cap.accent];
+
+                return (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: idx * 0.08 }}
+                    className="group px-4 py-4 hover:bg-slate-800/30 transition-colors duration-300 border-b border-slate-800 last:border-b-0 cursor-default"
+                  >
+                    {/* Icon + Domain + Proof */}
+                    <div className="flex items-start gap-3 mb-2">
+                      <div className={`w-8 h-8 rounded-lg ${colors.bg} flex items-center justify-center flex-shrink-0`}>
+                        <Icon className={`w-4 h-4 ${colors.text}`} />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-sm font-bold text-slate-100">{cap.domain}</h3>
+                        <p className={`text-xs font-medium ${colors.text} mt-0.5`}>{cap.proof}</p>
+                      </div>
+                    </div>
+
+                    {/* Context + Tools */}
+                    <div className="ml-11">
+                      <p className="text-xs text-slate-500 leading-relaxed mb-1.5">
+                        {cap.context}
+                      </p>
+                      <div className="flex flex-wrap gap-1 text-[10px] text-slate-400">
+                        {cap.tools.split(", ").map((tool, toolIdx) => (
+                          <span key={tool}>
+                            {tool}
+                            {toolIdx < cap.tools.split(", ").length - 1 && <span className="mx-1">·</span>}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
-            <span className="text-xs text-muted-foreground">{lastUpdated}</span>
+
+            {/* Right Column */}
+            <div className="space-y-0">
+              {technicalCapabilities.slice(3, 6).map((cap, idx) => {
+                const Icon = cap.icon;
+                const colors = accentColors[cap.accent];
+                const actualIdx = idx + 3;
+
+                return (
+                  <motion.div
+                    key={actualIdx}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: actualIdx * 0.08 }}
+                    className="group px-4 py-4 hover:bg-slate-800/30 transition-colors duration-300 border-b border-slate-800 last:border-b-0 cursor-default"
+                  >
+                    {/* Icon + Domain + Proof */}
+                    <div className="flex items-start gap-3 mb-2">
+                      <div className={`w-8 h-8 rounded-lg ${colors.bg} flex items-center justify-center flex-shrink-0`}>
+                        <Icon className={`w-4 h-4 ${colors.text}`} />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-sm font-bold text-slate-100">{cap.domain}</h3>
+                        <p className={`text-xs font-medium ${colors.text} mt-0.5`}>{cap.proof}</p>
+                      </div>
+                    </div>
+
+                    {/* Context + Tools */}
+                    <div className="ml-11">
+                      <p className="text-xs text-slate-500 leading-relaxed mb-1.5">
+                        {cap.context}
+                      </p>
+                      <div className="flex flex-wrap gap-1 text-[10px] text-slate-400">
+                        {cap.tools.split(", ").map((tool, toolIdx) => (
+                          <span key={tool}>
+                            {tool}
+                            {toolIdx < cap.tools.split(", ").length - 1 && <span className="mx-1">·</span>}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
-        </motion.div>
+
+          {/* GitHub Link */}
+          <div className="text-center">
+            <a
+              href="https://github.com/Hadiyaqoobi"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-100 transition-colors"
+            >
+              View GitHub Profile
+              <ExternalLink size={14} />
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   );

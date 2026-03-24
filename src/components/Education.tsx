@@ -1,6 +1,6 @@
 import * as React from "react";
 import { motion } from "framer-motion";
-import { GraduationCap, Calendar, BookOpen, ExternalLink } from "lucide-react";
+import { GraduationCap, ExternalLink, Award, Clock } from "lucide-react";
 import { portfolioData } from "@/data/portfolio-data";
 import {
   Dialog,
@@ -25,157 +25,108 @@ interface EducationEntry {
   credentials?: Credential[];
 }
 
+const accentByIndex: Record<number, { border: string; bg: string; text: string; dot: string }> = {
+  0: { border: "border-sky-500/30", bg: "bg-sky-500/10", text: "text-sky-400", dot: "bg-sky-400" },
+  1: { border: "border-violet-500/30", bg: "bg-violet-500/10", text: "text-violet-400", dot: "bg-violet-400" },
+  2: { border: "border-emerald-500/30", bg: "bg-emerald-500/10", text: "text-emerald-400", dot: "bg-emerald-400" },
+  3: { border: "border-amber-500/30", bg: "bg-amber-500/10", text: "text-amber-400", dot: "bg-amber-400" },
+};
+
 export const Education = () => {
   const [selectedEducation, setSelectedEducation] = React.useState<EducationEntry | null>(null);
 
   return (
-    <section id="education" className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section id="education" className="relative py-24 overflow-hidden">
+      <div className="container mx-auto px-4">
       {/* Section Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="max-w-6xl mx-auto mb-16 text-center"
+        className="max-w-6xl mx-auto mb-14"
       >
-        <div className="inline-flex items-center gap-3 mb-4">
-          <motion.div
-            animate={{ rotate: [0, 360] }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          >
-            <GraduationCap className="w-8 h-8 text-primary" />
-          </motion.div>
-          <h2 className="text-4xl md:text-5xl font-bold">
-            <span className="gradient-text">Education</span>
-          </h2>
-        </div>
-        <p className="text-muted-foreground text-lg">
-          Academic Foundation & Continuous Learning
+        <div className="accent-line mb-5" />
+        <h2 className="text-3xl md:text-4xl font-bold text-slate-100 mb-3">
+          Education
+        </h2>
+        <p className="text-slate-400 text-base max-w-2xl leading-relaxed">
+          Aviation Management taught me how complex organizations operate. Data Analytics
+          taught me how to measure what's broken. Cornell is teaching me how to build
+          what comes next.
         </p>
       </motion.div>
 
       {/* Education Cards */}
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {(portfolioData.education as EducationEntry[]).map((edu, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            whileHover={{ scale: 1.02, y: -5 }}
-            className="group relative"
-          >
-            {/* Card Container */}
-            <div className="relative h-full bg-card/50 backdrop-blur-sm border border-border/50 rounded-lg p-6 overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(34,211,238,0.15)] flex flex-col">
-              {/* Corner Brackets */}
-              <div className="absolute top-2 left-2 text-primary/40 text-2xl font-mono transition-all duration-300 group-hover:text-primary">
-                &lt;
-              </div>
-              <div className="absolute top-2 right-2 text-primary/40 text-2xl font-mono transition-all duration-300 group-hover:text-primary">
-                /&gt;
-              </div>
+      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-5">
+        {(portfolioData.education as EducationEntry[]).map((edu, index) => {
+          const accent = accentByIndex[index] || accentByIndex[0];
+          const isInProgress = edu.year.includes("Present");
 
-              {/* University Logo */}
-              <motion.div
-                className="mb-6 flex justify-center"
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                transition={{ duration: 0.3 }}
-              >
-                <div className="relative w-32 h-20 flex items-center justify-center bg-background/80 rounded-lg border border-border/30 p-3">
+          return (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: index * 0.08 }}
+              className={`glass-card p-6 border ${accent.border} ${accent.bg} transition-all duration-300 hover:border-slate-600`}
+            >
+              {/* Header: Logo + Degree */}
+              <div className="flex items-start gap-4 mb-4">
+                <div className="w-12 h-12 rounded-xl bg-slate-800/50 border border-slate-700 flex items-center justify-center flex-shrink-0 overflow-hidden p-1.5">
                   <img
                     src={edu.logo}
                     alt={edu.institution}
-                    className="w-full h-full object-contain opacity-90 group-hover:opacity-100 transition-opacity"
+                    className="w-full h-full object-contain opacity-100"
                   />
-                  {/* Glow effect */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-accent/0 group-hover:from-primary/10 group-hover:to-accent/10 rounded-lg transition-all duration-300" />
                 </div>
-              </motion.div>
-
-              {/* Degree Title */}
-              <h3 className="text-xl font-bold mb-2 text-foreground group-hover:text-primary transition-colors">
-                {edu.degree}
-              </h3>
-
-              {/* Field of Study */}
-              <div className="flex items-start gap-2 mb-3">
-                <BookOpen className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
-                <p className="text-base font-medium text-muted-foreground">
-                  {edu.field}
-                </p>
-              </div>
-
-              {/* Institution */}
-              <p className="text-sm text-muted-foreground mb-3 font-medium">
-                {edu.institution}
-              </p>
-
-              {/* Year */}
-              <div className="flex items-center gap-2 mb-4">
-                <Calendar className="w-4 h-4 text-accent" />
-                <span className="text-sm text-muted-foreground">{edu.year}</span>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className={`text-xs font-mono font-medium ${accent.text}`}>{edu.year}</span>
+                    {isInProgress && (
+                      <span className={`inline-flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded-full ${accent.bg} ${accent.text} border ${accent.border}`}>
+                        <Clock className="w-2.5 h-2.5" />
+                        In Progress
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="text-base font-semibold text-slate-100 leading-tight">{edu.degree}</h3>
+                  <p className="text-sm text-slate-500 mt-0.5">{edu.field}</p>
+                  <p className="text-xs text-slate-500 mt-0.5">{edu.institution}</p>
+                </div>
               </div>
 
               {/* Description */}
-              <p className="text-sm text-muted-foreground/80 leading-relaxed mb-4 flex-grow">
+              <p className="text-xs text-slate-400 leading-relaxed mb-4">
                 {edu.description}
               </p>
 
-              {/* Honors & Achievements */}
+              {/* Honors */}
               {edu.honors && edu.honors.length > 0 && (
-                <div className="mt-4 pt-4 border-t border-border/30">
-                  <h4 className="text-xs font-semibold text-primary mb-2 flex items-center gap-2">
-                    <span className="inline-block w-1 h-1 bg-primary rounded-full"></span>
-                    HONORS & ACHIEVEMENTS
-                  </h4>
-                  <ul className="space-y-1.5">
-                    {edu.honors.map((honor, idx) => (
-                      <motion.li
-                        key={idx}
-                        initial={{ opacity: 0, x: -10 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: idx * 0.1 }}
-                        className="text-xs text-muted-foreground/90 flex items-start gap-2"
-                      >
-                        <span className="text-accent mt-0.5">▸</span>
-                        <span>{honor}</span>
-                      </motion.li>
-                    ))}
-                  </ul>
+                <div className="space-y-1.5 mb-4">
+                  {edu.honors.map((honor, idx) => (
+                    <div key={idx} className="flex items-start gap-2">
+                      <Award className={`w-3 h-3 mt-0.5 flex-shrink-0 ${accent.text}`} />
+                      <span className="text-[11px] text-slate-500">{honor}</span>
+                    </div>
+                  ))}
                 </div>
               )}
 
-              {/* View Credentials Link */}
+              {/* View Credentials */}
               {edu.credentials && edu.credentials.length > 0 && (
                 <button
                   onClick={() => setSelectedEducation(edu)}
-                  className="mt-4 text-sm text-primary hover:text-primary/80 inline-flex items-center gap-1 transition-colors group/link"
+                  className={`text-xs ${accent.text} opacity-70 hover:opacity-100 inline-flex items-center gap-1.5 transition-all`}
                 >
                   View Credentials
-                  <ExternalLink className="w-3 h-3 group-hover/link:translate-x-0.5 transition-transform" />
+                  <ExternalLink className="w-3 h-3" />
                 </button>
               )}
-
-              {/* Scan Line Effect */}
-              <motion.div
-                className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 group-hover:opacity-100"
-                animate={{
-                  y: [0, 300],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-              />
-
-              {/* Bottom Accent Line */}
-              <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-accent group-hover:w-full transition-all duration-500" />
-            </div>
-          </motion.div>
-        ))}
+            </motion.div>
+          );
+        })}
       </div>
 
       {/* Credentials Modal */}
@@ -188,7 +139,7 @@ export const Education = () => {
             </DialogTitle>
             <p className="text-muted-foreground">{selectedEducation?.institution}</p>
           </DialogHeader>
-          
+
           <div className="space-y-6 mt-4">
             {selectedEducation?.credentials?.map((credential, idx) => (
               <div key={idx} className="border border-border/50 rounded-lg overflow-hidden bg-card/30">
@@ -218,20 +169,7 @@ export const Education = () => {
           </div>
         </DialogContent>
       </Dialog>
-
-      {/* Background Accent */}
-      <motion.div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] pointer-events-none"
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.3, 0.5, 0.3],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
+      </div>
     </section>
   );
 };

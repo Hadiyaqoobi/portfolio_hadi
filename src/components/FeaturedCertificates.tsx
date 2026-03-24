@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Award, ArrowRight, Star } from "lucide-react";
+import { ArrowRight, Star } from "lucide-react";
 import { Link } from "react-router-dom";
 import { CertificateCard } from "./CertificateCard";
 import { getFeaturedCertificates } from "@/data/certificates";
@@ -11,43 +11,23 @@ export const FeaturedCertificates = () => {
   if (featuredCerts.length === 0) return null;
 
   return (
-    <section id="certificates" className="py-20 px-4 sm:px-6 lg:px-8 relative">
-      <div className="max-w-7xl mx-auto">
+    <section id="certificates" className="py-20 relative">
+      <div className="container mx-auto px-4">
+        <div className="max-w-6xl mx-auto">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="mb-14"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 mb-4">
-            <Award className="w-4 h-4 text-primary" />
-            <span className="text-xs font-mono text-primary uppercase tracking-wider">
-              Core Certifications
-            </span>
-          </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Featured <span className="text-gradient">Credentials</span>
+          <div className="accent-line mb-5" />
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-100 mb-3">
+            Featured Credentials
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Degree-level technical education from world-class institutions — not random online courses, 
-            but a coherent learning path aligned with Data Science, Systems Analysis, and IT roles.
+          <p className="text-slate-400 text-base max-w-2xl leading-relaxed">
+            Degree-level technical education from world-class institutions — a coherent learning path aligned with Data Science, Systems Analysis, and IT roles.
           </p>
-        </motion.div>
-
-        {/* Featured badge explanation */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex justify-center mb-8"
-        >
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-yellow-500/10 border border-yellow-500/30">
-            <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
-            <span className="text-xs text-yellow-500/90">
-              These certifications define my core technical foundation
-            </span>
-          </div>
         </motion.div>
 
         {/* Certificate grid */}
@@ -96,6 +76,7 @@ export const FeaturedCertificates = () => {
             </Button>
           </Link>
         </motion.div>
+        </div>
       </div>
     </section>
   );

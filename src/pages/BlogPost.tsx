@@ -122,14 +122,14 @@ const BlogPost = () => {
             <Card className="relative overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm">
               {/* Animated gradient background */}
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
-              
+
               {/* Scan line effect */}
               <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent animate-scan" />
 
               <div className="relative p-8 md:p-12">
                 {/* Header */}
                 <div className="mb-8 pb-8 border-b border-border/50">
-                  <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4 gradient-text">
+                  <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
                     {post.title}
                   </h1>
 

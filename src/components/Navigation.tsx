@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, FileDown } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 const navItems = [
   { label: "Home", href: "/" },
-  { label: "Career Timeline", href: "/timeline" },
+  { label: "About", href: "/about" },
+  { label: "Career", href: "/timeline" },
+  { label: "Projects", href: "/projects" },
   { label: "Education", href: "/education" },
-  { label: "Beyond Work", href: "/beyond-work" },
-  { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -18,126 +18,119 @@ export const Navigation = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Prevent body scroll when menu is open
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
   }, [isOpen]);
 
-  // Close menu on route change
-  useEffect(() => {
-    setIsOpen(false);
-  }, [location.pathname]);
+  useEffect(() => { setIsOpen(false); }, [location.pathname]);
 
   return (
     <>
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled ? "bg-background/80 backdrop-blur-lg border-b border-primary/20" : "bg-transparent"
-        }`}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
+          ? "bg-[#0F172A]/80 backdrop-blur-xl border-b border-slate-700/50 shadow-lg shadow-black/10"
+          : "bg-transparent"
+          }`}
       >
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <Link to="/">
-              <motion.div
-                className="text-xl font-bold terminal-font gradient-text cursor-pointer"
-                whileHover={{ scale: 1.05 }}
-              >
-                MHY.sys
-              </motion.div>
+              <span className="text-lg font-bold text-slate-100 tracking-tight">
+                Hadi Yaqoobi
+              </span>
             </Link>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-8">
+            {/* Desktop */}
+            <div className="hidden md:flex items-center gap-7">
               {navItems.map((item) => (
                 <Link
                   key={item.label}
                   to={item.href}
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors relative group"
+                  className={`text-sm transition-colors relative py-1 ${location.pathname === item.href
+                    ? "text-slate-100 font-medium"
+                    : "text-slate-400 hover:text-slate-200"
+                    }`}
                 >
                   {item.label}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+                  {location.pathname === item.href && (
+                    <motion.div
+                      layoutId="nav-active"
+                      className="absolute -bottom-0.5 left-0 right-0 h-[2px] bg-[#3B82F6] rounded-full"
+                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    />
+                  )}
                 </Link>
               ))}
+
+              <div className="ml-2 pl-4 border-l border-slate-700">
+                <a
+                  href="/resume.pdf"
+                  download
+                  className="btn-outline text-xs px-3.5 py-1.5 rounded-lg flex items-center gap-1.5 font-medium"
+                >
+                  <FileDown size={14} />
+                  Resume
+                </a>
+              </div>
             </div>
 
-            {/* Mobile Menu Button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden text-primary p-2 -mr-2"
-              aria-label={isOpen ? "Close menu" : "Open menu"}
+              className="md:hidden text-slate-200 p-2"
+              aria-label="Menu"
             >
-              <Menu size={28} />
+              <Menu size={24} />
             </button>
           </div>
         </div>
       </motion.nav>
 
-      {/* Mobile Navigation - Full Screen Overlay */}
+      {/* Mobile */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, x: "-100%" }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: "-100%" }}
-            transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
-            className="fixed inset-0 z-[100] md:hidden"
-            style={{ backgroundColor: "#0f0f1a" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] md:hidden bg-[#0F172A]"
           >
-            {/* Close Button */}
             <button
               onClick={() => setIsOpen(false)}
-              className="absolute top-6 right-6 text-primary p-3 hover:bg-primary/10 rounded-lg transition-colors"
-              aria-label="Close menu"
+              className="absolute top-6 right-6 text-slate-200 p-3"
+              aria-label="Close"
             >
-              <X size={32} />
+              <X size={28} />
             </button>
 
-            {/* Menu Items - Centered */}
-            <div className="flex flex-col items-center justify-center h-full gap-2">
+            <div className="flex flex-col items-center justify-center h-full gap-3">
               {navItems.map((item, index) => (
                 <motion.div
                   key={item.label}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  transition={{ delay: index * 0.07 }}
                 >
                   <Link
                     to={item.href}
                     onClick={() => setIsOpen(false)}
-                    className={`block py-4 px-8 text-2xl font-medium transition-colors ${
-                      location.pathname === item.href
-                        ? "text-primary"
-                        : "text-muted-foreground hover:text-primary"
-                    }`}
+                    className={`block py-3 px-8 text-2xl font-medium ${location.pathname === item.href
+                      ? "text-slate-100"
+                      : "text-slate-400 hover:text-slate-200"
+                      }`}
                   >
                     {item.label}
                   </Link>
                 </motion.div>
               ))}
-            </div>
-
-            {/* Bottom Accent */}
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
-              <div className="text-sm text-muted-foreground/50 terminal-font">
-                MHY.sys
-              </div>
             </div>
           </motion.div>
         )}

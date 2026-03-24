@@ -13,7 +13,7 @@ const Index = () => {
     <div className="relative min-h-screen">
       <Background />
       <Navigation />
-      
+
       <main className="relative z-10">
         <Hero />
         <ImpactResults />

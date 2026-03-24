@@ -207,7 +207,7 @@ export default function Certificates() {
             className="mb-12 p-6 rounded-lg bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 border border-primary/20"
           >
             <p className="text-center text-muted-foreground italic">
-              "This is not random online learning — this is a coherent, degree-level technical 
+              "This is not random online learning. This is a coherent, degree-level technical
               education path aligned with IT Business & Systems Analysis, Data Science, and Product roles."
             </p>
           </motion.div>

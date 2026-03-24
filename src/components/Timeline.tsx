@@ -1,67 +1,81 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Clock, Briefcase, GraduationCap, MapPin } from "lucide-react";
+import { Briefcase, GraduationCap, MapPin, Plane, Award } from "lucide-react";
 import { portfolioData } from "@/data/portfolio-data";
 
-const getIcon = (type: string) => {
-  switch (type) {
-    case "current":
-      return Briefcase;
-    case "education":
-      return GraduationCap;
-    case "milestone":
-      return MapPin;
-    default:
-      return Clock;
-  }
+const categoryAccents: Record<string, { border: string; borderLeft: string; bg: string; text: string; dot: string }> = {
+  enterprise: {
+    border: "border-emerald-500/30",
+    borderLeft: "border-l-emerald-400",
+    bg: "bg-emerald-500/10",
+    text: "text-emerald-400",
+    dot: "bg-emerald-400",
+  },
+  rnd: {
+    border: "border-violet-500/30",
+    borderLeft: "border-l-violet-400",
+    bg: "bg-violet-500/10",
+    text: "text-violet-400",
+    dot: "bg-violet-400",
+  },
+  consulting: {
+    border: "border-amber-500/30",
+    borderLeft: "border-l-amber-400",
+    bg: "bg-amber-500/10",
+    text: "text-amber-400",
+    dot: "bg-amber-400",
+  },
+  education: {
+    border: "border-sky-500/30",
+    borderLeft: "border-l-sky-400",
+    bg: "bg-sky-500/10",
+    text: "text-sky-400",
+    dot: "bg-sky-400",
+  },
+  default: {
+    border: "border-slate-700",
+    borderLeft: "border-l-slate-600",
+    bg: "bg-slate-800/50",
+    text: "text-slate-400",
+    dot: "bg-slate-400",
+  },
+};
+
+const getAccent = (item: any) => {
+  if (item.type === "education") return categoryAccents.education;
+  return categoryAccents[item.category] || categoryAccents.default;
 };
 
 export const Timeline = () => {
   const { timeline } = portfolioData;
 
   return (
-    <section id="timeline" className="py-16 relative">
+    <section id="timeline" className="py-24 relative">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="max-w-5xl mx-auto mb-14"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-3">
-            <span className="gradient-text">Career Timeline</span>
+          <div className="accent-line mb-5" />
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-100 mb-3">
+            Career Journey
           </h2>
-          <p className="text-muted-foreground text-lg">
-            The evolution of my skills and experience
+          <p className="text-slate-400 text-base max-w-2xl leading-relaxed">
+            From Afghanistan to Turkey to the United States. Every role shaped how I
+            gather requirements, build systems, and deliver outcomes.
           </p>
         </motion.div>
 
         <div className="relative max-w-5xl mx-auto">
-          {/* Timeline line */}
-          <motion.div 
-            className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-primary/50 to-primary/20"
-            initial={{ scaleY: 0 }}
-            whileInView={{ scaleY: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
-            style={{ transformOrigin: "top" }}
-          />
+          {/* Vertical timeline line */}
+          <div className="absolute left-[19px] top-0 bottom-0 w-px bg-gradient-to-b from-slate-600 via-slate-700 to-transparent" />
 
-          <div className="space-y-6 relative z-10">
-            {timeline.map((item, index) => {
-              const Icon = getIcon(item.type);
-              const isEven = index % 2 === 0;
-
-              return (
-                <TimelineItem
-                  key={index}
-                  item={item}
-                  Icon={Icon}
-                  isEven={isEven}
-                  index={index}
-                />
-              );
-            })}
+          <div className="space-y-2">
+            {timeline.map((item: any, index: number) => (
+              <TimelineEntry key={index} item={item} index={index} />
+            ))}
           </div>
         </div>
       </div>
@@ -69,164 +83,112 @@ export const Timeline = () => {
   );
 };
 
-const TimelineItem = ({
-  item,
-  Icon,
-  isEven,
-  index,
-}: {
-  item: any;
-  Icon: any;
-  isEven: boolean;
-  index: number;
-}) => {
+const TimelineEntry = ({ item, index }: { item: any; index: number }) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const isInView = useInView(ref, { once: true, margin: "-30px" });
+  const accent = getAccent(item);
   const isCurrent = item.type === "current";
   const isEducation = item.type === "education";
-  const isMilestone = item.type === "milestone";
-
-  // Milestone entry - smaller, subtle
-  if (isMilestone) {
-    return (
-      <motion.div
-        ref={ref}
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={isInView ? { opacity: 1, scale: 1 } : {}}
-        transition={{ duration: 0.4, delay: index * 0.1 }}
-        className={`relative flex flex-col lg:flex-row gap-4 lg:gap-8 ${isEven ? "lg:flex-row-reverse" : ""}`}
-      >
-        <div className="flex-1">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/30">
-            <MapPin className="text-accent" size={16} />
-            <span className="text-sm font-medium text-accent">{item.year}</span>
-            <span className="text-sm text-muted-foreground">·</span>
-            <span className="text-sm text-foreground/80">{item.title}</span>
-          </div>
-        </div>
-
-        {/* Center dot */}
-        <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 z-20">
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={isInView ? { scale: 1 } : {}}
-            transition={{ delay: 0.1 }}
-            className="w-3 h-3 rounded-full border-2 border-accent bg-accent/50"
-          />
-        </div>
-
-        <div className="flex-1 hidden lg:block" />
-      </motion.div>
-    );
-  }
+  const Icon = isEducation ? GraduationCap : Briefcase;
 
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, x: isEven ? -30 : 30 }}
-      animate={isInView ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      className={`relative flex flex-col lg:flex-row gap-4 lg:gap-8 ${isEven ? "lg:flex-row-reverse" : ""}`}
-    >
-      {/* Content Card - always left aligned */}
-      <div className="flex-1">
+    <>
+      {/* Transition / career break marker */}
+      {item.transition && (
         <motion.div
-          whileHover={{ scale: 1.01 }}
-          transition={{ duration: 0.2 }}
-          className={`border rounded-lg p-5 relative overflow-hidden ${
-            isCurrent 
-              ? "border-primary/50 bg-primary/5" 
-              : isEducation
-                ? "border-accent/40 bg-accent/5"
-                : "border-border/50 bg-card/30"
-          }`}
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.4 }}
+          className="relative flex gap-4 py-2"
         >
-          <div className="relative z-10">
-            {/* Year badge */}
-            <div className="inline-flex items-center gap-2 mb-3">
-              <Icon className={
-                isCurrent ? "text-primary" : isEducation ? "text-accent" : "text-muted-foreground"
-              } size={18} />
-              <span className={`text-sm font-mono ${
-                isCurrent ? "text-primary font-semibold" : isEducation ? "text-accent font-semibold" : "text-muted-foreground"
-              }`}>
-                {item.year}
-              </span>
-              {isCurrent && (
-                <span className="text-xs bg-primary/20 text-primary px-2 py-0.5 rounded-full font-medium">
-                  Current
-                </span>
-              )}
-              {isEducation && (
-                <span className="text-xs bg-accent/20 text-accent px-2 py-0.5 rounded-full font-medium">
-                  Education
-                </span>
-              )}
+          <div className="flex-shrink-0 w-[38px] flex justify-center pt-1 relative z-10">
+            <div className="w-6 h-6 rounded-full bg-transparent border border-dashed border-slate-600 flex items-center justify-center">
+              <Plane className="w-3 h-3 text-slate-500 rotate-[-45deg]" />
             </div>
-
-            <h3 className="text-xl font-bold mb-1 text-foreground">
-              {item.title}
-            </h3>
-            
-            {item.company && (
-              <p className={`text-sm mb-3 ${isEducation ? "text-accent/80" : "text-primary/80"}`}>
-                {item.company} {item.location && `· ${item.location}`}
-              </p>
-            )}
-
-            {/* Skills as pills */}
-            {item.skills && item.skills.length > 0 && (
-              <div className="flex flex-wrap gap-1.5 mb-3">
-                {item.skills.slice(0, 6).map((skill: string, idx: number) => (
-                  <span 
-                    key={idx}
-                    className="text-xs px-2 py-0.5 rounded-full bg-muted/50 text-muted-foreground border border-border/50"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            )}
-
-            {/* Highlights */}
-            {item.highlights && item.highlights.length > 0 && (
-              <ul className="space-y-1.5">
-                {item.highlights.slice(0, 5).map((highlight: string, idx: number) => (
-                  <motion.li
-                    key={idx}
-                    initial={{ opacity: 0 }}
-                    animate={isInView ? { opacity: 1 } : {}}
-                    transition={{ delay: 0.2 + idx * 0.05 }}
-                    className="flex items-start gap-2 text-sm text-foreground/80"
-                  >
-                    <span className={isCurrent ? "text-primary" : isEducation ? "text-accent" : "text-primary"} style={{ marginTop: '2px', flexShrink: 0 }}>▸</span>
-                    <span>{highlight}</span>
-                  </motion.li>
-                ))}
-              </ul>
-            )}
+          </div>
+          <div className="flex-1 flex items-center">
+            <div className="flex items-center gap-3 text-[11px] text-slate-500 font-medium border-b border-dashed border-slate-700 pb-2 flex-1">
+              <span>{item.transition}</span>
+            </div>
           </div>
         </motion.div>
-      </div>
+      )}
 
-      {/* Center dot */}
-      <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 z-20">
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={isInView ? { scale: 1 } : {}}
-          transition={{ delay: 0.1 }}
-          className={`w-4 h-4 rounded-full border-2 ${
-            isCurrent 
-              ? "border-primary bg-primary" 
-              : isEducation
-                ? "border-accent bg-accent"
-                : "border-muted-foreground/50 bg-background"
-          }`}
-        />
-      </div>
+      <motion.div
+        ref={ref}
+        initial={{ opacity: 0, y: 15 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.4, delay: index * 0.05 }}
+        className="relative flex gap-4"
+      >
+        {/* Timeline dot */}
+        <div className="flex-shrink-0 w-[38px] flex justify-center pt-5 relative z-10">
+          <div className={`w-2.5 h-2.5 rounded-full ${accent.dot} ${isCurrent ? "ring-4 ring-blue-500/20" : ""}`} />
+        </div>
 
-      {/* Spacer for the other side */}
-      <div className="flex-1 hidden lg:block" />
-    </motion.div>
+        {/* Card */}
+        <div className={`flex-1 border-l-2 ${accent.borderLeft} pl-5 py-4 mb-1 transition-all duration-300`}>
+          {/* Header */}
+          <div className="flex flex-wrap items-center gap-2 mb-2">
+            <span className={`text-xs font-mono font-medium ${accent.text}`}>{item.year}</span>
+            {isCurrent && (
+              <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${accent.bg} ${accent.text} border ${accent.border}`}>
+                Current
+              </span>
+            )}
+            {isEducation && (
+              <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/30">
+                Education
+              </span>
+            )}
+          </div>
+
+          <div className="flex items-start gap-2.5 mb-1">
+            <Icon className={`w-4 h-4 mt-0.5 flex-shrink-0 ${accent.text}`} />
+            <div>
+              <h3 className="text-base font-semibold text-slate-100 leading-tight">{item.title}</h3>
+              {item.company && (
+                <p className="text-sm text-slate-500 mt-0.5">
+                  {item.company}
+                  {item.location && <span className="text-slate-500"> · {item.location}</span>}
+                </p>
+              )}
+            </div>
+          </div>
+
+          {/* Skills tags */}
+          {item.skills && item.skills.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 mt-3 mb-3">
+              {item.skills.map((skill: string, idx: number) => (
+                <span
+                  key={idx}
+                  className="text-[10px] px-2 py-0.5 rounded-full border border-slate-700 text-slate-400 bg-slate-800/50"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          )}
+
+          {/* Highlights */}
+          {item.highlights && item.highlights.length > 0 && (
+            <div className="space-y-2 mt-3">
+              {item.highlights.map((highlight: string, idx: number) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0 }}
+                  animate={isInView ? { opacity: 1 } : {}}
+                  transition={{ delay: 0.15 + idx * 0.05 }}
+                  className="flex items-start gap-2"
+                >
+                  <span className={`mt-1.5 w-1 h-1 rounded-full flex-shrink-0 ${accent.dot}`} />
+                  <span className="text-xs text-slate-500 leading-relaxed">{highlight}</span>
+                </motion.div>
+              ))}
+            </div>
+          )}
+        </div>
+      </motion.div>
+    </>
   );
 };

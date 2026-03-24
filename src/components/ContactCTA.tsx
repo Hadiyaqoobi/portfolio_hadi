@@ -1,56 +1,54 @@
 import { motion } from "framer-motion";
-import { Mail, Linkedin } from "lucide-react";
-import { Button } from "./ui/button";
+import { Mail, ArrowRight } from "lucide-react";
 import { portfolioData } from "@/data/portfolio-data";
 
 export const ContactCTA = () => {
   const { personal } = portfolioData;
 
   return (
-    <section className="py-20 relative">
+    <section className="py-section-xl relative">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center max-w-2xl mx-auto"
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-xl mx-auto"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Let's <span className="gradient-text">Connect</span>
+          <h2 className="text-3xl md:text-5xl font-bold text-slate-100 mb-5 tracking-tight">
+            Let's Talk
           </h2>
-          <p className="text-muted-foreground text-lg mb-8">
-            Open to IT BSA, Product Analyst, and PM opportunities — and always happy to connect. 
-            Whether it's coffee, a hike, or a Zoom call, don't be a stranger.
+          <p className="text-slate-400 text-base mb-10 leading-relaxed">
+            I've led cloud migrations for 135K+ accounts, built AI products from scratch,
+            and shipped SQL validation engines across multi-state regulatory deadlines.
+            I'm looking for a team that needs someone who can own the full lifecycle,
+            from requirements gathering to production deployment.
           </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button
-                asChild
-                size="lg"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 border-glow-cyan gap-2"
-              >
-                <a href={`mailto:${personal.email}`}>
-                  <Mail size={18} />
-                  Send Email
-                </a>
-              </Button>
-            </motion.div>
-            
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="border-primary/50 text-foreground hover:bg-primary/10 gap-2"
-              >
-                <a href={personal.linkedin} target="_blank" rel="noopener noreferrer">
-                  <Linkedin size={18} />
-                  LinkedIn
-                </a>
-              </Button>
-            </motion.div>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a
+              href={`mailto:${personal.email}`}
+              className="btn-primary inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-xl font-medium"
+            >
+              <Mail size={18} />
+              Send Email
+              <ArrowRight size={16} />
+            </a>
+
+            <a
+              href={personal.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-slate-500 hover:text-slate-100 transition-colors"
+            >
+              or connect on LinkedIn →
+            </a>
           </div>
+
+          {/* Work authorization — subtle, at the bottom */}
+          <p className="text-xs text-slate-600 mt-16">
+            🇺🇸 Green Card Holder · No Sponsorship Required
+          </p>
         </motion.div>
       </div>
     </section>
