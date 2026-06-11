@@ -75,7 +75,7 @@ export const EngineeringFootprint = () => {
   const { summary, languages, loading, isLive } = useGitHubAnalytics();
 
   return (
-    <section className="py-section relative">
+    <section id="systems" className="py-section relative">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <motion.div
