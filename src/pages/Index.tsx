@@ -7,6 +7,7 @@ import { ImpactResults } from "@/components/ImpactResults";
 import { HowIWork } from "@/components/HowIWork";
 import { ProjectsSection } from "@/components/ProjectsSection";
 import { SkillMapTeaser } from "@/components/SkillMapTeaser";
+import { SystemsTeaser } from "@/components/SystemsTeaser";
 import ResearchPublications from "@/components/ResearchPublications";
 import { EngineeringFootprint } from "@/components/EngineeringFootprint";
 import { ContactCTA } from "@/components/ContactCTA";
@@ -34,6 +35,7 @@ const Index = () => {
         <SkillMapTeaser />
         <ResearchPublications />
         <EngineeringFootprint />
+        <SystemsTeaser />
         <ContactCTA />
       </main>
     </div>
