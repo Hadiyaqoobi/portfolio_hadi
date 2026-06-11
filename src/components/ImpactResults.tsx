@@ -106,7 +106,7 @@ export const ImpactResults = () => {
       icon: Zap,
       outcome: "Python & Process Automation",
       metric: { value: 104, suffix: " manual runs → 0", duration: 1.8 },
-      how: "SQL stored procedure automated EQR's weekly delinquency campaign, eliminating 104 manual query runs per year. Built a 79,749-line Python governance framework tested against 51 open-source codebases (49% fewer issues in disciplined repos).",
+      how: "SQL stored procedure automated EQR's weekly delinquency campaign, eliminating 104 manual query runs per year. Built Python pipelines that generate synthetic training data and run automated leakage checks before every model training cycle.",
       scope: "Equity Residential · ConnectionHub · Nexuss Science",
       accentColor: "amber" as const,
       span: "md:col-span-2",

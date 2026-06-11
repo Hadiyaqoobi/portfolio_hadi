@@ -67,7 +67,7 @@ const phases = [
       },
       {
         context: "Hybrid (R&D)",
-        detail: "Requirements defined up front, execution in iterative cycles. 4 AI products shipped this way at Nexuss Science, including a 79,749-line Python framework.",
+        detail: "Requirements defined up front, execution in iterative cycles. One product live and three in active development at Nexuss Science, plus five ML models trained the same way.",
       },
     ],
     accentColor: "hsl(38 80% 60%)",

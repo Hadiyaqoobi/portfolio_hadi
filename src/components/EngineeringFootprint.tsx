@@ -39,9 +39,9 @@ const technicalCapabilities = [
   {
     icon: Terminal,
     domain: "Python & Automation",
-    proof: "79,749 lines → pip-installable framework tested on 51 codebases",
-    tools: "Python, FastAPI, CLI tooling, GitHub Actions",
-    context: "Built the Yaqoobi Framework for AI code governance, automation scripts replacing 104 manual process runs, and backend services for 4 production AI products.",
+    proof: "Synthetic data and training pipelines behind 5 trained ML models",
+    tools: "Python, PyTorch, FastAPI, Optuna",
+    context: "Built the Python pipelines behind TakveenUp: synthetic data generation with a multi-gate quality protocol, FastAPI services with three-level fallback chains, and automated leakage detection that blocks training on contaminated data.",
     accent: "amber",
   },
   {
