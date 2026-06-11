@@ -26,7 +26,7 @@ export const FeaturedCertificates = () => {
             Featured Credentials
           </h2>
           <p className="text-slate-400 text-base max-w-2xl leading-relaxed">
-            Degree-level technical education from world-class institutions — a coherent learning path aligned with Data Science, Systems Analysis, and IT roles.
+            Degree-level technical education from world-class institutions: a coherent learning path aligned with Data Science, Systems Analysis, and IT roles.
           </p>
         </motion.div>
 

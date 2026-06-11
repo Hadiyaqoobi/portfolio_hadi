@@ -34,7 +34,7 @@ const phases = [
     icon: PenTool,
     step: "02",
     title: "Define the Solution",
-    subtitle: "I choose the documentation depth based on the stakes. Regulatory compliance gets a 42,000-word spec. An MVP gets user stories.",
+    subtitle: "I choose the documentation depth based on the stakes. Regulatory compliance gets a full specification with audit trails. An MVP gets user stories.",
     approaches: [
       {
         context: "When regulations drive the timeline",
@@ -67,7 +67,7 @@ const phases = [
       },
       {
         context: "Hybrid (R&D)",
-        detail: "Requirements defined up front, execution in iterative cycles. 4 AI products shipped this way at Nexuss Science, including a 79,749-line Python framework.",
+        detail: "Requirements defined up front, execution in iterative cycles. One product live and three in active development at Nexuss Science, plus five ML models trained the same way.",
       },
     ],
     accentColor: "hsl(38 80% 60%)",
@@ -84,7 +84,7 @@ const phases = [
       },
       {
         context: "Dashboards and Analytics",
-        detail: "8 Tableau dashboards built on Snowflake star schema. Board used them to track growth to 9,447 learning hours. Predictive models with R-squared 0.811.",
+        detail: "The metrics dashboard the board used to track growth to 9,447 learning hours. Predictive models with R-squared 0.811 on 10,600+ property transactions.",
       },
       {
         context: "Post-Deployment",
@@ -111,7 +111,7 @@ export const HowIWork = () => {
             How I Work
           </h2>
           <p className="text-slate-400 text-base max-w-lg">
-            I adapt the approach to the problem. Agile, Waterfall, or hybrid — the methodology follows the constraints, not the other way around.
+            I adapt the approach to the problem. Agile, Waterfall, or hybrid: the methodology follows the constraints, not the other way around.
           </p>
         </motion.div>
 

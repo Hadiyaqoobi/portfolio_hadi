@@ -1,17 +1,17 @@
 export const portfolioData = {
   personal: {
     name: "M. Hadi Yaqoobi",
-    title: "IT Business Systems Analyst & AI Product Builder",
-    subtitle: "At Equity Residential, an 80,000-unit S&P 500 REIT, I was the person between the marketing team and the dev team. My job: make sure the technology actually solves the business problem. That meant writing SQL four hours a day, pushing an Azure authentication migration through six teams who each owned a piece of the puzzle, and making sure nothing broke when it went live. Nothing did.",
+    title: "AI Solutions Architect & Business Systems Analyst",
+    subtitle: "At Equity Residential, an S&P 500 REIT with 85,000+ apartments, I was the analyst between Marketing and engineering. I coordinated an Azure AD B2C migration for 135,000+ accounts across six teams. Zero critical incidents. Now I run Nexuss Science, my applied R&D startup, and lead technology at AHRC.",
     location: "Boston, MA (Green Card Holder)",
     focus: ["Requirements Analysis & Documentation", "Systems Integration & Azure", "SQL & Data Validation", "Cross-Functional Stakeholder Management", "Enterprise SDLC & Agile"],
     email: "hyaqoobi@bu.edu",
-    linkedin: "https://www.linkedin.com/in/hadi-y-509439215/",
+    linkedin: "https://www.linkedin.com/in/m-hadi-y-509439215/",
   },
 
   about: {
-    description: `I'm an IT Business Systems Analyst who's been the end user. At Equity Residential, an 80,000-unit S&P 500 REIT, I was the person between the business team and the dev team in the Marketing Technology Division. That meant writing SQL four hours a day, pushing an Azure B2C migration through six cross-functional teams (135,000+ accounts, zero incidents), authoring 5 Functional Requirements Documents for fee transparency compliance, and building validation matrices that check 960+ data points per property.\n\nBefore that, I spent 20 months as a Sales Consultant at the same company. So when I moved into the BSA role, I already knew where the systems failed because I'd felt every friction point firsthand.\n\nBefore Equity, I built education technology platforms serving 1,182 refugees across five countries. Zero budget, free-tier infrastructure, volunteer teams.\n\nI'm now building AI products at Nexuss Science and completing Cornell's AI360 certificate. My research on LLM reliability is under peer review at Springer. I think in systems. I build within constraints. And I'm always on both sides of the problem.`,
-    education: "MS Management Studies (Data Analytics, STEM) · Cornell AI360 Certificate · NYU Computer Science",
+    description: `I build and ship platforms. First at an early-stage ed-tech company, shipping a greenfield platform to production in five countries on free-tier infrastructure. Then at Equity Residential, an S&P 500 REIT with 85,000+ apartments, where I coordinated an Azure AD B2C migration for 135,000+ accounts (six teams, four phases, zero critical incidents), wrote T-SQL daily across five database environments, and shipped a production stored procedure myself when the dev team had no bandwidth.\n\nIn July 2025 I left to run Nexuss Science full-time: an applied R&D lab where I pick problems current tools cannot solve and engineer through them. One product live (AlphaSeekers), three in active development, five production ML models trained, and research on LLM reliability under peer review at Springer's Empirical Software Engineering.\n\nI am also technology lead at the Afghanistan Human Rights Center, where I built the organization's infrastructure from nothing and authored the board-approved hybrid LLM architecture for an AI monitoring system, now in build.\n\nI grew up a refugee. That is my engineering edge: I learned to solve problems with whatever existed, question every assumption, and build for people who cannot afford failures. Constraints read to me as design parameters, not blockers.`,
+    education: "MS Management Studies (Data Analytics, STEM) · Cornell AI 360, completed 2026 · NYU Computer Science",
     interests: ["Requirements Analysis", "Systems Integration", "Data Validation", "Process Improvement", "Cross-Functional Stakeholder Management"],
   },
 
@@ -41,11 +41,11 @@ export const portfolioData = {
       field: "Artificial Intelligence & Machine Learning",
       institution: "Cornell University",
       logo: "/logos/cornell.png",
-      year: "2025 – Present",
-      description: "15.5-month professional certificate covering machine learning, neural networks, NLP, prompt engineering, and business AI applications. Hands-on projects with Python, NumPy, and real-world datasets.",
+      year: "2025 – 2026",
+      description: "Completed May 2026. 24-course professional certificate across machine learning, neural networks, NLP, and business AI, plus three stacked Cornell certificates: Designing and Building AI Solutions, NLP With Python, and Data Science. Hands-on projects in Python, NumPy, and R.",
       honors: [
-        "Neural Network Housing Price Prediction (IEEE Paper)",
-        "Data Analytics & Decision Modeling",
+        "Completed AI 360 + Data Science + NLP + AI Solutions certificates (2026)",
+        "Neural network housing-price prediction in R/H2O with LIME (IEEE-format paper, R2 = 0.811)",
       ],
     },
     {
@@ -77,8 +77,8 @@ export const portfolioData = {
   timeline: [
     {
       year: "2025 – Present",
-      title: "Technical Project Lead",
-      company: "Afghanistan Human Rights Center (AHRC)",
+      title: "Business Systems Manager & Technology Lead",
+      company: "AHRC",
       location: "Remote (Pro Bono)",
       skills: ["Requirements Gathering", "Gap Analysis", "AI Architecture", "ICC Standards"],
       highlights: [
@@ -97,7 +97,7 @@ export const portfolioData = {
       location: "Remote",
       skills: ["AI Strategy", "Machine Learning", "Project Management"],
       highlights: [
-        "Cornell AI360: 16 of 24 courses completed, covering ML fundamentals, NLP, computer vision, and AI ethics",
+        "Cornell AI 360: completed May 2026 (24 courses), plus Data Science, NLP With Python, and Designing & Building AI Solutions certificates",
         "PMP certification in progress",
       ],
       type: "education",
@@ -109,10 +109,10 @@ export const portfolioData = {
       location: "Boston, MA",
       skills: ["Python", "PyTorch", "XLM-RoBERTa", "LightGBM", "TypeScript", "React", "LLM APIs"],
       highlights: [
-        "Personally trained 5 production ML models: ROE-ResumeNER (XLM-RoBERTa NER, F1=0.7476), ROE-Embed (multilingual occupational matching, 24/25 codes correct), ROE-WhisperDari (LoRA fine-tuned Dari ASR), ROE-Match (LightGBM retention predictor), and a fairness-aware wage prediction model",
-        "Architected 4 AI-native products from requirements to production: a multi-agent LLM pipeline (MakerMind), a 14-model ML workforce platform (TakveenUp), an education platform serving 500 students (AlphaSeekers), and a 127K-line interactive Python learning system",
-        "Built the Yaqoobi Framework (79,749 lines Python, pip-installable) to govern AI coding agent quality, testing it against 51 open-source projects and finding 49% fewer issues in codebases with contract discipline",
-        "Authored 42,000-word BRD/FRD for AlphaSeekers, specifying dual data stores, three-channel notifications with circuit breakers, and AES-256 encryption for constrained 2G network environments",
+        "Trained 5 production ML models in PyTorch: ROE-ResumeNER (XLM-RoBERTa NER, F1 0.55 to 0.7476 over five cycles), ROE-Embed (multilingual matching, 24/25 codes), ROE-WhisperDari (LoRA fine-tuned Dari ASR), ROE-Match (calibrated LightGBM with leakage detection), and a fairness-aware wage model (Fairlearn)",
+        "One product live: AlphaSeekers (190+ registered users, 20 live classes, RAG study assistant on pgvector + Groq with measured 89% retrieval precision). Three in active development: TakveenUp (multilingual workforce matching), MakerMind (multi-agent LLM hardware education, 69K lines TypeScript), and TakvenOps (AI-native project management)",
+        "Sole-author research on LLM-as-annotator reliability (90.3% false discovery rate across 584 transcripts), under peer review at Springer's Empirical Software Engineering",
+        "Authored the full BRD/FRD and technical book for AlphaSeekers: dual data stores, three-channel notifications with circuit breakers, and AES-256 encryption designed for 2G network environments",
       ],
       type: "current",
       category: "rnd",
@@ -167,7 +167,7 @@ export const portfolioData = {
       location: "Santa Clara, CA",
       skills: ["Excel/VBA", "Operations", "Cross-functional Coordination"],
       highlights: [
-        "Won Leasing Consultant of the Year by maintaining 95% on-time move-in rate during a $2M capital renovation across 400+ units, designing custom Excel/VBA tracking systems that identified 47 cross-platform listing discrepancies before they impacted residents",
+        "Won Leasing Consultant of the Year while managing leasing through a $2M renovation and new-construction program across 400+ units, and was deployed by regional management as a troubleshooter to underperforming Bay Area properties",
         "Managed two simultaneous construction programs (200 renovations + 200 new units) with two resident populations, two pricing tiers, and two timelines while maintaining operational continuity",
         "Built VBA automation to track lease expirations by building, construction timelines across 10 buildings, and short-term unit availability, filling operational gaps that MRI alone could not provide",
       ],
@@ -182,8 +182,8 @@ export const portfolioData = {
       location: "Istanbul, Turkey (Remote)",
       skills: ["SQL", "Python", "Snowflake", "Tableau", "SDLC"],
       highlights: [
-        "Tripled student enrollment by building a Python automation that cut verification from 14 days to 48 hours, while leading a 15-person team through full SDLC delivery of two education platforms serving 1,182 students across 5 countries",
-        "Engineered Snowflake data warehouse with star schema (3 fact tables, 8 dimension tables, SCD Type 2) and 8 Tableau dashboards that the board used to track growth to 9,447 learning hours",
+        "Recruited by the CEO to lead the Turkey expansion: field research, board approval, then a 14-person team plus 13 city coordinators shipping a greenfield platform for ~200 users, within an organization that reached 1,182 students across 5 countries",
+        "Owned 5 production web properties and the metrics dashboard the CEO used for board reporting, tracking growth to 9,447 learning hours; implemented Salesforce CRM with structured import pipelines and deduplication",
         "Designed integration architecture across 6 systems (PostgreSQL, Snowflake, Salesforce, Mailchimp, Google Analytics, Zoom), mapping data flows and sync frequencies for each integration point",
         "Authored BRDs/FRDs with full technical depth including user personas with device specs (Samsung Galaxy A03, 2GB RAM, 0.8 Mbps 3G) and non-functional requirements (page load <3s on 500Kbps)",
       ],
@@ -246,7 +246,7 @@ export const portfolioData = {
         "LightGBM, XGBoost, scikit-learn",
         "LLM APIs (Anthropic, OpenAI, Gemini)",
         "Synthetic Data Generation, LoRA Fine-Tuning",
-        "Cornell AI360 (16/24 courses)",
+        "Cornell AI 360 (completed 2026)",
       ],
     },
     {
@@ -291,7 +291,7 @@ export const portfolioData = {
     },
     {
       title: "MakerMind: Plain English to Working Arduino Firmware",
-      description: "Turning natural language into compiled microcontroller code required solving a coordination problem: no single LLM could plan, code, and validate reliably. I architected a 4-stage pipeline where Claude plans, GPT-4 codes, Gemini validates, and a patch engine applies changes. The Guardian safety engine (5,531 lines) checks every output against electrical, logical, and physical rules before anything reaches hardware. Wrote all requirements and directed AI coding agents under strict constraints.",
+      description: "Turning natural language into compiled microcontroller code required solving a coordination problem: no single LLM could plan, code, and validate reliably. I designed a 4-stage pipeline where Claude plans, GPT-4 codes, Gemini validates, and a patch engine applies changes. The Guardian safety engine (5,531 lines) checks every output against electrical, logical, and physical rules before anything reaches hardware. Wrote all requirements and directed AI coding agents under strict constraints.",
       tech: ["TypeScript", "React", "Node.js", "Claude API", "GPT-4", "Gemini API"],
       tags: ["AI Architecture", "Multi-Agent LLM", "Requirements Engineering"],
       highlights: [],
@@ -302,8 +302,8 @@ export const portfolioData = {
       company: "Nexuss Science (Applied R&D Lab)",
     },
     {
-      title: "TakveenUp: 14-Model ML Platform for Refugee Workforce Matching",
-      description: "Refugees need jobs but can't navigate traditional hiring systems. I designed an ML architecture with 14 custom models and personally trained 5 production models from scratch: ROE-ResumeNER (XLM-RoBERTa, F1=0.7476), ROE-Embed (multilingual-e5-large, 24/25 occupational codes correct), ROE-WhisperDari (LoRA fine-tuned Whisper for Afghan Dari), ROE-Match (LightGBM 90-day retention predictor with Bayesian optimization), and a hybrid JD Parser (Regex + GLiNER + LLM verification). Every model has a 3-level fallback chain (custom model, API, rules) so the system never fails silently. Authored 34 user stories across 11 epics and the full BRD with per-model AI specifications.",
+      title: "TakveenUp: Multilingual Workforce-Matching Platform (5 Models Trained, In Development)",
+      description: "Skilled multilingual workers cannot get past keyword ATS systems. I designed the ML architecture and personally trained 5 production models from scratch: ROE-ResumeNER (XLM-RoBERTa, F1=0.7476), ROE-Embed (multilingual-e5-large, 24/25 occupational codes correct), ROE-WhisperDari (LoRA fine-tuned Whisper for Afghan Dari), ROE-Match (LightGBM 90-day retention predictor with Bayesian optimization), and a hybrid JD Parser (Regex + GLiNER + LLM verification). Every model has a 3-level fallback chain (custom model, API, rules) so the system never fails silently. Authored 34 user stories across 11 epics and the full BRD with per-model AI specifications.",
       tech: ["Python", "PyTorch", "XLM-RoBERTa", "LightGBM", "FastAPI", "PostgreSQL", "pgvector", "Redis", "React"],
       tags: ["ML Architecture", "Model Training", "5 Custom Models", "NLP"],
       highlights: [],
@@ -351,7 +351,7 @@ export const portfolioData = {
     },
     {
       title: "ROE-Match: 90-Day Job Retention Predictor (LightGBM + Bayesian Optimization)",
-      description: "Designed and trained a LightGBM binary classifier predicting 90-day refugee job retention using 22 base features plus 8 engineered interaction effects across 6 dimensions: skill overlap, semantic similarity, geographic accessibility, temporal compatibility, credential requirements, and physical demands. Applied monotonic constraints on 16 features based on refugee employment research, Bayesian hyperparameter optimization (Optuna, 100 trials), and domain constraints including 13-mile commute thresholds and co-ethnic density effects. Targeting AUC of 0.95+.",
+      description: "Designed and trained a LightGBM binary classifier predicting 90-day refugee job retention using 22 base features plus 8 engineered interaction effects across 6 dimensions: skill overlap, semantic similarity, geographic accessibility, temporal compatibility, credential requirements, and physical demands. Applied monotonic constraints on 16 features based on refugee employment research, Bayesian hyperparameter optimization (Optuna, 100 trials), and domain constraints including 13-mile commute thresholds and co-ethnic density effects. Validated on synthetic data with bootstrapped confidence intervals; real pilot data is the next milestone.",
       tech: ["Python", "LightGBM", "Optuna", "scikit-learn", "Feature Engineering"],
       tags: ["Model Training", "Classification", "Bayesian Optimization", "Fairness"],
       highlights: [],
@@ -374,25 +374,13 @@ export const portfolioData = {
       company: "Nexuss Science (Applied R&D Lab)",
     },
     {
-      title: "AlphaSeekers: 500 Students, 28 Classes, $0/Month Infrastructure",
-      description: "Afghan internet costs $5 per gigabyte on 2G networks. That constraint shaped every architectural decision: dual data store with in-memory fallback for outages, three-channel notifications with circuit breakers (WhatsApp, Email, Platform), presigned URL uploads to bypass serverless timeouts, AES-256-CBC encrypted phone numbers, and a bilingual RTL/LTR interface in Dari and English. I wrote a 42,000-word BRD/FRD before the first line of code. The platform now serves 500 students across 28 live classes at zero infrastructure cost.",
+      title: "AlphaSeekers: Live Education Platform on $0/Month Infrastructure",
+      description: "Afghan internet costs $5 per gigabyte on 2G networks. That constraint shaped every architectural decision: dual data store with in-memory fallback for outages, three-channel notifications with circuit breakers (WhatsApp, Email, Platform), presigned URL uploads to bypass serverless timeouts, AES-256-CBC encrypted phone numbers, and a bilingual RTL/LTR interface in Dari and English. I wrote the full BRD/FRD and technical book before the first line of code. The platform is live with 190+ registered users across 20 classes at zero infrastructure cost.",
       tech: ["TypeScript", "React", "Prisma", "Cloudflare R2", "WhatsApp API"],
       tags: ["Product Architecture", "Constraint-Driven", "BRD/FRD Authoring"],
       highlights: [],
       github: null,
       demo: "https://alphaseekers.onrender.com/en",
-      featured: true,
-      category: "rnd",
-      company: "Nexuss Science (Applied R&D Lab)",
-    },
-    {
-      title: "Yaqoobi Framework: 49% Fewer Code Issues Across 51 Codebases",
-      description: "AI coding agents write fast but undisciplined code. Building MakerMind taught me this the hard way: the AI would fix one thing and silently break another. I built a governance framework to solve it: 79,749 lines of Python, pip-installable, with 6 rules (Contracts First, Loud Errors, Config as Code, Proof Required, Atomic Commits, Session Handoff). Scans Python, TypeScript, and Go codebases, generates a Yaqoobi Score (0-100), and integrates with GitHub Actions. Tested against 51 open-source projects: codebases with contract discipline had 49% fewer issues.",
-      tech: ["Python", "CLI", "GitHub Actions", "SARIF"],
-      tags: ["AI Governance", "Open Source", "Quality Engineering"],
-      highlights: [],
-      github: "https://github.com/Hadiyaqoobi",
-      demo: null,
       featured: true,
       category: "rnd",
       company: "Nexuss Science (Applied R&D Lab)",
@@ -410,10 +398,10 @@ export const portfolioData = {
       company: "AHRC (Pro Bono)",
     },
     {
-      title: "ConnectionHub: Tripled Enrollment Across 5 Countries",
-      description: "1,182 refugees needed access to education but a 14-day manual verification process was killing enrollment. I led a 15-person team through the full SDLC, built ETL pipelines into a Snowflake star schema (3 fact tables, 8 dimension tables, SCD Type 2), created 8 Tableau dashboards the board used to track 9,447 learning hours, and wrote a Python automation that cut verification to 48 hours. Enrollment tripled. Two platforms delivered: YOS exam prep in Turkey and Coursera pathways in Greece.",
-      tech: ["SQL", "Python", "Snowflake", "Tableau", "Figma"],
-      tags: ["IT BSA", "ETL & Data Engineering", "Team Leadership"],
+      title: "ConnectionHub: A Greenfield Education Platform on Free-Tier Infrastructure",
+      description: "The CEO recruited me to lead ConnectionHub's Turkey expansion on zero budget. I ran the field research, won board approval, then led a 14-person team plus 13 city coordinators to ship a greenfield platform to about 200 refugee students preparing for university entrance exams. I authored every BRD and FRD, designed the PostgreSQL data model, implemented Salesforce CRM with structured import pipelines and deduplication, and owned the metrics dashboard the CEO used for board reporting. The platform ran inside an organization that reached 1,182 students and 9,447 learning hours across 5 countries by the end of 2021, all on a 15-tool free-tier stack.",
+      tech: ["PostgreSQL", "SQL", "Snowflake", "Salesforce", "Figma"],
+      tags: ["IT BSA", "Requirements Engineering", "Team Leadership"],
       highlights: [],
       github: null,
       demo: null,
@@ -434,7 +422,7 @@ export const portfolioData = {
     },
     {
       title: "Presidential Speech Similarity via RAKE Keyword Extraction",
-      description: "Built an NLP system to quantify thematic overlap across 59 U.S. presidential inaugural addresses (1789–2021). Implemented RAKE keyword extraction to identify weighted keyphrases per speech, computed pairwise similarity scores from shared keyword analysis, and built a corpus-wide ranking system. The pipeline processes 119,141 unique n-grams and surfaces which historical speeches share the closest rhetorical DNA — all without training data.",
+      description: "Built an NLP system to quantify thematic overlap across 59 U.S. presidential inaugural addresses (1789–2021). Implemented RAKE keyword extraction to identify weighted keyphrases per speech, computed pairwise similarity scores from shared keyword analysis, and built a corpus-wide ranking system. The pipeline processes 119,141 unique n-grams and surfaces which historical speeches share the closest rhetorical DNA, all without training data.",
       tech: ["Python", "NLTK", "RAKE", "NumPy", "Matplotlib"],
       tags: ["NLP", "Information Retrieval", "Cornell AI360"],
       highlights: [],
@@ -446,7 +434,7 @@ export const portfolioData = {
     },
     {
       title: "Topic Discovery in Presidential Speeches Using LDA",
-      description: "Applied unsupervised machine learning to discover hidden thematic structure in 59 presidential inaugural addresses. Built a TF-IDF document-term matrix (59 rows × 119,141 columns, 97.8% sparse) and trained a Latent Dirichlet Allocation model that automatically identified 10 latent topics — from constitutional governance to global affairs — revealing how presidential rhetoric evolved across 230 years of American history.",
+      description: "Applied unsupervised machine learning to discover hidden thematic structure in 59 presidential inaugural addresses. Built a TF-IDF document-term matrix (59 rows × 119,141 columns, 97.8% sparse) and trained a Latent Dirichlet Allocation model that automatically identified 10 latent topics, from constitutional governance to global affairs, revealing how presidential rhetoric evolved across 230 years of American history.",
       tech: ["Python", "scikit-learn", "LDA", "TF-IDF", "Matplotlib"],
       tags: ["Unsupervised ML", "NLP", "Cornell AI360"],
       highlights: [],
@@ -470,7 +458,7 @@ export const portfolioData = {
     },
     {
       title: "Urban Traffic Congestion Clustering: 101 U.S. Cities",
-      description: "Applied agglomerative hierarchical clustering (Ward's method, Euclidean distance) to 101 U.S. urban areas using 14 traffic congestion variables from the Texas Transportation Institute dataset. Identified 4 well-separated clusters organizing cities along a congestion severity spectrum — from small low-congestion cities to severely congested major metros — with implications for infrastructure investment prioritization and transportation policy.",
+      description: "Applied agglomerative hierarchical clustering (Ward's method, Euclidean distance) to 101 U.S. urban areas using 14 traffic congestion variables from the Texas Transportation Institute dataset. Identified 4 well-separated clusters organizing cities along a congestion severity spectrum, from small low-congestion cities to severely congested major metros, with implications for infrastructure investment prioritization and transportation policy.",
       tech: ["R", "Hierarchical Clustering", "Ward's Method", "Dendrogram", "ggplot2"],
       tags: ["Unsupervised ML", "Cluster Analysis", "Cornell AI360"],
       highlights: [],
@@ -493,8 +481,8 @@ export const portfolioData = {
       company: "Cornell AI360",
     },
     {
-      title: "Interactive 3D Python Learning: 127K Lines, Zero Install Required",
-      description: "Students need to understand how computers work, not just how to code. I built 30 chapters with 25 Three.js 3D visualizations covering CPU execution, memory allocation, stack vs. heap, and compiler pipelines. In-browser Python execution runs on Pyodide (WebAssembly) so students don't install anything. 127,847 lines of code. Curriculum based on MIT 6.0001 and Andrew Ng's ML Specialization.",
+      title: "Interactive 3D Python Learning: Zero Install Required",
+      description: "Students need to understand how computers work, not just how to code. I built 30 chapters with 25 Three.js 3D visualizations covering CPU execution, memory allocation, stack vs. heap, and compiler pipelines. In-browser Python execution runs on Pyodide (WebAssembly) so students don't install anything. Curriculum based on MIT 6.0001 and Andrew Ng's ML Specialization.",
       tech: ["TypeScript", "React", "Three.js", "Pyodide", "Prisma"],
       tags: ["EdTech", "3D Visualization", "Curriculum Design"],
       highlights: [],

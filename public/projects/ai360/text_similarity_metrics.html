@@ -1,0 +1,69 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Text Similarity Metrics · Cornell AI 360 · M. Hadi Yaqoobi</title>
+<style>
+body{background:#0F172A;color:#E2E8F0;font-family:ui-sans-serif,Inter,system-ui,sans-serif;margin:0;line-height:1.6}
+.wrap{max-width:900px;margin:0 auto;padding:40px 24px 80px}
+h1{font-size:28px;letter-spacing:-.02em;margin:0 0 6px}
+.badge{color:#7dd3fc;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.note{background:#1E293B;border:1px solid #334155;border-radius:10px;padding:14px 16px;color:#94A3B8;font-size:13px;margin:18px 0 28px}
+.cell{margin:0 0 18px}
+pre{font-family:ui-monospace,Menlo,Monaco,monospace;font-size:13px;background:#1E293B;border:1px solid #334155;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:0}
+pre.in{border-left:3px solid #3B82F6}
+pre.out{background:#0b1120;color:#9fb3d1;border-left:3px solid #475569;margin-top:6px}
+img{max-width:100%;background:#fff;border-radius:8px;margin-top:8px}
+a{color:#60A5FA}
+.foot{color:#475569;font-size:12px;margin-top:40px;border-top:1px solid #1e293b;padding-top:16px}
+</style></head><body><div class="wrap">
+<div class="badge">&#9650; Cornell AI 360 coursework</div>
+<h1>Text Similarity Metrics</h1>
+<div class="note">Executed notebook by M. Hadi Yaqoobi. eCornell course prompts and unit-test
+scaffolding have been removed; what remains is the implementation code and its outputs.</div>
+<div class="cell"><pre class="in">LsObama9    = nltk.corpus.inaugural.words(&#x27;2009-Obama.txt&#x27;) # Text of Pres Obama&#x27;s inaugural speech of 2009
+LsObama13   = nltk.corpus.inaugural.words(&#x27;2013-Obama.txt&#x27;) # Text of Pres Obama&#x27;s inaugural speech of 2013
+SsStopwords = set(nltk.corpus.stopwords.words(&#x27;english&#x27;))   # list of common English stop words 
+SsPunct     = set(string.punctuation)                       # English punctuation symbols
+print(LsObama9[:15])</pre><pre class="out">[&#x27;My&#x27;, &#x27;fellow&#x27;, &#x27;citizens&#x27;, &#x27;:&#x27;, &#x27;I&#x27;, &#x27;stand&#x27;, &#x27;here&#x27;, &#x27;today&#x27;, &#x27;humbled&#x27;, &#x27;by&#x27;, &#x27;the&#x27;, &#x27;task&#x27;, &#x27;before&#x27;, &#x27;us&#x27;, &#x27;,&#x27;]
+</pre></div>
+<div class="cell"><pre class="in">def JS(A=set(&#x27;ABC&#x27;), B=set(&#x27;ABCD&#x27;), Lower=False, Stop=SsStopwords, Punct=SsPunct):
+    a, b = set(A), set(B)
+    if Lower: a, b = {w.lower() for w in a}, {w.lower() for w in b}
+    if Stop:  a, b = a - set(Stop), b - set(Stop)
+    if Punct: a, b = a - set(Punct), b - set(Punct)
+    js = 0 if len(a | b) == 0 else len(a &amp; b) / len(a | b)
+    return js</pre></div>
+<div class="cell"><pre class="in">def JS_Speech(SsQry=LsObama9, Lower=True, Stop=SsStopwords, Punct=SsPunct):
+    rows = [] 
+    for fid in nltk.corpus.inaugural.fileids():
+        words = nltk.corpus.inaugural.words(fid)
+        score = JS(SsQry, words, Lower=Lower, Stop=Stop, Punct=Punct)
+        rows.append({&#x27;fid&#x27;: fid.replace(&#x27;.txt&#x27;, &#x27;&#x27;), &#x27;JS&#x27;: score})
+    df = pd.DataFrame(rows).set_index(&#x27;fid&#x27;).sort_values(&#x27;JS&#x27;, ascending=False)
+    return df</pre></div>
+<div class="cell"><pre class="in"># Hamming distance UDF
+HD = lambda s1=&#x27;ab&#x27;, s2=&#x27;ad&#x27;: sum(ch1 != ch2 for ch1, ch2 in zip(s1, s2)) if len(s1)==len(s2) else np.inf
+
+def GenSeq(nLen=10, seed=int(0), LsElements=list(&#x27;ACGT&#x27;)):
+    &#x27;&#x27;&#x27;Generate a list of sampled nLen objects listed in LsElements&#x27;&#x27;&#x27;
+    if isinstance(seed, int):        # only integers &gt;=0 are used for seeding
+        np.random.seed(abs(seed))      # seed random number generator (RNG) if integer seed is provided
+    return &#x27;&#x27;.join(np.random.choice(LsElements, nLen, replace=True))
+
+GenDNA = lambda nLen=5, seed=0: GenSeq(nLen, seed, list(&#x27;ACGT&#x27;))
+sQry = GenDNA(100, seed=0)
+sTgt = GenDNA(200, seed=1)</pre></div>
+<div class="cell"><pre class="in">def Marker(sQry=&#x27;ACGG&#x27;, sTgt=&#x27;ACGT&#x27;):
+    if len(sQry) != len(sTgt):
+        return &#x27;&#x27;
+    sOut = &#x27;&#x27;.join(&#x27;_&#x27; if q == t else t for q, t in zip(sQry, sTgt))
+    return sOut</pre></div>
+<div class="cell"><pre class="in">def RankHD(sQry=&#x27;ACGT&#x27;, sTgt=&#x27;ACTGTCT&#x27;):
+    N = len(sQry)
+    rows = []
+    for i in range(len(sTgt) - N + 1):
+        sample = sTgt[i:i+N]
+        rows.append({&#x27;HD&#x27;: HD(sQry, sample), &#x27;Sample&#x27;: Marker(sample, sQry)})  # sample first, sQry second
+    df = pd.DataFrame(rows, columns=[&#x27;HD&#x27;, &#x27;Sample&#x27;]).sort_values(&#x27;HD&#x27;).reset_index(drop=True)
+    return df</pre></div>
+<div class="foot">Cornell AI 360 &middot; NLP With Python &middot; rendered from the executed notebook.</div>
+</div></body></html>

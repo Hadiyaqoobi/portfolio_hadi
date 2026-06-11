@@ -1,0 +1,125 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Measuring Vector Similarity · Cornell AI 360 · M. Hadi Yaqoobi</title>
+<style>
+body{background:#0F172A;color:#E2E8F0;font-family:ui-sans-serif,Inter,system-ui,sans-serif;margin:0;line-height:1.6}
+.wrap{max-width:900px;margin:0 auto;padding:40px 24px 80px}
+h1{font-size:28px;letter-spacing:-.02em;margin:0 0 6px}
+.badge{color:#7dd3fc;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.note{background:#1E293B;border:1px solid #334155;border-radius:10px;padding:14px 16px;color:#94A3B8;font-size:13px;margin:18px 0 28px}
+.cell{margin:0 0 18px}
+pre{font-family:ui-monospace,Menlo,Monaco,monospace;font-size:13px;background:#1E293B;border:1px solid #334155;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:0}
+pre.in{border-left:3px solid #3B82F6}
+pre.out{background:#0b1120;color:#9fb3d1;border-left:3px solid #475569;margin-top:6px}
+img{max-width:100%;background:#fff;border-radius:8px;margin-top:8px}
+a{color:#60A5FA}
+.foot{color:#475569;font-size:12px;margin-top:40px;border-top:1px solid #1e293b;padding-top:16px}
+</style></head><body><div class="wrap">
+<div class="badge">&#9650; Cornell AI 360 coursework</div>
+<h1>Measuring Vector Similarity</h1>
+<div class="note">Executed notebook by M. Hadi Yaqoobi. eCornell course prompts and unit-test
+scaffolding have been removed; what remains is the implementation code and its outputs.</div>
+<div class="cell"><pre class="in">def LCV(wv, LsWords=[&#x27;NLP&#x27;,&#x27;is&#x27;,&#x27;fun&#x27;,&#x27;!&#x27;]) -&gt; [str]:
+    out = []
+    for word in LsWords:
+        w_lower = str(word).lower()
+        if w_lower in wv:
+            out.append(w_lower)
+    return out</pre></div>
+<div class="cell"><pre class="in">def DV(wv, LsWords=[&#x27;I&#x27;,&#x27;like&#x27;,&#x27;nlp&#x27;]) -&gt; np.array([]):
+    if isinstance(LsWords, str):
+        LsWords = nltk.word_tokenize(LsWords)
+    lcv_words = LCV(wv, LsWords)
+    if len(lcv_words) == 0:
+        return np.zeros(wv.vector_size)
+    vectors = [wv[w] for w in lcv_words]
+    return np.mean(vectors, axis=0)</pre></div>
+<div class="cell"><pre class="in">def TopWords(wv, LsWords=[&#x27;super&#x27;,&#x27;cow&#x27;,&#x27;now&#x27;], n=1) -&gt; [(str, float)]:
+    lcv_words = LCV(wv, LsWords)
+    if len(lcv_words) == 0:
+        return None
+    unique_words = []
+    seen = set()
+    for w in lcv_words:
+        if w not in seen:
+            unique_words.append(w)
+            seen.add(w)
+    doc_vec = DV(wv, LsWords)
+    similarities = []
+    for word in unique_words:
+        word_vec = wv[word]
+        sim = 1 - cosine(word_vec, doc_vec)
+        similarities.append((word, sim))
+    similarities.sort(key=lambda x: -x[1])
+    return similarities[:n]</pre></div>
+<div class="cell"><pre class="in">def NN0(wv, LsWords=[&#x27;Cat&#x27;,&#x27;in&#x27;,&#x27;the&#x27;,&#x27;hat&#x27;]) -&gt; (str, float):
+    lcv_words = LCV(wv, LsWords)
+    if len(lcv_words) == 0:
+        return None
+    min_norm = float(&#x27;inf&#x27;)
+    best_word = None
+    for word in lcv_words:
+        word_vec = wv[word]
+        word_norm = norm(word_vec)
+        if word_norm &lt; min_norm:
+            min_norm = word_norm
+            best_word = word
+    return (best_word, min_norm)</pre></div>
+<div class="cell"><pre class="in">def NN_Pres(wv, sQryFID=&#x27;1945-Roosevelt.txt&#x27;, LvCorpusFID=[&#x27;1865-Lincoln.txt&#x27;,&#x27;1905-Roosevelt.txt&#x27;]) -&gt; (str, float):
+    try:
+        query_words = nltk.corpus.inaugural.words(sQryFID)
+    except:
+        return None
+    query_vec = DV(wv, list(query_words))
+    if np.all(query_vec == 0):
+        return None
+    corpus_fids = [fid for fid in LvCorpusFID if fid != sQryFID]
+    if len(corpus_fids) == 0:
+        return None
+    max_sim = -1
+    best_fid = None
+    for fid in corpus_fids:
+        try:
+            doc_words = nltk.corpus.inaugural.words(fid)
+            doc_vec = DV(wv, list(doc_words))
+            if np.all(doc_vec == 0):
+                continue
+            sim = 1 - cosine(query_vec, doc_vec)
+            if sim &gt; max_sim:
+                max_sim = sim
+                best_fid = fid
+        except:
+            continue
+    if best_fid is None:
+        return None
+    return (best_fid, max_sim)</pre></div>
+<div class="cell"><pre class="in">def CumMean(x=np.array([0,1,2])) -&gt; np.array([float]):
+    if len(x) == 0:
+        return np.array([])
+    cumsum = np.cumsum(x)
+    indices = np.arange(1, len(x) + 1)
+    return cumsum / indices</pre></div>
+<div class="cell"><pre class="in">def PickPosValues(wv, LsWords=[&#x27;NLP&#x27;,&#x27;is&#x27;], nPos=0) -&gt; [float]:
+    lcv_words = LCV(wv, LsWords)
+    if len(lcv_words) == 0:
+        return []
+    out = []
+    for word in lcv_words:
+        word_vec = wv[word]
+        out.append(word_vec[nPos])
+    return out</pre></div>
+<div class="cell"><pre class="in">def CumMeanInPos(wv, LsWords=[&#x27;Hi&#x27;,&#x27;from&#x27;,&#x27;Mars&#x27;,&#x27;!&#x27;], nPos=0, nSkip=50) -&gt; np.array([float]):
+    pos_values = PickPosValues(wv, LsWords, nPos)
+    if len(pos_values) == 0:
+        return np.array([])
+    cum_mean = CumMean(np.array(pos_values))
+    if nSkip &gt;= len(cum_mean):
+        return np.array([])
+    return cum_mean[nSkip:]</pre></div>
+<div class="cell"><pre class="in">nDim = 2
+LTsLongestSpeeches = sorted([(fid, len(nltk.corpus.inaugural.words(fid))) for fid in LsFID], key=lambda x: -x[1])[2:10]
+LvCumMean = [CumMeanInPos(wv, nltk.corpus.inaugural.words(fid), nDim) for fid, _ in LTsLongestSpeeches]
+sTitle = f&#x27;Cumulative mean of dimension {nDim} for several presidential speeches&#x27;
+pd.DataFrame(LvCumMean, index=LTsLongestSpeeches).T.plot(figsize=(20,7), grid=True, title=sTitle);</pre></div>
+<div class="foot">Cornell AI 360 &middot; NLP With Python &middot; rendered from the executed notebook.</div>
+</div></body></html>

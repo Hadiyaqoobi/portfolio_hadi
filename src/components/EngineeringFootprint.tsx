@@ -31,25 +31,25 @@ const technicalCapabilities = [
   {
     icon: BarChart3,
     domain: "Data Visualization & Analytics",
-    proof: "8+ dashboards driving executive and regulatory decisions",
-    tools: "Power BI, Tableau, Excel/VBA",
+    proof: "488,320+ survey records surfaced for self-service across 304 properties, 11 states",
+    tools: "Power BI, Excel/VBA, T-SQL",
     context: "Built dashboards for fee transparency compliance, property analytics, and cross-state regulatory reporting. Translated raw SQL outputs into self-service analytics for non-technical stakeholders.",
     accent: "rose",
   },
   {
     icon: Terminal,
     domain: "Python & Automation",
-    proof: "79,749 lines → pip-installable framework tested on 51 codebases",
-    tools: "Python, FastAPI, CLI tooling, GitHub Actions",
-    context: "Built the Yaqoobi Framework for AI code governance, automation scripts replacing 104 manual process runs, and backend services for 4 production AI products.",
+    proof: "Synthetic data and training pipelines behind 5 trained ML models",
+    tools: "Python, PyTorch, FastAPI, Optuna",
+    context: "Built the Python pipelines behind TakveenUp: synthetic data generation with a multi-gate quality protocol, FastAPI services with three-level fallback chains, and automated leakage detection that blocks training on contaminated data.",
     accent: "amber",
   },
   {
     icon: Bot,
     domain: "AI & Machine Learning",
-    proof: "14 custom ML models + 584-sample research validation",
+    proof: "5 production ML models trained, research under review at Springer",
     tools: "LLM APIs (Anthropic, OpenAI, Gemini), scikit-learn, PyTorch, pgvector",
-    context: "Designed multi-agent LLM pipeline (MakerMind), 14-model ML architecture (TakveenUp), and published Springer-reviewed research on LLM statistical reliability.",
+    context: "Designed the multi-agent LLM pipeline behind MakerMind and the ML architecture behind TakveenUp; research on LLM statistical reliability under review at Springer.",
     accent: "sky",
   },
   {
@@ -75,7 +75,7 @@ export const EngineeringFootprint = () => {
   const { summary, languages, loading, isLive } = useGitHubAnalytics();
 
   return (
-    <section className="py-section relative">
+    <section id="systems" className="py-section relative">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <motion.div

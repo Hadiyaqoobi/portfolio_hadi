@@ -1,0 +1,157 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dense Document Vectors · Cornell AI 360 · M. Hadi Yaqoobi</title>
+<style>
+body{background:#0F172A;color:#E2E8F0;font-family:ui-sans-serif,Inter,system-ui,sans-serif;margin:0;line-height:1.6}
+.wrap{max-width:900px;margin:0 auto;padding:40px 24px 80px}
+h1{font-size:28px;letter-spacing:-.02em;margin:0 0 6px}
+.badge{color:#7dd3fc;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.note{background:#1E293B;border:1px solid #334155;border-radius:10px;padding:14px 16px;color:#94A3B8;font-size:13px;margin:18px 0 28px}
+.cell{margin:0 0 18px}
+pre{font-family:ui-monospace,Menlo,Monaco,monospace;font-size:13px;background:#1E293B;border:1px solid #334155;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:0}
+pre.in{border-left:3px solid #3B82F6}
+pre.out{background:#0b1120;color:#9fb3d1;border-left:3px solid #475569;margin-top:6px}
+img{max-width:100%;background:#fff;border-radius:8px;margin-top:8px}
+a{color:#60A5FA}
+.foot{color:#475569;font-size:12px;margin-top:40px;border-top:1px solid #1e293b;padding-top:16px}
+</style></head><body><div class="wrap">
+<div class="badge">&#9650; Cornell AI 360 coursework</div>
+<h1>Dense Document Vectors</h1>
+<div class="note">Executed notebook by M. Hadi Yaqoobi. eCornell course prompts and unit-test
+scaffolding have been removed; what remains is the implementation code and its outputs.</div>
+<div class="cell"><pre class="in"># Dictionary-like object. key=word (string), value=trained embedding coefficients (array of numbers)
+# https://github.com/RaRe-Technologies/gensim-data/releases/download/glove-wiki-gigaword-50/glove-wiki-gigaword-50.gz
+%time wv = KeyedVectors.load_word2vec_format(&#x27;glove-wiki-gigaword-50.gz&#x27;)
+wv            # prints the type of the object and its memory location</pre></div>
+<div class="cell"><pre class="in">def GetWV(wv, sWord=&#x27;nlp&#x27;) -&gt; np.array:
+    &#x27;&#x27;&#x27; Returns a word vector for sWord (in lower case), if it is found, 
+        and a zero vector (of length n) otherwise, where n is the length of vectors in wv.
+    wv: Gensim&#x27;s word2vec model object&#x27;&#x27;&#x27;
+    
+    s = str(sWord).lower()
+    if s in wv:
+        return wv.get_vector(s)
+    return np.zeros(wv.vector_size)</pre></div>
+<div class="cell"><pre class="in">def GetSupWords(wv, sWord=&#x27;nlp&#x27;) -&gt; [str]:
+    &#x27;&#x27;&#x27;Return all wv vocabulary words, for which sWord (in lower case) 
+        is a subword, i.e. a substring. If none is found, return an empty list.
+    wv: Gensim&#x27;s word2vec model &#x27;&#x27;&#x27;
+    
+    sub = str(sWord).lower()
+    out = []
+    
+    for w in wv.index_to_key:  # preserves model order (critical for tests)
+        if sub in str(w).lower():
+            out.append(w)
+    return out</pre></div>
+<div class="cell"><pre class="in">def NN(wv, sWord=&#x27;pet&#x27;, nThreshold=0.75) -&gt; [(str, float)]:
+    &#x27;&#x27;&#x27;For sWord (in lower-case), return a list of most similar words 
+    and corresponding similarity score. Only similarities above nThreshold are returned.
+    If none is found, return an empty list.&#x27;&#x27;&#x27;
+    
+    s = str(sWord).lower()
+    if s not in wv:
+        return []
+    
+    # CRITICAL: Use topn=100 to get enough neighbors
+    sims = wv.most_similar(s, topn=100)
+    return [(w, sim) for (w, sim) in sims if sim &gt;= nThreshold]</pre></div>
+<div class="cell"><pre class="in">def NN2(wv, LsWords) -&gt; tuple:
+    &#x27;&#x27;&#x27;Return a tuple (similarity, word1, word2) for the pair of words with the highest similarity.
+    LsWords: list of words
+    Return: (similarity, word1, word2) where word1 &lt; word2 alphabetically
+            If fewer than 2 valid words, return None&#x27;&#x27;&#x27;
+    
+    # Convert all words to lowercase and filter to those in vocabulary
+    valid_words = []
+    for word in LsWords:
+        w_lower = str(word).lower()
+        if w_lower in wv:
+            valid_words.append(w_lower)
+    
+    # Need at least 2 words to find a pair
+    if len(valid_words) &lt; 2:
+        return None
+    
+    # Find the pair with maximum similarity
+    max_sim = -1
+    best_pair = None
+    
+    for i in range(len(valid_words)):
+        for j in range(i + 1, len(valid_words)):
+            w1, w2 = valid_words[i], valid_words[j]
+            sim = wv.similarity(w1, w2)
+            
+            if sim &gt; max_sim:
+                max_sim = sim
+                # Return alphabetically ordered pair
+                if w1 &lt; w2:
+                    best_pair = (sim, w1, w2)
+                else:
+                    best_pair = (sim, w2, w1)
+    
+    return best_pair</pre></div>
+<div class="cell"><pre class="in">def NNExc(wv, sWord=&#x27;pet&#x27;, LsExcept=[&#x27;cat&#x27;,&#x27;dog&#x27;]) -&gt; (str, float):
+    &#x27;&#x27;&#x27; Lower-case all input words and use Gensim&#x27;s most_similar() 
+        to find sWord&#x27;s neighbor, which is not in LsExcept list.
+    wv: Gensim&#x27;s word2vec model  
+    Return: a tuple with (neighbor X, similarity score between X and sWord)
+        If none is found, return None.&#x27;&#x27;&#x27;
+    
+    s = str(sWord).lower()
+    
+    # Check if word is in vocabulary
+    if s not in wv:
+        return None
+    
+    # Convert exception list to lowercase
+    except_lower = [str(w).lower() for w in LsExcept]
+    
+    # Get most similar words (use large topn to ensure we find one not in exception list)
+    similar_words = wv.most_similar(s, topn=100)
+    
+    # Find first word not in exception list
+    for word, similarity in similar_words:
+        if word not in except_lower:
+            return (word, similarity)
+    
+    # If all similar words are in exception list
+    return None</pre></div>
+<div class="cell"><pre class="in">def NNChain(wv, sWord=&#x27;pet&#x27;, n=5) -&gt; [(str, float)]:
+    &#x27;&#x27;&#x27; For the lower-cased sWord find a chain of n words where each word is the closest
+        neighbor of the previous word excluding all words chained so far, including sWord.
+        Use NNExc() to find the next neighbor given words in a chain + sWord as the exclusion list.
+    Example: &#x27;cat&#x27; neighbors with &#x27;dog&#x27; with similarity .92; 
+             &#x27;dog&#x27; neighbors with &#x27;dogs&#x27; (&#x27;cat&#x27; was already used), and so on.
+    Return a list of chained words with their corresponding similarity scores 
+            (between the word and its previous neighbor).
+        If none is found, return an empty list. &#x27;&#x27;&#x27;
+    
+    s = str(sWord).lower()
+    
+    # Check if starting word is in vocabulary
+    if s not in wv:
+        return []
+    
+    chain = []
+    exclusion_list = [s]  # Start by excluding the original word
+    current_word = s
+    
+    for _ in range(n):
+        # Find next neighbor excluding all words used so far
+        result = NNExc(wv, current_word, exclusion_list)
+        
+        if result is None:
+            # No more neighbors found
+            break
+        
+        next_word, similarity = result
+        chain.append((next_word, similarity))
+        exclusion_list.append(next_word)
+        current_word = next_word
+    
+    return chain</pre></div>
+<div class="cell"><pre class="in"> wv.most_similar(&#x27;doctor&#x27;, topn=10)</pre></div>
+<div class="cell"><pre class="in">NNChain(wv, &#x27;doctor&#x27;, 10)</pre></div>
+<div class="foot">Cornell AI 360 &middot; NLP With Python &middot; rendered from the executed notebook.</div>
+</div></body></html>

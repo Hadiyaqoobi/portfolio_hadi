@@ -45,7 +45,7 @@ export const ContactCTA = () => {
             </a>
           </div>
 
-          {/* Work authorization — subtle, at the bottom */}
+          {/* Work authorization - subtle, at the bottom */}
           <p className="text-xs text-slate-600 mt-16">
             🇺🇸 Green Card Holder · No Sponsorship Required
           </p>

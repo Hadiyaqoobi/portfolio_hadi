@@ -61,7 +61,7 @@ export const ProjectsSection = () => {
           </p>
         </motion.div>
 
-        {/* ─── HERO PROJECTS — Large cards, 2 columns ─── */}
+        {/* ─── HERO PROJECTS - Large cards, 2 columns ─── */}
         <div className="grid md:grid-cols-2 gap-5 max-w-6xl mx-auto mb-5">
           {heroProjects.map((project, index) => {
             const Icon = getIcon(project.title);
@@ -156,7 +156,7 @@ export const ProjectsSection = () => {
           })}
         </div>
 
-        {/* ─── REST OF PROJECTS — 4 smaller cards ─── */}
+        {/* ─── REST OF PROJECTS - 4 smaller cards ─── */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
           {restProjects.map((project, index) => {
             const Icon = getIcon(project.title);

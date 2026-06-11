@@ -183,6 +183,32 @@
 .code-decorator { color: #A78BFA; }
 .code-punctuation { color: #94A3B8; }
 
+/* ===== REDUCED MOTION — accessibility ===== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ===== ARCHITECTURE FLOW LINES (data flowing between stages) ===== */
+.flow-line-x {
+  background: linear-gradient(90deg, rgba(59,130,246,.12), rgba(59,130,246,.75), rgba(59,130,246,.12));
+  background-size: 200% 100%;
+  animation: flowx 1.6s linear infinite;
+}
+@keyframes flowx { to { background-position: -200% 0; } }
+.flow-line-y {
+  background: linear-gradient(180deg, rgba(59,130,246,.12), rgba(59,130,246,.75), rgba(59,130,246,.12));
+  background-size: 100% 200%;
+  animation: flowy 1.6s linear infinite;
+}
+@keyframes flowy { to { background-position: 0 -200%; } }
+
 /* ===== SCROLLBAR ===== */
 .scrollbar-thin::-webkit-scrollbar {
   width: 6px;

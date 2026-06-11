@@ -1,0 +1,51 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Supervised Learning Data Prep · Cornell AI 360 · M. Hadi Yaqoobi</title>
+<style>
+body{background:#0F172A;color:#E2E8F0;font-family:ui-sans-serif,Inter,system-ui,sans-serif;margin:0;line-height:1.6}
+.wrap{max-width:900px;margin:0 auto;padding:40px 24px 80px}
+h1{font-size:28px;letter-spacing:-.02em;margin:0 0 6px}
+.badge{color:#7dd3fc;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.note{background:#1E293B;border:1px solid #334155;border-radius:10px;padding:14px 16px;color:#94A3B8;font-size:13px;margin:18px 0 28px}
+.cell{margin:0 0 18px}
+pre{font-family:ui-monospace,Menlo,Monaco,monospace;font-size:13px;background:#1E293B;border:1px solid #334155;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:0}
+pre.in{border-left:3px solid #3B82F6}
+pre.out{background:#0b1120;color:#9fb3d1;border-left:3px solid #475569;margin-top:6px}
+img{max-width:100%;background:#fff;border-radius:8px;margin-top:8px}
+a{color:#60A5FA}
+.foot{color:#475569;font-size:12px;margin-top:40px;border-top:1px solid #1e293b;padding-top:16px}
+</style></head><body><div class="wrap">
+<div class="badge">&#9650; Cornell AI 360 coursework</div>
+<h1>Supervised Learning Data Prep</h1>
+<div class="note">Executed notebook by M. Hadi Yaqoobi. eCornell course prompts and unit-test
+scaffolding have been removed; what remains is the implementation code and its outputs.</div>
+<div class="cell"><pre class="in">def tts_60_40(X=range(10)):
+    tX, vX = train_test_split(list(X), test_size=0.4, shuffle=False)
+    return tX, vX</pre></div>
+<div class="cell"><pre class="in">def Split2(X=range(10), j=2):
+    X = list(X)
+    if not isinstance(j, int) or not (1 &lt;= j &lt;= len(X) - 1):
+        j = 2
+    tX = [x for i, x in enumerate(X) if i % j != 0]
+    vX = [x for i, x in enumerate(X) if i % j == 0]
+    return tX, vX</pre></div>
+<div class="cell"><pre class="in">def Split3(X=range(10), i=2, j=3):
+    X = list(X)
+    if not isinstance(j, int) or not (1 &lt;= j &lt;= len(X) - 1):
+        j = 2
+    if not isinstance(i, int) or not (1 &lt;= i &lt;= len(X) - 1):
+        i = 2
+    tvX, sX = Split2(X, j)
+    tX, vX = Split2(tvX, i)
+    return tX, vX, sX</pre></div>
+<div class="cell"><pre class="in">def KSplit(X=range(10), K=2):
+    X = list(X)
+    n = len(X)
+    if not isinstance(K, int) or not (1 &lt;= K &lt;= n - 1):
+        K = 2
+    LSamples = [[] for _ in range(K)]
+    for i, x in enumerate(X):
+        LSamples[i % K].append(x)
+    return LSamples</pre></div>
+<div class="foot">Cornell AI 360 &middot; NLP With Python &middot; rendered from the executed notebook.</div>
+</div></body></html>

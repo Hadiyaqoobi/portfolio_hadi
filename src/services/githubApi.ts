@@ -572,7 +572,10 @@ export const fetchGitHubData = async () => {
     return { summary, languages, topRepos, aiMlSkills, devOpsSkills };
 
   } catch (error) {
-    console.error('❌ GitHub API Error:', error);
+    // Handled gracefully: the unauthenticated GitHub API can rate-limit (403).
+    // We fall back to real cached data if present, otherwise the hook hides the
+    // section behind a plain GitHub link. Never an app-level error.
+    console.warn('GitHub API unavailable:', error);
 
     const stale = getStaleCache();
     if (stale) {

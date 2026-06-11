@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Extractive Summarization · Cornell AI 360 · M. Hadi Yaqoobi</title>
+<style>
+body{background:#0F172A;color:#E2E8F0;font-family:ui-sans-serif,Inter,system-ui,sans-serif;margin:0;line-height:1.6}
+.wrap{max-width:900px;margin:0 auto;padding:40px 24px 80px}
+h1{font-size:28px;letter-spacing:-.02em;margin:0 0 6px}
+.badge{color:#7dd3fc;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.note{background:#1E293B;border:1px solid #334155;border-radius:10px;padding:14px 16px;color:#94A3B8;font-size:13px;margin:18px 0 28px}
+.cell{margin:0 0 18px}
+pre{font-family:ui-monospace,Menlo,Monaco,monospace;font-size:13px;background:#1E293B;border:1px solid #334155;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:0}
+pre.in{border-left:3px solid #3B82F6}
+pre.out{background:#0b1120;color:#9fb3d1;border-left:3px solid #475569;margin-top:6px}
+img{max-width:100%;background:#fff;border-radius:8px;margin-top:8px}
+a{color:#60A5FA}
+.foot{color:#475569;font-size:12px;margin-top:40px;border-top:1px solid #1e293b;padding-top:16px}
+</style></head><body><div class="wrap">
+<div class="badge">&#9650; Cornell AI 360 coursework</div>
+<h1>Extractive Summarization</h1>
+<div class="note">Executed notebook by M. Hadi Yaqoobi. eCornell course prompts and unit-test
+scaffolding have been removed; what remains is the implementation code and its outputs.</div>
+<div class="cell"><pre class="in">def GetSpeech(fid=&#x27;2017-Trump.txt&#x27;):
+    text = nltk.corpus.inaugural.raw(fid)
+    LsSents = nltk.sent_tokenize(text)
+    return LsSents
+
+LsSents = GetSpeech()
+LsSents[:2]</pre><pre class="out">[&#x27;Chief Justice Roberts, President Carter, President Clinton, President Bush, President Obama, fellow Americans, and people of the world: Thank you.&#x27;,
+ &#x27;We, the citizens of America, are now joined in a great national effort to rebuild our country and restore its promise for all of our people.&#x27;]</pre></div>
+<div class="cell"><pre class="in">def GetDTM(LsSents=[&#x27;&#x27;]):
+    tv = TfidfVectorizer()
+    sm = tv.fit_transform(LsSents)
+    dfDTM = pd.DataFrame(sm.toarray(),
+                         index=[s[:50] for s in LsSents],
+                         columns=tv.get_feature_names())
+    return dfDTM
+
+dfDTM = GetDTM(LsSents)</pre></div>
+<div class="cell"><pre class="in">def GetGramian(dfDTM):
+    arr = dfDTM.values
+    dfSim = pd.DataFrame(arr @ arr.T, index=dfDTM.index, columns=dfDTM.index)
+    return dfSim
+
+dfSim = GetGramian(dfDTM)</pre></div>
+<div class="cell"><pre class="in">def GetGraph(mSim):
+    G = nx.from_numpy_array(mSim)
+    G.name = &#x27;Sentence Similarities&#x27;
+    return G
+
+G = GetGraph(dfSim.values)</pre></div>
+<div class="cell"><pre class="in">def RankSents(G, LsSents=[&#x27;&#x27;]):
+    ranks = nx.pagerank(G)
+    dfPgRnk = pd.DataFrame({&#x27;Rank&#x27;: [ranks[i] for i in range(len(LsSents))],
+                             &#x27;Sent&#x27;: LsSents})
+    dfPgRnk = dfPgRnk.sort_values(&#x27;Rank&#x27;, ascending=False)
+    return dfPgRnk
+
+dfPgRnk = RankSents(G, LsSents)</pre></div>
+<div class="foot">Cornell AI 360 &middot; NLP With Python &middot; rendered from the executed notebook.</div>
+</div></body></html>

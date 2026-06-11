@@ -37,24 +37,59 @@ export type Certificate = {
 
 export const certificates: Certificate[] = [
   // ============================================
-  // FEATURED — AI & Intelligent Systems
+  // FEATURED - AI & Intelligent Systems
   // ============================================
   {
     id: "cornell-ai360",
-    title: "AI360 Certificate: Artificial Intelligence & Machine Learning",
+    title: "AI 360 Certificate: Artificial Intelligence & Machine Learning (Completed 2026)",
     provider: "Cornell University",
     providerLogo: "/logos/cornell.png",
     skills: ["Machine Learning", "Neural Networks", "NLP", "Prompt Engineering", "Python"],
-    date: "2025 – Present",
+    date: "Completed May 2026",
     pdfUrl: "#",
     featured: true,
     category: "AI & Intelligent Systems",
     priority: 1,
-    inProgress: true,
+  },
+  {
+    id: "cornell-ai-solutions",
+    title: "Designing and Building AI Solutions",
+    provider: "Cornell University",
+    providerLogo: "/logos/cornell.png",
+    skills: ["GenAI Product Design", "Prompt Engineering", "AI Ethics", "Neural Networks"],
+    date: "May 2026",
+    pdfUrl: "#",
+    featured: true,
+    category: "AI & Intelligent Systems",
+    priority: 2,
+  },
+  {
+    id: "cornell-nlp",
+    title: "Natural Language Processing With Python",
+    provider: "Cornell University",
+    providerLogo: "/logos/cornell.png",
+    skills: ["NLP", "TF-IDF", "Word2Vec", "Topic Modeling", "Sentiment Analysis"],
+    date: "May 2026",
+    pdfUrl: "#",
+    featured: true,
+    category: "AI & Intelligent Systems",
+    priority: 3,
+  },
+  {
+    id: "cornell-data-science",
+    title: "Data Science Certificate",
+    provider: "Cornell University",
+    providerLogo: "/logos/cornell.png",
+    skills: ["R", "Clustering", "Regression", "Forecasting", "H2O"],
+    date: "March 2026",
+    pdfUrl: "#",
+    featured: true,
+    category: "Data Science, Analytics & Machine Learning",
+    priority: 1,
   },
 
   // ============================================
-  // FEATURED — CS Foundations
+  // FEATURED - CS Foundations
   // ============================================
   {
     id: "harvard-cs50x",
@@ -106,7 +141,7 @@ export const certificates: Certificate[] = [
   },
 
   // ============================================
-  // Data Science & Analytics — Keep best
+  // Data Science & Analytics - Keep best
   // ============================================
   {
     id: "google-bi",
@@ -146,7 +181,7 @@ export const certificates: Certificate[] = [
   },
 
   // ============================================
-  // IT Systems & Automation — Keep strongest
+  // IT Systems & Automation - Keep strongest
   // ============================================
   {
     id: "google-it-automation",

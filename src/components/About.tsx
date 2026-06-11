@@ -60,7 +60,7 @@ export const About = () => {
             </div>
           </motion.div>
 
-          {/* Profile Card — clean, no terminal aesthetic */}
+          {/* Profile Card - clean, no terminal aesthetic */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}

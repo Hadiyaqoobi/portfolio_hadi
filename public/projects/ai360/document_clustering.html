@@ -1,0 +1,104 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Document Clustering · Cornell AI 360 · M. Hadi Yaqoobi</title>
+<style>
+body{background:#0F172A;color:#E2E8F0;font-family:ui-sans-serif,Inter,system-ui,sans-serif;margin:0;line-height:1.6}
+.wrap{max-width:900px;margin:0 auto;padding:40px 24px 80px}
+h1{font-size:28px;letter-spacing:-.02em;margin:0 0 6px}
+.badge{color:#7dd3fc;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.note{background:#1E293B;border:1px solid #334155;border-radius:10px;padding:14px 16px;color:#94A3B8;font-size:13px;margin:18px 0 28px}
+.cell{margin:0 0 18px}
+pre{font-family:ui-monospace,Menlo,Monaco,monospace;font-size:13px;background:#1E293B;border:1px solid #334155;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:0}
+pre.in{border-left:3px solid #3B82F6}
+pre.out{background:#0b1120;color:#9fb3d1;border-left:3px solid #475569;margin-top:6px}
+img{max-width:100%;background:#fff;border-radius:8px;margin-top:8px}
+a{color:#60A5FA}
+.foot{color:#475569;font-size:12px;margin-top:40px;border-top:1px solid #1e293b;padding-top:16px}
+</style></head><body><div class="wrap">
+<div class="badge">&#9650; Cornell AI 360 coursework</div>
+<h1>Document Clustering</h1>
+<div class="note">Executed notebook by M. Hadi Yaqoobi. eCornell course prompts and unit-test
+scaffolding have been removed; what remains is the implementation code and its outputs.</div>
+<div class="cell"><pre class="in">def MakeMask(df=df, tok={&#x27;pet&#x27;,&#x27;pets&#x27;,&#x27;animal&#x27;,&#x27;animals&#x27;,&#x27;cat&#x27;,&#x27;dog&#x27;,&#x27;dogs&#x27;}) -&gt; [bool]:
+    if &#x27;overview&#x27; not in df.columns:
+        return []
+    LbMask = []
+    for overview in df[&#x27;overview&#x27;]:
+        words = set(nltk.word_tokenize(overview.lower()))
+        LbMask.append(bool(words &amp; tok))
+    return LbMask
+
+LbMask = MakeMask()
+MakeMask(df[:10], {&#x27;century&#x27;, &#x27;is&#x27;})</pre><pre class="out">[True, True, False, True, True, False, False, True, False, False]</pre></div>
+<div class="cell"><pre class="in">SBERT = SentenceTransformer(&#x27;paraphrase-albert-small-v2&#x27;)  # load a pre-trained language model</pre></div>
+<div class="cell"><pre class="in">def Encode(df, SBERT=SBERT) -&gt; pd.DataFrame():
+    texts = [title + &#x27;. &#x27; + overview for title, overview in zip(df.index, df[&#x27;overview&#x27;])]
+    embeddings = SBERT.encode(texts)
+    dfEmb = pd.DataFrame(embeddings, index=df.index)
+    return dfEmb
+
+dfEmb = Encode(df[LbMask])
+dfEmb.iloc[:2,:3]</pre></div>
+<div class="cell"><pre class="in">def hc(dfEmb, k=2, linkage=&#x27;ward&#x27;) -&gt; np.array([bool]):
+    model = HC(n_clusters=k, linkage=linkage)
+    model.fit(dfEmb)
+    pY = model.labels_
+    return pY
+
+hc(dfEmb, k=2)[:10]</pre></div>
+<div class="cell"><pre class="in">def sil1(dfEmb=dfEmb, K=3, ReturnBest=False) -&gt; pd.DataFrame():
+    dfOut = pd.DataFrame([], columns=[&#x27;SIL&#x27;, &#x27;k&#x27;])
+    N = len(dfEmb)
+    K = min(K, N - 1)  # reset K if larger than N-1
+    rows = []
+    for k in range(2, K + 1):
+        labels = hc(dfEmb, k=k)
+        score = SIL(dfEmb, labels)
+        rows.append({&#x27;SIL&#x27;: score, &#x27;k&#x27;: k})
+    dfOut = pd.DataFrame(rows, columns=[&#x27;SIL&#x27;, &#x27;k&#x27;])
+    if ReturnBest:
+        dfOut = dfOut[dfOut[&#x27;SIL&#x27;] == dfOut[&#x27;SIL&#x27;].max()]
+    return dfOut
+
+sil1(K=20, ReturnBest=False)</pre></div>
+<div class="cell"><pre class="in">def sil2(dfEmb, K=2, linkages=[&#x27;ward&#x27;], ReturnBest=False) -&gt; pd.DataFrame():
+    if not isinstance(linkages, list): linkages = [linkages]
+    dfOut = pd.DataFrame([], columns=[&#x27;SIL&#x27;, &#x27;k&#x27;, &#x27;link&#x27;])
+    N = len(dfEmb)
+    K = min(K, N - 1)
+    rows = []
+    for linkage in linkages:
+        for k in range(2, K + 1):
+            labels = hc(dfEmb, k=k, linkage=linkage)
+            score = SIL(dfEmb, labels)
+            rows.append({&#x27;SIL&#x27;: score, &#x27;k&#x27;: k, &#x27;link&#x27;: linkage})
+    dfOut = pd.DataFrame(rows, columns=[&#x27;SIL&#x27;, &#x27;k&#x27;, &#x27;link&#x27;])
+    if ReturnBest:
+        dfOut = dfOut[dfOut[&#x27;SIL&#x27;] == dfOut[&#x27;SIL&#x27;].max()]
+    return dfOut
+
+dfGS = sil2(dfEmb, K=10, linkages=[&#x27;average&#x27;, &#x27;complete&#x27;, &#x27;ward&#x27;, &#x27;single&#x27;], ReturnBest=True)
+dfGS</pre></div>
+<div class="cell"><pre class="in">dfGS = sil2(dfEmb, K=20, linkages=[&#x27;average&#x27;, &#x27;complete&#x27;,&#x27;ward&#x27;,&#x27;single&#x27;])
+dfGS.set_index(&#x27;k&#x27;).groupby(&#x27;link&#x27;)[&#x27;SIL&#x27;].plot(grid=True, figsize=[15,4], secondary_y=[&#x27;ward&#x27;], legend=True, title=&#x27;Silhouette score @k&#x27;);</pre></div>
+<div class="cell"><pre class="in">mPC12 = PCA(n_components=2).fit_transform(dfEmb)   # project 768-dim vectors to 2D space for plotting
+dfPC12 = pd.DataFrame(mPC12, columns=[&#x27;x&#x27;,&#x27;y&#x27;], index=dfEmb.index)
+hcLabels = hc(dfEmb, k=3)
+dfPC12[&#x27;cluster&#x27;] = hcLabels # retrieve learnt cluster labels
+dfPC12                       # contains new (x,y) coordinates and cluster labels</pre></div>
+<div class="cell"><pre class="in">sPlotTtl = &#x27;Clusters Identified by Hierarhichal Clusterning Algorithm&#x27;
+LsPalette = [f&#x27;rgb({c[0]},{c[1]},{c[2]})&#x27; for c in sns.color_palette(&#x27;bright&#x27;, max(hcLabels)+1)]  # strings of RGB color values
+vColors = np.array(LsPalette)[dfPC12.cluster]   # vector of colors (as RGB string) for each point 
+vColors[:2]</pre></div>
+<div class="cell"><pre class="in">sMovieGenres = [a + &#x27;&lt;br&gt; &#x27; + b for a,b in zip(dfPC12.index, df[LbMask].tagline)] # point labels with title+genre
+DMarkers = dict(size=5, line=dict(width=1, color=vColors), color=vColors)
+goMargin = go.layout.Margin(l=0, r=0, b=0, t=0)
+goS = go.Scatter(x=dfPC12.x, y=dfPC12.y, mode=&#x27;markers&#x27;, marker=DMarkers, text=sMovieGenres);
+print(sPlotTtl)
+goLayout = go.Layout(hovermode=&#x27;closest&#x27;, margin=goMargin, width=1000, 
+                   height=300, xaxis={&#x27;title&#x27;:&#x27;PC1&#x27;}, yaxis={&#x27;title&#x27;:&#x27;PC2&#x27;});
+
+fig = go.Figure(layout=goLayout)  # prepare a figure with specified layout
+fig.add_trace(goS)                # add points to canvas</pre></div>
+<div class="foot">Cornell AI 360 &middot; NLP With Python &middot; rendered from the executed notebook.</div>
+</div></body></html>

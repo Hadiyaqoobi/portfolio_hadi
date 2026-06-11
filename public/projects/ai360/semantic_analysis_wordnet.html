@@ -1,0 +1,65 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Semantic Analysis with WordNet · Cornell AI 360 · M. Hadi Yaqoobi</title>
+<style>
+body{background:#0F172A;color:#E2E8F0;font-family:ui-sans-serif,Inter,system-ui,sans-serif;margin:0;line-height:1.6}
+.wrap{max-width:900px;margin:0 auto;padding:40px 24px 80px}
+h1{font-size:28px;letter-spacing:-.02em;margin:0 0 6px}
+.badge{color:#7dd3fc;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.note{background:#1E293B;border:1px solid #334155;border-radius:10px;padding:14px 16px;color:#94A3B8;font-size:13px;margin:18px 0 28px}
+.cell{margin:0 0 18px}
+pre{font-family:ui-monospace,Menlo,Monaco,monospace;font-size:13px;background:#1E293B;border:1px solid #334155;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:0}
+pre.in{border-left:3px solid #3B82F6}
+pre.out{background:#0b1120;color:#9fb3d1;border-left:3px solid #475569;margin-top:6px}
+img{max-width:100%;background:#fff;border-radius:8px;margin-top:8px}
+a{color:#60A5FA}
+.foot{color:#475569;font-size:12px;margin-top:40px;border-top:1px solid #1e293b;padding-top:16px}
+</style></head><body><div class="wrap">
+<div class="badge">&#9650; Cornell AI 360 coursework</div>
+<h1>Semantic Analysis with WordNet</h1>
+<div class="note">Executed notebook by M. Hadi Yaqoobi. eCornell course prompts and unit-test
+scaffolding have been removed; what remains is the implementation code and its outputs.</div>
+<div class="cell"><pre class="in">def Lemmas(sLemma=&#x27;tiger&#x27;) -&gt; set():
+    &#x27;&#x27;&#x27;Returns a set of all lemma names from all synsets of sLemma.&#x27;&#x27;&#x27;
+    SsLemmas = set()
+    for ss in wn.synsets(sLemma):
+        for name in ss.lemma_names():
+            SsLemmas.add(name)
+    return SsLemmas
+
+Lemmas()</pre><pre class="out">{&#x27;Panthera_tigris&#x27;, &#x27;tiger&#x27;}</pre></div>
+<div class="cell"><pre class="in">def HypLemmas(sLemma=&#x27;tiger&#x27;) -&gt; set():
+    &#x27;&#x27;&#x27;Returns a set of all lemma names from all the hypernyms of all the synsets of sLemma.&#x27;&#x27;&#x27;
+    SsLemmas = set()
+    for ss in wn.synsets(sLemma):
+        for hyp in ss.hypernyms():
+            for name in hyp.lemma_names():
+                SsLemmas.add(name)
+    return SsLemmas
+
+print(HypLemmas())</pre><pre class="out">{&#x27;individual&#x27;, &#x27;big_cat&#x27;, &#x27;somebody&#x27;, &#x27;mortal&#x27;, &#x27;soul&#x27;, &#x27;person&#x27;, &#x27;someone&#x27;, &#x27;cat&#x27;}
+</pre></div>
+<div class="cell"><pre class="in">def Sim(sLemma1=&#x27;teacher&#x27;, sLemma2=&#x27;tiger&#x27;, ReturnBest=False) -&gt; pd.DataFrame():
+    &#x27;&#x27;&#x27;Computes WordNet path similarity between all pairs of synsets.&#x27;&#x27;&#x27;
+    rows = []
+    for ss1 in wn.synsets(sLemma1):
+        for ss2 in wn.synsets(sLemma2):
+            sim = wn.path_similarity(ss1, ss2)
+            if sim is not None:
+                rows.append({&#x27;ss1&#x27;: ss1.name(), &#x27;ss2&#x27;: ss2.name(), &#x27;sim&#x27;: sim})
+    
+    dfSim = pd.DataFrame(rows, columns=[&#x27;ss1&#x27;, &#x27;ss2&#x27;, &#x27;sim&#x27;])
+    dfSim = dfSim.sort_values([&#x27;ss1&#x27;, &#x27;ss2&#x27;]).reset_index(drop=True)
+    
+    if ReturnBest:
+        dfSim = dfSim[dfSim[&#x27;sim&#x27;] == dfSim[&#x27;sim&#x27;].max()].reset_index(drop=True)
+    
+    return dfSim
+
+Sim()</pre><pre class="out">            ss1         ss2       sim
+0  teacher.n.01  tiger.n.01  0.166667
+1  teacher.n.01  tiger.n.02  0.066667
+2  teacher.n.02  tiger.n.01  0.076923
+3  teacher.n.02  tiger.n.02  0.043478</pre></div>
+<div class="foot">Cornell AI 360 &middot; NLP With Python &middot; rendered from the executed notebook.</div>
+</div></body></html>

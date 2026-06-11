@@ -7,11 +7,11 @@ import { Background } from "@/components/Background";
 import { CodeBlock } from "@/components/CodeBlock";
 
 /* ═══════════════════════════════════════════
-   CODE SNIPPETS — Real code from MakerMind
+   CODE SNIPPETS - Real code from MakerMind
    ═══════════════════════════════════════════ */
 
 const ORCHESTRATOR_CODE = `/**
- * Orchestrator.ts — The brain of the MakerMind system.
+ * Orchestrator.ts - The brain of the MakerMind system.
  * Coordinates the entire pipeline:
  * 1. Planner LLM → Understands user intent, creates plan
  * 2. Coder LLM → Generates code patches from plan
@@ -40,27 +40,27 @@ export class Orchestrator {
   ): Promise<OrchestratorResult> {
     const startTime = Date.now();
 
-    // Step 1 — Planning: Understand intent and create plan
+    // Step 1 - Planning: Understand intent and create plan
     this.logger.info('Step 1: Running Planner LLM (Claude)...');
     const plan = await this.runPlannerLLM(request, context);
 
-    // Step 2 — Coding: Generate patches from plan
+    // Step 2 - Coding: Generate patches from plan
     this.logger.info('Step 2: Running Coder LLM (GPT-4)...');
     const rawBatch = await this.runCoderLLM(request, context, plan);
 
-    // Step 3 — Guardian: Validate and fix consistency issues
+    // Step 3 - Guardian: Validate and fix consistency issues
     this.logger.info('Step 3: Running Guardian LLM (Gemini)...');
     const finalBatch = await this.runGuardianLLM(
       request, context, plan, rawBatch
     );
 
-    // Step 4 — Validation: Structural validation via PatchEngine
+    // Step 4 - Validation: Structural validation via PatchEngine
     const validation = this.patchEngine.validateBatch(finalBatch);
     if (!validation.valid) {
       return { success: false, errors: validation.errors };
     }
 
-    // Step 5 — Application: Apply patches
+    // Step 5 - Application: Apply patches
     if (!this.config.dryRun) {
       await this.patchEngine.applyBatch(finalBatch);
     }
@@ -75,7 +75,7 @@ export class Orchestrator {
 }`;
 
 const WIRING_CODE = `/**
- * WiringDiagramGenerator — Converts wiring plans to SVG
+ * WiringDiagramGenerator - Converts wiring plans to SVG
  * Renders boards, components, pins, and wire connections
  * with automatic routing and color-coding.
  */
@@ -141,7 +141,7 @@ export class WiringDiagramGenerator {
 }`;
 
 const ARCHITECT_CODE = `/**
- * HardwareArchitect — Analyzes natural language requests
+ * HardwareArchitect - Analyzes natural language requests
  * and produces structured architecture specifications
  * including boards, components, and system requirements.
  */
