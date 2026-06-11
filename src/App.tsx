@@ -25,7 +25,16 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Suspense fallback={<div className="min-h-screen bg-background" />}>
+        <Suspense
+          fallback={
+            <div
+              className="min-h-screen bg-background flex items-center justify-center"
+              aria-busy="true"
+            >
+              <span className="text-slate-500 text-sm">Loading…</span>
+            </div>
+          }
+        >
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/about" element={<AboutPage />} />

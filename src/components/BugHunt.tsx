@@ -189,6 +189,7 @@ export const BugHunt = () => {
               <button
                 onClick={() => setStep((s) => Math.max(0, s - 1))}
                 disabled={step === 0}
+                aria-label="Previous step"
                 className="btn-outline inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium disabled:opacity-30 disabled:cursor-default"
               >
                 <ArrowLeft size={15} />
@@ -200,6 +201,7 @@ export const BugHunt = () => {
               <button
                 onClick={() => setStep((s) => Math.min(last, s + 1))}
                 disabled={step === last}
+                aria-label="Next step"
                 className="btn-outline inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium disabled:opacity-30 disabled:cursor-default"
               >
                 Next

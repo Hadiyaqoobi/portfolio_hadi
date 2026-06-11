@@ -58,7 +58,7 @@ export interface SkillCert {
 }
 
 /* ============================================================
- * SKILLS  (years from brief Phase 3 §5.2 — first professional use)
+ * SKILLS  (years from brief Phase 3 §5.2 - first professional use)
  * TODO(hadi): confirm the years column before merge.
  * ============================================================ */
 export const SKILLS: Skill[] = [
@@ -111,7 +111,7 @@ export const PROJECTS: SkillProject[] = [
  * PLANNED entries are a roadmap, rendered dashed.
  * ============================================================ */
 export const CERTS: SkillCert[] = [
-  // Cornell (completed 2026) — see memory/02, /10
+  // Cornell (completed 2026) - see memory/02, /10
   { id: "cornell-ai360", name: "AI 360 Certificate", issuer: "Cornell University", year: "2026", skills: ["ml", "pt", "llm", "py"], count: 1 },
   { id: "cornell-aisol", name: "Designing & Building AI Solutions", issuer: "Cornell University", year: "2026", skills: ["llm", "ml"], count: 1 },
   { id: "cornell-nlp", name: "Natural Language Processing With Python", issuer: "Cornell University", year: "2026", skills: ["nlp", "py"], count: 1 },
@@ -138,7 +138,7 @@ export const CERTS: SkillCert[] = [
   { id: "nyu-cluster", name: "CS MicroBachelor (Networking, OS, Programming)", issuer: "NYU", year: "2022", skills: ["cs"], count: 3 },
   { id: "ibm-cluster", name: "Cloud, Data Science & Python", issuer: "IBM", year: "2020", skills: ["cloud", "ml", "py"], count: 3 },
   { id: "uw-cyber", name: "Cybersecurity (2 courses)", issuer: "University of Washington", year: "2019", skills: ["sec"], count: 2 },
-  // PLANNED — roadmap, not a claim
+  // PLANNED - roadmap, not a claim
   { id: "aws-aip", name: "AWS Certified AI Practitioner", issuer: "Amazon Web Services", year: "planned", skills: ["cloud", "llm"], count: 0, planned: true },
   { id: "az-ai102", name: "Azure AI Engineer (AI-102)", issuer: "Microsoft", year: "planned", skills: ["az", "llm"], count: 0, planned: true },
   { id: "pmp", name: "Project Management Professional (PMP)", issuer: "PMI", year: "in progress", skills: ["ba", "agile"], count: 0, planned: true },

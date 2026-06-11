@@ -70,12 +70,12 @@ const AboutPage = () => {
                   <span className="text-slate-100 font-medium"> Nothing broke when it went live.</span>
                 </p>
                 <p>
-                  Now I run Nexuss Science, my applied R&D startup: one product live, three in active development, five production ML models trained, and LLM-reliability research under review at Springer.
-                  lines of code, multi-agent LLM platforms, and custom ML architectures.
-                  My research on LLM statistical reliability is under peer review at
-                  Springer's Empirical Software Engineering. I'm 16 courses into Cornell's
-                  AI360 certificate. The thread through all of it: I notice where systems
-                  fail, I dig into why, and I build what's needed to fix them.
+                  Now I run Nexuss Science, my applied R&D startup: one product live, three
+                  in active development, five production ML models I trained myself, and
+                  research on LLM reliability under peer review at Springer's Empirical
+                  Software Engineering. I completed Cornell's AI 360 certificate in 2026. The
+                  thread through all of it: I notice where systems fail, I dig into why, and I
+                  build what's needed to fix them.
                 </p>
               </div>
             </motion.div>

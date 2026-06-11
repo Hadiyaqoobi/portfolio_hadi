@@ -299,6 +299,8 @@ export const SkillMap = () => {
           <button
             key={f.key}
             onClick={() => setDomain(f.key)}
+            aria-pressed={domain === f.key}
+            aria-label={`Filter by ${f.label}`}
             className={`rounded-full border px-4 py-2 text-xs font-semibold transition-colors ${
               domain === f.key
                 ? "border-blue-500 text-blue-300 bg-blue-500/10"
@@ -362,9 +364,11 @@ export const SkillMap = () => {
             <p className="text-[11px] text-slate-500 mt-2">{YEARS_FOOTNOTE}</p>
 
             {/* tabs = counts only, no invented depth meter */}
-            <div className="flex gap-2 mt-5">
+            <div className="flex gap-2 mt-5" role="tablist" aria-label="Evidence for this skill">
               <button
                 onClick={() => setTab("proj")}
+                role="tab"
+                aria-selected={tab === "proj"}
                 className={`flex-1 rounded-lg border py-2 text-[11px] font-semibold transition-colors ${
                   tab === "proj" ? "border-blue-500 text-blue-300 bg-blue-500/10" : "border-slate-700 text-slate-400 hover:text-slate-200"
                 }`}
@@ -374,6 +378,8 @@ export const SkillMap = () => {
               </button>
               <button
                 onClick={() => setTab("course")}
+                role="tab"
+                aria-selected={tab === "course"}
                 className={`flex-1 rounded-lg border py-2 text-[11px] font-semibold transition-colors ${
                   tab === "course" ? "border-blue-500 text-blue-300 bg-blue-500/10" : "border-slate-700 text-slate-400 hover:text-slate-200"
                 }`}
@@ -383,6 +389,8 @@ export const SkillMap = () => {
               </button>
               <button
                 onClick={() => setTab("cert")}
+                role="tab"
+                aria-selected={tab === "cert"}
                 className={`flex-1 rounded-lg border py-2 text-[11px] font-semibold transition-colors ${
                   tab === "cert" ? "border-blue-500 text-blue-300 bg-blue-500/10" : "border-slate-700 text-slate-400 hover:text-slate-200"
                 }`}
