@@ -3,6 +3,8 @@ import { useSearchParams } from "react-router-dom";
 import { ExternalLink, FileText, Search } from "lucide-react";
 import {
   SKILLS,
+  PROJECTS,
+  CERTS,
   DOMAIN_LABELS,
   YEARS_FOOTNOTE,
   projectsForSkill,
@@ -10,7 +12,7 @@ import {
   certCountForSkill,
   type Domain,
 } from "@/data/skillmap";
-import { ai360ForSkill } from "@/data/ai360-projects";
+import { ai360ForSkill, AI360_PROJECTS } from "@/data/ai360-projects";
 
 type Filter = "all" | Domain;
 
@@ -91,8 +93,8 @@ export const SkillMap = () => {
     };
 
     const nodeR = (s: (typeof SKILLS)[number]) => {
-      const ev = projectsForSkill(s.id).length + certsForSkill(s.id).length;
-      return 12 + ev * 1.1;
+      const ev = projectsForSkill(s.id).length + certsForSkill(s.id).length + ai360ForSkill(s.id).length;
+      return 11 + Math.min(ev, 12) * 0.95; // capped so high-connectivity nodes stay tidy
     };
     const visible = (s: (typeof SKILLS)[number]) => {
       const st = stateRef.current;
@@ -100,32 +102,18 @@ export const SkillMap = () => {
       const okQ = !st.query || s.name.toLowerCase().includes(st.query);
       return okD && okQ;
     };
-    const satellites = () => {
-      const st = stateRef.current;
-      const empty: { type: "p" | "c" | "course"; label: string; planned?: boolean; x: number; y: number }[] = [];
-      if (!st.selected) return empty;
-      const s = SKILLS.find((k) => k.id === st.selected);
-      if (!s) return empty;
-      const cx0 = s.x * W;
-      const cy0 = s.y * H;
-      const ps = projectsForSkill(s.id);
-      const cs = certsForSkill(s.id);
-      const course = ai360ForSkill(s.id);
-      const outer = [
-        ...ps.map((p) => ({ type: "p" as const, label: p.name.split("·")[0].trim() })),
-        ...cs.map((c) => ({ type: "c" as const, label: c.name, planned: c.planned })),
-      ];
-      const Ro = Math.min(W, H) * 0.32;
-      const Ri = Math.min(W, H) * 0.17;
-      const outerPos = outer.map((a, i) => {
-        const ang = -Math.PI / 2 + i * ((2 * Math.PI) / Math.max(1, outer.length));
-        return { ...a, x: cx0 + Math.cos(ang) * Ro, y: cy0 + Math.sin(ang) * Ro };
-      });
-      const innerPos = course.map((c, i) => {
-        const ang = -Math.PI / 2 + i * ((2 * Math.PI) / Math.max(1, course.length));
-        return { type: "course" as const, label: c.title, x: cx0 + Math.cos(ang) * Ri, y: cy0 + Math.sin(ang) * Ri };
-      });
-      return [...innerPos, ...outerPos];
+    // skills that share at least one project, certificate, or coursework item
+    const relatedSet = (id: string) => {
+      const set = new Set<string>();
+      const add = (arr: { skills: string[] }[]) => {
+        for (const it of arr) {
+          if (it.skills.includes(id)) it.skills.forEach((s) => s !== id && set.add(s));
+        }
+      };
+      add(PROJECTS);
+      add(CERTS);
+      add(AI360_PROJECTS);
+      return set;
     };
 
     function draw() {
@@ -133,28 +121,11 @@ export const SkillMap = () => {
       if (!reduceRef.current) t += 0.016;
       ctx.clearRect(0, 0, W, H);
       const st = stateRef.current;
-      const sats = satellites();
-
-      // edges to satellites
-      if (st.selected) {
-        const s = SKILLS.find((k) => k.id === st.selected);
-        if (s) {
-          for (const a of sats) {
-            const g = ctx.createLinearGradient(s.x * W, s.y * H, a.x, a.y);
-            g.addColorStop(0, "rgba(59,130,246,0.5)");
-            g.addColorStop(1, a.type === "c" ? "rgba(52,211,153,0.5)" : "rgba(148,163,184,0.4)");
-            ctx.strokeStyle = g;
-            ctx.lineWidth = 1.3;
-            ctx.beginPath();
-            ctx.moveTo(s.x * W, s.y * H);
-            ctx.lineTo(a.x, a.y);
-            ctx.stroke();
-          }
-        }
-      }
+      const sel = st.selected ? SKILLS.find((k) => k.id === st.selected) : null;
+      const related = sel ? relatedSet(sel.id) : null;
 
       // faint same-domain mesh
-      ctx.strokeStyle = "rgba(59,130,246,0.05)";
+      ctx.strokeStyle = "rgba(96,165,250,0.045)";
       ctx.lineWidth = 1;
       for (let i = 0; i < SKILLS.length; i++) {
         for (let j = i + 1; j < SKILLS.length; j++) {
@@ -169,78 +140,64 @@ export const SkillMap = () => {
         }
       }
 
-      // skill nodes
+      // edges from the selected skill to the skills it shares work with
+      if (sel && related) {
+        for (const b of SKILLS) {
+          if (!related.has(b.id) || !visible(b)) continue;
+          const g = ctx.createLinearGradient(sel.x * W, sel.y * H, b.x * W, b.y * H);
+          g.addColorStop(0, "rgba(96,165,250,0.6)");
+          g.addColorStop(1, "rgba(96,165,250,0.14)");
+          ctx.strokeStyle = g;
+          ctx.lineWidth = 1.4;
+          ctx.beginPath();
+          ctx.moveTo(sel.x * W, sel.y * H);
+          ctx.lineTo(b.x * W, b.y * H);
+          ctx.stroke();
+        }
+      }
+
+      // skill nodes (3 states: selected / related / dimmed)
       for (const s of SKILLS) {
         const vis = visible(s);
-        const wobble = reduceRef.current ? 0 : Math.sin(t * 2 + s.x * 9) * 1.1;
-        const r = nodeR(s) + wobble;
         const on = st.selected === s.id;
+        const rel = !!(related && related.has(s.id));
         const hv = st.hover === s.id;
-        ctx.globalAlpha = vis ? 1 : 0.12;
-        if (on || hv) {
+        const wobble = reduceRef.current ? 0 : Math.sin(t * 2 + s.x * 9) * 1.0;
+        const r = nodeR(s) + wobble;
+
+        let alpha = 1;
+        if (!vis) alpha = 0.1;
+        else if (sel && !on && !rel) alpha = 0.24;
+        ctx.globalAlpha = alpha;
+
+        if (on) {
           ctx.shadowColor = "rgba(59,130,246,0.9)";
-          ctx.shadowBlur = on ? 30 : 16;
+          ctx.shadowBlur = 28;
+          ctx.fillStyle = "#3B82F6";
+        } else if (hv || rel) {
+          ctx.shadowColor = "rgba(59,130,246,0.6)";
+          ctx.shadowBlur = 15;
+          ctx.fillStyle = "#2f5fd0";
         } else {
-          ctx.shadowColor = "rgba(59,130,246,0.35)";
-          ctx.shadowBlur = 9;
+          ctx.shadowColor = "rgba(59,130,246,0.3)";
+          ctx.shadowBlur = 8;
+          ctx.fillStyle = "#1e3a8a";
         }
-        ctx.fillStyle = on ? "#3B82F6" : hv ? "#2563EB" : "#1e3a8a";
         ctx.beginPath();
         ctx.arc(s.x * W, s.y * H, r, 0, 7);
         ctx.fill();
         ctx.shadowBlur = 0;
-        ctx.strokeStyle = on ? "#93c5fd" : "rgba(96,165,250,0.4)";
+        ctx.strokeStyle = on ? "#bfdbfe" : rel ? "rgba(147,197,253,0.7)" : "rgba(96,165,250,0.35)";
         ctx.lineWidth = on ? 2 : 1;
         ctx.beginPath();
         ctx.arc(s.x * W, s.y * H, r, 0, 7);
         ctx.stroke();
-        ctx.fillStyle = on ? "#ffffff" : vis ? "#cbd5e1" : "#64748b";
+
+        ctx.fillStyle = on ? "#ffffff" : sel && !on && !rel ? "#56657f" : "#cbd5e1";
         ctx.font = `${on ? "700" : "600"} 12px Inter, ui-sans-serif`;
         ctx.textAlign = "center";
         ctx.fillText(s.name, s.x * W, s.y * H + r + 15);
         ctx.globalAlpha = 1;
-      }
-
-      // satellites: projects = squares, coursework = triangles, certs = diamonds
-      for (const a of sats) {
-        const pulse = reduceRef.current ? 1 : 1 + Math.sin(t * 3) * 0.05;
-        if (a.type === "p") {
-          ctx.fillStyle = "#cbd5e1";
-          ctx.shadowColor = "rgba(203,213,225,0.5)";
-          ctx.shadowBlur = 9;
-          ctx.fillRect(a.x - 5 * pulse, a.y - 5 * pulse, 10 * pulse, 10 * pulse);
-        } else if (a.type === "course") {
-          const tr = 5 * pulse;
-          ctx.save();
-          ctx.translate(a.x, a.y);
-          ctx.fillStyle = "#7dd3fc";
-          ctx.shadowColor = "rgba(125,211,252,0.5)";
-          ctx.shadowBlur = 7;
-          ctx.beginPath();
-          ctx.moveTo(0, -tr);
-          ctx.lineTo(tr * 0.92, tr * 0.72);
-          ctx.lineTo(-tr * 0.92, tr * 0.72);
-          ctx.closePath();
-          ctx.fill();
-          ctx.restore();
-        } else {
-          ctx.save();
-          ctx.translate(a.x, a.y);
-          ctx.rotate(Math.PI / 4);
-          ctx.fillStyle = a.planned ? "rgba(52,211,153,0.35)" : "#34d399";
-          ctx.shadowColor = "rgba(52,211,153,0.6)";
-          ctx.shadowBlur = 9;
-          ctx.fillRect(-5 * pulse, -5 * pulse, 10 * pulse, 10 * pulse);
-          ctx.restore();
-        }
-        ctx.shadowBlur = 0;
-        if (a.type !== "course") {
-          ctx.fillStyle = "rgba(148,163,184,0.85)";
-          ctx.font = "10px Inter, ui-sans-serif";
-          ctx.textAlign = "center";
-          const short = a.label.length > 24 ? `${a.label.slice(0, 22)}…` : a.label;
-          ctx.fillText(short, a.x, a.y + 18);
-        }
       }
     }
 
@@ -330,10 +287,10 @@ export const SkillMap = () => {
           {selected ? "click another skill, or empty space to clear" : "click a skill node"}
         </div>
         <div className="absolute left-4 bottom-3 flex flex-wrap gap-x-3.5 gap-y-1 text-[11px] text-slate-500 pointer-events-none max-w-[92%]">
-          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-blue-500" /> skill</span>
-          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 bg-slate-300" /> project</span>
-          <span className="flex items-center gap-1.5"><span className="w-0 h-0 border-l-[5px] border-r-[5px] border-b-[8px] border-l-transparent border-r-transparent" style={{ borderBottomColor: "#7dd3fc" }} /> coursework</span>
-          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 bg-emerald-400 rotate-45" /> cert</span>
+          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-blue-500" /> selected</span>
+          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full" style={{ background: "#2f5fd0" }} /> shares work</span>
+          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-blue-950" /> other skills</span>
+          <span className="text-slate-600">details on the right →</span>
         </div>
       </div>
 
