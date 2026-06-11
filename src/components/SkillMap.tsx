@@ -432,7 +432,7 @@ export const SkillMap = () => {
                       </div>
                       <div className="text-[11.5px] text-slate-500 mt-1">
                         {c.track}
-                        {c.artifact ? " · artifact available" : ""}
+                        {c.artifact || c.notebookLinks ? " · artifact available" : ""}
                       </div>
                     </a>
                   ))

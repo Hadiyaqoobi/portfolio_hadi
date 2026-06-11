@@ -4,12 +4,12 @@
  * IP / ACADEMIC INTEGRITY (brief §5B.3, §8.5):
  *  - Descriptions are in Hadi's own words (sourced from memory/10 and his own
  *    Cornell/Projects write-ups). No eCornell prompt text is copied.
- *  - `artifact` links ONLY point at his own write-ups / papers that are ALREADY
- *    public in /public/projects. No course-template notebook is published here.
- *  - `notebooks` + `executed` are metadata for the PROPOSED PUBLISH SET listed in
- *    the PR. Notebooks flagged executed === false are course templates
- *    ("YOUR CODE HERE" present) and must NEVER be published as his work.
- *    Even executed notebooks need Hadi's explicit OK + scaffolding strip first.
+ *  - `artifact` links point at his own write-ups / papers in /public/projects.
+ *  - `notebookLinks` point at the 12 EXECUTED NLP notebooks (Hadi approved,
+ *    6/10/26): rendered to HTML with eCornell course-prompt markdown and
+ *    unit-test scaffolding stripped, code + outputs only.
+ *  - Course TEMPLATES ("YOUR CODE HERE" present, executed === false) are NEVER
+ *    published; their cards say "available on request".
  */
 
 export type AI360Track = "NLP" | "Machine Learning" | "Data Science (R)";
@@ -22,13 +22,15 @@ export interface AI360Project {
   blurb: string;
   /** skillmap skill ids this evidences */
   skills: string[];
-  /** only set when an already-public artifact exists */
+  /** only set when an already-public artifact exists (write-up / paper) */
   artifact?: { label: string; href: string };
-  /** source notebook(s) in AI360/Projects, for the proposed publish set */
-  notebooks?: string[];
+  /** published executed-notebook HTML (eCornell scaffolding stripped) */
+  notebookLinks?: { label: string; href: string }[];
   /** memory/10 classification: executed-with-outputs (true) vs course template (false) */
   executed?: boolean;
 }
+
+const NB = "/projects/ai360";
 
 export const AI360_PROJECTS: AI360Project[] = [
   // ---------------- NLP With Python (CIS571-576) ----------------
@@ -49,6 +51,7 @@ export const AI360_PROJECTS: AI360Project[] = [
       "I built a TF-IDF document-term matrix over the same 59-speech corpus (97.8% sparse) and trained a Latent Dirichlet Allocation model that surfaced 10 latent topics, from constitutional governance to global affairs, across 230 years of rhetoric.",
     skills: ["nlp", "py", "ml"],
     artifact: { label: "Read the write-up (PDF)", href: "/projects/LDA_Topic_Modeling_Portfolio.pdf" },
+    notebookLinks: [{ label: "Topic modeling notebook", href: `${NB}/topic_modeling.html` }],
   },
   {
     id: "pagerank",
@@ -58,6 +61,7 @@ export const AI360_PROJECTS: AI360Project[] = [
       "I implemented PageRank over a sentence-similarity graph to summarize a speech: build a TF-IDF matrix in 534-dimensional term space, compute a Gramian of cosine similarities, then rank the most central sentences. Sentences similar to many others make the best summary.",
     skills: ["nlp", "py"],
     artifact: { label: "Read the write-up (PDF)", href: "/projects/PageRank_Summarization_Portfolio.pdf" },
+    notebookLinks: [{ label: "Summarization notebook", href: `${NB}/extractive_summarization.html` }],
   },
   {
     id: "vectors",
@@ -66,7 +70,11 @@ export const AI360_PROJECTS: AI360Project[] = [
     blurb:
       "I worked through the full vectorization stack: count and TF-IDF document-term matrices, sparse vs dense representations (scipy CSR), cosine-similarity document search, then Word2Vec embeddings (vector arithmetic, PCA views of the space) and FastText subword vectors for out-of-vocabulary words.",
     skills: ["nlp", "py", "ml"],
-    notebooks: ["Creating a Dense Document Vector.ipynb", "Measuring Similarity Between Vectors.ipynb", "Using Metrics To Determine Text Similarity.ipynb"],
+    notebookLinks: [
+      { label: "Vector similarity", href: `${NB}/vector_similarity.html` },
+      { label: "Dense document vectors", href: `${NB}/dense_document_vector.html` },
+      { label: "Text similarity metrics", href: `${NB}/text_similarity_metrics.html` },
+    ],
     executed: true,
   },
   {
@@ -76,7 +84,10 @@ export const AI360_PROJECTS: AI360Project[] = [
     blurb:
       "I compared sentiment techniques on real text and used WordNet for semantic relationships (synonyms, hypernyms, similarity). The point was to see where lexicon-based scoring breaks down and where it holds up.",
     skills: ["nlp", "py"],
-    notebooks: ["Conduct Sentiment Analysis Using Various Techniques.ipynb", "Conduct Semantic Analysis Using WordNet.ipynb"],
+    notebookLinks: [
+      { label: "Sentiment analysis", href: `${NB}/sentiment_analysis.html` },
+      { label: "WordNet semantic analysis", href: `${NB}/semantic_analysis_wordnet.html` },
+    ],
     executed: true,
   },
   {
@@ -84,9 +95,9 @@ export const AI360_PROJECTS: AI360Project[] = [
     title: "Named Entity Recognition Tagger",
     track: "NLP",
     blurb:
-      "I trained a model to tag named entities inside raw text. This is the coursework that fed directly into ROE-ResumeNER, my production XLM-RoBERTa NER model for multilingual resumes.",
+      "I trained a model to tag named entities inside raw text, in BIO format with a CRF. This is the coursework that fed directly into ROE-ResumeNER, my production XLM-RoBERTa NER model for multilingual resumes.",
     skills: ["nlp", "py"],
-    notebooks: ["Train a Model to Predict Named Entity Tags Within a Text.ipynb"],
+    notebookLinks: [{ label: "NER tagger notebook", href: `${NB}/ner_tagger.html` }],
     executed: true,
   },
   {
@@ -94,9 +105,13 @@ export const AI360_PROJECTS: AI360Project[] = [
     title: "Supervised Text Classification",
     track: "NLP",
     blurb:
-      "I built classifiers that assign categories to documents, including a multi-part spam-email classifier. The spam project was logistic regression by gradient descent, scaled out with SGDClassifier and dask.",
+      "I built classifiers that assign categories to documents, prepared the supervised dataset, and evaluated the model end to end with the standard classification metrics.",
     skills: ["nlp", "ml", "py"],
-    notebooks: ["Train a Classification Model To Categorize Text.ipynb", "Processing a Data Set for Supervised Machine Learning Classification Model.ipynb"],
+    notebookLinks: [
+      { label: "Text categorization", href: `${NB}/text_classification.html` },
+      { label: "Supervised data prep", href: `${NB}/supervised_dataprep.html` },
+      { label: "Model evaluation", href: `${NB}/classification_model_evaluation.html` },
+    ],
     executed: true,
   },
   {
@@ -104,9 +119,9 @@ export const AI360_PROJECTS: AI360Project[] = [
     title: "Document Clustering on Embeddings",
     track: "NLP",
     blurb:
-      "I clustered documents by their sentence embeddings using k-means and hierarchical clustering, then read the groupings back to see what the model decided was 'similar'.",
+      "I clustered documents by their sentence embeddings using hierarchical clustering, then read the groupings back to see what the model decided was 'similar'.",
     skills: ["nlp", "ml", "py"],
-    notebooks: ["Performing Hierarchical Clustering on Sentence Embeddings To Group Similar Texts.ipynb"],
+    notebookLinks: [{ label: "Document clustering notebook", href: `${NB}/document_clustering.html` }],
     executed: true,
   },
   // ---------------- Technical ML (CIS531-537, Python from scratch) ----------------
@@ -117,7 +132,6 @@ export const AI360_PROJECTS: AI360Project[] = [
     blurb:
       "I built a k-NN facial recognition system with fully vectorized Euclidean distance, computing the distance matrix as a Gram matrix with no Python loops. The exercise was as much about NumPy vectorization as it was about k-NN.",
     skills: ["ml", "py"],
-    notebooks: ["Facial_Recognition_System.ipynb"],
     executed: false,
   },
   {
@@ -127,7 +141,6 @@ export const AI360_PROJECTS: AI360Project[] = [
     blurb:
       "I implemented Naive Bayes from first principles for a baby-name classifier, including hashed feature engineering and the MLE/MAP probability estimation behind it.",
     skills: ["ml", "py"],
-    notebooks: ["Processing a Data Set for Supervised Machine Learning Classification Model.ipynb"],
     executed: false,
   },
   {
@@ -137,7 +150,6 @@ export const AI360_PROJECTS: AI360Project[] = [
     blurb:
       "I wrote the perceptron update rule, then linear and logistic regression with the sigmoid, logistic loss, and gradient descent, all by hand. This is the math under every classifier I have trained since.",
     skills: ["ml", "py"],
-    notebooks: ["Perceptron_Classifier.ipynb"],
     executed: false,
   },
   {
@@ -147,7 +159,6 @@ export const AI360_PROJECTS: AI360Project[] = [
     blurb:
       "I implemented CART from scratch: squared-impurity scoring, best-split search, and regression trees. Building the splitting logic by hand is the fastest way to understand why trees overfit.",
     skills: ["ml", "py"],
-    notebooks: ["CART.ipynb"],
     executed: false,
   },
   {
@@ -157,7 +168,6 @@ export const AI360_PROJECTS: AI360Project[] = [
     blurb:
       "I built bagging, random forests, and gradient-boosted trees from scratch and reasoned through which reduces variance and which reduces bias. That intuition is exactly what I tuned later in ROE-Match (LightGBM).",
     skills: ["ml", "py"],
-    notebooks: ["Bagging.ipynb", "Boosting.ipynb"],
     executed: false,
   },
   {
@@ -167,7 +177,6 @@ export const AI360_PROJECTS: AI360Project[] = [
     blurb:
       "I worked through support vector machines and the kernel trick, building non-linear decision boundaries out of linear classifiers and seeing where each kernel helps.",
     skills: ["ml", "py"],
-    notebooks: ["Linear_SVM.ipynb", "Kernelized_SVM.ipynb"],
     executed: false,
   },
   {
@@ -177,7 +186,6 @@ export const AI360_PROJECTS: AI360Project[] = [
     blurb:
       "I implemented k-fold cross-validation and grid search from scratch and computed the bias-variance decomposition empirically (estimating the average prediction, noise, and variance terms). This is the discipline behind the leakage gates in my production models.",
     skills: ["ml", "py"],
-    notebooks: ["Cross_Validation.ipynb", "Generalization_Error.ipynb"],
     executed: false,
   },
   {
@@ -187,7 +195,6 @@ export const AI360_PROJECTS: AI360Project[] = [
     blurb:
       "I built a full CNN workflow in Keras: class-balance checks with SMOTE, normalization and resizing, a Conv2D plus dense network trained for 200 epochs to roughly 0.97 to 0.99 per-class accuracy, then extracted and visualized the learned convolution filters and ran Sobel and sharpening preprocessing experiments.",
     skills: ["ml", "pt", "py"],
-    notebooks: ["Convolutional_Neural_Network.ipynb"],
     executed: false,
   },
   // ---------------- Data Science / Analytics (CEEM581-586, in R) ----------------

@@ -1,0 +1,78 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Classification Model Evaluation · Cornell AI 360 · M. Hadi Yaqoobi</title>
+<style>
+body{background:#0F172A;color:#E2E8F0;font-family:ui-sans-serif,Inter,system-ui,sans-serif;margin:0;line-height:1.6}
+.wrap{max-width:900px;margin:0 auto;padding:40px 24px 80px}
+h1{font-size:28px;letter-spacing:-.02em;margin:0 0 6px}
+.badge{color:#7dd3fc;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.note{background:#1E293B;border:1px solid #334155;border-radius:10px;padding:14px 16px;color:#94A3B8;font-size:13px;margin:18px 0 28px}
+.cell{margin:0 0 18px}
+pre{font-family:ui-monospace,Menlo,Monaco,monospace;font-size:13px;background:#1E293B;border:1px solid #334155;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:0}
+pre.in{border-left:3px solid #3B82F6}
+pre.out{background:#0b1120;color:#9fb3d1;border-left:3px solid #475569;margin-top:6px}
+img{max-width:100%;background:#fff;border-radius:8px;margin-top:8px}
+a{color:#60A5FA}
+.foot{color:#475569;font-size:12px;margin-top:40px;border-top:1px solid #1e293b;padding-top:16px}
+</style></head><body><div class="wrap">
+<div class="badge">&#9650; Cornell AI 360 coursework</div>
+<h1>Classification Model Evaluation</h1>
+<div class="note">Executed notebook by M. Hadi Yaqoobi. eCornell course prompts and unit-test
+scaffolding have been removed; what remains is the implementation code and its outputs.</div>
+<div class="cell"><pre class="in">rng = np.random.RandomState(0)  # seed random number generator with a number 0 (for reproducibility)
+# LsF = sorted(list(rng.choice(LsF, size=len(LsM), replace=False)))       # shorten the list of female names
+df = pd.DataFrame(dict(Name=LsF + LsM, Y=[1]*len(LsF) + [0]*len(LsM)) ) # assign labels: 1=female, 0=male
+df.Name = df.Name.str.lower()   # convert all names to lower case
+df.set_index(&#x27;Name&#x27;, inplace=True)
+df.T                # display names (as column names) and their labels (0=male, 1=female)</pre><pre class="out">Name  abagael  abagail  abbe  abbi  abigael  abigail  abigale  abra  acacia  \
+Y           1        1     1     1        1        1        1     1       1   
+
+Name  ada  ...  zed  zedekiah  zeke  zelig  zerk  zeus  zippy  zollie  zolly  \
+Y       1  ...    0         0     0      0     0     0      0       0      0   
+
+Name  zorro  
+Y         0  
+
+[1 rows x 7579 columns]</pre></div>
+<div class="cell"><pre class="in">%time wv = KeyedVectors.load_word2vec_format(&#x27;glove-wiki-gigaword-50.gz&#x27;)  # ~20 seconds to load this model
+wv[&#x27;abagail&#x27;]    # retrieve a word vector for the name abagail</pre></div>
+<div class="cell"><pre class="in">def CharVec(w, wv=wv):
+    vecs = [wv[c] for c in w if c in wv]
+    if len(vecs) == 0:
+        return np.zeros(50)
+    return np.mean(vecs, axis=0)</pre></div>
+<div class="cell"><pre class="in">def W2V(w, wv=wv):
+    if w in wv:
+        return wv[w]
+    return CharVec(w, wv)</pre></div>
+<div class="cell"><pre class="in">prac_lists = [[1, 2, 3],[2, 3, 4],[3, 4, 5],[4, 5, 6]]
+prac_lists</pre></div>
+<div class="cell"><pre class="in">prac_df_nums = pd.DataFrame(prac_lists)
+prac_df_nums</pre></div>
+<div class="cell"><pre class="in">prac_df_names = df[:4]
+prac_df_names</pre></div>
+<div class="cell"><pre class="in">prac_df_names.index</pre></div>
+<div class="cell"><pre class="in">prac_df_nums = pd.DataFrame(prac_lists, index = prac_df_names.index)
+prac_df_nums</pre></div>
+<div class="cell"><pre class="in">prac_df_combined = pd.concat([prac_df_names,prac_df_nums])
+prac_df_combined</pre></div>
+<div class="cell"><pre class="in">prac_df_combined = pd.concat([prac_df_names,prac_df_nums], axis = 1)
+prac_df_combined</pre></div>
+<div class="cell"><pre class="in">prac_df_combined.shape</pre></div>
+<div class="cell"><pre class="in">df1 = df.copy()
+vecs = pd.DataFrame([W2V(name) for name in df1.index], index=df1.index)
+df1 = pd.concat([df1, vecs], axis=1)
+df1.iloc[:2, :5]</pre></div>
+<div class="cell"><pre class="in">Y = df1[&#x27;Y&#x27;]
+X = df1.drop(columns=&#x27;Y&#x27;)
+
+tX, vX, tY, vY = train_test_split(X, Y, test_size=0.2, random_state=0)
+
+lr = LogisticRegression(random_state=0)
+lr.fit(tX, tY)
+lr.score(vX, vY)  # ~84%</pre></div>
+<div class="cell"><pre class="in">pY = lr.predict_proba(vX)[:, 1]  # probability of class=1 (female)
+AUC = roc_auc_score(vY, pY)
+pY, AUC</pre></div>
+<div class="foot">Cornell AI 360 &middot; NLP With Python &middot; rendered from the executed notebook.</div>
+</div></body></html>

@@ -86,28 +86,44 @@ const AI360Explorer = () => {
                     ))}
                   </div>
 
-                  {p.artifact ? (
-                    <a
-                      href={p.artifact.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-3 inline-flex items-center gap-1.5 text-[12px] font-medium text-blue-400 hover:text-blue-300"
-                    >
-                      {p.artifact.label}
-                      <ExternalLink size={12} />
-                    </a>
-                  ) : (
-                    <span className="mt-3 text-[11px] text-slate-600">
-                      Coursework. Executed notebook available on request.
-                    </span>
-                  )}
+                  <div className="mt-3 flex flex-col gap-1.5">
+                    {p.artifact && (
+                      <a
+                        href={p.artifact.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-[12px] font-medium text-blue-400 hover:text-blue-300"
+                      >
+                        {p.artifact.label}
+                        <ExternalLink size={12} />
+                      </a>
+                    )}
+                    {p.notebookLinks?.map((n) => (
+                      <a
+                        key={n.href}
+                        href={n.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-[12px] font-medium text-sky-300 hover:text-sky-200"
+                      >
+                        <span className="text-[10px] leading-none">&#9654;</span> {n.label}
+                      </a>
+                    ))}
+                    {!p.artifact && !p.notebookLinks && (
+                      <span className="text-[11px] text-slate-600">
+                        Coursework. Executed notebook available on request.
+                      </span>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
 
             <p className="text-[11px] text-slate-600 mt-8 max-w-2xl leading-relaxed">
-              Note on integrity: linked PDFs are my own write-ups and my IEEE-format paper.
-              eCornell course templates and graded course materials are not republished here.
+              Note on integrity: linked PDFs are my own write-ups and my IEEE-format paper. The
+              linked notebooks are my executed work with the course prompts and unit tests
+              removed, code and outputs only. eCornell course templates and graded materials are
+              not republished.
             </p>
           </div>
         </section>

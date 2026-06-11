@@ -1,0 +1,81 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Text Classification · Cornell AI 360 · M. Hadi Yaqoobi</title>
+<style>
+body{background:#0F172A;color:#E2E8F0;font-family:ui-sans-serif,Inter,system-ui,sans-serif;margin:0;line-height:1.6}
+.wrap{max-width:900px;margin:0 auto;padding:40px 24px 80px}
+h1{font-size:28px;letter-spacing:-.02em;margin:0 0 6px}
+.badge{color:#7dd3fc;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.note{background:#1E293B;border:1px solid #334155;border-radius:10px;padding:14px 16px;color:#94A3B8;font-size:13px;margin:18px 0 28px}
+.cell{margin:0 0 18px}
+pre{font-family:ui-monospace,Menlo,Monaco,monospace;font-size:13px;background:#1E293B;border:1px solid #334155;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:0}
+pre.in{border-left:3px solid #3B82F6}
+pre.out{background:#0b1120;color:#9fb3d1;border-left:3px solid #475569;margin-top:6px}
+img{max-width:100%;background:#fff;border-radius:8px;margin-top:8px}
+a{color:#60A5FA}
+.foot{color:#475569;font-size:12px;margin-top:40px;border-top:1px solid #1e293b;padding-top:16px}
+</style></head><body><div class="wrap">
+<div class="badge">&#9650; Cornell AI 360 coursework</div>
+<h1>Text Classification</h1>
+<div class="note">Executed notebook by M. Hadi Yaqoobi. eCornell course prompts and unit-test
+scaffolding have been removed; what remains is the implementation code and its outputs.</div>
+<div class="cell"><pre class="in"># Balance observations in two classes. So, a random draw has 50% chance of either class.
+rng = np.random.RandomState(0)  # seed random number generator with a number 0 (for reproducibility)
+LsF = sorted(list(rng.choice(LsF, size=len(LsM), replace=False)))       # shorten the list of female names
+df = pd.DataFrame(dict(Name=LsF + LsM, Y=[1]*len(LsF) + [0]*len(LsM)) ) # assign labels: 1=female, 0=male
+df.Name = df.Name.str.lower()   # convert all names to lower case
+df.set_index(&#x27;Name&#x27;, inplace=True)
+df.T   # display names (as column names) and their labels (0=male, 1=female)</pre><pre class="out">Name  abagail  abbe  abbey  abbi  abbie  abby  abigail  abigale  abra  acacia  \
+Y           1     1      1     1      1     1        1        1     1       1   
+
+Name  ...  zed  zedekiah  zeke  zelig  zerk  zeus  zippy  zollie  zolly  zorro  
+Y     ...    0         0     0      0     0     0      0       0      0      0  
+
+[1 rows x 5886 columns]</pre></div>
+<div class="cell"><pre class="in">df1 = df.copy()
+df1[&#x27;Vowels&#x27;] = df1.reset_index().Name.apply(lambda s: sum(c in &#x27;aeiouy&#x27; for c in s)).values</pre></div>
+<div class="cell"><pre class="in">Y = df1[&#x27;Y&#x27;]
+X = df1.drop(columns=&#x27;Y&#x27;)
+
+tX, vX, tY, vY = train_test_split(X, Y, test_size=0.2, random_state=0)
+
+lr = LogisticRegression(random_state=0)
+lr.fit(tX, tY)
+lr.score(vX, vY)  # ~61%</pre><pre class="out">LogisticRegression(random_state=0)</pre><pre class="out">0.6061120543293718</pre></div>
+<div class="cell"><pre class="in">df2 = df1.copy()
+df2[&#x27;Consonants&#x27;] = df2.reset_index().Name.apply(lambda s: sum(c in &#x27;bcdfghjklmnpqrstvwxz&#x27; for c in s)).values</pre></div>
+<div class="cell"><pre class="in">Y = df2[&#x27;Y&#x27;]
+X = df2.drop(columns=&#x27;Y&#x27;)
+
+tX, vX, tY, vY = train_test_split(X, Y, test_size=0.2, random_state=0)
+
+lr = LogisticRegression(random_state=0)
+lr.fit(tX, tY)
+lr.score(vX, vY)  # ~62%</pre><pre class="out">LogisticRegression(random_state=0)</pre><pre class="out">0.6230899830220713</pre></div>
+<div class="cell"><pre class="in"># your solution here
+
+df3 = df2.copy()
+
+# Encode last char more richly based on the full distribution
+df3[&#x27;LastChar&#x27;] = df3.reset_index().Name.apply(
+    lambda s: 2  if s[-1] == &#x27;a&#x27; else   # strongly female
+             -2  if s[-1] == &#x27;n&#x27; else   # strongly male
+              1  if s[-1] in &#x27;ie&#x27; else  # leaning female
+             -1  if s[-1] in &#x27;sr&#x27; else  # leaning male
+              0
+).values
+
+# Train and validate
+Y = df3[&#x27;Y&#x27;]
+X = df3.drop(columns=&#x27;Y&#x27;)
+
+tX, vX, tY, vY = train_test_split(X, Y, test_size=0.2, random_state=0)
+
+lr = LogisticRegression(random_state=0)
+lr.fit(tX, tY)
+print(&quot;Validation accuracy:&quot;, lr.score(vX, vY))
+print(&quot;Training accuracy:  &quot;, lr.score(tX, tY))</pre><pre class="out">LogisticRegression(random_state=0)</pre><pre class="out">Validation accuracy: 0.7283531409168081
+Training accuracy:   0.7410790144435004
+</pre></div>
+<div class="foot">Cornell AI 360 &middot; NLP With Python &middot; rendered from the executed notebook.</div>
+</div></body></html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sentiment Analysis · Cornell AI 360 · M. Hadi Yaqoobi</title>
+<style>
+body{background:#0F172A;color:#E2E8F0;font-family:ui-sans-serif,Inter,system-ui,sans-serif;margin:0;line-height:1.6}
+.wrap{max-width:900px;margin:0 auto;padding:40px 24px 80px}
+h1{font-size:28px;letter-spacing:-.02em;margin:0 0 6px}
+.badge{color:#7dd3fc;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.note{background:#1E293B;border:1px solid #334155;border-radius:10px;padding:14px 16px;color:#94A3B8;font-size:13px;margin:18px 0 28px}
+.cell{margin:0 0 18px}
+pre{font-family:ui-monospace,Menlo,Monaco,monospace;font-size:13px;background:#1E293B;border:1px solid #334155;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:0}
+pre.in{border-left:3px solid #3B82F6}
+pre.out{background:#0b1120;color:#9fb3d1;border-left:3px solid #475569;margin-top:6px}
+img{max-width:100%;background:#fff;border-radius:8px;margin-top:8px}
+a{color:#60A5FA}
+.foot{color:#475569;font-size:12px;margin-top:40px;border-top:1px solid #1e293b;padding-top:16px}
+</style></head><body><div class="wrap">
+<div class="badge">&#9650; Cornell AI 360 coursework</div>
+<h1>Sentiment Analysis</h1>
+<div class="note">Executed notebook by M. Hadi Yaqoobi. eCornell course prompts and unit-test
+scaffolding have been removed; what remains is the implementation code and its outputs.</div>
+<div class="cell"><pre class="in">print(&#x27;Starting size of VADER&#x27;&#x27;s lexicon:&#x27;, len(sia.lexicon))</pre><pre class="out">Starting size of VADERs lexicon: 7502
+</pre></div>
+<div class="cell"><pre class="in">def ApplySIA(LsPos=[&#x27;&#x27;], LsNeg=[&#x27;&#x27;], sia=sia) -&gt; pd.DataFrame:
+    rows = []
+    for review in LsPos:
+        scores = sia.polarity_scores(review)
+        scores[&#x27;vY&#x27;] = 1
+        scores[&#x27;pY&#x27;] = -1 if scores[&#x27;compound&#x27;] &lt; 0 else 1
+        scores[&#x27;review&#x27;] = review
+        rows.append(scores)
+    for review in LsNeg:
+        scores = sia.polarity_scores(review)
+        scores[&#x27;vY&#x27;] = -1
+        scores[&#x27;pY&#x27;] = -1 if scores[&#x27;compound&#x27;] &lt; 0 else 1
+        scores[&#x27;review&#x27;] = review
+        rows.append(scores)
+    df = pd.DataFrame(rows, columns=[&#x27;neg&#x27;, &#x27;neu&#x27;, &#x27;pos&#x27;, &#x27;compound&#x27;, &#x27;vY&#x27;, &#x27;pY&#x27;, &#x27;review&#x27;])
+    return df
+
+df1 = ApplySIA([&#x27; &#x27;.join(sSent) for sSent in sentence_polarity.sents(&#x27;rt-polarity.pos&#x27;)], 
+               [&#x27; &#x27;.join(sSent) for sSent in sentence_polarity.sents(&#x27;rt-polarity.neg&#x27;)])
+df1</pre><pre class="out">       neg    neu    pos  compound  vY  pY  \
+0      0.0  0.918  0.082    0.3612   1   1   
+1      0.0  0.758  0.242    0.8069   1   1   
+...    ...    ...    ...       ...  ..  ..   
+10660  0.0  0.667  0.333    0.3612  -1   1   
+10661  0.0  1.000  0.000    0.0000  -1   1   
+
+                                                                                                    review  
+0      the rock is destined to be the 21st century&#x27;s new &quot; conan &quot; and that he&#x27;s going to make a splash...  
+1      the gorgeously elaborate continuation of &quot; the lord of the rings &quot; trilogy is so huge that a col...  
+...                                                                                                    ...  
+10660                                                 the thing looks like a made-for-home-video quickie .  
+10661                                         enigma is well-made , but it&#x27;s just too dry and too placid .  
+
+[10662 rows x 7 columns]</pre></div>
+<div class="cell"><pre class="in">def OOV(Docs=df1.review, Vocab=sia.lexicon) -&gt; set(&#x27;&#x27;):
+    all_words = &#x27; &#x27;.join(Docs).lower().split()
+    SsNewWords = {w for w in all_words
+                  if len(w) &gt; 1
+                  and w.isalpha()
+                  and w not in Vocab}
+    return SsNewWords
+
+SsOOV = OOV()
+OOV([&#x27;Good Goods . &#x27;, &#x27;a lucky7&#x27;])</pre><pre class="out">{&#x27;goods&#x27;}</pre></div>
+<div class="cell"><pre class="in">wn.morphy(&#x27;runs&#x27;, wn.NOUN), wn.morphy(&#x27;runs&#x27;, wn.ADJ), wn.morphy(&#x27;runs&#x27;, wn.VERB), \
+wn.morphy(&#x27;running&#x27;, wn.NOUN), wn.morphy(&#x27;running&#x27;, wn.ADJ), wn.morphy(&#x27;running&#x27;, wn.VERB), \
+wn.morphy(&#x27;ran&#x27;, wn.NOUN), wn.morphy(&#x27;ran&#x27;, wn.ADJ), wn.morphy(&#x27;ran&#x27;, wn.VERB)</pre><pre class="out">(&#x27;run&#x27;, None, &#x27;run&#x27;, &#x27;running&#x27;, &#x27;running&#x27;, &#x27;run&#x27;, None, None, &#x27;run&#x27;)</pre></div>
+<div class="cell"><pre class="in">def Expand(SsWords={&#x27;&#x27;}) -&gt; list(&#x27;&#x27;):
+    SsWordsNew = set(SsWords)
+    for w in SsWords:
+        for pos in [wn.NOUN, wn.ADJ, wn.VERB]:
+            morphed = wn.morphy(w, pos)
+            if morphed:
+                SsWordsNew.add(morphed)
+    return sorted(SsWordsNew)
+
+LsOOV2 = Expand(SsOOV)
+print(LsOOV2[:10])</pre><pre class="out">[&#x27;aaa&#x27;, &#x27;aaliyah&#x27;, &#x27;aan&#x27;, &#x27;abandone&#x27;, &#x27;abandono&#x27;, &#x27;abbas&#x27;, &#x27;abbass&#x27;, &#x27;abbott&#x27;, &#x27;abbreviate&#x27;, &#x27;abbreviated&#x27;]
+</pre></div>
+<div class="cell"><pre class="in">def GetScores(LsWords=LsOOV2) -&gt; [(str, int)]:
+    LTsWS = []
+    for w in LsWords:
+        polarity = TextBlob(w).sentiment.polarity
+        if polarity != 0:
+            LTsWS.append((w, polarity * 4))
+    return LTsWS
+
+%time LTsWS = GetScores()
+print(LTsWS[:5])</pre><pre class="out">CPU times: user 8.69 s, sys: 25.8 ms, total: 8.72 s
+Wall time: 8.76 s
+[(&#x27;able&#x27;, 2.0), (&#x27;ably&#x27;, 2.0), (&#x27;abridged&#x27;, 0.4), (&#x27;abrupt&#x27;, -0.5), (&#x27;abruptly&#x27;, -0.5)]
+</pre></div>
+<div class="cell"><pre class="in">_ = [sia.lexicon.update({w: s}) for w,s in LTsWS]
+print(&#x27;New size of VADER&#x27;&#x27;s lexicon:&#x27;, len(sia.lexicon))  # now VADER should have 7877 words in its lexicon</pre><pre class="out">New size of VADERs lexicon: 8256
+</pre></div>
+<div class="cell"><pre class="in">%time df2 = pd.DataFrame([sia.polarity_scores(s) for s in df1.review])
+df2[&#x27;review&#x27;] = df1.review
+df2[&#x27;vY&#x27;] = df1.vY
+df2[&#x27;pY&#x27;] = df2.compound.apply(lambda c: -1 if c &lt; 0 else 1 if c &gt;= 0 else 0)   # predicted polarity (based on threshold)
+df2</pre><pre class="out">CPU times: user 4.35 s, sys: 19.2 ms, total: 4.37 s
+Wall time: 4.55 s
+</pre><pre class="out">         neg    neu    pos  compound  \
+0      0.000  0.870  0.130    0.4670   
+1      0.053  0.644  0.303    0.8521   
+...      ...    ...    ...       ...   
+10660  0.000  0.667  0.333    0.3612   
+10661  0.318  0.682  0.000   -0.4939   
+
+                                                                                                    review  \
+0      the rock is destined to be the 21st century&#x27;s new &quot; conan &quot; and that he&#x27;s going to make a splash...   
+1      the gorgeously elaborate continuation of &quot; the lord of the rings &quot; trilogy is so huge that a col...   
+...                                                                                                    ...   
+10660                                                 the thing looks like a made-for-home-video quickie .   
+10661                                         enigma is well-made , but it&#x27;s just too dry and too placid .   
+
+       vY  pY  
+0       1   1  
+1       1   1  
+...    ..  ..  
+10660  -1   1  
+10661  -1  -1  
+
+[10662 rows x 7 columns]</pre></div>
+<div class="cell"><pre class="in">print(rpt(y_true=df1.vY, y_pred=df1.pY))</pre><pre class="out">              precision    recall  f1-score   support
+
+          -1       0.69      0.40      0.51      5331
+           1       0.58      0.82      0.68      5331
+
+    accuracy                           0.61     10662
+   macro avg       0.64      0.61      0.59     10662
+weighted avg       0.64      0.61      0.59     10662
+
+</pre></div>
+<div class="cell"><pre class="in">print(rpt(y_true=df2.vY, y_pred=df2.pY))</pre><pre class="out">              precision    recall  f1-score   support
+
+          -1       0.72      0.46      0.56      5331
+           1       0.60      0.82      0.69      5331
+
+    accuracy                           0.64     10662
+   macro avg       0.66      0.64      0.63     10662
+weighted avg       0.66      0.64      0.63     10662
+
+</pre></div>
+<div class="foot">Cornell AI 360 &middot; NLP With Python &middot; rendered from the executed notebook.</div>
+</div></body></html>

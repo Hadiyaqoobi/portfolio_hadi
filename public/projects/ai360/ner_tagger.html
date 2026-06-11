@@ -1,0 +1,151 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Named Entity Recognition Tagger · Cornell AI 360 · M. Hadi Yaqoobi</title>
+<style>
+body{background:#0F172A;color:#E2E8F0;font-family:ui-sans-serif,Inter,system-ui,sans-serif;margin:0;line-height:1.6}
+.wrap{max-width:900px;margin:0 auto;padding:40px 24px 80px}
+h1{font-size:28px;letter-spacing:-.02em;margin:0 0 6px}
+.badge{color:#7dd3fc;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.note{background:#1E293B;border:1px solid #334155;border-radius:10px;padding:14px 16px;color:#94A3B8;font-size:13px;margin:18px 0 28px}
+.cell{margin:0 0 18px}
+pre{font-family:ui-monospace,Menlo,Monaco,monospace;font-size:13px;background:#1E293B;border:1px solid #334155;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:0}
+pre.in{border-left:3px solid #3B82F6}
+pre.out{background:#0b1120;color:#9fb3d1;border-left:3px solid #475569;margin-top:6px}
+img{max-width:100%;background:#fff;border-radius:8px;margin-top:8px}
+a{color:#60A5FA}
+.foot{color:#475569;font-size:12px;margin-top:40px;border-top:1px solid #1e293b;padding-top:16px}
+</style></head><body><div class="wrap">
+<div class="badge">&#9650; Cornell AI 360 coursework</div>
+<h1>Named Entity Recognition Tagger</h1>
+<div class="note">Executed notebook by M. Hadi Yaqoobi. eCornell course prompts and unit-test
+scaffolding have been removed; what remains is the implementation code and its outputs.</div>
+<div class="cell"><pre class="in">!pip -q install -U --force-reinstall scikit-learn==0.23.2 &gt; Log   # SKL version compatible with CRF
+!pip freeze | grep learn</pre><pre class="out">[33m  WARNING: The scripts f2py, f2py3 and f2py3.6 are installed in &#x27;/home/codio/.local/bin&#x27; which is not on PATH.
+  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.[0m
+scikit-learn==0.23.2
+sklearn==0.0
+sklearn-crfsuite==0.3.6
+</pre></div>
+<div class="cell"><pre class="in">sEW3 = &#x27;B-ACTOR\tStallone\nO\tin\nB-TITLE\tRocky\n\n&#x27;; print(sEW3) # Bio format, string NE+Word, example with 3 tokens
+LTsWE3 = [(&#x27;Stallone&#x27;,&#x27;B-ACTOR&#x27;), (&#x27;in&#x27;,&#x27;O&#x27;), (&#x27;Rocky&#x27;,&#x27;B-TITLE&#x27;)]
+LTsWPE3 = [(&#x27;Stallone&#x27;,&#x27;NN&#x27;,&#x27;B-ACTOR&#x27;), (&#x27;in&#x27;,&#x27;IN&#x27;,&#x27;O&#x27;), (&#x27;Rocky&#x27;,&#x27;NN&#x27;,&#x27;B-TITLE&#x27;)]</pre><pre class="out">B-ACTOR	Stallone
+O	in
+B-TITLE	Rocky
+
+
+</pre></div>
+<div class="cell"><pre class="in">with open(&quot;engtrain.bio.txt&quot;) as file: _ = ([print(next(file).strip()) for x in range(8)])</pre><pre class="out">O	what
+O	movies
+O	star
+B-ACTOR	bruce
+I-ACTOR	willis
+
+O	show
+O	me
+</pre></div>
+<div class="cell"><pre class="in">with open(&quot;engtrain.bio.txt&quot;) as file: print([next(file) for x in range(8)])</pre><pre class="out">[&#x27;O\twhat\n&#x27;, &#x27;O\tmovies\n&#x27;, &#x27;O\tstar\n&#x27;, &#x27;B-ACTOR\tbruce\n&#x27;, &#x27;I-ACTOR\twillis\n&#x27;, &#x27;\n&#x27;, &#x27;O\tshow\n&#x27;, &#x27;O\tme\n&#x27;]
+</pre></div>
+<div class="cell"><pre class="in">def BioFile2WE(FileName=&#x27;&#x27;) -&gt; list(list((str, str,))):
+    LLTsWE = []
+    with open(FileName) as file:
+        sentence = []
+        for line in file:
+            line = line.strip()
+            if line == &#x27;&#x27;:           # blank line = sentence boundary
+                if sentence:
+                    LLTsWE.append(sentence)
+                    sentence = []
+            else:
+                tag, word = line.split(&#x27;\t&#x27;)   # BIO format: NE_tag \t word
+                sentence.append((word, tag))
+        if sentence:                 # catch last sentence if no trailing blank line
+            LLTsWE.append(sentence)
+    return LLTsWE
+
+tWE = BioFile2WE(&#x27;engtrain.bio.txt&#x27;)
+vWE = BioFile2WE(&#x27;engtest.bio.txt&#x27;)</pre></div>
+<div class="cell"><pre class="in">pd.DataFrame.from_dict(Counter([e for sent in tWE for w,e in sent]), orient=&#x27;index&#x27;).T</pre><pre class="out">       O  B-ACTOR  I-ACTOR  B-YEAR  B-TITLE  B-GENRE  I-GENRE  B-DIRECTOR  \
+0  61008     3220     3474    2858     2376     4354      786        1720   
+
+   I-DIRECTOR  B-SONG  I-SONG  B-PLOT  I-PLOT  B-REVIEW  B-CHARACTER  \
+0        1850     245     446    1927    1687       221          385   
+
+   I-CHARACTER  B-RATING  B-RATINGS_AVERAGE  I-RATINGS_AVERAGE  I-TITLE  \
+0          342      2007               1869               1673     3495   
+
+   I-RATING  B-TRAILER  I-TRAILER  I-REVIEW  I-YEAR  
+0       840        113          7       132    2456  </pre></div>
+<div class="cell"><pre class="in">def InsertPOS(LTsWE=LTsWE3) -&gt; list(list((str, str, str))):
+    words = [w for w, ne in LTsWE]
+    pos_tags = nltk.pos_tag(words)           # returns [(word, POS), ...]
+    LTsWPE = [(w, pos, ne) for (w, ne), (_, pos) in zip(LTsWE, pos_tags)]
+    return LTsWPE
+
+tWPE = [InsertPOS(Sent) for Sent in tWE]
+vWPE = [InsertPOS(Sent) for Sent in vWE]</pre></div>
+<div class="cell"><pre class="in">w=&#x27;123*@^$(*&amp;)&#x27;
+w.lower()==w.upper()</pre></div>
+<div class="cell"><pre class="in">def Case2Num(w=&#x27;Word&#x27;) -&gt; int:
+    if not isinstance(w, str) or w.lower() == w.upper():
+        return 3
+    if w == w.lower():
+        return 0
+    if w == w.upper():
+        return 1
+    if w == w.title():
+        return 2
+    return 3
+
+print(Case2Num(&#x27;out0&#x27;), Case2Num(&#x27;OUT1&#x27;), Case2Num(&#x27;Out2&#x27;), Case2Num(&#x27;oUt3&#x27;))</pre></div>
+<div class="cell"><pre class="in">def Featurize(w=&#x27;AOL&#x27;, POS=&#x27;NNP&#x27;, loc=&#x27;&#x27;) -&gt; dict():
+    w = str(w)                        # convert to string if not already
+    DsFeatures = {
+        loc+&#x27;D&#x27;:  int(w.isdigit()),   # 1 if digit, 0 otherwise
+        loc+&#x27;C&#x27;:  Case2Num(w),        # capitalization type
+        loc+&#x27;W3&#x27;: w[-3:],             # last 3 characters
+        loc+&#x27;W2&#x27;: w[-2:],             # last 2 characters
+        loc+&#x27;W1&#x27;: w[-1:],             # last character
+        loc+&#x27;POS&#x27;:  POS,              # full POS tag
+        loc+&#x27;POS2&#x27;: POS[:2],          # first 2 chars of POS tag
+    }
+    return DsFeatures
+
+print(Featurize(w=&#x27;7&#x27;,     POS=&#x27;NNP&#x27;, loc=&#x27;&#x27;))
+print(Featurize(w=&#x27;AOL&#x27;,   POS=&#x27;NNP&#x27;, loc=&#x27;&#x27;))
+print(Featurize(w=&#x27;have&#x27;,  POS=&#x27;VBP&#x27;, loc=&#x27;b&#x27;))
+print(Featurize(w=&#x27;Boris&#x27;, POS=&#x27;NNP&#x27;, loc=&#x27;a&#x27;))</pre></div>
+<div class="cell"><pre class="in">def WordWindow2Features(WPE=LTsWPE3, i=0) -&gt; dict():
+    &#x27;&#x27;&#x27;Extract features from the central word, word before 
+        and word after (unless central word starts/ends a sentence)
+    Inputs:
+        LTsWPE:   list of tuples of strings [(word, POS_Tag, NE_Tag), ...]. 
+                    These tuples represent sequential words in a sentence.
+        i:        integer index of the central word. 
+        Returns:  dictionary of features for the central word.      &#x27;&#x27;&#x27;
+    Ft = Featurize(WPE[i][0], WPE[i][1]) # extract features from the center word and its POS tag
+    Ft.update({&#x27;b&#x27;:1.})  # add a bias parameter to raise model flexibility
+    Ft.update(Featurize( WPE[i-1][0], WPE[i-1][1], loc=&#x27;b&#x27;) if i&gt;0 else {&#x27;BOS&#x27;:1}) # a word before center word
+    Ft.update(Featurize( WPE[i+1][0], WPE[i+1][1], loc=&#x27;a&#x27;) if i&lt;(len(WPE)-1) else {&#x27;EOS&#x27;:1}) # a word after center word
+    return Ft  # return dictionary of string keys with feature values (heterogeneous types)
+
+print(WordWindow2Features(i=0))  # Featurize 1st word in &quot;Yahoo fell today&quot;
+print(WordWindow2Features(i=1))  # Featurize 2nd word in &quot;Yahoo fell today&quot;
+print(WordWindow2Features(i=2))  # Featurize last word in &quot;Yahoo fell today&quot;</pre></div>
+<div class="cell"><pre class="in">WPE2X = lambda WPE: [WordWindow2Features(WPE, i) for i in range(len(WPE))]
+WPE2Y = lambda WPE: [NE for Word, POS, NE in WPE]  # pull out labels for each word in a sentence</pre></div>
+<div class="cell"><pre class="in">tX = [WPE2X(s) for s in tWPE] # training input features, list of list of dictionaries
+tY = [WPE2Y(s) for s in tWPE] # training outputs
+vX = [WPE2X(s) for s in vWPE] # test input features
+vY = [WPE2Y(s) for s in vWPE] # test outputs
+print(&#x27;tY (train NE labels):&#x27;, tY[0])
+print(&#x27;tX (train features): &#x27;, str(tX[0])[:300], &#x27;...&#x27;)</pre></div>
+<div class="cell"><pre class="in">crf = CRF.CRF(max_iterations=10, algorithm=&#x27;lbfgs&#x27;, c1=0.1, c2=0.1, all_possible_transitions=True, verbose=0)
+%time crf.fit(tX, tY)  # fit the model on training inputs and outputs</pre></div>
+<div class="cell"><pre class="in">pY = crf.predict(vX)                # predicted NE labels
+print(&#x27;Actual NER tags:&#x27;, vY[0])    # test (or validation) NE labels
+print(&#x27;Predicted  tags:&#x27;, pY[0])</pre></div>
+<div class="cell"><pre class="in">labels = list(crf.classes_)
+labels.remove(&#x27;O&#x27;)    # suppress statistics for &quot;O&quot; tags
+pd.DataFrame(rpt(vY, pY, labels=labels, output_dict=True, zero_division=0)).round(2)</pre></div>
+<div class="foot">Cornell AI 360 &middot; NLP With Python &middot; rendered from the executed notebook.</div>
+</div></body></html>
