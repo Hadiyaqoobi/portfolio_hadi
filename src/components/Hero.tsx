@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, BookOpen } from "lucide-react";
 import { Link } from "react-router-dom";
 
-/* Floating code card content — real code from MakerMind */
+/* Floating code card content - real code from MakerMind */
 const codeSnippet = `async processRequest(
   request: UserRequest,
   context: ProjectContext
@@ -27,7 +27,7 @@ export const Hero = () => {
     <section id="home" className="min-h-[100vh] flex items-center relative pt-20 pb-16 overflow-hidden">
       <div className="container mx-auto px-4 z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center max-w-6xl mx-auto">
-          {/* Left — Text */}
+          {/* Left - Text */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
@@ -42,7 +42,7 @@ export const Hero = () => {
             >
               <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-slate-700 bg-slate-800/60 text-xs text-slate-400">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                IT Business Systems Analyst & AI Product Builder · Open to Opportunities
+                AI Solutions Architect & Business Systems Analyst · Open to Opportunities
               </span>
             </motion.div>
 
@@ -54,21 +54,21 @@ export const Hero = () => {
                 <span className="gradient-text">Yaqoobi</span>
               </h1>
               <h2 className="text-base md:text-lg text-slate-400 font-medium tracking-wide mt-3">
-                IT Business Systems Analyst & AI Product Builder
+                AI Solutions Architect & Business Systems Analyst
               </h2>
             </div>
 
             {/* Value prop */}
             <p className="text-lg text-slate-400 max-w-md leading-relaxed">
-              <span className="text-slate-200 font-medium">Started as the end user filing
-              maintenance tickets. Then became the IT Business Systems Analyst managing the
-              full SDLC, authoring BRDs and FRDs, writing SQL stored procedures, building
-              dashboards, and shipping Python automations. Now building AI products.</span>
+              <span className="text-slate-200 font-medium">I analyze enterprise systems, automate them, and build AI on top of them: a
+              zero-incident 135K-account cloud migration at an S&P 500 REIT, five production
+              ML models trained at my R&D startup, and a board-approved LLM architecture
+              for human-rights monitoring.</span>
             </p>
 
             {/* Context chips */}
             <div className="flex flex-wrap gap-2">
-              {["S&P 500 REIT Experience", "Cornell AI360", "BU Questrom STEM MS", "PMP Candidate", "Green Card (No Sponsorship)"].map((tag) => (
+              {["S&P 500 REIT Experience", "Cornell AI 360 (2026)", "BU Questrom STEM MS", "Springer Research", "Green Card (No Sponsorship)"].map((tag) => (
                 <span
                   key={tag}
                   className="px-3 py-1 text-xs text-slate-400 bg-slate-800/60 border border-slate-700 rounded-lg"
@@ -97,7 +97,7 @@ export const Hero = () => {
             </div>
           </motion.div>
 
-          {/* Right — Floating code card */}
+          {/* Right - Floating code card */}
           <motion.div
             initial={{ opacity: 0, x: 30, rotateY: -8 }}
             animate={{ opacity: 1, x: 0, rotateY: 0 }}

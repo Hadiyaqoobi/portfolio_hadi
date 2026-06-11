@@ -41,17 +41,18 @@ const AboutPage = () => {
                 </p>
                 <p>
                   Before I left Turkey, the CEO of ConnectionHub recruited me to build
-                  education technology for refugees. I led a 15-person team across 11 cities
-                  and 5 countries. We reached 1,182 displaced students with 5 production
-                  platforms and a 15-tool technology ecosystem built entirely on free-tier
-                  infrastructure. Every requirements document, every database schema, every
-                  deployment. I authored it, built it, or shipped it. That's where I learned
-                  that constraints don't limit design. They clarify it.
+                  education technology for refugees. I led a 14-person team plus 13 city
+                  coordinators and owned 5 web properties, shipping a greenfield platform to
+                  about 200 students inside an organization that reached 1,182 students and
+                  9,447 learning hours across 5 countries, all on a 15-tool free-tier stack.
+                  Every requirements document, every database schema, every deployment. I
+                  authored it, built it, or shipped it. That's where I learned that
+                  constraints don't limit design. They clarify it.
                 </p>
                 <p>
-                  In the U.S., I joined Equity Residential as a Sales Consultant. For
-                  20 months at a 400-unit property during a major renovation, I lived
-                  inside the systems I'd later be asked to fix. I felt every friction point,
+                  In the U.S., I joined Equity Residential as a Sales Consultant. At a
+                  400-unit property during a major renovation, I lived inside the systems
+                  I'd later be asked to fix. I felt every friction point,
                   tracked every data discrepancy, and built VBA automation because no vendor
                   tool existed for what I needed. I won Leasing Consultant of the Year.
                   Not because I was the best salesperson, but because I understood the
@@ -69,7 +70,7 @@ const AboutPage = () => {
                   <span className="text-slate-100 font-medium"> Nothing broke when it went live.</span>
                 </p>
                 <p>
-                  Now I build AI products at Nexuss Science. 6 shipped products, 325,000+
+                  Now I run Nexuss Science, my applied R&D startup: one product live, three in active development, five production ML models trained, and LLM-reliability research under review at Springer.
                   lines of code, multi-agent LLM platforms, and custom ML architectures.
                   My research on LLM statistical reliability is under peer review at
                   Springer's Empirical Software Engineering. I'm 16 courses into Cornell's

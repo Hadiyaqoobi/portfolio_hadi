@@ -32,7 +32,7 @@ interface VolunteerCard {
 const volunteerData: VolunteerCard[] = [
   {
     title: "Chapter Leader",
-    organization: "Browserstuck",
+    organization: "BrowserStack",
     location: "Boston, MA",
     duration: "Present",
     description: "Leading the Boston chapter, building community around technology and innovation.",

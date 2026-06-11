@@ -26,7 +26,7 @@ const ResearchPublications = () => {
         </motion.div>
 
         <div className="space-y-6">
-          {/* Featured Publication — EMSE Paper */}
+          {/* Featured Publication - EMSE Paper */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -59,7 +59,7 @@ const ResearchPublications = () => {
                   AI System Validation & Governance
                 </h3>
                 <p className="text-sm text-slate-400 mb-3 italic">
-                  Statistical Mirages: Evaluating the Replicability of LLM-Generated Empirical Findings
+                  The Mirage of Statistical Significance: How LLM-as-Annotator Fabricates Empirical Findings in Software Engineering Research
                 </p>
 
                 <p className="text-sm text-slate-400 mb-4">
@@ -125,7 +125,7 @@ const ResearchPublications = () => {
             </div>
           </motion.div>
 
-          {/* Earlier Publication — IoT Thesis */}
+          {/* Earlier Publication - IoT Thesis */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

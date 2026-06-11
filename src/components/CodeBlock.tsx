@@ -11,7 +11,7 @@ interface CodeBlockProps {
 
 /**
  * Tokenize TypeScript/JSX code into syntax-highlighted spans.
- * Lightweight — no external dependencies.
+ * Lightweight - no external dependencies.
  */
 function highlightLine(line: string): JSX.Element[] {
     const tokens: JSX.Element[] = [];

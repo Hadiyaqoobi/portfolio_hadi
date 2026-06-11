@@ -31,8 +31,8 @@ const technicalCapabilities = [
   {
     icon: BarChart3,
     domain: "Data Visualization & Analytics",
-    proof: "8+ dashboards driving executive and regulatory decisions",
-    tools: "Power BI, Tableau, Excel/VBA",
+    proof: "488,320+ survey records surfaced for self-service across 304 properties, 11 states",
+    tools: "Power BI, Excel/VBA, T-SQL",
     context: "Built dashboards for fee transparency compliance, property analytics, and cross-state regulatory reporting. Translated raw SQL outputs into self-service analytics for non-technical stakeholders.",
     accent: "rose",
   },
@@ -47,9 +47,9 @@ const technicalCapabilities = [
   {
     icon: Bot,
     domain: "AI & Machine Learning",
-    proof: "14 custom ML models + 584-sample research validation",
+    proof: "5 production ML models trained, research under review at Springer",
     tools: "LLM APIs (Anthropic, OpenAI, Gemini), scikit-learn, PyTorch, pgvector",
-    context: "Designed multi-agent LLM pipeline (MakerMind), 14-model ML architecture (TakveenUp), and published Springer-reviewed research on LLM statistical reliability.",
+    context: "Designed the multi-agent LLM pipeline behind MakerMind and the ML architecture behind TakveenUp; research on LLM statistical reliability under review at Springer.",
     accent: "sky",
   },
   {

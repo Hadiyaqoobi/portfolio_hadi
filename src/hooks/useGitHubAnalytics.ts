@@ -1,41 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchGitHubData, GitHubStats, LanguageStat, RepoStat, DetectedSkill } from '@/services/githubApi';
 
-// Fallback data in case API fails
-const FALLBACK_DATA = {
-  summary: {
-    total_repos: 35,
-    total_commits: 1247,
-    lines_added: 185000,
-    lines_removed: 61700,
-    net_lines_of_code: 123300,
-    languages_count: 5,
-    most_active_year: 2024,
-    last_updated: new Date().toISOString()
-  },
-  languages: [
-    { name: "Python", percentage: 38.2, bytes: 0, color: "#3572A5" },
-    { name: "TypeScript", percentage: 22.5, bytes: 0, color: "#2b7489" },
-    { name: "JavaScript", percentage: 15.8, bytes: 0, color: "#f1e05a" },
-    { name: "Go", percentage: 12.4, bytes: 0, color: "#00ADD8" },
-    { name: "Rust", percentage: 11.1, bytes: 0, color: "#dea584" }
-  ],
-  topRepos: [
-    { name: "data-pipeline-automation", commits: 187, language: "Python", stars: 0, url: "#" },
-    { name: "portfolio-website", commits: 156, language: "TypeScript", stars: 0, url: "#" },
-    { name: "sql-reporting-suite", commits: 134, language: "SQL", stars: 0, url: "#" },
-    { name: "bi-dashboard-tools", commits: 98, language: "Python", stars: 0, url: "#" }
-  ],
-  aiMlSkills: [
-    { name: "Pandas", category: "Data Science", color: "#150458", repos: ["data-pipeline"] },
-    { name: "Scikit-learn", category: "Machine Learning", color: "#F7931E", repos: ["ml-project"] }
-  ],
-  devOpsSkills: [
-    { name: "Docker", category: "DevOps", color: "#2496ED", repos: ["portfolio"] },
-    { name: "PostgreSQL", category: "Database", color: "#4169E1", repos: ["backend-api"] }
-  ]
-};
-
 export const useGitHubAnalytics = () => {
   const [summary, setSummary] = useState<GitHubStats | null>(null);
   const [languages, setLanguages] = useState<LanguageStat[]>([]);
@@ -58,13 +23,14 @@ export const useGitHubAnalytics = () => {
         setDevOpsSkills(data.devOpsSkills);
         setIsLive(true);
       } catch (err) {
-        console.warn('Using fallback data:', err);
-        // Use fallback data if API fails
-        setSummary(FALLBACK_DATA.summary);
-        setLanguages(FALLBACK_DATA.languages);
-        setRepos(FALLBACK_DATA.topRepos);
-        setAiMlSkills(FALLBACK_DATA.aiMlSkills);
-        setDevOpsSkills(FALLBACK_DATA.devOpsSkills);
+        // No fabricated fallback. If the GitHub API is unavailable we show
+        // nothing but a plain "View GitHub Profile" link, never invented stats.
+        console.warn('GitHub API unavailable, hiding live stats:', err);
+        setSummary(null);
+        setLanguages([]);
+        setRepos([]);
+        setAiMlSkills([]);
+        setDevOpsSkills([]);
         setIsLive(false);
         setError(err instanceof Error ? err.message : 'Unknown error');
       } finally {

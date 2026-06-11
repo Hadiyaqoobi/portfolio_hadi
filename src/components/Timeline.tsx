@@ -60,7 +60,7 @@ export const Timeline = () => {
         >
           <div className="accent-line mb-5" />
           <h2 className="text-3xl md:text-4xl font-bold text-slate-100 mb-3">
-            Career Journey
+            Career Timeline
           </h2>
           <p className="text-slate-400 text-base max-w-2xl leading-relaxed">
             From Afghanistan to Turkey to the United States. Every role shaped how I

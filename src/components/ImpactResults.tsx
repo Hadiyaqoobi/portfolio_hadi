@@ -10,7 +10,7 @@ import {
   Brain,
 } from "lucide-react";
 
-/* Animated counter — triggers on scroll */
+/* Animated counter - triggers on scroll */
 const AnimatedNumber = ({
   value,
   suffix = "",
@@ -62,7 +62,7 @@ export const ImpactResults = () => {
       outcome: "SQL & Data Validation",
       metric: { value: 960, suffix: "+ data points/property", duration: 2 },
       how: "Production stored procedures with 6-table JOINs and 3 nested subquery levels. WHILE-loop validation engine auditing RUBS utility costs across 380+ properties and 8 database tables. Eliminated 104 manual query executions per year. Every billing discrepancy caught before resident impact.",
-      scope: "Equity Residential · S&P 500 · 80,000 units",
+      scope: "Equity Residential · S&P 500 · 85,000+ apartments",
       accentColor: "emerald" as const,
       span: "md:col-span-2",
     },
@@ -70,16 +70,16 @@ export const ImpactResults = () => {
       icon: DatabaseZap,
       outcome: "ETL & Data Warehousing",
       metric: { value: 6, suffix: " system integrations", duration: 1.5 },
-      how: "Engineered Snowflake data warehouse with star schema (3 fact tables, 8 dimension tables, SCD Type 2). Built ETL pipelines across PostgreSQL, Snowflake, Salesforce, Mailchimp, Google Analytics, and Zoom. Mapped data flows and sync frequencies for each integration point.",
-      scope: "ConnectionHub · 1,182 students · 5 countries",
+      how: "Built a Snowflake data warehouse and ETL pipelines across PostgreSQL, Snowflake, Salesforce, Mailchimp, Google Analytics, and Zoom. Mapped data flows and sync frequencies for each of the six integration points.",
+      scope: "ConnectionHub · 6 system integrations · 5 countries",
       accentColor: "indigo" as const,
       span: "md:col-span-2",
     },
     {
       icon: BarChart3,
       outcome: "Data Visualization & Analytics",
-      metric: { value: 8, suffix: " Tableau dashboards", duration: 1.5 },
-      how: "Designed dashboards the board used to track growth to 9,447 learning hours across 5 countries. Built Excel/VBA tracking systems that identified 47 cross-platform listing discrepancies. Predictive modeling pipeline analyzing 10,600+ property transactions with neural networks (R-squared 0.811).",
+      metric: { value: 5, suffix: " web properties shipped", duration: 1.5 },
+      how: "Designed the metrics dashboard the board used to track growth to 9,447 learning hours across 5 countries. Built Excel/VBA tracking systems for listing accuracy across syndication partners during construction leasing. Predictive modeling pipeline analyzing 10,600+ property transactions with neural networks (R-squared 0.811).",
       scope: "ConnectionHub · Equity Residential · Boston University",
       accentColor: "rose" as const,
       span: "md:col-span-2",
@@ -88,7 +88,7 @@ export const ImpactResults = () => {
       icon: Brain,
       outcome: "ML Systems Design & Production Models",
       metric: { value: 5, suffix: " models designed & trained", duration: 1.5 },
-      how: "Architected end-to-end ML systems from requirements gathering through production deployment. Designed data pipelines, defined evaluation criteria, and iterated 5 models across NER (XLM-RoBERTa, F1=0.7476), multilingual embeddings (24/25 occupational codes), Dari speech recognition (LoRA-finetuned Whisper), job retention prediction (LightGBM, 22 features, Bayesian optimization), and fairness-aware wage modeling. Authored technical specs, built synthetic data generation protocols, and documented model cards for each release.",
+      how: "Designed and built end-to-end ML systems from requirements gathering through production deployment. Built data pipelines, defined evaluation criteria, and trained 5 models across NER (XLM-RoBERTa, F1=0.7476), multilingual embeddings (24/25 occupational codes), Dari speech recognition (LoRA-finetuned Whisper), job retention prediction (LightGBM, 22 features, Bayesian optimization), and fairness-aware wage modeling. Authored technical specs, built synthetic data generation protocols, and documented model cards for each release.",
       scope: "Nexuss Science · TakveenUp · 5 Production Models",
       accentColor: "cyan" as const,
       span: "md:col-span-2",
@@ -106,7 +106,7 @@ export const ImpactResults = () => {
       icon: Zap,
       outcome: "Python & Process Automation",
       metric: { value: 104, suffix: " manual runs → 0", duration: 1.8 },
-      how: "Python automation cut student verification from 14 days to 48 hours, tripling enrollment. SQL stored procedure automated weekly delinquency campaigns. Built 79,749-line Python governance framework tested against 51 open-source codebases (49% fewer issues in disciplined repos).",
+      how: "SQL stored procedure automated EQR's weekly delinquency campaign, eliminating 104 manual query runs per year. Built a 79,749-line Python governance framework tested against 51 open-source codebases (49% fewer issues in disciplined repos).",
       scope: "Equity Residential · ConnectionHub · Nexuss Science",
       accentColor: "amber" as const,
       span: "md:col-span-2",
@@ -115,7 +115,7 @@ export const ImpactResults = () => {
       icon: Users,
       outcome: "Cross-Functional Stakeholder Management",
       metric: { value: 6, suffix: " enterprise teams coordinated", duration: 1.5 },
-      how: "Coordinated CloudOps, Infrastructure, SecOps, AppOps, DevOps, and developers through a zero-incident migration. Led 15-person team delivering 2 platforms across 5 countries. Managed 2 resident populations with 2 pricing tiers and 2 construction timelines simultaneously.",
+      how: "Coordinated CloudOps, Infrastructure, SecOps, AppOps, DevOps, and developers through a zero-incident migration. Led a 14-person team plus 13 city coordinators across 5 countries. Managed 2 resident populations with 2 pricing tiers and 2 construction timelines simultaneously.",
       scope: "Equity Residential · ConnectionHub · AHRC",
       accentColor: "sky" as const,
       span: "md:col-span-2",
@@ -227,7 +227,7 @@ export const ImpactResults = () => {
                       </h3>
                     </div>
 
-                    {/* Scale metric — large and prominent */}
+                    {/* Scale metric - large and prominent */}
                     <div className="mt-2">
                       <div className="text-3xl md:text-4xl font-bold tracking-tight">
                         <span className={`bg-gradient-to-b ${c.number} bg-clip-text text-transparent`}>
@@ -243,12 +243,12 @@ export const ImpactResults = () => {
 
                   {/* Right column: Description + scope */}
                   <div className="flex flex-col justify-between">
-                    {/* How — the approach (skills are embedded in the story) */}
+                    {/* How - the approach (skills are embedded in the story) */}
                     <p className="text-sm text-slate-400 leading-relaxed mb-3">
                       {impact.how}
                     </p>
 
-                    {/* Scope tag — which companies/contexts */}
+                    {/* Scope tag - which companies/contexts */}
                     <span className={`text-xs font-mono tracking-widest uppercase ${c.scope} w-fit`}>
                       {impact.scope}
                     </span>
