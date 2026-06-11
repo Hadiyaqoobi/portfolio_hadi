@@ -42,6 +42,25 @@ const ProjectsPage = () => {
             </p>
           </motion.div>
 
+          {/* AI 360 coursework explorer link */}
+          <Link
+            to="/projects/ai360"
+            className="block glass-card p-5 mb-8 transition-all hover:-translate-y-0.5 group"
+          >
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-sky-300">
+                  ▲ Cornell AI 360
+                </span>
+                <p className="text-foreground font-semibold mt-1">Explore my AI 360 coursework</p>
+                <p className="text-muted-foreground text-sm">
+                  20 projects across NLP, machine learning, and data science in R, each wired into the Skill Map.
+                </p>
+              </div>
+              <ExternalLink size={18} className="text-muted-foreground group-hover:text-primary shrink-0" />
+            </div>
+          </Link>
+
           {/* Projects Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (

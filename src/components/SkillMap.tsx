@@ -10,6 +10,7 @@ import {
   certCountForSkill,
   type Domain,
 } from "@/data/skillmap";
+import { ai360ForSkill } from "@/data/ai360-projects";
 
 type Filter = "all" | Domain;
 
@@ -26,7 +27,7 @@ export const SkillMap = () => {
   const [selected, setSelected] = useState<string | null>(null);
   const [domain, setDomain] = useState<Filter>("all");
   const [query, setQuery] = useState("");
-  const [tab, setTab] = useState<"proj" | "cert">("proj");
+  const [tab, setTab] = useState<"proj" | "course" | "cert">("proj");
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const stateRef = useRef({ selected, domain, query: "", hover: null as string | null });
@@ -101,20 +102,30 @@ export const SkillMap = () => {
     };
     const satellites = () => {
       const st = stateRef.current;
-      if (!st.selected) return [] as { type: "p" | "c"; label: string; planned?: boolean; x: number; y: number }[];
+      const empty: { type: "p" | "c" | "course"; label: string; planned?: boolean; x: number; y: number }[] = [];
+      if (!st.selected) return empty;
       const s = SKILLS.find((k) => k.id === st.selected);
-      if (!s) return [];
+      if (!s) return empty;
+      const cx0 = s.x * W;
+      const cy0 = s.y * H;
       const ps = projectsForSkill(s.id);
       const cs = certsForSkill(s.id);
-      const all = [
+      const course = ai360ForSkill(s.id);
+      const outer = [
         ...ps.map((p) => ({ type: "p" as const, label: p.name.split("·")[0].trim() })),
         ...cs.map((c) => ({ type: "c" as const, label: c.name, planned: c.planned })),
       ];
-      const R = Math.min(W, H) * 0.3;
-      return all.map((a, i) => {
-        const ang = -Math.PI / 2 + i * ((2 * Math.PI) / all.length);
-        return { ...a, x: s.x * W + Math.cos(ang) * R, y: s.y * H + Math.sin(ang) * R };
+      const Ro = Math.min(W, H) * 0.32;
+      const Ri = Math.min(W, H) * 0.17;
+      const outerPos = outer.map((a, i) => {
+        const ang = -Math.PI / 2 + i * ((2 * Math.PI) / Math.max(1, outer.length));
+        return { ...a, x: cx0 + Math.cos(ang) * Ro, y: cy0 + Math.sin(ang) * Ro };
       });
+      const innerPos = course.map((c, i) => {
+        const ang = -Math.PI / 2 + i * ((2 * Math.PI) / Math.max(1, course.length));
+        return { type: "course" as const, label: c.title, x: cx0 + Math.cos(ang) * Ri, y: cy0 + Math.sin(ang) * Ri };
+      });
+      return [...innerPos, ...outerPos];
     };
 
     function draw() {
@@ -190,7 +201,7 @@ export const SkillMap = () => {
         ctx.globalAlpha = 1;
       }
 
-      // satellites: projects = squares, certs = green diamonds
+      // satellites: projects = squares, coursework = triangles, certs = diamonds
       for (const a of sats) {
         const pulse = reduceRef.current ? 1 : 1 + Math.sin(t * 3) * 0.05;
         if (a.type === "p") {
@@ -198,6 +209,20 @@ export const SkillMap = () => {
           ctx.shadowColor = "rgba(203,213,225,0.5)";
           ctx.shadowBlur = 9;
           ctx.fillRect(a.x - 5 * pulse, a.y - 5 * pulse, 10 * pulse, 10 * pulse);
+        } else if (a.type === "course") {
+          const tr = 5 * pulse;
+          ctx.save();
+          ctx.translate(a.x, a.y);
+          ctx.fillStyle = "#7dd3fc";
+          ctx.shadowColor = "rgba(125,211,252,0.5)";
+          ctx.shadowBlur = 7;
+          ctx.beginPath();
+          ctx.moveTo(0, -tr);
+          ctx.lineTo(tr * 0.92, tr * 0.72);
+          ctx.lineTo(-tr * 0.92, tr * 0.72);
+          ctx.closePath();
+          ctx.fill();
+          ctx.restore();
         } else {
           ctx.save();
           ctx.translate(a.x, a.y);
@@ -209,11 +234,13 @@ export const SkillMap = () => {
           ctx.restore();
         }
         ctx.shadowBlur = 0;
-        ctx.fillStyle = "rgba(148,163,184,0.85)";
-        ctx.font = "10px Inter, ui-sans-serif";
-        ctx.textAlign = "center";
-        const short = a.label.length > 24 ? `${a.label.slice(0, 22)}…` : a.label;
-        ctx.fillText(short, a.x, a.y + 18);
+        if (a.type !== "course") {
+          ctx.fillStyle = "rgba(148,163,184,0.85)";
+          ctx.font = "10px Inter, ui-sans-serif";
+          ctx.textAlign = "center";
+          const short = a.label.length > 24 ? `${a.label.slice(0, 22)}…` : a.label;
+          ctx.fillText(short, a.x, a.y + 18);
+        }
       }
     }
 
@@ -262,6 +289,7 @@ export const SkillMap = () => {
   const projects = skill ? projectsForSkill(skill.id) : [];
   const certs = skill ? certsForSkill(skill.id) : [];
   const certN = skill ? certCountForSkill(skill.id) : 0;
+  const coursework = skill ? ai360ForSkill(skill.id) : [];
 
   return (
     <div id="skill-map">
@@ -299,10 +327,11 @@ export const SkillMap = () => {
         <div className="absolute top-3 right-4 text-[11px] text-slate-500 pointer-events-none">
           {selected ? "click another skill, or empty space to clear" : "click a skill node"}
         </div>
-        <div className="absolute left-4 bottom-3 flex gap-4 text-[11px] text-slate-500 pointer-events-none">
+        <div className="absolute left-4 bottom-3 flex flex-wrap gap-x-3.5 gap-y-1 text-[11px] text-slate-500 pointer-events-none max-w-[92%]">
           <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-blue-500" /> skill</span>
           <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 bg-slate-300" /> project</span>
-          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 bg-emerald-400 rotate-45" /> certification</span>
+          <span className="flex items-center gap-1.5"><span className="w-0 h-0 border-l-[5px] border-r-[5px] border-b-[8px] border-l-transparent border-r-transparent" style={{ borderBottomColor: "#7dd3fc" }} /> coursework</span>
+          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 bg-emerald-400 rotate-45" /> cert</span>
         </div>
       </div>
 
@@ -336,7 +365,7 @@ export const SkillMap = () => {
             <div className="flex gap-2 mt-5">
               <button
                 onClick={() => setTab("proj")}
-                className={`flex-1 rounded-lg border py-2 text-xs font-semibold transition-colors ${
+                className={`flex-1 rounded-lg border py-2 text-[11px] font-semibold transition-colors ${
                   tab === "proj" ? "border-blue-500 text-blue-300 bg-blue-500/10" : "border-slate-700 text-slate-400 hover:text-slate-200"
                 }`}
               >
@@ -344,19 +373,28 @@ export const SkillMap = () => {
                 projects
               </button>
               <button
+                onClick={() => setTab("course")}
+                className={`flex-1 rounded-lg border py-2 text-[11px] font-semibold transition-colors ${
+                  tab === "course" ? "border-blue-500 text-blue-300 bg-blue-500/10" : "border-slate-700 text-slate-400 hover:text-slate-200"
+                }`}
+              >
+                <span className="block text-lg text-slate-100">{coursework.length}</span>
+                coursework
+              </button>
+              <button
                 onClick={() => setTab("cert")}
-                className={`flex-1 rounded-lg border py-2 text-xs font-semibold transition-colors ${
+                className={`flex-1 rounded-lg border py-2 text-[11px] font-semibold transition-colors ${
                   tab === "cert" ? "border-blue-500 text-blue-300 bg-blue-500/10" : "border-slate-700 text-slate-400 hover:text-slate-200"
                 }`}
               >
                 <span className="block text-lg text-slate-100">{certN}</span>
-                certifications
+                certs
               </button>
             </div>
 
             <div className="mt-3 overflow-y-auto scrollbar-thin flex-1 pr-1 min-h-[180px]">
-              {tab === "proj" ? (
-                projects.length ? (
+              {tab === "proj" &&
+                (projects.length ? (
                   projects.map((p) => {
                     const external = p.href?.startsWith("http");
                     const Tag = p.href ? "a" : "div";
@@ -378,38 +416,62 @@ export const SkillMap = () => {
                   })
                 ) : (
                   <div className="text-slate-500 text-[13px] px-1 py-3">No mapped projects.</div>
-                )
-              ) : certs.length ? (
-                certs.map((c) => (
-                  <a
-                    key={c.id}
-                    {...(c.pdf ? { href: c.pdf, target: "_blank", rel: "noopener noreferrer" } : {})}
-                    className={`block border rounded-xl px-4 py-3 mb-2.5 bg-slate-900/40 transition-all ${
-                      c.planned ? "border-dashed border-slate-600 opacity-80" : "border-slate-700"
-                    } ${c.pdf ? "hover:border-slate-500 hover:translate-x-0.5 cursor-pointer" : ""}`}
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <span className="text-[13px] font-semibold text-slate-200">
-                        {c.name}
-                        {c.count > 1 && (
-                          <span className="ml-2 align-middle text-[9.5px] font-bold text-emerald-300 bg-emerald-500/10 border border-emerald-500/30 rounded-full px-1.5 py-0.5">
-                            ×{c.count}
-                          </span>
-                        )}
-                      </span>
-                      <span className={`text-[11px] font-bold shrink-0 ${c.planned ? "text-slate-500" : "text-emerald-300"}`}>
-                        {c.planned ? "PLANNED" : c.year}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-1.5 text-[11.5px] text-slate-500 mt-1">
-                      {c.pdf && <FileText size={11} />}
-                      {c.issuer}
-                    </div>
-                  </a>
-                ))
-              ) : (
-                <div className="text-slate-500 text-[13px] px-1 py-3">No mapped certifications.</div>
-              )}
+                ))}
+
+              {tab === "course" &&
+                (coursework.length ? (
+                  coursework.map((c) => (
+                    <a
+                      key={c.id}
+                      href="/projects/ai360"
+                      className="block border border-slate-700 rounded-xl px-4 py-3 mb-2.5 bg-slate-900/40 transition-all hover:border-slate-500 hover:translate-x-0.5 cursor-pointer"
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <span className="text-[13px] font-semibold text-slate-200">{c.title}</span>
+                        <span className="text-[10px] font-bold text-sky-300 shrink-0 whitespace-nowrap">▲ AI 360</span>
+                      </div>
+                      <div className="text-[11.5px] text-slate-500 mt-1">
+                        {c.track}
+                        {c.artifact ? " · artifact available" : ""}
+                      </div>
+                    </a>
+                  ))
+                ) : (
+                  <div className="text-slate-500 text-[13px] px-1 py-3">No mapped coursework.</div>
+                ))}
+
+              {tab === "cert" &&
+                (certs.length ? (
+                  certs.map((c) => (
+                    <a
+                      key={c.id}
+                      {...(c.pdf ? { href: c.pdf, target: "_blank", rel: "noopener noreferrer" } : {})}
+                      className={`block border rounded-xl px-4 py-3 mb-2.5 bg-slate-900/40 transition-all ${
+                        c.planned ? "border-dashed border-slate-600 opacity-80" : "border-slate-700"
+                      } ${c.pdf ? "hover:border-slate-500 hover:translate-x-0.5 cursor-pointer" : ""}`}
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <span className="text-[13px] font-semibold text-slate-200">
+                          {c.name}
+                          {c.count > 1 && (
+                            <span className="ml-2 align-middle text-[9.5px] font-bold text-emerald-300 bg-emerald-500/10 border border-emerald-500/30 rounded-full px-1.5 py-0.5">
+                              ×{c.count}
+                            </span>
+                          )}
+                        </span>
+                        <span className={`text-[11px] font-bold shrink-0 ${c.planned ? "text-slate-500" : "text-emerald-300"}`}>
+                          {c.planned ? "PLANNED" : c.year}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-1.5 text-[11.5px] text-slate-500 mt-1">
+                        {c.pdf && <FileText size={11} />}
+                        {c.issuer}
+                      </div>
+                    </a>
+                  ))
+                ) : (
+                  <div className="text-slate-500 text-[13px] px-1 py-3">No mapped certifications.</div>
+                ))}
             </div>
           </div>
         )}

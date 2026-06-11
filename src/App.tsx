@@ -12,6 +12,7 @@ const TimelinePage = lazy(() => import("./pages/TimelinePage"));
 const EducationPage = lazy(() => import("./pages/EducationPage"));
 const ProjectsPage = lazy(() => import("./pages/ProjectsPage"));
 const SkillsPage = lazy(() => import("./pages/SkillsPage"));
+const AI360Explorer = lazy(() => import("./pages/AI360Explorer"));
 const ContactPage = lazy(() => import("./pages/ContactPage"));
 const MakerMindCaseStudy = lazy(() => import("./pages/MakerMindCaseStudy"));
 const NotFound = lazy(() => import("./pages/NotFound"));
@@ -32,6 +33,7 @@ const App = () => (
             <Route path="/education" element={<EducationPage />} />
             <Route path="/projects" element={<ProjectsPage />} />
             <Route path="/projects/makermind" element={<MakerMindCaseStudy />} />
+            <Route path="/projects/ai360" element={<AI360Explorer />} />
             <Route path="/skills" element={<SkillsPage />} />
             <Route path="/contact" element={<ContactPage />} />
             {/* Redirects from removed pages */}

@@ -101,10 +101,7 @@ export const PROJECTS: SkillProject[] = [
   { id: "takvenops", name: "TakvenOps · agentic PM tool", metric: "spec + prototype", kind: "dev", skills: ["llm", "agile", "py"], href: "/projects" },
   { id: "ahrc", name: "AHRC architecture + infrastructure", metric: "$170K+/yr secured", kind: "dev", skills: ["llm", "cloud", "sec", "az", "ba"], href: "/projects" },
   { id: "ch", name: "ConnectionHub platform · 5 web properties", metric: "1,182 students org-wide", kind: "eqr", skills: ["pg", "ba", "sql"], href: "/projects" },
-  { id: "dchousing", name: "DC Housing neural network (H2O + LIME)", metric: "R-squared 0.811", kind: "course", skills: ["r", "ml"], href: "/projects" },
-  { id: "tti", name: "Traffic clustering & COVID hotspots", metric: "Getis-Ord Gi*", kind: "course", skills: ["r"], href: "/projects" },
-  { id: "nlpcornell", name: "LDA / PageRank / RAKE (NLP)", metric: "Cornell AI 360", kind: "course", skills: ["nlp", "py"], href: "/projects" },
-  { id: "vpl", name: "visual-python-learning (Pyodide)", metric: "30 chapters · in-browser Python", kind: "course", skills: ["cs", "py"], href: "/projects" },
+  { id: "vpl", name: "visual-python-learning (Pyodide)", metric: "30 chapters · in-browser Python", kind: "dev", skills: ["cs", "py"], href: "/projects" },
 ];
 
 /* ============================================================
