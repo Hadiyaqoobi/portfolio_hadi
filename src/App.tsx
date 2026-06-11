@@ -11,6 +11,7 @@ const AboutPage = lazy(() => import("./pages/AboutPage"));
 const TimelinePage = lazy(() => import("./pages/TimelinePage"));
 const EducationPage = lazy(() => import("./pages/EducationPage"));
 const ProjectsPage = lazy(() => import("./pages/ProjectsPage"));
+const SkillsPage = lazy(() => import("./pages/SkillsPage"));
 const ContactPage = lazy(() => import("./pages/ContactPage"));
 const MakerMindCaseStudy = lazy(() => import("./pages/MakerMindCaseStudy"));
 const NotFound = lazy(() => import("./pages/NotFound"));
@@ -31,6 +32,7 @@ const App = () => (
             <Route path="/education" element={<EducationPage />} />
             <Route path="/projects" element={<ProjectsPage />} />
             <Route path="/projects/makermind" element={<MakerMindCaseStudy />} />
+            <Route path="/skills" element={<SkillsPage />} />
             <Route path="/contact" element={<ContactPage />} />
             {/* Redirects from removed pages */}
             <Route path="/beyond-work" element={<Navigate to="/about" replace />} />

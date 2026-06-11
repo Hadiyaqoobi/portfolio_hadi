@@ -6,6 +6,7 @@ import { BigNumber } from "@/components/BigNumber";
 import { ImpactResults } from "@/components/ImpactResults";
 import { HowIWork } from "@/components/HowIWork";
 import { ProjectsSection } from "@/components/ProjectsSection";
+import { SkillMapTeaser } from "@/components/SkillMapTeaser";
 import ResearchPublications from "@/components/ResearchPublications";
 import { EngineeringFootprint } from "@/components/EngineeringFootprint";
 import { ContactCTA } from "@/components/ContactCTA";
@@ -30,6 +31,7 @@ const Index = () => {
         <Suspense fallback={<div className="min-h-[520px]" />}>
           <BugHunt />
         </Suspense>
+        <SkillMapTeaser />
         <ResearchPublications />
         <EngineeringFootprint />
         <ContactCTA />
