@@ -133,6 +133,22 @@ export const Navigation = () => {
                   </Link>
                 </motion.div>
               ))}
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: navItems.length * 0.07 }}
+              >
+                <a
+                  href="/resume.pdf"
+                  download
+                  onClick={() => setIsOpen(false)}
+                  className="mt-4 btn-outline text-lg px-6 py-3 rounded-lg flex items-center gap-2 font-medium"
+                >
+                  <FileDown size={18} />
+                  Resume
+                </a>
+              </motion.div>
             </div>
           </motion.div>
         )}

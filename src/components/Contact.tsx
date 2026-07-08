@@ -3,6 +3,11 @@ import { Mail, Linkedin, Send, CheckCircle, AlertCircle } from "lucide-react";
 import { portfolioData } from "@/data/portfolio-data";
 import { useState, FormEvent } from "react";
 
+// Set VITE_WEB3FORMS_ACCESS_KEY in Vercel (Project → Settings → Environment
+// Variables; key is free at web3forms.com). Until it is set, the form is
+// replaced by a direct-email card — never a silently failing form.
+const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY as string | undefined;
+
 export const Contact = () => {
   const { personal } = portfolioData;
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
@@ -17,7 +22,7 @@ export const Contact = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          access_key: "YOUR_WEB3FORMS_ACCESS_KEY",
+          access_key: WEB3FORMS_KEY,
           name: formData.name,
           email: formData.email,
           message: formData.message,
@@ -109,12 +114,27 @@ export const Contact = () => {
             </div>
           </motion.div>
 
-          {/* Contact Form */}
+          {/* Contact Form (or direct-email card when no form key is configured) */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
+            {!WEB3FORMS_KEY ? (
+              <div className="glass-card p-7 overflow-hidden flex flex-col items-start justify-center h-full gap-4">
+                <h3 className="text-base font-bold text-slate-100">Email me directly</h3>
+                <p className="text-sm text-slate-400">
+                  The fastest way to reach me — I reply within a day.
+                </p>
+                <a
+                  href={`mailto:${personal.email}?subject=Portfolio contact`}
+                  className="btn-primary flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-sm"
+                >
+                  <Mail size={14} />
+                  {personal.email}
+                </a>
+              </div>
+            ) : (
             <form onSubmit={handleSubmit} className="glass-card p-7 space-y-4 overflow-hidden">
               <div>
                 <label className="text-xs text-slate-500 mb-2 block">Name</label>
@@ -175,6 +195,7 @@ export const Contact = () => {
                 {status === "sending" ? "Sending..." : "Send Message"}
               </button>
             </form>
+            )}
           </motion.div>
         </div>
       </div>
