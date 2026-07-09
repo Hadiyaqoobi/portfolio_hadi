@@ -52,7 +52,7 @@ export const Education = () => {
         </h2>
         <p className="text-slate-400 text-base max-w-2xl leading-relaxed">
           Aviation Management taught me how complex organizations operate. Data Analytics
-          taught me how to measure what's broken. Cornell is teaching me how to build
+          taught me how to measure what's broken. Cornell taught me how to build
           what comes next.
         </p>
       </motion.div>

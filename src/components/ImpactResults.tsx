@@ -61,7 +61,7 @@ export const ImpactResults = () => {
       icon: SearchCheck,
       outcome: "SQL & Data Validation",
       metric: { value: 960, suffix: "+ data points/property", duration: 2 },
-      how: "Production stored procedures with 6-table JOINs and 3 nested subquery levels. WHILE-loop validation engine auditing RUBS utility costs across ~300 properties and 8 database tables. Eliminated 104 manual query executions per year. Every billing discrepancy caught before resident impact.",
+      how: "Production stored procedures with 6-table JOINs and 3 nested subquery levels. WHILE-loop validation engine auditing RUBS utility costs across ~300 properties and 8 database tables. Every billing discrepancy caught before resident impact.",
       scope: "Equity Residential · S&P 500 · 85,000+ apartments",
       accentColor: "emerald" as const,
       span: "md:col-span-2",

@@ -137,8 +137,9 @@ export const Contact = () => {
             ) : (
             <form onSubmit={handleSubmit} className="glass-card p-7 space-y-4 overflow-hidden">
               <div>
-                <label className="text-xs text-slate-500 mb-2 block">Name</label>
+                <label htmlFor="contact-name" className="text-xs text-slate-500 mb-2 block">Name</label>
                 <input
+                  id="contact-name"
                   type="text"
                   required
                   value={formData.name}
@@ -149,8 +150,9 @@ export const Contact = () => {
               </div>
 
               <div>
-                <label className="text-xs text-slate-500 mb-2 block">Email</label>
+                <label htmlFor="contact-email" className="text-xs text-slate-500 mb-2 block">Email</label>
                 <input
+                  id="contact-email"
                   type="email"
                   required
                   value={formData.email}
@@ -161,8 +163,9 @@ export const Contact = () => {
               </div>
 
               <div>
-                <label className="text-xs text-slate-500 mb-2 block">Message</label>
+                <label htmlFor="contact-message" className="text-xs text-slate-500 mb-2 block">Message</label>
                 <textarea
+                  id="contact-message"
                   required
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}

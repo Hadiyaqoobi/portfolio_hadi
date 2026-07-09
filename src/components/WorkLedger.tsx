@@ -60,7 +60,12 @@ export const WorkLedger = () => {
 
   const filtered = WORK.filter((w) => {
     if (status !== "all" && w.status !== status) return false;
-    if (tech !== "all" && !w.tech.some((t) => t.toLowerCase().includes(tech.toLowerCase()))) return false;
+    if (tech !== "all") {
+      const q = tech.toLowerCase();
+      // Single-letter filters (R) need exact-token match; substring would hit "React", "PyTorch"…
+      const hit = w.tech.some((t) => (q.length <= 2 ? t.toLowerCase() === q : t.toLowerCase().includes(q)));
+      if (!hit) return false;
+    }
     if (query) {
       const hay = `${w.title} ${w.tech.join(" ")} ${w.tags.join(" ")} ${w.description}`.toLowerCase();
       if (!hay.includes(query.toLowerCase())) return false;

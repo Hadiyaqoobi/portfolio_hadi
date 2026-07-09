@@ -178,7 +178,7 @@ export class HardwareArchitect {
     const requirements = this.analyzeRequirements(text, components);
 
     return {
-      summary: this.generateSummary(device, requirements),
+      summary: this.generateSummary(board, requirements),
       devices: [{ id: 'main-device', board, components }],
       requirements,
     };
@@ -201,6 +201,9 @@ export class HardwareArchitect {
             && board === 'esp32') {
           componentId = 'dht22-temp-humidity';
         }
+
+        const instanceId =
+          \`\${componentId}_\${components.length}\`;
 
         components.push({
           id: instanceId,

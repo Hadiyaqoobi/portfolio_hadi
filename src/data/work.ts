@@ -53,7 +53,8 @@ function deriveStatus(p: any): WorkStatus {
   if (p.confidential || /equity residential/i.test(p.company || "")) return "enterprise";
   if (t.includes("connectionhub")) return "enterprise";
   if (
-    t.includes("housing") ||
+    t.includes("real estate valuations") ||
+    t.includes("predictive real estate") ||
     t.includes("resumener") ||
     t.includes("roe-embed") ||
     t.includes("whisperdari") ||
@@ -169,7 +170,8 @@ function deriveLinks(p: any, status: WorkStatus): WorkLink[] {
     links.push({
       label: isPdf ? "Read the paper" : external ? "Live demo" : "Case study",
       href: p.demo,
-      external,
+      // PDFs are static documents — render as hard <a> navigations, never SPA links.
+      external: external || isPdf,
     });
   }
   if (p.github && p.github !== "#") links.push({ label: "GitHub", href: p.github, external: true });

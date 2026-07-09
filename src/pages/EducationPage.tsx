@@ -352,7 +352,7 @@ const EducationPage = () => {
             >
               <div className="flex flex-wrap items-center justify-center gap-8 text-center mb-6">
                 {[
-                  { value: certificates.length.toString(), label: "Certificates" },
+                  { value: certificates.length.toString(), label: "Featured Certificates" },
                   {
                     value: Array.from(new Set(certificates.map((c) => c.provider))).length.toString(),
                     label: "Institutions",

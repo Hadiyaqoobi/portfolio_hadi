@@ -94,7 +94,7 @@ export const portfolioData = {
     },
     {
       year: "2025 – Present",
-      title: "Cornell AI360 Certificate + PMP",
+      title: "Cornell AI 360 Certificate (2026) + PMP (In Progress)",
       company: "Cornell University / PMI",
       location: "Remote",
       skills: ["AI Strategy", "Machine Learning", "Project Management"],
@@ -112,7 +112,7 @@ export const portfolioData = {
       skills: ["Python", "PyTorch", "XLM-RoBERTa", "LightGBM", "TypeScript", "React", "LLM APIs"],
       highlights: [
         "Trained 5 ML models across PyTorch, LightGBM, and XGBoost: ROE-ResumeNER (XLM-RoBERTa NER, F1 0.55 to 0.7476 over five cycles), ROE-Embed (multilingual matching, 24/25 codes), ROE-WhisperDari (LoRA fine-tuned Dari ASR), ROE-Match (calibrated LightGBM with leakage detection), and a fairness-aware wage model (Fairlearn)",
-        "One product live: AlphaSeekers (190+ registered users, 20 live classes, RAG study assistant on pgvector + Groq with measured 89% retrieval precision). Three in active development: TakveenUp (multilingual workforce matching), MakerMind (multi-agent LLM hardware education, 69K lines TypeScript), and TakvenOps (AI-native project management)",
+        "One product live: AlphaSeekers (190+ registered users, 20 live classes, RAG study assistant on pgvector + Groq with measured 89% retrieval precision). Three in active development: TakveenUp (multilingual workforce matching), MakerMind (multi-agent LLM hardware education, 69K lines TypeScript), and TakveenOps (AI-native project management)",
         "Sole-author research on LLM-as-annotator reliability (90.3% false discovery rate across 584 transcripts), under peer review at Springer's Empirical Software Engineering",
         "Authored the full BRD/FRD and technical book for AlphaSeekers: dual data stores, three-channel notifications with circuit breakers, and AES-256 encryption designed for 2G network environments",
       ],
@@ -179,7 +179,7 @@ export const portfolioData = {
     },
     {
       year: "2019 – 2021",
-      title: "IT Business Systems Analyst & Technical Lead",
+      title: "IT Business Systems Analyst",
       company: "ConnectionHub",
       location: "Istanbul, Turkey (Remote)",
       skills: ["SQL", "Python", "Snowflake", "Tableau", "SDLC"],
@@ -335,7 +335,7 @@ export const portfolioData = {
       highlights: [],
       github: null,
       demo: null,
-      featured: true,
+      featured: false,
       category: "rnd",
       company: "Independent R&D",
     },
@@ -389,7 +389,7 @@ export const portfolioData = {
     },
     {
       title: "AI Monitoring System for ICC-Aligned Human Rights Documentation",
-      description: "The Afghanistan Human Rights Center needed to automate classification of human rights violations across 10+ multilingual news sources after ICC arrest warrants created unprecedented demand for systematic evidence. I gathered requirements, conducted gap analysis of 4 competing platforms, authored the technical architecture comparing 2 implementation approaches, and defined ICC-compliant data requirements including violation taxonomy, geographic metadata, and source verification chain.",
+      description: "The Afghan Human Right Center needed to automate classification of human rights violations across 10+ multilingual news sources after ICC arrest warrants created unprecedented demand for systematic evidence. I gathered requirements, conducted gap analysis of 4 competing platforms, authored the technical architecture comparing 2 implementation approaches, and defined ICC-compliant data requirements including violation taxonomy, geographic metadata, and source verification chain.",
       tech: ["LLM Classification", "NLP", "ICC Standards", "Gap Analysis"],
       tags: ["IT BSA", "Requirements Gathering", "Contract"],
       highlights: [],
