@@ -82,11 +82,11 @@ export const portfolioData = {
       location: "Remote",
       skills: ["Salesforce NPSP", "Requirements Gathering", "Gap Analysis", "AI Architecture", "ICC Standards"],
       highlights: [
-        "Lead the end-to-end Salesforce integration strategy across NPSP donor management, incident-to-Case automation, and custom HR objects — the primary bridge between business stakeholders and technical implementation for a 501(c)(3) led by Dr. Sima Samar",
+        "Own the organization's entire technology initiative end-to-end for a 501(c)(3) led by Dr. Sima Samar: built the infrastructure from zero across 8 platforms, securing $170K+/yr in vendor credits (Google, Microsoft, Salesforce, Splunk, Cloudflare, GitHub) in under two months",
+        "Lead the end-to-end Salesforce integration strategy across NPSP donor management, incident-to-Case automation, and custom HR objects — the primary bridge between business stakeholders and technical implementation",
         "Architected a dual-provider AI integration (Claude + OpenAI with automatic failover) classifying human-rights incidents across 13 categories in Dari and English, with confidence-based routing that auto-approves high-confidence results and escalates edge cases",
         "Chose a 3-tier AI routing strategy over building a custom Dari NLP model, eliminating the need for labeled training data and GPU infrastructure while cutting classification costs ~90% through model selection and prompt caching",
         "Conducted gap analysis of 4 competing platforms (Rawadari, Afghan Witness, ACLED, HURIDOCS), identifying coverage gaps and defining AHRC's differentiated system requirements",
-        "Authored technical architecture comparing 2 implementation options (commercial LLM API vs. custom-trained model), recommending a hybrid approach with phased migration to reduce API costs to near-zero",
         "Defined data requirements for ICC-compliant incident records: violation type taxonomy, geographic/temporal metadata, source verification chain, and de-duplication logic across multilingual inputs",
       ],
       type: "current",
