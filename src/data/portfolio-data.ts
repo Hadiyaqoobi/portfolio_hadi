@@ -2,7 +2,7 @@ export const portfolioData = {
   personal: {
     name: "M. Hadi Yaqoobi",
     title: "AI Solutions Architect & Business Systems Analyst",
-    subtitle: "At Equity Residential, an S&P 500 REIT with 85,000+ apartments, I was the analyst between Marketing and engineering. I coordinated an Azure AD B2C migration for 135,000+ accounts across six teams. Zero critical incidents. Now I run Nexuss Science, my applied R&D startup, and lead technology at AHRC.",
+    subtitle: "At Equity Residential, an S&P 500 REIT with 85,000+ apartments, I was the analyst between Marketing and engineering. I coordinated an Azure AD B2C migration for 135,000+ accounts across seven teams. Zero critical incidents. Now I'm the Business Systems Manager (contract) at the Afghan Human Right Center, and I build applied AI products independently.",
     location: "Boston, MA (Green Card Holder)",
     focus: ["Requirements Analysis & Documentation", "Systems Integration & Azure", "SQL & Data Validation", "Cross-Functional Stakeholder Management", "Enterprise SDLC & Agile"],
     email: "hyaqoobi@bu.edu",
@@ -10,8 +10,8 @@ export const portfolioData = {
   },
 
   about: {
-    description: `I build and ship platforms. First at an early-stage ed-tech company, shipping a greenfield platform to production in five countries on free-tier infrastructure. Then at Equity Residential, an S&P 500 REIT with 85,000+ apartments, where I coordinated an Azure AD B2C migration for 135,000+ accounts (six teams, four phases, zero critical incidents), wrote T-SQL daily across five database environments, and shipped a production stored procedure myself when the dev team had no bandwidth.\n\nIn July 2025 I left to run Nexuss Science full-time: an applied R&D lab where I pick problems current tools cannot solve and engineer through them. One product live (AlphaSeekers), three in active development, five production ML models trained, and research on LLM reliability under peer review at Springer's Empirical Software Engineering.\n\nI am also technology lead at the Afghanistan Human Rights Center, where I built the organization's infrastructure from nothing and authored the board-approved hybrid LLM architecture for an AI monitoring system, now in build.\n\nI grew up a refugee. That is my engineering edge: I learned to solve problems with whatever existed, question every assumption, and build for people who cannot afford failures. Constraints read to me as design parameters, not blockers.`,
-    education: "MS Management Studies (Data Analytics, STEM) · Cornell AI 360, completed 2026 · NYU Computer Science",
+    description: `I build and ship platforms. First at an early-stage ed-tech nonprofit, shipping platforms that served 500+ refugee learners within a five-country organization, on free-tier infrastructure. Then at Equity Residential, an S&P 500 REIT with 85,000+ apartments, where I coordinated an Azure AD B2C migration for 135,000+ accounts (seven teams, four phases, zero critical incidents), wrote T-SQL daily across five database environments, and shipped a production stored procedure myself when the dev team had no bandwidth.\n\nIn July 2025 I left to take a Business Systems Manager contract at the Afghan Human Right Center and to go deep on independent applied R&D: picking problems current tools cannot solve and engineering through them. One product live (AlphaSeekers), three in active development, five ML models trained, and research on LLM reliability under peer review at Springer's Empirical Software Engineering.\n\nAt AHRC I lead the end-to-end Salesforce NPSP integration strategy and architected a dual-provider AI system (Claude + OpenAI with automatic failover) that classifies human-rights incidents across 13 categories in Dari and English, with confidence-based routing that cut classification costs ~90%.\n\nI grew up a refugee. That is my engineering edge: I learned to solve problems with whatever existed, question every assumption, and build for people who cannot afford failures. Constraints read to me as design parameters, not blockers.`,
+    education: "MS Management Studies (Data Analytics, STEM), Boston University · Cornell AI 360 (2026) · BA Aviation Management, Kocaeli University",
     interests: ["Requirements Analysis", "Systems Integration", "Data Validation", "Process Improvement", "Cross-Functional Stakeholder Management"],
   },
 
@@ -49,9 +49,9 @@ export const portfolioData = {
       ],
     },
     {
-      degree: "MicroBachelor",
+      degree: "MicroBachelors Program Certificate (edX)",
       field: "Computer Science",
-      institution: "New York University (NYU)",
+      institution: "New York University — via edX",
       logo: "/logos/nyu.png",
       year: "2022",
       description: "Focused curriculum in programming fundamentals, algorithms, and software development.",
@@ -80,9 +80,11 @@ export const portfolioData = {
       title: "Business Systems Manager (Contract)",
       company: "AHRC",
       location: "Remote",
-      skills: ["Requirements Gathering", "Gap Analysis", "AI Architecture", "ICC Standards"],
+      skills: ["Salesforce NPSP", "Requirements Gathering", "Gap Analysis", "AI Architecture", "ICC Standards"],
       highlights: [
-        "Gathered requirements and defined technical specifications for an AI-powered monitoring system that automates classification of human rights violations across 10+ Dari, Pashto, and English news sources for a 501(c)(3) led by Dr. Sima Samar",
+        "Lead the end-to-end Salesforce integration strategy across NPSP donor management, incident-to-Case automation, and custom HR objects — the primary bridge between business stakeholders and technical implementation for a 501(c)(3) led by Dr. Sima Samar",
+        "Architected a dual-provider AI integration (Claude + OpenAI with automatic failover) classifying human-rights incidents across 13 categories in Dari and English, with confidence-based routing that auto-approves high-confidence results and escalates edge cases",
+        "Chose a 3-tier AI routing strategy over building a custom Dari NLP model, eliminating the need for labeled training data and GPU infrastructure while cutting classification costs ~90% through model selection and prompt caching",
         "Conducted gap analysis of 4 competing platforms (Rawadari, Afghan Witness, ACLED, HURIDOCS), identifying coverage gaps and defining AHRC's differentiated system requirements",
         "Authored technical architecture comparing 2 implementation options (commercial LLM API vs. custom-trained model), recommending a hybrid approach with phased migration to reduce API costs to near-zero",
         "Defined data requirements for ICC-compliant incident records: violation type taxonomy, geographic/temporal metadata, source verification chain, and de-duplication logic across multilingual inputs",
@@ -105,11 +107,11 @@ export const portfolioData = {
     {
       year: "2023 – Present",
       title: "Technical Product Lead, Applied R&D",
-      company: "Nexuss Science",
+      company: "Independent R&D (self-funded)",
       location: "Boston, MA",
       skills: ["Python", "PyTorch", "XLM-RoBERTa", "LightGBM", "TypeScript", "React", "LLM APIs"],
       highlights: [
-        "Trained 5 production ML models in PyTorch: ROE-ResumeNER (XLM-RoBERTa NER, F1 0.55 to 0.7476 over five cycles), ROE-Embed (multilingual matching, 24/25 codes), ROE-WhisperDari (LoRA fine-tuned Dari ASR), ROE-Match (calibrated LightGBM with leakage detection), and a fairness-aware wage model (Fairlearn)",
+        "Trained 5 ML models across PyTorch, LightGBM, and XGBoost: ROE-ResumeNER (XLM-RoBERTa NER, F1 0.55 to 0.7476 over five cycles), ROE-Embed (multilingual matching, 24/25 codes), ROE-WhisperDari (LoRA fine-tuned Dari ASR), ROE-Match (calibrated LightGBM with leakage detection), and a fairness-aware wage model (Fairlearn)",
         "One product live: AlphaSeekers (190+ registered users, 20 live classes, RAG study assistant on pgvector + Groq with measured 89% retrieval precision). Three in active development: TakveenUp (multilingual workforce matching), MakerMind (multi-agent LLM hardware education, 69K lines TypeScript), and TakvenOps (AI-native project management)",
         "Sole-author research on LLM-as-annotator reliability (90.3% false discovery rate across 584 transcripts), under peer review at Springer's Empirical Software Engineering",
         "Authored the full BRD/FRD and technical book for AlphaSeekers: dual data stores, three-channel notifications with circuit breakers, and AES-256 encryption designed for 2G network environments",
@@ -124,10 +126,10 @@ export const portfolioData = {
       location: "Boston, MA",
       skills: ["SQL", "Azure B2C", "Power BI", "Azure DevOps", "Agile"],
       highlights: [
-        "Delivered zero-incident Azure B2C authentication migration (135,000+ accounts) by coordinating 6 cross-functional teams through 4 deployment phases, authoring BRDs, and managing dependencies across CloudOps, Infrastructure, SecOps, and DevOps",
+        "Delivered zero-incident Azure B2C authentication migration (135,000+ accounts) by coordinating 7 cross-functional teams through 4 deployment phases, authoring BRDs, and managing dependencies across CloudOps, Infrastructure, SecOps, and DevOps",
         "Authored 1 BRD and 5 FRDs for Fee Transparency across 4 workstreams, translating multi-state regulations (CA SB 478, VA HB 967, CO HB25-1090) into technical specs that delivered ahead of every regulatory deadline",
         "Automated EQR's weekly delinquency campaign via production SQL stored procedure (6-table JOIN, 3 nested subquery levels, legal exclusion logic), eliminating 104 manual query executions per year",
-        "Built SQL validation engine using nested WHILE loops to audit RUBS utility costs across 380+ properties (80 combinations per property), surfacing every billing discrepancy before resident impact",
+        "Built SQL validation engine using nested WHILE loops to audit RUBS utility costs across ~300 properties (80 combinations per property), surfacing every billing discrepancy before resident impact",
       ],
       type: "past",
       category: "enterprise",
@@ -192,7 +194,7 @@ export const portfolioData = {
     },
     {
       year: "2015 – 2019",
-      title: "Bachelor of Science in Aviation Management",
+      title: "Bachelor of Arts in Aviation Management",
       company: "Kocaeli University",
       location: "Kocaeli, Turkey",
       skills: ["Systems Architecture", "Digital Transformation", "IoT"],
@@ -241,7 +243,7 @@ export const portfolioData = {
       category: "AI & ML",
       icon: "Brain",
       modules: [
-        "PyTorch (5 production models trained)",
+        "PyTorch (3 transformer models fine-tuned)",
         "XLM-RoBERTa, Whisper, Sentence Transformers",
         "LightGBM, XGBoost, scikit-learn",
         "LLM APIs (Anthropic, OpenAI, Gemini)",
@@ -265,7 +267,7 @@ export const portfolioData = {
   projects: [
     {
       title: "Zero-Incident Cloud Migration for 135K+ Accounts",
-      description: "The authentication migration had stalled for months across 6 teams with no single owner. I took ownership of the full SDLC: mapped every dependency, authored the BRDs, coordinated CloudOps, Infrastructure, SecOps, AppOps, and DevOps through 4 deployment phases, and managed mTLS certificates, JWT tokens, and CyberArk secrets across environments. The result: 135,000+ resident accounts migrated to Azure B2C with zero authentication incidents.",
+      description: "The authentication migration had stalled for months across 7 teams with no single owner. I took ownership of the full SDLC: mapped every dependency, authored the BRDs, coordinated CloudOps, Infrastructure, SecOps, AppOps, and DevOps through 4 deployment phases, and managed mTLS certificates, JWT tokens, and CyberArk secrets across environments. The result: 135,000+ resident accounts migrated to Azure B2C with zero authentication incidents.",
       tech: ["Azure B2C", "Entra ID", "SQL Server", "ServiceNow", "Azure DevOps"],
       tags: ["IT BSA", "Cloud Migration", "SDLC", "Stakeholder Management"],
       highlights: [],
@@ -278,7 +280,7 @@ export const portfolioData = {
     },
     {
       title: "Multi-State Regulatory Compliance Delivered Ahead of Every Deadline",
-      description: "Three states passed fee transparency laws (CA SB 478, VA HB 967, CO HB25-1090) with hard deadlines and zero tolerance for error. I authored 1 BRD and 5 FRDs, facilitated requirements workshops with Marketing, Legal, and Finance, and built a SQL validation engine checking 960+ data points per property across 380+ properties. The validation matrix catches every billing discrepancy before it reaches the resident. Delivered ahead of every regulatory deadline.",
+      description: "Three states passed fee transparency laws (CA SB 478, VA HB 967, CO HB25-1090) with hard deadlines and zero tolerance for error. I authored 1 BRD and 5 FRDs, facilitated requirements workshops with Marketing, Legal, and Finance, and built a SQL validation engine checking 960+ data points per property across ~300 properties. The validation matrix catches every billing discrepancy before it reaches the resident. Delivered ahead of every regulatory deadline.",
       tech: ["SQL Server", "Stored Procedures", "Power BI", "Azure DevOps"],
       tags: ["IT BSA", "SQL Development", "Data Validation", "Regulatory Compliance"],
       highlights: [],
@@ -299,11 +301,11 @@ export const portfolioData = {
       demo: "/projects/makermind",
       featured: true,
       category: "rnd",
-      company: "Nexuss Science (Applied R&D Lab)",
+      company: "Independent R&D",
     },
     {
       title: "TakveenUp: Multilingual Workforce-Matching Platform (5 Models Trained, In Development)",
-      description: "Skilled multilingual workers cannot get past keyword ATS systems. I designed the ML architecture and personally trained 5 production models from scratch: ROE-ResumeNER (XLM-RoBERTa, F1=0.7476), ROE-Embed (multilingual-e5-large, 24/25 occupational codes correct), ROE-WhisperDari (LoRA fine-tuned Whisper for Afghan Dari), ROE-Match (LightGBM 90-day retention predictor with Bayesian optimization), and a hybrid JD Parser (Regex + GLiNER + LLM verification). Every model has a 3-level fallback chain (custom model, API, rules) so the system never fails silently. Authored 34 user stories across 11 epics and the full BRD with per-model AI specifications.",
+      description: "Skilled multilingual workers cannot get past keyword ATS systems. I designed the ML architecture and personally trained 5 models from scratch: ROE-ResumeNER (XLM-RoBERTa, F1=0.7476), ROE-Embed (multilingual-e5-large, 24/25 occupational codes correct), ROE-WhisperDari (LoRA fine-tuned Whisper for Afghan Dari), ROE-Match (LightGBM 90-day retention predictor with Bayesian optimization), and a fairness-aware wage model (XGBoost + Fairlearn) — plus a hybrid JD-parsing pipeline (Regex + GLiNER + LLM verification). Every model has a 3-level fallback chain (custom model, API, rules) so the system never fails silently. Authored 34 user stories across 11 epics and the full BRD with per-model AI specifications.",
       tech: ["Python", "PyTorch", "XLM-RoBERTa", "LightGBM", "FastAPI", "PostgreSQL", "pgvector", "Redis", "React"],
       tags: ["ML Architecture", "Model Training", "5 Custom Models", "NLP"],
       highlights: [],
@@ -311,7 +313,7 @@ export const portfolioData = {
       demo: null,
       featured: true,
       category: "rnd",
-      company: "Nexuss Science (Applied R&D Lab)",
+      company: "Independent R&D",
     },
     {
       title: "ROE-ResumeNER: Multilingual Resume Entity Extraction (F1=0.7476)",
@@ -323,7 +325,7 @@ export const portfolioData = {
       demo: null,
       featured: true,
       category: "rnd",
-      company: "Nexuss Science (Applied R&D Lab)",
+      company: "Independent R&D",
     },
     {
       title: "ROE-Embed: Occupational Matching Engine (24/25 Codes Correct)",
@@ -335,7 +337,7 @@ export const portfolioData = {
       demo: null,
       featured: true,
       category: "rnd",
-      company: "Nexuss Science (Applied R&D Lab)",
+      company: "Independent R&D",
     },
     {
       title: "ROE-WhisperDari: Afghan Dari Speech Recognition (LoRA Fine-Tuned)",
@@ -347,7 +349,7 @@ export const portfolioData = {
       demo: null,
       featured: false,
       category: "rnd",
-      company: "Nexuss Science (Applied R&D Lab)",
+      company: "Independent R&D",
     },
     {
       title: "ROE-Match: 90-Day Job Retention Predictor (LightGBM + Bayesian Optimization)",
@@ -359,7 +361,7 @@ export const portfolioData = {
       demo: null,
       featured: false,
       category: "rnd",
-      company: "Nexuss Science (Applied R&D Lab)",
+      company: "Independent R&D",
     },
     {
       title: "Wage Prediction Model with Fairness Constraints",
@@ -371,7 +373,7 @@ export const portfolioData = {
       demo: null,
       featured: false,
       category: "rnd",
-      company: "Nexuss Science (Applied R&D Lab)",
+      company: "Independent R&D",
     },
     {
       title: "AlphaSeekers: Live Education Platform on $0/Month Infrastructure",
@@ -383,7 +385,7 @@ export const portfolioData = {
       demo: "https://alphaseekers.onrender.com/en",
       featured: true,
       category: "rnd",
-      company: "Nexuss Science (Applied R&D Lab)",
+      company: "Independent R&D",
     },
     {
       title: "AI Monitoring System for ICC-Aligned Human Rights Documentation",
@@ -490,7 +492,7 @@ export const portfolioData = {
       demo: null,
       featured: false,
       category: "rnd",
-      company: "Nexuss Science (Applied R&D Lab)",
+      company: "Independent R&D",
     },
   ],
 };

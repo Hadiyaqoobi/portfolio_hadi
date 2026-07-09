@@ -17,7 +17,7 @@ const phases = [
     approaches: [
       {
         context: "Enterprise (Equity Residential)",
-        detail: "Stakeholder interviews across 6 teams to map dependencies before writing a single requirement. Gap analysis of current-state systems and processes.",
+        detail: "Stakeholder interviews across 7 teams to map dependencies before writing a single requirement. Gap analysis of current-state systems and processes.",
       },
       {
         context: "Nonprofit (ConnectionHub)",
@@ -59,7 +59,7 @@ const phases = [
     approaches: [
       {
         context: "Phased Rollout (Waterfall)",
-        detail: "Azure B2C migration: 4 deployment phases across 6 teams with formal go/no-go decisions. 135,000+ accounts. Zero incidents. No room for iteration mid-rollout.",
+        detail: "Azure B2C migration: 4 deployment phases across 7 teams with formal go/no-go decisions. 135,000+ accounts. Zero incidents. No room for iteration mid-rollout.",
       },
       {
         context: "Agile Sprints",
@@ -67,7 +67,7 @@ const phases = [
       },
       {
         context: "Hybrid (R&D)",
-        detail: "Requirements defined up front, execution in iterative cycles. One product live and three in active development at Nexuss Science, plus five ML models trained the same way.",
+        detail: "Requirements defined up front, execution in iterative cycles. One product live and three in active development in my independent R&D work, plus five ML models trained the same way.",
       },
     ],
     accentColor: "hsl(38 80% 60%)",
@@ -80,7 +80,7 @@ const phases = [
     approaches: [
       {
         context: "SQL Validation",
-        detail: "Production stored procedures checking 960+ data points per property across 380+ properties. Every billing discrepancy caught before resident impact.",
+        detail: "Production stored procedures checking 960+ data points per property across ~300 properties. Every billing discrepancy caught before resident impact.",
       },
       {
         context: "Dashboards and Analytics",

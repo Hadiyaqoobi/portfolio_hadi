@@ -135,7 +135,7 @@ export const CERTS: SkillCert[] = [
   // Clusters (memory/18 §C)
   { id: "linux-cluster", name: "Cloud & DevOps cluster (Linux, Serverless, Kubernetes)", issuer: "The Linux Foundation", year: "2021", skills: ["cloud"], count: 10 },
   { id: "umd-cluster", name: "Project Management & Communication cluster", issuer: "USMx / Maryland", year: "2019", skills: ["ba", "agile"], count: 10 },
-  { id: "nyu-cluster", name: "CS MicroBachelor (Networking, OS, Programming)", issuer: "NYU", year: "2022", skills: ["cs"], count: 3 },
+  { id: "nyu-cluster", name: "CS MicroBachelors Certificate (Networking, OS, Programming)", issuer: "NYU (edX)", year: "2022", skills: ["cs"], count: 3 },
   { id: "ibm-cluster", name: "Cloud, Data Science & Python", issuer: "IBM", year: "2020", skills: ["cloud", "ml", "py"], count: 3 },
   { id: "uw-cyber", name: "Cybersecurity (2 courses)", issuer: "University of Washington", year: "2019", skills: ["sec"], count: 2 },
   // PLANNED - roadmap, not a claim

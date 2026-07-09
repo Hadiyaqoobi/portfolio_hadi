@@ -62,7 +62,7 @@ const AboutPage = () => {
                   After my Master's at BU Questrom (Director's Honors List, three
                   times), Equity brought me back into the corporate technology
                   organization as an IT Business Systems Analyst. I managed an Azure B2C
-                  authentication migration across six teams and 135,000+ accounts,
+                  authentication migration across seven teams and 135,000+ accounts,
                   authored 5 FRDs for multi-state fee transparency compliance, and wrote
                   SQL four hours a day across 9 API integrations. I didn't just document
                   requirements. I validated them in the data, tested them in production,
@@ -70,8 +70,9 @@ const AboutPage = () => {
                   <span className="text-slate-100 font-medium"> Nothing broke when it went live.</span>
                 </p>
                 <p>
-                  Now I run Nexuss Science, my applied R&D startup: one product live, three
-                  in active development, five production ML models I trained myself, and
+                  Now I'm the Business Systems Manager (contract) at the Afghan Human Right
+                  Center, and I build applied AI products independently: one product live,
+                  three in active development, five ML models I trained myself, and
                   research on LLM reliability under peer review at Springer's Empirical
                   Software Engineering. I completed Cornell's AI 360 certificate in 2026. The
                   thread through all of it: I notice where systems fail, I dig into why, and I
@@ -110,7 +111,7 @@ const AboutPage = () => {
                   {
                     icon: Wrench,
                     title: "Builder, Not Advisor",
-                    description: "I don't recommend solutions and wait for someone else to build them. 5 production websites built entirely on free-tier infrastructure. A SQL validation engine checking 960+ data points per property. An Azure migration across 6 teams with zero incidents. VBA automation because no vendor product existed. When something needs to exist, I make it exist.",
+                    description: "I don't recommend solutions and wait for someone else to build them. 5 production websites built on free-tier infrastructure. A SQL validation engine checking 960+ data points per property. An Azure migration across 7 teams with zero incidents. VBA automation because no vendor product existed. When something needs to exist, I make it exist.",
                     color: "emerald",
                   },
                   {
@@ -170,8 +171,8 @@ const AboutPage = () => {
                   {[
                     {
                       icon: Globe,
-                      title: "5 countries, 3 continents",
-                      description: "Afghanistan, Turkey, Germany (scholarship), California, Massachusetts. Each context taught me how constraints look different depending on who's facing them.",
+                      title: "3 countries, 2 continents",
+                      description: "Afghanistan, Turkey, and the United States. Each context taught me how constraints look different depending on who's facing them.",
                     },
                     {
                       icon: BookOpen,
@@ -214,8 +215,8 @@ const AboutPage = () => {
                   {[
                     {
                       icon: Globe,
-                      title: "5 countries, 3 continents",
-                      description: "Afghanistan, Turkey, Germany (scholarship), California, Massachusetts. Each context taught me how constraints look different depending on who's facing them.",
+                      title: "3 countries, 2 continents",
+                      description: "Afghanistan, Turkey, and the United States. Each context taught me how constraints look different depending on who's facing them.",
                     },
                     {
                       icon: BookOpen,

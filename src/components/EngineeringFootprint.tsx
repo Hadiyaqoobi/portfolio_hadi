@@ -15,7 +15,7 @@ const technicalCapabilities = [
   {
     icon: Database,
     domain: "SQL & Data Engineering",
-    proof: "960+ data points validated per property across 380+ properties",
+    proof: "960+ data points validated per property across ~300 properties",
     tools: "SQL Server, PostgreSQL, Snowflake, T-SQL Stored Procedures",
     context: "Built validation engines, ETL pipelines, and data migration scripts at enterprise scale. Authored stored procedures that catch every billing discrepancy before it reaches the resident.",
     accent: "emerald",
@@ -25,7 +25,7 @@ const technicalCapabilities = [
     domain: "Cloud & Identity Architecture",
     proof: "135,000+ accounts migrated with zero incidents",
     tools: "Azure B2C, Entra ID, Key Vault, mTLS, CyberArk",
-    context: "Led full SDLC for Azure B2C authentication migration across 6 teams. Managed JWT tokens, mTLS certificates, and secrets rotation across environments.",
+    context: "Led full SDLC for Azure B2C authentication migration across 7 teams. Managed JWT tokens, mTLS certificates, and secrets rotation across environments.",
     accent: "violet",
   },
   {

@@ -184,7 +184,7 @@ export const AI360_PROJECTS: AI360Project[] = [
     title: "Cross-Validation & Bias-Variance",
     track: "Machine Learning",
     blurb:
-      "I implemented k-fold cross-validation and grid search from scratch and computed the bias-variance decomposition empirically (estimating the average prediction, noise, and variance terms). This is the discipline behind the leakage gates in my production models.",
+      "I implemented k-fold cross-validation and grid search from scratch and computed the bias-variance decomposition empirically (estimating the average prediction, noise, and variance terms). This is the discipline behind the leakage gates in my trained models.",
     skills: ["ml", "py"],
     executed: false,
   },
