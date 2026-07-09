@@ -77,9 +77,9 @@ export const portfolioData = {
   timeline: [
     {
       year: "2025 – Present",
-      title: "Business Systems Manager & Technology Lead",
+      title: "Business Systems Manager (Contract)",
       company: "AHRC",
-      location: "Remote (Pro Bono)",
+      location: "Remote",
       skills: ["Requirements Gathering", "Gap Analysis", "AI Architecture", "ICC Standards"],
       highlights: [
         "Gathered requirements and defined technical specifications for an AI-powered monitoring system that automates classification of human rights violations across 10+ Dari, Pashto, and English news sources for a 501(c)(3) led by Dr. Sima Samar",
@@ -389,13 +389,13 @@ export const portfolioData = {
       title: "AI Monitoring System for ICC-Aligned Human Rights Documentation",
       description: "The Afghanistan Human Rights Center needed to automate classification of human rights violations across 10+ multilingual news sources after ICC arrest warrants created unprecedented demand for systematic evidence. I gathered requirements, conducted gap analysis of 4 competing platforms, authored the technical architecture comparing 2 implementation approaches, and defined ICC-compliant data requirements including violation taxonomy, geographic metadata, and source verification chain.",
       tech: ["LLM Classification", "NLP", "ICC Standards", "Gap Analysis"],
-      tags: ["IT BSA", "Requirements Gathering", "Pro Bono"],
+      tags: ["IT BSA", "Requirements Gathering", "Contract"],
       highlights: [],
       github: null,
       demo: null,
       featured: false,
       category: "consulting",
-      company: "AHRC (Pro Bono)",
+      company: "AHRC (Contract)",
     },
     {
       title: "ConnectionHub: A Greenfield Education Platform on Free-Tier Infrastructure",

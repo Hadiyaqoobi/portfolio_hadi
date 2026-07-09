@@ -24,7 +24,7 @@ const phases = [
         detail: "User personas built with real device specs (Samsung Galaxy A03, 2GB RAM, 0.8 Mbps 3G). Designed for the constraint, not the ideal.",
       },
       {
-        context: "Pro Bono (AHRC)",
+        context: "Contract (AHRC)",
         detail: "Competitive gap analysis of 4 existing platforms (Rawadari, Afghan Witness, ACLED, HURIDOCS) to define differentiated requirements.",
       },
     ],
