@@ -127,7 +127,7 @@ export const portfolioData = {
       skills: ["SQL", "Azure B2C", "Power BI", "Azure DevOps", "Agile"],
       highlights: [
         "Delivered zero-incident Azure B2C authentication migration (135,000+ accounts) by coordinating 7 cross-functional teams through 4 deployment phases, authoring BRDs, and managing dependencies across CloudOps, Infrastructure, SecOps, and DevOps",
-        "Authored 1 BRD and 5 FRDs for Fee Transparency across 4 workstreams, translating multi-state regulations (CA SB 478, VA HB 967, CO HB25-1090) into technical specs that delivered ahead of every regulatory deadline",
+        "Co-authored the Fee Transparency BRD and 5 FRDs with the senior BSA across 4 workstreams — part of 20+ BRDs/FRDs authored during the role — translating multi-state regulations (CA SB 478, VA HB 967, CO HB25-1090) into technical specs that delivered ahead of every regulatory deadline",
         "Automated EQR's weekly delinquency campaign via production SQL stored procedure (6-table JOIN, 3 nested subquery levels, legal exclusion logic), eliminating 104 manual query executions per year",
         "Built SQL validation engine using nested WHILE loops to audit RUBS utility costs across ~300 properties (80 combinations per property), surfacing every billing discrepancy before resident impact",
       ],
@@ -280,7 +280,7 @@ export const portfolioData = {
     },
     {
       title: "Multi-State Regulatory Compliance Delivered Ahead of Every Deadline",
-      description: "Three states passed fee transparency laws (CA SB 478, VA HB 967, CO HB25-1090) with hard deadlines and zero tolerance for error. I authored 1 BRD and 5 FRDs, facilitated requirements workshops with Marketing, Legal, and Finance, and built a SQL validation engine checking 960+ data points per property across ~300 properties. The validation matrix catches every billing discrepancy before it reaches the resident. Delivered ahead of every regulatory deadline.",
+      description: "Three states passed fee transparency laws (CA SB 478, VA HB 967, CO HB25-1090) with hard deadlines and zero tolerance for error. I co-authored the BRD and 5 FRDs with the senior BSA, owned delivery through deployment, facilitated requirements workshops with Marketing, Legal, and Finance, and built a SQL validation engine checking 960+ data points per property across ~300 properties. The validation matrix catches every billing discrepancy before it reaches the resident. Delivered ahead of every regulatory deadline.",
       tech: ["SQL Server", "Stored Procedures", "Power BI", "Azure DevOps"],
       tags: ["IT BSA", "SQL Development", "Data Validation", "Regulatory Compliance"],
       highlights: [],
