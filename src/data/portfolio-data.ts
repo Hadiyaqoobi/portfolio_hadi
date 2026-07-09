@@ -111,7 +111,7 @@ export const portfolioData = {
       location: "Boston, MA",
       skills: ["Python", "PyTorch", "XLM-RoBERTa", "LightGBM", "TypeScript", "React", "LLM APIs"],
       highlights: [
-        "Trained 5 ML models across PyTorch, LightGBM, and XGBoost: ROE-ResumeNER (XLM-RoBERTa NER, F1 0.55 to 0.7476 over five cycles), ROE-Embed (multilingual matching, 24/25 codes), ROE-WhisperDari (LoRA fine-tuned Dari ASR), ROE-Match (calibrated LightGBM with leakage detection), and a fairness-aware wage model (Fairlearn)",
+        "Trained 5 ML models across PyTorch and LightGBM: ROE-ResumeNER (XLM-RoBERTa NER, F1 0.55 to 0.7476 over five cycles), ROE-Embed (multilingual matching, 24/25 codes), ROE-WhisperDari (LoRA fine-tuned Dari ASR), ROE-Match (calibrated LightGBM with leakage detection), and ROE-SkillInfer (30-skill multi-label classifier for noisy multilingual transcripts)",
         "One product live: AlphaSeekers (190+ registered users, 20 live classes, RAG study assistant on pgvector + Groq with measured 89% retrieval precision). Three in active development: TakveenUp (multilingual workforce matching), MakerMind (multi-agent LLM hardware education, 69K lines TypeScript), and TakveenOps (AI-native project management)",
         "Sole-author research on LLM-as-annotator reliability (90.3% false discovery rate across 584 transcripts), under peer review at Springer's Empirical Software Engineering",
         "Authored the full BRD/FRD and technical book for AlphaSeekers: dual data stores, three-channel notifications with circuit breakers, and AES-256 encryption designed for 2G network environments",
@@ -305,7 +305,7 @@ export const portfolioData = {
     },
     {
       title: "TakveenUp: Multilingual Workforce-Matching Platform (5 Models Trained, In Development)",
-      description: "Skilled multilingual workers cannot get past keyword ATS systems. I designed the ML architecture and personally trained 5 models from scratch: ROE-ResumeNER (XLM-RoBERTa, F1=0.7476), ROE-Embed (multilingual-e5-large, 24/25 occupational codes correct), ROE-WhisperDari (LoRA fine-tuned Whisper for Afghan Dari), ROE-Match (LightGBM 90-day retention predictor with Bayesian optimization), and a fairness-aware wage model (XGBoost + Fairlearn) — plus a hybrid JD-parsing pipeline (Regex + GLiNER + LLM verification). Every model has a 3-level fallback chain (custom model, API, rules) so the system never fails silently. Authored 34 user stories across 11 epics and the full BRD with per-model AI specifications.",
+      description: "Skilled multilingual workers cannot get past keyword ATS systems. I designed the ML architecture and personally trained 5 models from scratch: ROE-ResumeNER (XLM-RoBERTa, F1=0.7476), ROE-Embed (multilingual-e5-large, 24/25 occupational codes correct), ROE-WhisperDari (LoRA fine-tuned Whisper for Afghan Dari), ROE-Match (LightGBM 90-day retention predictor with Bayesian optimization), and ROE-SkillInfer (30-skill multi-label transcript classifier) — plus a hybrid JD-parsing pipeline (Regex + GLiNER + LLM verification) and a fairness-aware wage pipeline (Fairlearn, in development). Every model has a 3-level fallback chain (custom model, API, rules) so the system never fails silently. Authored 34 user stories across 11 epics and the full BRD with per-model AI specifications.",
       tech: ["Python", "PyTorch", "XLM-RoBERTa", "LightGBM", "FastAPI", "PostgreSQL", "pgvector", "Redis", "React"],
       tags: ["ML Architecture", "Model Training", "5 Custom Models", "NLP"],
       highlights: [],
@@ -317,7 +317,7 @@ export const portfolioData = {
     },
     {
       title: "ROE-ResumeNER: Multilingual Resume Entity Extraction (F1=0.7476)",
-      description: "Built a Named Entity Recognition model that extracts 7 entity types (PER, ORG, LOC, DATE, SKILL, TITLE, EDU) from multilingual refugee resumes in English, Dari, and Pashto. Fine-tuned XLM-RoBERTa on 100% synthetic training data generated through a custom 7-Gate Firewall quality protocol (format validation, length constraints, label validity, leakage prevention, deduplication, script diversity, hard negative mining). Took the model from F1=0.55 (v1) to F1=0.7476 (v5) in 5 iterative training cycles with a documented roadmap to F1=0.85+.",
+      description: "Built a Named Entity Recognition model that extracts 7 entity types (PER, ORG, LOC, DATE, SKILL, TITLE, EDU) from multilingual refugee resumes in English, Dari, and Pashto. Fine-tuned XLM-RoBERTa on 100% synthetic training data generated under a 4-layer QA protocol (schema validation, BIO-consistency checks, LLM-as-judge review on 20% of samples, human spot-checks). Took the model from F1=0.55 (v1) to F1=0.7476 (v5) in 5 iterative training cycles against a target of F1 ≥ 0.80.",
       tech: ["Python", "PyTorch", "XLM-RoBERTa", "Synthetic Data", "NER", "Hugging Face"],
       tags: ["Model Training", "NLP", "Multilingual", "Synthetic Data"],
       highlights: [],
@@ -329,7 +329,7 @@ export const portfolioData = {
     },
     {
       title: "ROE-Embed: Occupational Matching Engine (24/25 Codes Correct)",
-      description: "Trained a multilingual embedding model that maps 1 to 3 sentence refugee work narratives in English, Dari, and Pashto to 25 O*NET-SOC blue-collar occupational codes. Fine-tuned intfloat/multilingual-e5-large with CachedMNRL loss (effective batch size 1024) and iterative hard negative mining that recovered a non-functional system (similarity gap improved from 0.07 to +0.20). The model correctly separates 24 of 25 occupational codes across code-switched multilingual input.",
+      description: "Trained a multilingual embedding model that maps 1 to 3 sentence refugee work narratives in English, Dari, and Pashto to 25 O*NET-SOC blue-collar occupational codes. Fine-tuned intfloat/multilingual-e5-large with CachedMNRL loss (effective batch size 256, after a 1024-batch run overfit) and iterative LLM-generated hard negatives that recovered a non-functional system (similarity gap improved from 0.07 to +0.20). The model correctly separates 24 of 25 occupational codes across code-switched multilingual input.",
       tech: ["Python", "PyTorch", "Sentence Transformers", "multilingual-e5-large", "CachedMNRL"],
       tags: ["Model Training", "Embeddings", "Multilingual", "Hard Negative Mining"],
       highlights: [],
@@ -365,9 +365,9 @@ export const portfolioData = {
     },
     {
       title: "Wage Prediction Model with Fairness Constraints",
-      description: "Built a fairness-aware regression model for predicting refugee wages with demographic parity enforcement across nationality, language, and gender dimensions. The model ensures that predictions do not systematically disadvantage any demographic group while maintaining predictive accuracy for workforce placement decisions.",
-      tech: ["Python", "XGBoost", "Fairlearn", "scikit-learn"],
-      tags: ["Model Training", "Fairness-Aware ML", "Regression"],
+      description: "Designed a fairness-aware wage-prediction pipeline for refugee job seekers: a LightGBM + CatBoost + TabNet stacking ensemble on public federal data (BLS OEWS), with a Fairlearn audit enforcing demographic-parity thresholds across nationality, language, and gender. Code-complete — ingest, training, and fairness-audit stages built; first full training run pending.",
+      tech: ["Python", "LightGBM", "CatBoost", "Fairlearn"],
+      tags: ["Fairness-Aware ML", "Regression", "In Development"],
       highlights: [],
       github: null,
       demo: null,

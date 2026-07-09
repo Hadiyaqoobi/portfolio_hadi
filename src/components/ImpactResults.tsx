@@ -88,7 +88,7 @@ export const ImpactResults = () => {
       icon: Brain,
       outcome: "ML Systems Design & Model Training",
       metric: { value: 5, suffix: " models designed & trained", duration: 1.5 },
-      how: "Designed and built end-to-end ML systems from requirements gathering through production deployment. Built data pipelines, defined evaluation criteria, and trained 5 models across NER (XLM-RoBERTa, F1=0.7476), multilingual embeddings (24/25 occupational codes), Dari speech recognition (LoRA-finetuned Whisper), job retention prediction (LightGBM, 22 features, Bayesian optimization), and fairness-aware wage modeling. Authored technical specs, built synthetic data generation protocols, and documented model cards for each release.",
+      how: "Designed and built end-to-end ML systems from requirements gathering through production deployment. Built data pipelines, defined evaluation criteria, and trained 5 models across NER (XLM-RoBERTa, F1=0.7476), multilingual embeddings (24/25 occupational codes), Dari speech recognition (LoRA-finetuned Whisper), job retention prediction (LightGBM, 22 features, Bayesian optimization), and 30-skill inference from noisy multilingual transcripts. Authored technical specs, built synthetic data generation protocols, and documented model cards for each release.",
       scope: "Independent R&D · TakveenUp · 5 Trained Models",
       accentColor: "cyan" as const,
       span: "md:col-span-2",
