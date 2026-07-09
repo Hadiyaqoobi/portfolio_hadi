@@ -64,7 +64,7 @@ export const portfolioData = {
       field: "Aviation Management",
       institution: "Kocaeli University, Kocaeli, Turkey",
       logo: "/logos/kocaeli.png",
-      year: "2019",
+      year: "2020",
       description: "Graduated with High Honors. Thesis on Smart Airport: IoT and emerging technologies in the airport industry. DAFI Scholar (UNHCR/Germany, <20% acceptance rate) and YTB Turkiye Burslari (~4% acceptance rate).",
       honors: [
         "High Honors Graduate",
@@ -193,7 +193,7 @@ export const portfolioData = {
       category: "enterprise",
     },
     {
-      year: "2015 – 2019",
+      year: "2015 – 2020",
       title: "Bachelor of Arts in Aviation Management",
       company: "Kocaeli University",
       location: "Kocaeli, Turkey",
