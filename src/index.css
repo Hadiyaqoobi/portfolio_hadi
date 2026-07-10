@@ -2,228 +2,210 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Soft Dark Theme — Vercel/Linear inspired
-   Not pitch black, not white. Warm slate foundation with blue accent.
-   Sources: Refactoring UI, Vercel dark mode, Linear, Raycast */
+/* Redesign v4 — "the Analyst's Desk, typeset like a dossier"
+   Warm paper ground, editorial serif headings, one oxblood accent,
+   zero motion. See DESIGN_SPEC.md. Light theme only, by choice:
+   the page behaves like a printed document, not an app. */
 
 @layer base {
   :root {
-    --background: 222 47% 11%;
-    --foreground: 214 32% 91%;
+    --paper: #f7f4ed;
+    --paper-raised: #fcfaf5;
+    --line: #e2dcce;
+    --ink: #2a2620;
+    --ink-soft: #5b5348;
+    --muted: #8a8072;
+    --accent: #7a2e22;
+    --accent-soft: #f2e6e2;
+    --ok: #2f6b4f;
 
-    --card: 217 33% 17%;
-    --card-foreground: 214 32% 91%;
-
-    --popover: 217 33% 17%;
-    --popover-foreground: 214 32% 91%;
-
-    --primary: 217 91% 60%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 214 32% 91%;
-
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 16% 47%;
-
-    --accent: 217 33% 17%;
-    --accent-foreground: 214 32% 91%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 217 19% 27%;
-    --input: 217 19% 27%;
-    --ring: 217 91% 60%;
-
-    --radius: 0.75rem;
-
-    --sidebar-background: 217 33% 17%;
-    --sidebar-foreground: 214 32% 91%;
-    --sidebar-primary: 217 91% 60%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 217 33% 17%;
-    --sidebar-accent-foreground: 214 32% 91%;
-    --sidebar-border: 217 19% 27%;
-    --sidebar-ring: 217 91% 60%;
+    --radius: 6px;
   }
-}
 
-@layer base {
   * {
-    @apply border-border;
+    border-color: var(--line);
+  }
+
+  html {
+    background: var(--paper);
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Newsreader", "Iowan Old Style", Georgia, serif;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
-    color: #E2E8F0;
-    background-color: #0F172A;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    @apply font-bold;
-    letter-spacing: -0.02em;
-    color: #E2E8F0;
-  }
-}
-
-@layer utilities {
-
-  /* ===== CARD — Soft dark, subtle border, slight glow on hover ===== */
-  .glass-card {
-    background: #1E293B;
-    border: 1px solid #334155;
-    border-radius: 12px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--ink);
+    text-wrap: balance;
+    letter-spacing: normal;
   }
 
-  .glass-card:hover {
-    border-color: #475569;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(59, 130, 246, 0.05);
+  h1 {
+    font-size: 2.75rem;
+  }
+  h2 {
+    font-size: 1.75rem;
+  }
+  h3 {
+    font-size: 1.2rem;
   }
 
-  .glass-card-featured {
-    background: #1E293B;
-    border: 1px solid #475569;
-    border-radius: 12px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.3);
+  @media (max-width: 640px) {
+    h1 {
+      font-size: 2.1rem;
+    }
+    h2 {
+      font-size: 1.5rem;
+    }
   }
 
-  .glass-card-featured:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.4);
+  ::selection {
+    background: var(--accent-soft);
+    color: var(--ink);
   }
 
-  /* ===== HERO GRADIENT ===== */
-  .gradient-text {
-    background: linear-gradient(135deg, #60A5FA, #3B82F6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  /* ===== ACCENT LINE — Section headers ===== */
-  .accent-line {
-    width: 48px;
-    height: 3px;
-    background: #3B82F6;
-    border-radius: 2px;
-  }
-
-  /* ===== BUTTONS ===== */
-  .btn-primary {
-    background: #3B82F6;
-    color: white;
-    border: none;
-    transition: all 0.25s ease;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-  }
-
-  .btn-primary:hover {
-    background: #2563EB;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
-  }
-
-  .btn-outline {
-    background: transparent;
-    border: 1px solid #475569;
-    color: #E2E8F0;
-    transition: all 0.25s ease;
-  }
-
-  .btn-outline:hover {
-    border-color: #3B82F6;
-    color: #60A5FA;
-    background: rgba(59, 130, 246, 0.08);
-  }
-
-  /* ===== METRIC NUMBERS ===== */
-  .metric-number {
-    color: #E2E8F0;
-    font-weight: 700;
-  }
-
-  /* ===== SEMANTIC CATEGORY ACCENTS ===== */
-  .glow-enterprise {
-    border-color: #475569;
-  }
-
-  .glow-rnd {
-    border-color: #475569;
-  }
-
-  .glow-consulting {
-    border-color: #475569;
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation: none !important;
+      transition: none !important;
+    }
   }
 }
 
-/* ===== KEYFRAMES ===== */
-@keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ===== CODE HIGHLIGHTING — Soft dark theme ===== */
-.code-keyword { color: #60A5FA; }
-.code-string { color: #34D399; }
-.code-comment { color: #64748B; font-style: italic; }
-.code-number { color: #FBBF24; }
-.code-function { color: #A78BFA; }
-.code-type { color: #22D3EE; }
-.code-property { color: #60A5FA; }
-.code-decorator { color: #A78BFA; }
-.code-punctuation { color: #94A3B8; }
-
-/* ===== REDUCED MOTION — accessibility ===== */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
+@layer components {
+  /* Section divider: one honest hairline. */
+  .rule {
+    border-top: 1px solid var(--line);
+    margin: 4rem 0;
   }
-}
 
-/* ===== ARCHITECTURE FLOW LINES (data flowing between stages) ===== */
-.flow-line-x {
-  background: linear-gradient(90deg, rgba(59,130,246,.12), rgba(59,130,246,.75), rgba(59,130,246,.12));
-  background-size: 200% 100%;
-  animation: flowx 1.6s linear infinite;
-}
-@keyframes flowx { to { background-position: -200% 0; } }
-.flow-line-y {
-  background: linear-gradient(180deg, rgba(59,130,246,.12), rgba(59,130,246,.75), rgba(59,130,246,.12));
-  background-size: 100% 200%;
-  animation: flowy 1.6s linear infinite;
-}
-@keyframes flowy { to { background-position: 0 -200%; } }
+  /* Kicker: small quiet label above a section. One per section, at most. */
+  .kicker {
+    font-family: theme("fontFamily.sans");
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
 
-/* ===== SCROLLBAR ===== */
-.scrollbar-thin::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
+  /* Identity / spec facts as a definition list. */
+  .facts {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    column-gap: 2rem;
+    row-gap: 0.45rem;
+    align-items: baseline;
+  }
+  .facts dt {
+    font-family: theme("fontFamily.sans");
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  .facts dd {
+    font-family: theme("fontFamily.sans");
+    font-size: 0.95rem;
+    color: var(--ink);
+    margin: 0;
+  }
+  @media (max-width: 480px) {
+    .facts {
+      grid-template-columns: 1fr;
+      row-gap: 0.15rem;
+    }
+    .facts dd {
+      margin-bottom: 0.6rem;
+    }
+  }
 
-.scrollbar-thin::-webkit-scrollbar-track {
-  background: transparent;
-}
+  /* Evidence table: plain, ruled, verifiable. */
+  .evidence-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: theme("fontFamily.sans");
+    font-size: 0.9rem;
+  }
+  .evidence-table th {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    text-align: left;
+    padding: 0.5rem 1rem 0.5rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .evidence-table td {
+    padding: 0.55rem 1rem 0.55rem 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-soft);
+    vertical-align: top;
+  }
+  .evidence-table tr:last-child td {
+    border-bottom: none;
+  }
+  .evidence-table .num {
+    font-family: theme("fontFamily.mono");
+    font-variant-numeric: tabular-nums;
+    font-size: 0.85em;
+    color: var(--ink);
+  }
 
-.scrollbar-thin::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 3px;
-}
+  /* Prose links. */
+  .link {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1.5px;
+    text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
+    transition: text-decoration-color 150ms ease;
+  }
+  .link:hover {
+    text-decoration-color: var(--accent);
+  }
 
-.scrollbar-thin::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  /* The one button style (Resume, Email). Quiet, ink-outlined. */
+  .btn-quiet {
+    font-family: theme("fontFamily.sans");
+    font-size: 0.9rem;
+    color: var(--ink);
+    border: 1px solid var(--ink);
+    border-radius: var(--radius);
+    padding: 0.45rem 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 150ms ease, color 150ms ease;
+  }
+  .btn-quiet:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  /* Asterism divider for the Letter-voice About page. */
+  .asterism {
+    text-align: center;
+    color: var(--muted);
+    font-size: 1rem;
+    letter-spacing: 0.5em;
+    margin: 2.5rem 0;
+  }
+
+  /* Running prose measure. */
+  .prose-measure {
+    max-width: 68ch;
+  }
 }
