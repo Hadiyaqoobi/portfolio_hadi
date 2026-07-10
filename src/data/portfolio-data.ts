@@ -10,7 +10,7 @@ export const portfolioData = {
   },
 
   about: {
-    description: `I build and ship platforms. First at an early-stage ed-tech nonprofit, shipping platforms that served 500+ refugee learners within a five-country organization, on free-tier infrastructure. Then at Equity Residential, an S&P 500 REIT with 85,000+ apartments, where I coordinated an Azure AD B2C migration for 135,000+ accounts (six teams, four phases, zero critical incidents), wrote T-SQL daily across five database environments, and shipped a production stored procedure myself when the dev team had no bandwidth.\n\nIn July 2025 my role at Equity Residential was eliminated in a restructuring. I used the runway to take on the Afghan Human Right Center's technology initiative and to go deep on independent applied R&D: picking problems current tools cannot solve and engineering through them. One product live (AlphaSeekers), three in active development, five ML models trained, and research on LLM reliability under peer review at Springer's Empirical Software Engineering.\n\nAt AHRC I own the technology initiative end-to-end. I built and deployed an AI-assisted incident-monitoring platform that classifies human-rights reports in Dari, Pashto, and English through a three-tier Claude cascade against a UN-anchored taxonomy (13 incident types, 27 treaty-cited violation codes, 34 provinces) — with 100% human review before anything goes public, deliberately designed so every verification also labels training data for the domain-specific model that comes next.\n\nI grew up a refugee. That is my engineering edge: I learned to solve problems with whatever existed, question every assumption, and build for people who cannot afford failures. Constraints read to me as design parameters, not blockers.`,
+    description: `I build and ship platforms. First at an early-stage ed-tech nonprofit, shipping platforms that served 500+ refugee learners within a five-country organization, on free-tier infrastructure. Then at Equity Residential, an S&P 500 REIT with 85,000+ apartments, where I coordinated an Azure AD B2C migration for 135,000+ accounts (six teams, four phases, zero critical incidents), wrote T-SQL daily across five database environments, and shipped a production stored procedure myself when the dev team had no bandwidth.\n\nIn July 2025 my role at Equity Residential was eliminated in a restructuring. I used the runway to take on the Afghan Human Right Center's technology initiative and to go deep on independent applied R&D: picking problems current tools cannot solve and engineering through them. One product live (AlphaSeekers), three in active development, five ML models trained, and research on LLM reliability under peer review at Springer's Empirical Software Engineering.\n\nAt AHRC I own the technology initiative end-to-end. I built and deployed an AI-assisted incident-monitoring platform that classifies human-rights reports in Dari, Pashto, and English through a three-tier Claude cascade against a UN-anchored taxonomy (13 incident types, 27 treaty-cited violation codes, 34 provinces), with 100% human review before anything goes public, deliberately designed so every verification also labels training data for the domain-specific model that comes next.\n\nI grew up a refugee. That is my engineering edge: I learned to solve problems with whatever existed, question every assumption, and build for people who cannot afford failures. Constraints read to me as design parameters, not blockers.`,
     education: "MS Management Studies (Data Analytics, STEM), Boston University · Cornell AI 360 (2026) · BA Aviation Management, Kocaeli University",
     interests: ["Requirements Analysis", "Systems Integration", "Data Validation", "Process Improvement", "Cross-Functional Stakeholder Management"],
   },
@@ -25,7 +25,6 @@ export const portfolioData = {
       description: "STEM Master's with a concentration in data analytics, business intelligence, and quantitative decision-making. Led 4 client and capstone projects as Project Leader, managing teams of 4–5 students.",
       honors: [
         "Director's Honors List (3×)",
-        "Eleanor Sullivan Smith Scholarship Recipient",
         "Project Leader, Bali Blinds (Client Project)",
         "Project Leader, Konasearch (Client Project)",
       ],
@@ -51,7 +50,7 @@ export const portfolioData = {
     {
       degree: "MicroBachelors Program Certificate (edX)",
       field: "Computer Science",
-      institution: "New York University — via edX",
+      institution: "New York University (via edX)",
       logo: "/logos/nyu.png",
       year: "2022",
       description: "Focused curriculum in programming fundamentals, algorithms, and software development.",
@@ -84,8 +83,8 @@ export const portfolioData = {
       highlights: [
         "Own the organization's entire technology initiative end-to-end for a 501(c)(3) led by Dr. Sima Samar: built the infrastructure from zero across 8 platforms, securing $170K+/yr in vendor credits (Google, Microsoft, Salesforce, Splunk, Cloudflare, GitHub) in under two months",
         "Built the organization's Salesforce foundation through the Power of Us program: a donor-management system integrated with Every.org, and an HR management CRM, serving as the primary bridge between business stakeholders and technical implementation",
-        "Built and deployed a three-tier Claude classification cascade (fast triage → structured classification → escalation of low-confidence results to a stronger model) covering Dari, Pashto, and English, with forced tool-call JSON output validated against a 13-type incident schema — dual-provider (Claude + OpenAI) operation is the next step on the roadmap",
-        "Chose a 3-tier frontier-model strategy over building a custom Dari NLP model on day one — and designed the 100% human-review gate to double as a labeling pipeline, so every verified incident becomes training data for the domain-specific model planned next",
+        "Built and deployed a three-tier Claude classification cascade (fast triage → structured classification → escalation of low-confidence results to a stronger model) covering Dari, Pashto, and English, with forced tool-call JSON output validated against a 13-type incident schema. Dual-provider (Claude + OpenAI) operation is the next step on the roadmap",
+        "Chose a 3-tier frontier-model strategy over building a custom Dari NLP model on day one, and designed the 100% human-review gate to double as a labeling pipeline, so every verified incident becomes training data for the domain-specific model planned next",
         "Conducted gap analysis of 4 competing platforms (Rawadari, Afghan Witness, ACLED, HURIDOCS), identifying coverage gaps and defining AHRC's differentiated system requirements",
         "Defined data requirements for ICC-compliant incident records: violation type taxonomy, geographic/temporal metadata, source verification chain, and de-duplication logic across multilingual inputs",
       ],
@@ -127,7 +126,7 @@ export const portfolioData = {
       skills: ["SQL", "Azure B2C", "Power BI", "Azure DevOps", "Agile"],
       highlights: [
         "Delivered zero-incident Azure B2C authentication migration (135,000+ accounts) by coordinating 6 cross-functional teams through 4 deployment phases, authoring BRDs, and managing dependencies across CloudOps, Infrastructure, SecOps, and DevOps",
-        "Co-authored the Fee Transparency BRD and 5 FRDs with the senior BSA across 4 workstreams — part of 20+ BRDs/FRDs authored during the role — translating multi-state regulations (CA SB 478, VA HB 967, CO HB25-1090) into technical specs that delivered ahead of every regulatory deadline",
+        "Co-authored the Fee Transparency BRD and 5 FRDs with the senior BSA across 4 workstreams, part of 20+ BRDs/FRDs authored during the role, translating multi-state regulations (CA SB 478, VA HB 967, CO HB25-1090) into technical specs that delivered ahead of every regulatory deadline",
         "Automated EQR's weekly delinquency campaign via production SQL stored procedure (6-table JOIN, 3 nested subquery levels, legal exclusion logic), eliminating 104 manual query executions per year",
         "Built SQL validation engine using nested WHILE loops to audit RUBS utility costs across ~300 properties (80 combinations per property), surfacing every billing discrepancy before resident impact",
       ],
@@ -137,7 +136,7 @@ export const portfolioData = {
     },
     {
       year: "Oct 2023 – May 2024",
-      title: "Admission Analyst",
+      title: "Admissions Analyst",
       company: "Questrom School of Business, Boston University",
       location: "Boston, MA",
       skills: ["Data-Driven Evaluation", "Structured Interviews", "Process Improvement"],
@@ -157,14 +156,14 @@ export const portfolioData = {
       skills: ["Data Analytics", "STEM-Designated"],
       highlights: [
         "STEM-designated. Data Analytics concentration. Director's Honors List (3x)",
-        "Eleanor Sullivan Smith Scholarship. DAFI Scholar (UNHCR/Germany)",
+        "DAFI Scholar (UNHCR/Germany)",
       ],
       type: "education",
-      transition: "Left Sales Consultant role to pursue graduate studies",
+      transition: "Left the Leasing Consultant role to pursue graduate studies",
     },
     {
       year: "2021 – 2023",
-      title: "Sales Consultant",
+      title: "Leasing Consultant",
       company: "Equity Residential (S&P 500)",
       location: "Santa Clara, CA",
       skills: ["Excel/VBA", "Operations", "Cross-functional Coordination"],
@@ -305,7 +304,7 @@ export const portfolioData = {
     },
     {
       title: "TakveenUp: Multilingual Workforce-Matching Platform (5 Models Trained, In Development)",
-      description: "Skilled multilingual workers cannot get past keyword ATS systems. I designed the ML architecture and personally trained 5 models from scratch: ROE-ResumeNER (XLM-RoBERTa, F1=0.7476), ROE-Embed (multilingual-e5-large, 24/25 occupational codes correct), ROE-WhisperDari (LoRA fine-tuned Whisper for Afghan Dari), ROE-Match (LightGBM 90-day retention predictor with Bayesian optimization), and ROE-SkillInfer (30-skill multi-label transcript classifier) — plus a hybrid JD-parsing pipeline (Regex + GLiNER + LLM verification) and a fairness-aware wage pipeline (Fairlearn, in development). Every model has a 3-level fallback chain (custom model, API, rules) so the system never fails silently. Authored 34 user stories across 11 epics and the full BRD with per-model AI specifications.",
+      description: "Skilled multilingual workers cannot get past keyword ATS systems. I designed the ML architecture and personally trained 5 models from scratch: ROE-ResumeNER (XLM-RoBERTa, F1=0.7476), ROE-Embed (multilingual-e5-large, 24/25 occupational codes correct), ROE-WhisperDari (LoRA fine-tuned Whisper for Afghan Dari), ROE-Match (LightGBM 90-day retention predictor with Bayesian optimization), and ROE-SkillInfer (30-skill multi-label transcript classifier), plus a hybrid JD-parsing pipeline (Regex + GLiNER + LLM verification) and a fairness-aware wage pipeline (Fairlearn, in development). Every model has a 3-level fallback chain (custom model, API, rules) so the system never fails silently. Authored 34 user stories across 11 epics and the full BRD with per-model AI specifications.",
       tech: ["Python", "PyTorch", "XLM-RoBERTa", "LightGBM", "FastAPI", "PostgreSQL", "pgvector", "Redis", "React"],
       tags: ["ML Architecture", "Model Training", "5 Custom Models", "NLP"],
       highlights: [],
@@ -365,7 +364,7 @@ export const portfolioData = {
     },
     {
       title: "Wage Prediction Model with Fairness Constraints",
-      description: "Designed a fairness-aware wage-prediction pipeline for refugee job seekers: a LightGBM + CatBoost + TabNet stacking ensemble on public federal data (BLS OEWS), with a Fairlearn audit enforcing demographic-parity thresholds across nationality, language, and gender. Code-complete — ingest, training, and fairness-audit stages built; first full training run pending.",
+      description: "Designed a fairness-aware wage-prediction pipeline for refugee job seekers: a LightGBM + CatBoost + TabNet stacking ensemble on public federal data (BLS OEWS), with a Fairlearn audit enforcing demographic-parity thresholds across nationality, language, and gender. Code-complete: ingest, training, and fairness-audit stages built; first full training run pending.",
       tech: ["Python", "LightGBM", "CatBoost", "Fairlearn"],
       tags: ["Fairness-Aware ML", "Regression", "In Development"],
       highlights: [],
@@ -377,7 +376,7 @@ export const portfolioData = {
     },
     {
       title: "AlphaSeekers: Live Education Platform on $0/Month Infrastructure",
-      description: "Afghan internet costs $5 per gigabyte on 2G networks. That constraint shaped every architectural decision: dual data store with in-memory fallback for outages, three-channel notifications with circuit breakers (WhatsApp, Email, Platform), presigned URL uploads to bypass serverless timeouts, AES-256-CBC encrypted phone numbers, and a bilingual RTL/LTR interface in Dari and English. I wrote the full BRD/FRD and technical book before the first line of code. The platform is live with 190+ registered users across 20 classes at zero infrastructure cost.",
+      description: "Afghan internet costs $5 per gigabyte on 2G networks. That constraint shaped every architectural decision: dual data store with in-memory fallback for outages, three-channel notifications with circuit breakers (WhatsApp, Email, Platform), presigned URL uploads to bypass serverless timeouts, AES-256-CBC encrypted phone numbers, and a bilingual RTL/LTR interface in Dari and English. I wrote the full BRD/FRD and technical book before the first line of code. The platform is live with 200 registered users at zero infrastructure cost.",
       tech: ["TypeScript", "React", "Prisma", "Cloudflare R2", "WhatsApp API"],
       tags: ["Product Architecture", "Constraint-Driven", "BRD/FRD Authoring"],
       highlights: [],

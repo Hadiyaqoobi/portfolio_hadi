@@ -11,12 +11,12 @@ import { portfolioData } from "./portfolio-data";
 
 export type WorkStatus = "live" | "dev" | "research" | "enterprise" | "coursework";
 
-export const STATUS_META: Record<WorkStatus, { label: string; dot: string }> = {
-  live: { label: "Live", dot: "bg-emerald-400" },
-  dev: { label: "In development", dot: "bg-blue-400" },
-  research: { label: "Research", dot: "bg-violet-400" },
-  enterprise: { label: "Shipped (enterprise)", dot: "bg-slate-300" },
-  coursework: { label: "Cornell AI 360", dot: "bg-sky-300" },
+export const STATUS_META: Record<WorkStatus, { label: string }> = {
+  live: { label: "Live" },
+  dev: { label: "In development" },
+  research: { label: "Research" },
+  enterprise: { label: "Shipped (enterprise)" },
+  coursework: { label: "Cornell AI 360" },
 };
 export const STATUS_ORDER: WorkStatus[] = ["live", "dev", "research", "enterprise", "coursework"];
 

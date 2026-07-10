@@ -59,10 +59,10 @@ const App = () => (
         <Suspense
           fallback={
             <div
-              className="min-h-screen bg-background flex items-center justify-center"
+              className="min-h-screen bg-paper flex items-center justify-center"
               aria-busy="true"
             >
-              <span className="text-slate-500 text-sm">Loading…</span>
+              <span className="text-muted text-sm">Loading…</span>
             </div>
           }
         >

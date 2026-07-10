@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ExternalLink, ArrowLeft } from "lucide-react";
-import { Background } from "@/components/Background";
 import { Navigation } from "@/components/Navigation";
-import { AI360_PROJECTS, AI360_TRACKS, type AI360Track } from "@/data/ai360-projects";
+import Footer from "@/components/Footer";
+import { AI360_PROJECTS, type AI360Track } from "@/data/ai360-projects";
 
 type Filter = "all" | AI360Track;
 
@@ -19,40 +18,44 @@ const AI360Explorer = () => {
   const items = AI360_PROJECTS.filter((p) => filter === "all" || p.track === filter);
 
   return (
-    <div className="relative min-h-screen">
-      <Background />
+    <div className="min-h-screen bg-paper flex flex-col">
       <Navigation />
 
-      <main className="relative z-10 pt-20">
-        <section className="py-section relative">
-          <div className="container mx-auto px-4 max-w-6xl">
-            <Link to="/skills" className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-300 mb-6">
-              <ArrowLeft size={15} /> Back to the Skill Map
-            </Link>
-
-            <div className="accent-line mb-5" />
-            <p className="text-xs uppercase tracking-[0.22em] text-sky-300 mb-2">
-              ▲ Cornell AI 360 coursework
-            </p>
-            <h1 className="text-3xl md:text-5xl font-bold text-slate-100 tracking-[-0.02em]">
-              The <span className="gradient-text">AI 360</span> work, in the open
-            </h1>
-            <p className="text-slate-400 max-w-2xl mt-3 text-[15px] leading-relaxed">
-              Cornell's AI 360 ran across three tracks: NLP in Python, machine learning
-              implemented from scratch, and data science in R. Here is what I built in each,
-              in my own words. Where I have a write-up or paper, it is linked. The rest are
-              described honestly as coursework.
+      <main className="flex-1">
+        <section className="py-14 sm:py-16">
+          <div className="mx-auto w-full max-w-3xl px-5 sm:px-6">
+            <p className="mb-8 font-sans text-sm">
+              <Link
+                to="/skills"
+                className="text-ink-soft hover:text-accent transition-colors duration-150"
+              >
+                <span aria-hidden="true">&larr;</span> Back to the Skill Map
+              </Link>
             </p>
 
-            <div className="flex flex-wrap gap-2 my-7">
+            <header className="mb-8">
+              <p className="kicker mb-2">Cornell AI 360 coursework</p>
+              <h1>The AI 360 work, in the open</h1>
+              <p className="mt-4 prose-measure text-ink-soft">
+                Cornell's AI 360 ran across three tracks: NLP in Python, machine learning
+                implemented from scratch, and data science in R. Here is what I built in each,
+                in my own words. Where I have a write-up or paper, it is linked. The rest are
+                described honestly as coursework.
+              </p>
+            </header>
+
+            {/* Track filter: quiet underline tabs */}
+            <div className="flex flex-wrap gap-x-5 gap-y-1 border-b border-line font-sans text-sm">
               {FILTERS.map((f) => (
                 <button
                   key={f.key}
+                  type="button"
                   onClick={() => setFilter(f.key)}
-                  className={`rounded-full border px-4 py-2 text-xs font-semibold transition-colors ${
+                  aria-pressed={filter === f.key}
+                  className={`pb-2 -mb-px border-b-2 transition-colors duration-150 ${
                     filter === f.key
-                      ? "border-blue-500 text-blue-300 bg-blue-500/10"
-                      : "border-slate-700 text-slate-400 hover:text-slate-200"
+                      ? "border-accent text-accent"
+                      : "border-transparent text-ink-soft hover:text-ink"
                   }`}
                 >
                   {f.label}
@@ -60,42 +63,28 @@ const AI360Explorer = () => {
               ))}
             </div>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <ul className="list-none divide-y divide-line">
               {items.map((p) => (
-                <div
-                  key={p.id}
-                  id={p.id}
-                  className="glass-card p-5 flex flex-col scroll-mt-24"
-                >
-                  <div className="flex items-center justify-between gap-2 mb-3">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-sky-300">
-                      ▲ Cornell AI 360
-                    </span>
-                    <span className="text-[10px] font-medium text-slate-500 border border-slate-700 rounded px-1.5 py-0.5">
-                      {p.track}
-                    </span>
-                  </div>
-                  <h3 className="text-[15px] font-bold text-slate-100 leading-snug mb-2">{p.title}</h3>
-                  <p className="text-[12.5px] text-slate-400 leading-relaxed flex-1">{p.blurb}</p>
+                <li key={p.id} id={p.id} className="py-7 scroll-mt-20">
+                  <p className="font-sans text-[0.8rem] text-muted">{p.track}</p>
 
-                  <div className="flex flex-wrap gap-1.5 mt-3">
-                    {p.skills.map((s) => (
-                      <span key={s} className="text-[10px] text-slate-500 border border-slate-700 rounded px-1.5 py-0.5">
-                        {s}
-                      </span>
-                    ))}
-                  </div>
+                  <h2 className="mt-1 font-sans text-base font-semibold text-ink leading-snug">
+                    {p.title}
+                  </h2>
 
-                  <div className="mt-3 flex flex-col gap-1.5">
+                  <p className="mt-2 prose-measure text-[0.95rem] text-ink-soft leading-relaxed">
+                    {p.blurb}
+                  </p>
+
+                  <div className="mt-3 flex flex-col items-start gap-1 font-sans text-sm">
                     {p.artifact && (
                       <a
                         href={p.artifact.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-[12px] font-medium text-blue-400 hover:text-blue-300"
+                        className="link"
                       >
-                        {p.artifact.label}
-                        <ExternalLink size={12} />
+                        {p.artifact.label} <span aria-hidden="true">&#8599;</span>
                       </a>
                     )}
                     {p.notebookLinks?.map((n) => (
@@ -104,22 +93,22 @@ const AI360Explorer = () => {
                         href={n.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-[12px] font-medium text-sky-300 hover:text-sky-200"
+                        className="link"
                       >
-                        <span className="text-[10px] leading-none">&#9654;</span> {n.label}
+                        {n.label} <span aria-hidden="true">&#8599;</span>
                       </a>
                     ))}
                     {!p.artifact && !p.notebookLinks && (
-                      <span className="text-[11px] text-slate-600">
+                      <span className="text-xs text-muted">
                         Coursework. Executed notebook available on request.
                       </span>
                     )}
                   </div>
-                </div>
+                </li>
               ))}
-            </div>
+            </ul>
 
-            <p className="text-[11px] text-slate-600 mt-8 max-w-2xl leading-relaxed">
+            <p className="mt-10 prose-measure font-sans text-xs text-muted leading-relaxed">
               Note on integrity: linked PDFs are my own write-ups and my IEEE-format paper. The
               linked notebooks are my executed work with the course prompts and unit tests
               removed, code and outputs only. eCornell course templates and graded materials are
@@ -128,6 +117,8 @@ const AI360Explorer = () => {
           </div>
         </section>
       </main>
+
+      <Footer />
     </div>
   );
 };

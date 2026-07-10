@@ -1,59 +1,37 @@
-import { motion } from "framer-motion";
-import { ArrowLeft, ExternalLink } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Navigation } from "@/components/Navigation";
-import { Background } from "@/components/Background";
+import Footer from "@/components/Footer";
 import { WorkLedger } from "@/components/WorkLedger";
 
 const ProjectsPage = () => {
   return (
-    <div className="min-h-screen bg-background text-foreground relative overflow-hidden">
-      <Background />
+    <div className="flex min-h-screen flex-col bg-paper text-ink">
       <Navigation />
 
-      <main className="pt-24 pb-20">
-        <div className="container mx-auto px-4 max-w-5xl">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
-            <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary mb-6" asChild>
-              <Link to="/">
-                <ArrowLeft size={16} className="mr-2" />
-                Back to Home
-              </Link>
-            </Button>
+      <main className="mx-auto w-full max-w-3xl flex-1 px-5 pb-16 pt-10 sm:px-6 sm:pt-14">
+        <header>
+          <h1>The work</h1>
+          <p className="mt-4 max-w-[68ch] font-serif text-ink-soft">
+            Every project on one calm screen. Filter by status or tech, search, and open any row to
+            read the story and peek the real code. Nothing is more than one click deep.
+          </p>
+        </header>
 
-            <div className="accent-line mb-5" />
-            <h1 className="text-4xl md:text-5xl font-bold mb-3">
-              The <span className="gradient-text">Work</span>
-            </h1>
-            <p className="text-muted-foreground text-lg max-w-2xl">
-              Every project on one calm screen. Filter by status or tech, search, and open any row to
-              read the story and peek the real code. Nothing is more than one click deep.
-            </p>
-          </motion.div>
-
-          {/* AI 360 coursework explorer link */}
-          <Link
-            to="/projects/ai360"
-            className="block glass-card p-5 mb-8 transition-all hover:-translate-y-0.5 group"
-          >
-            <div className="flex items-center justify-between gap-4">
-              <div>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-sky-300">
-                  ▲ Cornell AI 360
-                </span>
-                <p className="text-foreground font-semibold mt-1">Explore my AI 360 coursework</p>
-                <p className="text-muted-foreground text-sm">
-                  20 projects across NLP, machine learning, and data science in R, each wired into the Skill Map.
-                </p>
-              </div>
-              <ExternalLink size={18} className="text-muted-foreground group-hover:text-primary shrink-0" />
-            </div>
-          </Link>
-
+        <div className="mt-10">
           <WorkLedger />
         </div>
+
+        <p className="mt-8 font-sans text-sm text-ink-soft">
+          My Cornell AI 360 coursework, 20 projects across NLP, machine learning, and data science
+          in R, has{" "}
+          <Link to="/projects/ai360" className="link">
+            its own explorer
+          </Link>
+          .
+        </p>
       </main>
+
+      <Footer />
     </div>
   );
 };
