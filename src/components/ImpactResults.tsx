@@ -97,7 +97,7 @@ export const ImpactResults = () => {
       icon: ShieldCheck,
       outcome: "Full SDLC & Cloud Migration",
       metric: { value: 135000, suffix: "+ accounts migrated", duration: 2.2 },
-      how: "Managed the full software development lifecycle from requirements gathering through BRDs and FRDs, to UAT coordination, to production deployment. Led 4-phase Azure B2C rollout across 7 cross-functional teams (CloudOps, Infrastructure, SecOps, AppOps, DevOps). Zero authentication incidents.",
+      how: "Managed the full software development lifecycle from requirements gathering through BRDs and FRDs, to UAT coordination, to production deployment. Led 4-phase Azure B2C rollout across 6 cross-functional teams (CloudOps, Infrastructure, SecOps, AppOps, DevOps). Zero authentication incidents.",
       scope: "Equity Residential · Azure B2C · 3 state regulations",
       accentColor: "violet" as const,
       span: "md:col-span-2",
@@ -114,7 +114,7 @@ export const ImpactResults = () => {
     {
       icon: Users,
       outcome: "Cross-Functional Stakeholder Management",
-      metric: { value: 7, suffix: " enterprise teams coordinated", duration: 1.5 },
+      metric: { value: 6, suffix: " enterprise teams coordinated", duration: 1.5 },
       how: "Coordinated CloudOps, Infrastructure, SecOps, AppOps, DevOps, and developers through a zero-incident migration. Led a 14-person team plus 13 city coordinators across 5 countries. Managed 2 resident populations with 2 pricing tiers and 2 construction timelines simultaneously.",
       scope: "Equity Residential · ConnectionHub · AHRC",
       accentColor: "sky" as const,

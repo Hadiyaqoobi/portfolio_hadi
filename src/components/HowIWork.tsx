@@ -17,7 +17,7 @@ const phases = [
     approaches: [
       {
         context: "Enterprise (Equity Residential)",
-        detail: "Stakeholder interviews across 7 teams to map dependencies before writing a single requirement. Gap analysis of current-state systems and processes.",
+        detail: "Stakeholder interviews across 6 teams to map dependencies before writing a single requirement. Gap analysis of current-state systems and processes.",
       },
       {
         context: "Nonprofit (ConnectionHub)",
@@ -59,7 +59,7 @@ const phases = [
     approaches: [
       {
         context: "Phased Rollout (Waterfall)",
-        detail: "Azure B2C migration: 4 deployment phases across 7 teams with formal go/no-go decisions. 135,000+ accounts. Zero incidents. No room for iteration mid-rollout.",
+        detail: "Azure B2C migration: 4 deployment phases across 6 teams with formal go/no-go decisions. 135,000+ accounts. Zero incidents. No room for iteration mid-rollout.",
       },
       {
         context: "Agile Sprints",

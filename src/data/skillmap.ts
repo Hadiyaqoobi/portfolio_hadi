@@ -94,7 +94,7 @@ export const PROJECTS: SkillProject[] = [
   { id: "whisper", name: "ROE-WhisperDari (LoRA)", metric: "Afghan Dari ASR v1.0", kind: "model", skills: ["pt", "py", "nlp"], href: "/projects" },
   { id: "match", name: "ROE-Match (LightGBM)", metric: "calibrated + leakage gates", kind: "model", skills: ["ml", "py"], href: "/projects" },
   { id: "mirage", name: "Mirage Paper · Springer EMSE", metric: "90.3% FDR · under review", kind: "research", skills: ["py", "r", "ml", "llm", "nlp"], href: "/projects" },
-  { id: "alpha", name: "AlphaSeekers · live platform", metric: "190+ users · RAG 89% precision", kind: "live", skills: ["pg", "llm", "cloud", "py"], href: "https://alphaseekers.onrender.com/en" },
+  { id: "alpha", name: "AlphaSeekers · live platform", metric: "200 users · RAG assistant", kind: "live", skills: ["pg", "llm", "cloud", "py"], href: "https://alphaseekers.onrender.com/en" },
   { id: "makermind", name: "MakerMind · multi-agent pipeline", metric: "69K lines TypeScript", kind: "dev", skills: ["llm", "cloud"], href: "/projects/makermind" },
   { id: "takvenops", name: "TakveenOps · agentic PM tool", metric: "spec + prototype", kind: "dev", skills: ["llm", "agile", "py"], href: "/projects" },
   { id: "ahrc", name: "AHRC architecture + infrastructure", metric: "$170K+/yr secured", kind: "dev", skills: ["llm", "cloud", "sec", "az", "ba"], href: "/projects" },

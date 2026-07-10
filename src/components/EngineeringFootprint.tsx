@@ -25,7 +25,7 @@ const technicalCapabilities = [
     domain: "Cloud & Identity Architecture",
     proof: "135,000+ accounts migrated with zero incidents",
     tools: "Azure B2C, Entra ID, Key Vault, mTLS, CyberArk",
-    context: "Led full SDLC for Azure B2C authentication migration across 7 teams. Managed JWT tokens, mTLS certificates, and secrets rotation across environments.",
+    context: "Led full SDLC for Azure B2C authentication migration across 6 teams. Managed JWT tokens, mTLS certificates, and secrets rotation across environments.",
     accent: "violet",
   },
   {
