@@ -151,7 +151,7 @@ export async function executePatcherStage(design, code, issues) {
     name: "AlphaSeekers RAG",
     status: "live",
     tagline: "Finds the right textbook passage for a student's question, on free-tier infrastructure, for 2G networks.",
-    link: { label: "Live demo", href: "https://alphaseekers.onrender.com/en", external: true },
+    link: { label: "Live demo", href: "https://alphaseekers.org/en", external: true },
     stages: [
       {
         id: "chunk",

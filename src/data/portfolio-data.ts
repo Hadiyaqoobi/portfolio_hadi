@@ -381,7 +381,7 @@ export const portfolioData = {
       tags: ["Product Architecture", "Constraint-Driven", "BRD/FRD Authoring"],
       highlights: [],
       github: null,
-      demo: "https://alphaseekers.onrender.com/en",
+      demo: "https://alphaseekers.org/en",
       featured: true,
       category: "rnd",
       company: "Independent R&D",

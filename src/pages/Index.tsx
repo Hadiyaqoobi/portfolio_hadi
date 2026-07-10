@@ -196,7 +196,7 @@ const Index = () => {
             <p>
               One product is live:{" "}
               <a
-                href="https://alphaseekers.onrender.com/en"
+                href="https://alphaseekers.org/en"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="link"

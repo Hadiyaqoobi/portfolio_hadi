@@ -136,7 +136,7 @@ nlp.to_disk(out_dir)              # versioned export`,
     lang: "ts",
     badge: "RAG · pgvector",
     caption: "AlphaSeekers finds the right textbook passage for a student's question, on free-tier infra.",
-    project: { label: "AlphaSeekers", href: "https://alphaseekers.onrender.com/en", external: true },
+    project: { label: "AlphaSeekers", href: "https://alphaseekers.org/en", external: true },
     code: `// AlphaSeekers RAG: cosine search over pgvector (Neon)
 export async function similaritySearch(
   queryEmbedding: number[],
