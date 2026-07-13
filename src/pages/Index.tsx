@@ -247,15 +247,16 @@ const Index = () => {
               <p className="mt-4 sm:mt-0 max-w-[60ch] text-[clamp(1.15rem,1.8vw,1.4rem)] leading-normal text-ink">
                 At Equity Residential, an S&amp;P 500 REIT with 85,000+
                 apartments, I was the analyst between Marketing and
-                engineering. I coordinated an Azure AD B2C migration for{" "}
+                engineering. I coordinated an Azure AD B2C authentication
+                migration for{" "}
                 <span className="text-accent">135,000+ accounts</span> across
-                six teams.{" "}
+                six teams and four phases.{" "}
                 <span className="border-b-2 border-accent">
                   Zero critical incidents.
                 </span>{" "}
-                Now I&apos;m the Business Systems Manager (contract) at the
-                Afghan Human Right Center, and I build applied AI products
-                independently.
+                I&apos;m doing the same job now with AI in it, on contract at
+                the Afghan Human Right Center, where the board has approved
+                the AI monitoring system I&apos;m building.
               </p>
             </section>
 

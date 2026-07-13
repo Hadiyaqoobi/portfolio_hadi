@@ -2,7 +2,7 @@ export const portfolioData = {
   personal: {
     name: "M. Hadi Yaqoobi",
     title: "AI Solutions Architect & Business Systems Analyst",
-    subtitle: "At Equity Residential, an S&P 500 REIT with 85,000+ apartments, I was the analyst between Marketing and engineering. I coordinated an Azure AD B2C migration for 135,000+ accounts across six teams. Zero critical incidents. Now I'm the Business Systems Manager (contract) at the Afghan Human Right Center, and I build applied AI products independently.",
+    subtitle: "At Equity Residential, an S&P 500 REIT with 85,000+ apartments, I was the analyst between Marketing and engineering. I coordinated an Azure AD B2C authentication migration for 135,000+ accounts across six teams and four phases. Zero critical incidents. I'm doing the same job now with AI in it, on contract at the Afghan Human Right Center, where the board has approved the AI monitoring system I'm building.",
     location: "Boston, MA (Green Card Holder)",
     focus: ["Requirements Analysis & Documentation", "Systems Integration & Azure", "SQL & Data Validation", "Cross-Functional Stakeholder Management", "Enterprise SDLC & Agile"],
     email: "hyaqoobi@bu.edu",
