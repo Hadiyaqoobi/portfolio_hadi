@@ -56,6 +56,9 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <ScrollManager />
+        {/* Drafting-paper ground: faint grid under the content, grain above it. */}
+        <div className="sheet-grid" aria-hidden="true" />
+        <div className="sheet-grain" aria-hidden="true" />
         <Suspense
           fallback={
             <div

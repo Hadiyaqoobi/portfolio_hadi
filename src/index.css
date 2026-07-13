@@ -2,24 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Redesign v4 — "the Analyst's Desk, typeset like a dossier"
-   Warm paper ground, editorial serif headings, one oxblood accent,
-   zero motion. See DESIGN_SPEC.md. Light theme only, by choice:
-   the page behaves like a printed document, not an app. */
+/* Redesign v5 — "System Specification"
+   The site behaves like one engineering document: warm drafting paper,
+   didone display type, mono spec labels, one signal red. Evolved from v4
+   (same architecture, deeper commitment to the document conceit).
+   See DESIGN_SPEC.md. Light theme only, by choice. */
 
 @layer base {
   :root {
-    --paper: #f7f4ed;
-    --paper-raised: #fcfaf5;
-    --line: #e2dcce;
-    --ink: #2a2620;
-    --ink-soft: #5b5348;
-    --muted: #8a8072;
-    --accent: #7a2e22;
-    --accent-soft: #f2e6e2;
+    --paper: #ece4d3;
+    --paper-raised: #e4dac5;
+    --line: #cdc1a6;
+    --ink: #1c1a15;
+    --ink-soft: #4a4536;
+    --muted: #867c66;
+    --accent: #bf3b21;
+    --accent-deep: #8e2b20;
+    --accent-soft: #e9d5c8;
     --ok: #2f6b4f;
 
-    --radius: 6px;
+    --radius: 3px;
   }
 
   * {
@@ -28,15 +30,17 @@
 
   html {
     background: var(--paper);
+    scroll-behavior: smooth;
   }
 
   body {
     background: var(--paper);
     color: var(--ink);
-    font-family: "Newsreader", "Iowan Old Style", Georgia, serif;
-    font-size: 1.0625rem;
-    line-height: 1.65;
+    font-family: "Archivo", system-ui, -apple-system, sans-serif;
+    font-size: 1rem;
+    line-height: 1.7;
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
     overflow-x: hidden;
   }
 
@@ -44,36 +48,36 @@
   h2,
   h3,
   h4 {
-    font-family: "Fraunces", "Iowan Old Style", Georgia, serif;
+    font-family: "Bodoni Moda", "Iowan Old Style", Georgia, serif;
     font-weight: 600;
-    line-height: 1.15;
+    line-height: 1.08;
     color: var(--ink);
     text-wrap: balance;
-    letter-spacing: normal;
+    letter-spacing: -0.01em;
   }
 
   h1 {
-    font-size: 2.75rem;
+    font-size: 3.4rem;
   }
   h2 {
-    font-size: 1.75rem;
+    font-size: 2rem;
   }
   h3 {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
   }
 
   @media (max-width: 640px) {
     h1 {
-      font-size: 2.1rem;
+      font-size: 2.4rem;
     }
     h2 {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
     }
   }
 
   ::selection {
-    background: var(--accent-soft);
-    color: var(--ink);
+    background: var(--accent);
+    color: var(--paper);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -83,51 +87,99 @@
       animation: none !important;
       transition: none !important;
     }
+    html {
+      scroll-behavior: auto;
+    }
   }
 }
 
 @layer components {
+  /* Fixed drafting-grid ground. Mount once in App. */
+  .sheet-grid {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image: linear-gradient(rgba(28, 26, 21, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(28, 26, 21, 0.05) 1px, transparent 1px);
+    background-size: 36px 36px;
+  }
+
+  /* Paper grain. Mount once in App, above content-adjacent layers. */
+  .sheet-grain {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0.05;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 150px 150px;
+  }
+
   /* Section divider: one honest hairline. */
   .rule {
     border-top: 1px solid var(--line);
     margin: 4rem 0;
   }
 
-  /* Kicker: small quiet label above a section. One per section, at most. */
+  /* Kicker: small mono spec label above a section. One per section, at most. */
   .kicker {
-    font-family: theme("fontFamily.sans");
+    font-family: theme("fontFamily.mono");
     font-size: 0.72rem;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--muted);
   }
 
-  /* Identity / spec facts as a definition list. */
+  /* Section marker for the dossier: red section number over a muted name. */
+  .sec-mark {
+    font-family: theme("fontFamily.mono");
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    line-height: 1.6;
+  }
+  .sec-mark span {
+    color: var(--muted);
+  }
+
+  /* Identity / spec facts as a ruled definition list. */
   .facts {
     display: grid;
     grid-template-columns: max-content 1fr;
-    column-gap: 2rem;
-    row-gap: 0.45rem;
+    column-gap: 1.75rem;
     align-items: baseline;
+    border-top: 1px solid var(--line);
   }
   .facts dt {
-    font-family: theme("fontFamily.sans");
-    font-size: 0.8rem;
+    font-family: theme("fontFamily.mono");
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
     color: var(--muted);
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--line);
   }
   .facts dd {
     font-family: theme("fontFamily.sans");
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     color: var(--ink);
     margin: 0;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--line);
   }
   @media (max-width: 480px) {
     .facts {
       grid-template-columns: 1fr;
-      row-gap: 0.15rem;
+    }
+    .facts dt {
+      padding-bottom: 0.1rem;
+      border-bottom: none;
     }
     .facts dd {
-      margin-bottom: 0.6rem;
+      padding-top: 0.1rem;
     }
   }
 
@@ -139,11 +191,12 @@
     font-size: 0.9rem;
   }
   .evidence-table th {
+    font-family: theme("fontFamily.mono");
     font-size: 0.7rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--muted);
-    font-weight: 600;
+    font-weight: 500;
     text-align: left;
     padding: 0.5rem 1rem 0.5rem 0;
     border-bottom: 1px solid var(--line);
@@ -164,6 +217,91 @@
     color: var(--ink);
   }
 
+  /* Spec strip: the ruled Owner / Role / Stack / Outcome grid under a system. */
+  .spec-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1px solid var(--line);
+    font-size: 0.8rem;
+  }
+  .spec-strip > div {
+    padding: 0.7rem 0.85rem;
+    border-right: 1px solid var(--line);
+  }
+  .spec-strip > div:last-child {
+    border-right: none;
+  }
+  .spec-strip .spec-key {
+    font-family: theme("fontFamily.mono");
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.25rem;
+  }
+  .spec-strip .spec-val {
+    color: var(--ink);
+    line-height: 1.45;
+  }
+  @media (max-width: 640px) {
+    .spec-strip {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .spec-strip > div:nth-child(2) {
+      border-right: none;
+    }
+    .spec-strip > div:nth-child(-n + 2) {
+      border-bottom: 1px solid var(--line);
+    }
+  }
+
+  /* Status tag: mono chip, faintly rotated like a hand stamp. */
+  .tag {
+    font-family: theme("fontFamily.mono");
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 0.2rem 0.6rem;
+    display: inline-block;
+    white-space: nowrap;
+    transition: background-color 150ms ease, color 150ms ease;
+  }
+  .tag-tilt-l {
+    transform: rotate(-2deg);
+  }
+  .tag-tilt-r {
+    transform: rotate(2deg);
+  }
+  a.tag:hover {
+    background: var(--accent);
+    color: var(--paper);
+  }
+
+  /* Verified-outcome check label. */
+  .verified {
+    font-family: theme("fontFamily.mono");
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  /* Margin note: red-ruled aside in the section gutter. */
+  .margin-note {
+    font-family: theme("fontFamily.mono");
+    font-size: 0.72rem;
+    line-height: 1.7;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    color: var(--muted);
+    border-left: 2px solid var(--accent);
+    padding-left: 0.65rem;
+  }
+
   /* Prose links. */
   .link {
     color: var(--accent);
@@ -171,16 +309,19 @@
     text-underline-offset: 4px;
     text-decoration-thickness: 1.5px;
     text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
-    transition: text-decoration-color 150ms ease;
+    transition: text-decoration-color 150ms ease, color 150ms ease;
   }
   .link:hover {
-    text-decoration-color: var(--accent);
+    color: var(--accent-deep);
+    text-decoration-color: var(--accent-deep);
   }
 
   /* The one button style (Resume, Email). Quiet, ink-outlined. */
   .btn-quiet {
-    font-family: theme("fontFamily.sans");
-    font-size: 0.9rem;
+    font-family: theme("fontFamily.mono");
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     color: var(--ink);
     border: 1px solid var(--ink);
     border-radius: var(--radius);
@@ -202,6 +343,13 @@
     font-size: 1rem;
     letter-spacing: 0.5em;
     margin: 2.5rem 0;
+  }
+
+  /* Letter prose keeps the Newsreader serif voice. */
+  .prose-letter {
+    font-family: theme("fontFamily.serif");
+    font-size: 1.0625rem;
+    line-height: 1.65;
   }
 
   /* Running prose measure. */

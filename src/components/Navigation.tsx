@@ -9,6 +9,8 @@ const navItems = [
   { label: "Contact", href: "/contact" },
 ];
 
+/* The nav is the document control strip: mono, uppercase, ruled.
+   Backdrop blur so the drafting grid reads through it faintly. */
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
@@ -18,15 +20,21 @@ export const Navigation = () => {
   }, [location.pathname]);
 
   return (
-    <nav className="sticky top-0 z-40 bg-paper border-b border-line">
-      <div className="mx-auto w-full max-w-3xl px-5 sm:px-6">
-        <div className="flex h-14 items-center justify-between">
-          <Link to="/" className="font-display text-lg text-ink">
+    <nav className="sticky top-0 z-40 border-b border-line bg-paper/85 backdrop-blur-sm">
+      <div className="mx-auto w-full max-w-5xl px-5 sm:px-8">
+        <div className="flex h-12 items-center justify-between font-mono text-[0.72rem] tracking-[0.13em] uppercase">
+          <Link to="/" className="text-ink font-medium">
             M. Hadi Yaqoobi
           </Link>
 
           {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-6 font-sans text-sm">
+          <div className="hidden md:flex items-center gap-6">
+            <span className="text-muted normal-case tracking-[0.06em]">
+              Boston, MA
+            </span>
+            <span className="text-muted/50" aria-hidden="true">
+              /
+            </span>
             {navItems.map((item) => (
               <Link
                 key={item.href}
@@ -41,7 +49,7 @@ export const Navigation = () => {
                 {item.label}
               </Link>
             ))}
-            <a href="/resume.pdf" download className="btn-quiet">
+            <a href="/resume.pdf" download className="tag">
               Resume
             </a>
           </div>
@@ -55,7 +63,7 @@ export const Navigation = () => {
             aria-controls="site-menu"
             aria-label={isOpen ? "Close menu" : "Open menu"}
           >
-            {isOpen ? <X size={20} /> : <Menu size={20} />}
+            {isOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
         </div>
       </div>
@@ -66,7 +74,7 @@ export const Navigation = () => {
           id="site-menu"
           className="md:hidden border-t border-line bg-paper-raised"
         >
-          <div className="mx-auto w-full max-w-3xl px-5 sm:px-6 py-3 flex flex-col font-sans text-sm">
+          <div className="mx-auto w-full max-w-5xl px-5 sm:px-8 py-3 flex flex-col font-mono text-[0.75rem] tracking-[0.1em] uppercase">
             {navItems.map((item) => (
               <Link
                 key={item.href}

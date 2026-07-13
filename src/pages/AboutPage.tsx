@@ -11,7 +11,7 @@ const pillars = [
   {
     title: "Builder, Not Advisor",
     description:
-      "I don't recommend solutions and wait for someone else to build them. 5 production websites built on free-tier infrastructure. A SQL validation engine checking 960+ data points per property. An Azure migration across 7 teams with zero incidents. VBA automation because no vendor product existed. When something needs to exist, I make it exist.",
+      "I don't recommend solutions and wait for someone else to build them. 5 production websites built on free-tier infrastructure. A SQL validation engine checking 960+ data points per property. An Azure migration across six teams with zero critical incidents. VBA automation because no vendor product existed. When something needs to exist, I make it exist.",
   },
   {
     title: "Constraint-Driven Design",
@@ -49,7 +49,7 @@ const AboutPage = () => {
     <div className="min-h-screen bg-paper text-ink">
       <Navigation />
 
-      <main className="mx-auto w-full max-w-3xl px-5 sm:px-6 pt-10 sm:pt-14 pb-16">
+      <main className="mx-auto w-full max-w-3xl px-5 sm:px-6 pt-10 sm:pt-14 pb-16 prose-letter">
         {/* Letterhead */}
         <header className="border-b border-line pb-6">
           <h1>About Me</h1>
@@ -103,9 +103,10 @@ const AboutPage = () => {
             After my Master's at BU Questrom (Director's Honors List, three
             times), Equity brought me back into the corporate technology
             organization as an IT Business Systems Analyst. I managed an Azure
-            B2C authentication migration across seven teams and 135,000+
-            accounts, authored 5 FRDs for multi-state fee transparency
-            compliance, and wrote SQL four hours a day across 9 API
+            B2C authentication migration across six teams and 135,000+
+            accounts, co-authored the BRD and 5 FRDs with the senior BSA for
+            multi-state fee transparency compliance, and wrote SQL four hours
+            a day across 9 API
             integrations. I didn't just document requirements. I validated
             them in the data, tested them in production, and owned them
             through deployment.{" "}

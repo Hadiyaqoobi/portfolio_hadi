@@ -1,43 +1,57 @@
-# Redesign v4 — Design Specification (B+A+C synthesis)
+# Redesign v5 — "System Specification" (supersedes v4 tokens; same rules)
 
-The single source of truth for the redesign. Every converted file must comply.
-Direction (Hadi-ruled): the Analyst's Desk architecture + the Dossier's editorial
-typography + the Letter's first-person voice. A person's site, not a product's.
+The single source of truth for the design. Every converted file must comply.
+Direction (Hadi-ruled 2026-07-13): full adoption of the System Specification
+dossier — the site behaves like one controlled engineering document. Same
+architecture and bans as v4; deeper commitment to the document conceit.
 
 ## The idea
 
-The site reads like a beautifully typeset professional dossier: warm paper,
-serif headings, quiet rules, evidence in honest tables. Nothing floats, glows,
-pulses, or counts up. A recruiter finds who/where/authorization/proof/contact
-in the first screen. The design itself demonstrates the candidate: meticulous,
-calm, verifiable.
+The site reads like a specification sheet typeset on drafting paper: warm
+tan ground with a faint 36px grid and paper grain, didone display type, mono
+spec labels, one signal red. Sections are numbered (§0 Abstract … §6
+Distribution) on the homepage; every page ends with "End of document ▪".
+Nothing floats, glows, pulses, or counts up. A recruiter finds
+who/where/authorization/proof/contact in the first screen. The design itself
+demonstrates the candidate: meticulous, calm, verifiable.
 
 ## Tokens (defined in src/index.css — never hardcode these values in components)
 
 Color (light theme only, committed choice):
-- `--paper` #F7F4ED       page ground (warm paper)
-- `--paper-raised` #FCFAF5 cards/surfaces (barely lighter, no shadows)
-- `--line` #E2DCCE        hairline rules and borders
-- `--ink` #2A2620         primary text (warm near-black)
-- `--ink-soft` #5B5348    secondary text
-- `--muted` #8A8072       captions, kickers
-- `--accent` #7A2E22      oxblood — links, active states, small marks. THE only accent.
-- `--accent-soft` #F2E6E2 accent wash for subtle backgrounds
+- `--paper` #ECE4D3       page ground (warm drafting paper)
+- `--paper-raised` #E4DAC5 raised surfaces (slightly deeper, no shadows)
+- `--line` #CDC1A6        hairline rules and borders
+- `--ink` #1C1A15         primary text (warm near-black)
+- `--ink-soft` #4A4536    secondary text
+- `--muted` #867C66       captions, kickers, spec labels
+- `--accent` #BF3B21      signal red — links, tags, section marks. THE only accent.
+- `--accent-deep` #8E2B20 hover state for accent
+- `--accent-soft` #E9D5C8 accent wash for subtle backgrounds
 - `--ok` #2F6B4F          only for genuine status (live product dot on Work page)
 
 Tailwind classes are wired to these: `bg-paper`, `bg-paper-raised`, `border-line`,
-`text-ink`, `text-ink-soft`, `text-muted`, `text-accent`, `bg-accent-soft`, `text-ok`.
+`text-ink`, `text-ink-soft`, `text-muted`, `text-accent`, `text-accent-deep`,
+`bg-accent-soft`, `text-ok`.
+
+Ground layers (mounted once in App.tsx): `.sheet-grid` (fixed 36px drafting
+grid, rgba ink at 0.05) under the content; `.sheet-grain` (fixed SVG
+feTurbulence noise, opacity 0.05, multiply) above it. Both pointer-events-none.
 
 Type:
-- Display/headings: `font-display` → Fraunces (weights 550–650). h1 3rem/1.1,
-  h2 1.75rem, h3 1.2rem. Letter-spacing normal (never negative tracking).
-- Prose: `font-serif` → Newsreader 400/500 (+ real italics). Body 1.0625rem/1.65.
-  Measure: max-w-[68ch] on running text.
-- UI (nav, buttons, labels, tables, captions): `font-sans` (system humanist stack).
-- Identifiers only (dates in tables, file names, ticket-ish numbers): `font-mono`,
-  0.85em, `tabular-nums`. Never decorative mono.
-- Kicker style: `.kicker` = font-sans 0.72rem uppercase tracking-[0.14em] text-muted.
-  Use sparingly (one per section max).
+- Display/headings: `font-display` → Bodoni Moda (500/600 + italics). Big
+  numerals and pull quotes also use it. h1 up to clamp 5.6rem on the masthead.
+- Prose: body default is `font-sans` → Archivo (400–700), 1rem/1.7. The About
+  page letter keeps `font-serif` → Newsreader via `.prose-letter`.
+  Measure: max-w-[68ch] (66ch inside system cards) on running text.
+- Spec labels (kickers, dt, table headers, tags, nav): `font-mono` → Spline
+  Sans Mono, 0.7–0.78rem, uppercase, tracked 0.1–0.16em.
+- Identifiers (dates, file names, figures): `font-mono`, `tabular-nums`.
+- Kicker style: `.kicker` = font-mono 0.72rem uppercase tracking-[0.16em]
+  text-muted. Use sparingly (one per section max).
+- New vocabulary: `.sec-mark` (red §N over muted name), `.spec-strip` (ruled
+  Owner/Role/Stack/Outcome grid), `.tag`/`.tag-tilt-l`/`.tag-tilt-r` (mono
+  stamp chips, ±2° rotation, red border), `.verified` (✓ label), `.margin-note`
+  (red-ruled mono aside in the section gutter).
 
 ## Hard bans (delete on sight while converting)
 
@@ -45,7 +59,7 @@ glass-card, gradient-text, btn-primary glow, hover translateY lifts, blur glow
 blobs, pulsing dots (`animate-pulse`), count-up numbers (AnimatedNumber/BigNumber
 animations → render the final number statically), the 7-color accent system
 (indigo/violet/emerald/amber/rose/sky/cyan tints), ALL-CAPS eyebrow spam,
-sub-11px text (minimum text size 0.75rem), `tracking-tight/-0.0Xem` on headings,
+sub-11px text (minimum text size 0.75rem), `tracking-tight/-0.0Xem` beyond -0.01em on headings,
 framer-motion whileInView translate/opacity choreography. framer-motion imports
 should be removed entirely from converted files; if an element genuinely needs
 a transition, use a CSS transition ≤200ms and respect prefers-reduced-motion.

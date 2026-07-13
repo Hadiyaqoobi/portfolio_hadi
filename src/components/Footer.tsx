@@ -8,14 +8,15 @@ const secondaryLinks = [
   { label: "Research", href: "/#research" },
 ];
 
+/* Every page ends the way a controlled document does. */
 const Footer = () => {
   const { email, linkedin } = portfolioData.personal;
 
   return (
     <footer className="border-t border-line">
-      <div className="mx-auto w-full max-w-3xl px-5 sm:px-6 py-8 font-sans text-[0.8rem] text-muted">
+      <div className="mx-auto w-full max-w-5xl px-5 sm:px-8 py-8 font-mono text-[0.72rem] tracking-[0.08em] text-muted">
         <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-3">
-          <div className="flex flex-wrap items-baseline gap-x-2 gap-y-2">
+          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-2">
             <a href={`mailto:${email}`} className="link">
               {email}
             </a>
@@ -39,7 +40,7 @@ const Footer = () => {
             </a>
             <span aria-hidden="true">&middot;</span>
             {secondaryLinks.map((item, index) => (
-              <span key={item.href} className="flex items-baseline gap-x-2">
+              <span key={item.href} className="flex items-baseline gap-x-3">
                 <Link
                   to={item.href}
                   className="text-ink-soft hover:text-accent transition-colors duration-150"
@@ -52,7 +53,10 @@ const Footer = () => {
               </span>
             ))}
           </div>
-          <p>&copy; 2026 M. Hadi Yaqoobi</p>
+          <p className="uppercase tracking-[0.14em]">
+            End of document <span className="text-accent">&#9642;</span>{" "}
+            &copy; 2026 M. Hadi Yaqoobi
+          </p>
         </div>
       </div>
     </footer>

@@ -30,6 +30,7 @@ export default {
         accent: {
           DEFAULT: "var(--accent)",
           soft: "var(--accent-soft)",
+          deep: "var(--accent-deep)",
           foreground: "var(--paper)",
         },
         ok: "var(--ok)",
@@ -61,19 +62,10 @@ export default {
         },
       },
       fontFamily: {
-        display: ["Fraunces", "Iowan Old Style", "Georgia", "serif"],
+        display: ["Bodoni Moda", "Iowan Old Style", "Georgia", "serif"],
         serif: ["Newsreader", "Iowan Old Style", "Georgia", "serif"],
-        sans: [
-          "Seravek",
-          "Gill Sans Nova",
-          "Ubuntu",
-          "Calibri",
-          "DejaVu Sans",
-          "system-ui",
-          "-apple-system",
-          "sans-serif",
-        ],
-        mono: ["ui-monospace", "SF Mono", "Menlo", "Consolas", "monospace"],
+        sans: ["Archivo", "system-ui", "-apple-system", "sans-serif"],
+        mono: ["Spline Sans Mono", "ui-monospace", "SF Mono", "Menlo", "monospace"],
       },
       spacing: {
         section: "4rem",
