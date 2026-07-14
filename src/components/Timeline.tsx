@@ -21,8 +21,8 @@ export const Timeline = () => {
         <header className="mb-10">
           <h1>Career</h1>
           <p className="mt-4 prose-measure text-ink-soft">
-            From Afghanistan to Turkey to the United States. Every role shaped
-            how I gather requirements, build systems, and deliver outcomes.
+            From Afghanistan to Turkey to the United States. Every role on this list
+            changed how I gather requirements and build systems.
           </p>
         </header>
 

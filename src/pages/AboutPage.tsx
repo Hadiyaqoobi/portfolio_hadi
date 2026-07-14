@@ -6,7 +6,7 @@ const pillars = [
   {
     title: "Systems Thinker Who's Been the End User",
     description:
-      "I've been the Sales Consultant using the CRM at 9 PM during a renovation, the refugee navigating a broken education process, the BSA writing SQL four hours a day to validate what the vendor said was correct. I don't analyze systems from a distance. I've operated at every layer, which is why I catch what others miss.",
+      "I've been the Leasing Consultant using the CRM at 9 PM during a renovation, the refugee navigating a broken education process, the BSA writing SQL four hours a day to validate what the vendor said was correct. I don't analyze systems from a distance. I've operated at every layer, which is why I catch what others miss.",
   },
   {
     title: "Builder, Not Advisor",
@@ -91,7 +91,7 @@ const AboutPage = () => {
             don't limit design. They clarify it.
           </p>
           <p>
-            In the U.S., I joined Equity Residential as a Sales Consultant. At
+            In the U.S., I joined Equity Residential as a Leasing Consultant. At
             a 400-unit property during a major renovation, I lived inside the
             systems I'd later be asked to fix. I felt every friction point,
             tracked every data discrepancy, and built VBA automation because
@@ -111,7 +111,7 @@ const AboutPage = () => {
             them in the data, tested them in production, and owned them
             through deployment.{" "}
             <strong className="font-medium text-ink">
-              Nothing broke when it went live.
+              Zero critical incidents when it went live.
             </strong>
           </p>
           <p>

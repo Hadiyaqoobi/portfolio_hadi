@@ -234,7 +234,7 @@ export const WorkLedger = () => {
                           </p>
                           {w.confidential && (
                             <p className="mt-2 font-sans text-xs italic text-muted">
-                              Confidential client work. Identifiers removed; the excerpt is sanitized.
+                              Confidential client work. Identifiers removed; any code shown is sanitized.
                             </p>
                           )}
                           {w.links.length > 0 && (

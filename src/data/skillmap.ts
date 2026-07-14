@@ -98,7 +98,7 @@ export const PROJECTS: SkillProject[] = [
   { id: "makermind", name: "MakerMind · multi-agent pipeline", metric: "69K lines TypeScript", kind: "dev", skills: ["llm", "cloud"], href: "/projects/makermind" },
   { id: "takvenops", name: "TakveenOps · agentic PM tool", metric: "spec + prototype", kind: "dev", skills: ["llm", "agile", "py"], href: "/projects" },
   { id: "ahrc", name: "AHRC architecture + infrastructure", metric: "$170K+/yr secured", kind: "dev", skills: ["llm", "cloud", "sec", "az", "ba"], href: "/projects" },
-  { id: "ch", name: "ConnectionHub platform · 5 web properties", metric: "1,182 students org-wide", kind: "eqr", skills: ["pg", "ba", "sql"], href: "/projects" },
+  { id: "ch", name: "ConnectionHub platform · 5 web properties", metric: "~200 users · 1,182 students org-wide", kind: "eqr", skills: ["pg", "ba", "sql"], href: "/projects" },
   { id: "vpl", name: "visual-python-learning (Pyodide)", metric: "30 chapters · in-browser Python", kind: "dev", skills: ["cs", "py"], href: "/projects" },
 ];
 

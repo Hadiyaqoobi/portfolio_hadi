@@ -310,8 +310,8 @@ const MakerMindCaseStudy = () => {
           <section>
             <h2 className="mb-3">System architecture</h2>
             <p className="prose-measure text-ink-soft mb-8">
-              A multi-agent LLM pipeline that transforms natural language into
-              production-ready firmware.
+              A multi-agent LLM pipeline that turns natural language into
+              compiled Arduino firmware, checked before it reaches hardware.
             </p>
 
             <ol className="max-w-xl">

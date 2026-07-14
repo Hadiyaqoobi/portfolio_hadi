@@ -100,7 +100,7 @@ const AI360Explorer = () => {
                     ))}
                     {!p.artifact && !p.notebookLinks && (
                       <span className="text-xs text-muted">
-                        Coursework. Executed notebook available on request.
+                        Coursework. Details available on request.
                       </span>
                     )}
                   </div>

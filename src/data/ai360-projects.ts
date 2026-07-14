@@ -95,7 +95,7 @@ export const AI360_PROJECTS: AI360Project[] = [
     title: "Named Entity Recognition Tagger",
     track: "NLP",
     blurb:
-      "I trained a model to tag named entities inside raw text, in BIO format with a CRF. This is the coursework that fed directly into ROE-ResumeNER, my production XLM-RoBERTa NER model for multilingual resumes.",
+      "I trained a model to tag named entities inside raw text, in BIO format with a CRF. This is the coursework that fed directly into ROE-ResumeNER, the XLM-RoBERTa NER model I trained for multilingual resumes.",
     skills: ["nlp", "py"],
     notebookLinks: [{ label: "NER tagger notebook", href: `${NB}/ner_tagger.html` }],
     executed: true,

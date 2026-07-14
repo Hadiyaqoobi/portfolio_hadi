@@ -1,7 +1,7 @@
 export const portfolioData = {
   personal: {
     name: "M. Hadi Yaqoobi",
-    title: "AI Solutions Architect & Business Systems Analyst",
+    title: "Business Systems Analyst & AI Solutions Architect",
     subtitle: "At Equity Residential, an S&P 500 REIT with 85,000+ apartments, I was the analyst between Marketing and engineering. I coordinated an Azure AD B2C authentication migration for 135,000+ accounts across six teams and four phases. Zero critical incidents. I'm doing the same job now with AI in it, on contract at the Afghan Human Right Center, where the board has approved the AI monitoring system I'm building.",
     location: "Boston, MA (Green Card Holder)",
     focus: ["Requirements Analysis & Documentation", "Systems Integration & Azure", "SQL & Data Validation", "Cross-Functional Stakeholder Management", "Enterprise SDLC & Agile"],
@@ -10,7 +10,7 @@ export const portfolioData = {
   },
 
   about: {
-    description: `I build and ship platforms. First at an early-stage ed-tech nonprofit, shipping platforms that served 500+ refugee learners within a five-country organization, on free-tier infrastructure. Then at Equity Residential, an S&P 500 REIT with 85,000+ apartments, where I coordinated an Azure AD B2C migration for 135,000+ accounts (six teams, four phases, zero critical incidents), wrote T-SQL daily across five database environments, and shipped a production stored procedure myself when the dev team had no bandwidth.\n\nIn July 2025 my role at Equity Residential was eliminated in a restructuring. I used the runway to take on the Afghan Human Right Center's technology initiative and to go deep on independent applied R&D: picking problems current tools cannot solve and engineering through them. One product live (AlphaSeekers), three in active development, five ML models trained, and research on LLM reliability under peer review at Springer's Empirical Software Engineering.\n\nAt AHRC I own the technology initiative end-to-end. I built and deployed an AI-assisted incident-monitoring platform that classifies human-rights reports in Dari, Pashto, and English through a three-tier Claude cascade against a UN-anchored taxonomy (13 incident types, 27 treaty-cited violation codes, 34 provinces), with 100% human review before anything goes public, deliberately designed so every verification also labels training data for the domain-specific model that comes next.\n\nI grew up a refugee. That is my engineering edge: I learned to solve problems with whatever existed, question every assumption, and build for people who cannot afford failures. Constraints read to me as design parameters, not blockers.`,
+    description: `I build and ship platforms. First at an early-stage ed-tech nonprofit, shipping a platform that served about 200 refugee learners inside an organization that reached 1,182 students across five countries, on free-tier infrastructure. Then at Equity Residential, an S&P 500 REIT with 85,000+ apartments, where I coordinated an Azure AD B2C migration for 135,000+ accounts (six teams, four phases, zero critical incidents), wrote T-SQL daily across five database environments, and shipped a production stored procedure myself when the dev team had no bandwidth.\n\nIn July 2025 my role at Equity Residential was eliminated in a restructuring. I used the runway to take on the Afghan Human Right Center's technology initiative and to go deep on independent applied R&D: picking problems current tools cannot solve and engineering through them. One product live (AlphaSeekers), three in active development, five ML models trained, and research on LLM reliability under peer review at Springer's Empirical Software Engineering.\n\nAt AHRC I own the technology initiative end-to-end. I'm building a board-approved AI-assisted incident-monitoring platform that classifies human-rights reports in Dari, Pashto, and English through a three-tier Claude cascade against a UN-anchored taxonomy (13 incident types, 27 treaty-cited violation codes, 34 provinces). The cascade is running today, with 100% human review before anything goes public, deliberately designed so every verification also labels training data for the domain-specific model that comes next.\n\nI grew up a refugee. That is my engineering edge: I learned to solve problems with whatever existed, question every assumption, and build for people who cannot afford failures. Constraints read to me as design parameters, not blockers.`,
     education: "MS Management Studies (Data Analytics, STEM), Boston University · Cornell AI 360 (2026) · BA Aviation Management, Kocaeli University",
     interests: ["Requirements Analysis", "Systems Integration", "Data Validation", "Process Improvement", "Cross-Functional Stakeholder Management"],
   },
@@ -125,7 +125,7 @@ export const portfolioData = {
       location: "Boston, MA",
       skills: ["SQL", "Azure B2C", "Power BI", "Azure DevOps", "Agile"],
       highlights: [
-        "Delivered zero-incident Azure B2C authentication migration (135,000+ accounts) by coordinating 6 cross-functional teams through 4 deployment phases, authoring BRDs, and managing dependencies across CloudOps, Infrastructure, SecOps, and DevOps",
+        "Delivered Azure B2C authentication migration (135,000+ accounts) with zero critical incidents by coordinating 6 cross-functional teams through 4 deployment phases, authoring BRDs, and managing dependencies across CloudOps, Infrastructure, SecOps, and DevOps",
         "Co-authored the Fee Transparency BRD and 5 FRDs with the senior BSA across 4 workstreams, part of 20+ BRDs/FRDs authored during the role, translating multi-state regulations (CA SB 478, VA HB 967, CO HB25-1090) into technical specs that delivered ahead of every regulatory deadline",
         "Automated EQR's weekly delinquency campaign via production SQL stored procedure (6-table JOIN, 3 nested subquery levels, legal exclusion logic), eliminating 104 manual query executions per year",
         "Built SQL validation engine using nested WHILE loops to audit RUBS utility costs across ~300 properties (80 combinations per property), surfacing every billing discrepancy before resident impact",
@@ -265,8 +265,8 @@ export const portfolioData = {
 
   projects: [
     {
-      title: "Zero-Incident Cloud Migration for 135K+ Accounts",
-      description: "The authentication migration had stalled for months across 6 teams with no single owner. I took ownership of the full SDLC: mapped every dependency, authored the BRDs, coordinated CloudOps, Infrastructure, SecOps, AppOps, and DevOps through 4 deployment phases, and managed mTLS certificates, JWT tokens, and CyberArk secrets across environments. The result: 135,000+ resident accounts migrated to Azure B2C with zero authentication incidents.",
+      title: "Zero-Critical-Incident Cloud Migration for 135K+ Accounts",
+      description: "The authentication migration had stalled for months across 6 teams with no single owner. I took ownership of the full SDLC: mapped every dependency, authored the BRDs, coordinated CloudOps, Infrastructure, SecOps, AppOps, and DevOps through 4 deployment phases, and managed mTLS certificates, JWT tokens, and CyberArk secrets across environments. The result: 135,000+ resident accounts migrated to Azure B2C with zero critical incidents.",
       tech: ["Azure B2C", "Entra ID", "SQL Server", "ServiceNow", "Azure DevOps"],
       tags: ["IT BSA", "Cloud Migration", "SDLC", "Stakeholder Management"],
       highlights: [],
@@ -340,7 +340,7 @@ export const portfolioData = {
     },
     {
       title: "ROE-WhisperDari: Afghan Dari Speech Recognition (LoRA Fine-Tuned)",
-      description: "Fine-tuned OpenAI Whisper for Afghan Dari speech transcription using LoRA adapters, handling phonological distinctions between Afghan Dari and Iranian Farsi that off-the-shelf models miss. Built a Unicode normalization pipeline for accurate WER calculation and adapted the model for code-switched Dari/Pashto/English audio common in refugee intake interviews. Production-ready as v1.0.",
+      description: "Fine-tuned OpenAI Whisper for Afghan Dari speech transcription using LoRA adapters, handling phonological distinctions between Afghan Dari and Iranian Farsi that off-the-shelf models miss. Built a Unicode normalization pipeline for accurate WER calculation and adapted the model for code-switched Dari/Pashto/English audio common in refugee intake interviews. Current version: v1.0.",
       tech: ["Python", "PyTorch", "Whisper", "LoRA", "Hugging Face", "Unicode NLP"],
       tags: ["Model Training", "Speech Recognition", "Low-Resource ASR", "LoRA"],
       highlights: [],

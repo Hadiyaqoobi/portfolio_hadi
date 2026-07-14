@@ -302,7 +302,7 @@ export const SkillMap = () => {
           <div className="text-center px-4 py-10">
             <p className="font-sans text-sm text-ink">Select a skill on the map</p>
             <p className="font-sans text-sm text-muted mt-1">
-              Its projects and certifications appear here, and light up in the graph.
+              Its projects, coursework, and certifications appear here, and light up in the graph.
             </p>
           </div>
         ) : (
@@ -424,7 +424,7 @@ export const SkillMap = () => {
                             c.planned ? "font-sans text-muted" : "font-mono tabular-nums text-ink-soft"
                           }`}
                         >
-                          {c.planned ? "planned" : c.year}
+                          {c.year}
                         </span>
                       </div>
                       <div className="font-sans text-xs text-muted mt-0.5">{c.issuer}</div>

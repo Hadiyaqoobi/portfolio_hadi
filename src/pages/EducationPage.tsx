@@ -39,8 +39,8 @@ const EducationPage = () => {
               <h2>Professional certificates</h2>
               <p className="mt-4 prose-measure text-ink-soft">
                 Each certificate was chosen to close a specific skill gap. Harvard CS50 for
-                foundations. Stanford Algorithms for system design thinking. Google BI for
-                dashboard delivery. Cornell AI360 for what comes next.
+                foundations. Stanford Algorithms for algorithmic thinking. Google BI for
+                dashboard delivery. Cornell AI 360 for machine learning and NLP.
               </p>
               <p className="mt-3 font-sans text-sm">
                 <a
@@ -119,7 +119,7 @@ const EducationPage = () => {
               progress
             </p>
             <p className="mt-2 font-sans text-[0.8rem] text-muted">
-              All credentials independently verified on Credly.
+              Credentials verifiable on Credly.
             </p>
           </div>
         </section>

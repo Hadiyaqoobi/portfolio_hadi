@@ -7,7 +7,7 @@ const { personal, projects } = portfolioData;
 
 /* The migration card reuses the verified project copy verbatim. */
 const migration = projects.find((p) =>
-  p.title.startsWith("Zero-Incident Cloud Migration")
+  p.title.startsWith("Zero-Critical-Incident Cloud Migration")
 );
 const alphaseekers = projects.find((p) => p.title.startsWith("AlphaSeekers"));
 const makermind = projects.find((p) => p.title.startsWith("MakerMind"));
@@ -331,7 +331,7 @@ const Index = () => {
                         SYS-01
                       </span>
                       <h3 className="font-sans font-bold text-[clamp(1.25rem,2.2vw,1.6rem)] tracking-[-0.01em]">
-                        Zero-Incident Cloud Migration
+                        Zero-Critical-Incident Cloud Migration
                       </h3>
                     </div>
                     <span className="tag tag-tilt-l">Delivered</span>
