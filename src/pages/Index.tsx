@@ -19,7 +19,8 @@ const sections = [
   { id: "sec-3", num: "3", label: "Verified Outcomes" },
   { id: "sec-4", num: "4", label: "Capabilities" },
   { id: "sec-5", num: "5", label: "Revision History" },
-  { id: "sec-6", num: "6", label: "Distribution" },
+  { id: "sec-6", num: "6", label: "References" },
+  { id: "sec-7", num: "7", label: "Distribution" },
 ];
 
 /* Career rows, reverse-chronological. Text matches the timeline data. */
@@ -579,12 +580,98 @@ const Index = () => {
               </div>
             </section>
 
-            {/* §6 DISTRIBUTION */}
+            {/* §6 REFERENCES */}
             <section
               id="sec-6"
               className="py-14 border-t border-line scroll-mt-20 sm:grid sm:grid-cols-[7rem_1fr] sm:gap-7"
             >
-              <SectionMark num="6" label="Distribution" />
+              {/* Legacy anchor: the footer links to /#research. Absolute so it
+                  is not a grid item. */}
+              <span id="research" aria-hidden="true" className="absolute" />
+              <SectionMark num="6" label="References" />
+              <div className="mt-4 sm:mt-0 max-w-[66ch]">
+                {/* [1] The Springer paper */}
+                <article className="pb-8">
+                  <p className="font-mono text-[0.7rem] tracking-[0.12em] uppercase text-muted">
+                    <span className="text-accent">[1]</span> Journal article
+                    &middot; Sole author &middot; Under peer review
+                  </p>
+                  <h3 className="mt-3 font-display italic font-medium text-[clamp(1.15rem,2vw,1.45rem)] leading-snug">
+                    The Mirage of Statistical Significance: How
+                    LLM-as-Annotator Fabricates Empirical Findings in Software
+                    Engineering Research
+                  </h3>
+                  <p className="mt-2 font-sans text-[0.88rem] text-ink-soft">
+                    M. Hadi Yaqoobi &middot;{" "}
+                    <em>Empirical Software Engineering</em>, Springer &middot;
+                    2026
+                  </p>
+                  <p className="mt-3.5 text-[0.97rem] leading-relaxed text-ink-soft">
+                    A systematic analysis of 584 AI conference transcripts
+                    (2.49 million words) measuring when small language models
+                    fabricate statistical findings. 90.3% of model-generated
+                    findings were unverifiable: the models were not analyzing
+                    data, they were pattern-matching and generating
+                    plausible-sounding numbers. The paper contributes a
+                    four-step replication protocol that catches these failures
+                    before they reach production decisions.
+                  </p>
+                  <p className="mt-3.5">
+                    <a
+                      href="https://github.com/Hadiyaqoobi/mirage-replication"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="link font-sans text-[0.92rem]"
+                    >
+                      Replication package <span aria-hidden="true">&#8599;</span>
+                    </a>
+                  </p>
+                </article>
+
+                {/* [2] The thesis */}
+                <article className="pt-8 border-t border-line">
+                  <p className="font-mono text-[0.7rem] tracking-[0.12em] uppercase text-muted">
+                    <span className="text-accent">[2]</span> BA thesis &middot;
+                    Kocaeli University
+                  </p>
+                  <h3 className="mt-3 font-display italic font-medium text-[clamp(1.15rem,2vw,1.45rem)] leading-snug">
+                    Smart Airport: How IoT and New Technologies Shape the
+                    Future of Airport Industry
+                  </h3>
+                  <p className="mt-3.5 text-[0.97rem] leading-relaxed text-ink-soft">
+                    A digital-maturity analysis across 10+ international
+                    airport systems: as-is and to-be mapping, gap analysis,
+                    stakeholder alignment across competing priorities, and a
+                    capability roadmap. The same deliverables I produce as a
+                    Business Systems Analyst.
+                  </p>
+                  <p className="mt-3.5">
+                    <a
+                      href="/publications/smart-airport-thesis.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="link font-sans text-[0.92rem]"
+                    >
+                      Read the thesis (PDF)
+                    </a>
+                  </p>
+                </article>
+
+                <p className="mt-8 pt-5 border-t border-line text-[0.92rem] leading-relaxed text-muted">
+                  The thread: the thesis mapped how complex organizations
+                  adopt new technology. The paper measures when AI can be
+                  trusted to support those decisions. My day-to-day work
+                  applies both.
+                </p>
+              </div>
+            </section>
+
+            {/* §7 DISTRIBUTION */}
+            <section
+              id="sec-7"
+              className="py-14 border-t border-line scroll-mt-20 sm:grid sm:grid-cols-[7rem_1fr] sm:gap-7"
+            >
+              <SectionMark num="7" label="Distribution" />
               <div className="mt-4 sm:mt-0">
                 <h2 className="text-[clamp(2.2rem,4.5vw,3.4rem)]">
                   Get in <em className="text-accent italic">touch.</em>
