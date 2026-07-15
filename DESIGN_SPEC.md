@@ -1,3 +1,21 @@
+# Redesign v6 — "Specification Document" (per the design handoff)
+
+AUTHORITATIVE SOURCE for the homepage: the design handoff README
+(`~/Desktop/persona/Github portfolio connection.zip` →
+design_handoff_spec_portfolio/README.md). Hadi ordered full adoption
+2026-07-14: IBM Plex superfamily, paper #EFEDE4 / ink #1A1813 / redline
+#CB3A24, radius 0, and the full interaction layer (progress bar, status chip,
+dot rail, scroll reveals with the 1500ms fallback, count-ups, decode line,
+code exhibits, keyboard nav, print stylesheet). The earlier motion bans are
+REPEALED for these specified interactions; prefers-reduced-motion must always
+be honored. Copy rule unchanged: all claims from truth-passed src/data/* and
+the rulings ledger — the handoff's reference copy was stale and must never be
+pasted verbatim. Homepage components live in src/components/spec/.
+
+Interior pages keep the v5 architecture below, re-themed to the v6 tokens
+(IBM Plex, #EFEDE4 paper, sharp corners).
+
+--- v5 spec (interior-page architecture; token values superseded) ---
 # Redesign v5 — "System Specification" (supersedes v4 tokens; same rules)
 
 The single source of truth for the design. Every converted file must comply.

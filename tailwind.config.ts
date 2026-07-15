@@ -18,7 +18,12 @@ export default {
           DEFAULT: "var(--paper)",
           raised: "var(--paper-raised)",
         },
-        line: "var(--line)",
+        line: {
+          DEFAULT: "var(--line)",
+          2: "var(--line-2)",
+          3: "var(--line-3)",
+        },
+        leader: "var(--leader)",
         ink: {
           DEFAULT: "var(--ink)",
           soft: "var(--ink-soft)",
@@ -62,20 +67,21 @@ export default {
         },
       },
       fontFamily: {
-        display: ["Bodoni Moda", "Iowan Old Style", "Georgia", "serif"],
-        serif: ["Newsreader", "Iowan Old Style", "Georgia", "serif"],
-        sans: ["Archivo", "system-ui", "-apple-system", "sans-serif"],
-        mono: ["Spline Sans Mono", "ui-monospace", "SF Mono", "Menlo", "monospace"],
+        display: ["IBM Plex Serif", "Iowan Old Style", "Georgia", "serif"],
+        serif: ["IBM Plex Serif", "Iowan Old Style", "Georgia", "serif"],
+        sans: ["IBM Plex Sans", "system-ui", "-apple-system", "sans-serif"],
+        mono: ["IBM Plex Mono", "ui-monospace", "SF Mono", "Menlo", "monospace"],
       },
       spacing: {
         section: "4rem",
         "section-lg": "5rem",
         "section-xl": "6rem",
       },
+      // Spec-document system: sharp corners everywhere; only circles are round.
       borderRadius: {
-        lg: "8px",
-        md: "6px",
-        sm: "4px",
+        lg: "0px",
+        md: "0px",
+        sm: "0px",
       },
       keyframes: {
         "accordion-down": {
