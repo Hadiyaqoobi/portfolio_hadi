@@ -14,13 +14,14 @@ const moves = [
       "Weeks after launch, some utility estimates looked off to me. Not provably wrong, just off. Everyone else had moved on. I started where you always should: one property, one charge code, by hand.",
     file: "rubs_probe.sql",
     code: `-- one property, one code, by hand
-SELECT r.PERIOD, u.NMBRBED,
-  CEILING(SUM(r.TRANAMT) * 1.0 /
-    COUNT(DISTINCT r.NAMEGROUP)) AS calc
-FROM RMLEDG r
-JOIN UNIT u ON u.RMPROPID = r.RMPROPID
-WHERE u.RMPROPID = '29909'
-  AND r.CHGCODE  = 'ru1';`,
+SELECT r.PERIOD, u.BED_TYPE,
+  CEILING(SUM(r.TRAN_AMT) * 1.0 /
+    COUNT(DISTINCT r.ACCT_GROUP)) AS calc
+FROM LEDGER r
+JOIN UNIT u ON u.PROP_ID = r.PROP_ID
+WHERE u.PROP_ID = '12345'
+  AND r.CHARGE_CODE = 'util01'
+GROUP BY r.PERIOD, u.BED_TYPE;`,
   },
   {
     tag: "Move 2 · Scale the search",
@@ -29,7 +30,7 @@ WHERE u.RMPROPID = '29909'
       "20 charge codes times 4 bedroom types meant 80 hand checks per property, across hundreds of properties. So I wrote dynamic SQL: nested WHILE loops that generate and execute every combination into a temp table.",
     file: "rubs_sweep.sql",
     code: `-- 20 codes x 4 bedroom types = 80 per property
-WHILE @i <= 20            -- ru1 ... ru20
+WHILE @i <= 20            -- util01 ... util20
 BEGIN
   WHILE @j <= 3           -- beds 0 ... 3
   BEGIN
@@ -66,7 +67,7 @@ FULL OUTER JOIN #AUDIT a
     code: `✓ root cause: bedroom-grouping edge case
 ✓ patch FRD authored and approved
 ✓ validated vs 12 months of ledger history
-✓ corrected values live on equityapartments.com`,
+✓ corrected values live on the resident portal`,
   },
 ];
 

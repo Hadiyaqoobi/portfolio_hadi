@@ -1,6 +1,5 @@
 import { useRef, useEffect, useState, useCallback } from "react";
-import { useSearchParams } from "react-router-dom";
-import { ExternalLink, FileText, Search } from "lucide-react";
+import { Link, useSearchParams } from "react-router-dom";
 import {
   SKILLS,
   PROJECTS,
@@ -15,6 +14,7 @@ import {
 import { ai360ForSkill, AI360_PROJECTS } from "@/data/ai360-projects";
 
 type Filter = "all" | Domain;
+type Tab = "proj" | "course" | "cert";
 
 const FILTERS: { key: Filter; label: string }[] = [
   { key: "all", label: "All domains" },
@@ -24,18 +24,19 @@ const FILTERS: { key: Filter; label: string }[] = [
   { key: "ba", label: "Business & Delivery" },
 ];
 
+const CANVAS_FONT = 'Seravek, "Gill Sans Nova", Ubuntu, Calibri, system-ui, sans-serif';
+
 export const SkillMap = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [selected, setSelected] = useState<string | null>(null);
   const [domain, setDomain] = useState<Filter>("all");
   const [query, setQuery] = useState("");
-  const [tab, setTab] = useState<"proj" | "course" | "cert">("proj");
+  const [tab, setTab] = useState<Tab>("proj");
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const stateRef = useRef({ selected, domain, query: "", hover: null as string | null });
   const selectRef = useRef<(id: string | null) => void>(() => {});
   const drawRef = useRef<() => void>(() => {});
-  const reduceRef = useRef(false);
 
   const select = useCallback(
     (id: string | null) => {
@@ -57,15 +58,16 @@ export const SkillMap = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Mirror React state into the ref the draw loop reads.
+  // Mirror React state into the ref the draw routine reads, then redraw.
   useEffect(() => {
     stateRef.current.selected = selected;
     stateRef.current.domain = domain;
     stateRef.current.query = query.toLowerCase();
-    if (reduceRef.current) drawRef.current();
+    drawRef.current();
   }, [selected, domain, query]);
 
-  // Canvas: set up once.
+  // Canvas: set up once. The map is a static drawing that re-renders only on
+  // state change, hover change, or resize. No animation loop.
   useEffect(() => {
     const canvas = canvasRef.current;
     const parent = canvas?.parentElement;
@@ -73,12 +75,19 @@ export const SkillMap = () => {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    reduceRef.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Read the design tokens once; components never hardcode token values.
+    const css = getComputedStyle(document.documentElement);
+    const C = {
+      line: css.getPropertyValue("--line").trim(),
+      ink: css.getPropertyValue("--ink").trim(),
+      inkSoft: css.getPropertyValue("--ink-soft").trim(),
+      accent: css.getPropertyValue("--accent").trim(),
+      paperRaised: css.getPropertyValue("--paper-raised").trim(),
+    };
+
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     let W = 0;
     let H = 0;
-    let t = 0;
-    let raf = 0;
 
     const resize = () => {
       const r = parent.getBoundingClientRect();
@@ -89,7 +98,7 @@ export const SkillMap = () => {
       canvas.style.width = `${W}px`;
       canvas.style.height = `${H}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      if (reduceRef.current) draw();
+      draw();
     };
 
     const nodeR = (s: (typeof SKILLS)[number]) => {
@@ -118,14 +127,14 @@ export const SkillMap = () => {
 
     function draw() {
       if (!ctx) return;
-      if (!reduceRef.current) t += 0.016;
       ctx.clearRect(0, 0, W, H);
       const st = stateRef.current;
       const sel = st.selected ? SKILLS.find((k) => k.id === st.selected) : null;
       const related = sel ? relatedSet(sel.id) : null;
 
-      // faint same-domain mesh
-      ctx.strokeStyle = "rgba(96,165,250,0.045)";
+      // faint same-domain mesh, hairline color
+      ctx.strokeStyle = C.line;
+      ctx.globalAlpha = 0.55;
       ctx.lineWidth = 1;
       for (let i = 0; i < SKILLS.length; i++) {
         for (let j = i + 1; j < SKILLS.length; j++) {
@@ -139,21 +148,21 @@ export const SkillMap = () => {
           }
         }
       }
+      ctx.globalAlpha = 1;
 
       // edges from the selected skill to the skills it shares work with
       if (sel && related) {
+        ctx.strokeStyle = C.inkSoft;
+        ctx.globalAlpha = 0.5;
+        ctx.lineWidth = 1.2;
         for (const b of SKILLS) {
           if (!related.has(b.id) || !visible(b)) continue;
-          const g = ctx.createLinearGradient(sel.x * W, sel.y * H, b.x * W, b.y * H);
-          g.addColorStop(0, "rgba(96,165,250,0.6)");
-          g.addColorStop(1, "rgba(96,165,250,0.14)");
-          ctx.strokeStyle = g;
-          ctx.lineWidth = 1.4;
           ctx.beginPath();
           ctx.moveTo(sel.x * W, sel.y * H);
           ctx.lineTo(b.x * W, b.y * H);
           ctx.stroke();
         }
+        ctx.globalAlpha = 1;
       }
 
       // skill nodes (3 states: selected / related / dimmed)
@@ -162,39 +171,25 @@ export const SkillMap = () => {
         const on = st.selected === s.id;
         const rel = !!(related && related.has(s.id));
         const hv = st.hover === s.id;
-        const wobble = reduceRef.current ? 0 : Math.sin(t * 2 + s.x * 9) * 1.0;
-        const r = nodeR(s) + wobble;
+        const r = nodeR(s);
 
         let alpha = 1;
-        if (!vis) alpha = 0.1;
-        else if (sel && !on && !rel) alpha = 0.24;
+        if (!vis) alpha = 0.15;
+        else if (sel && !on && !rel) alpha = 0.35;
         ctx.globalAlpha = alpha;
 
-        if (on) {
-          ctx.shadowColor = "rgba(59,130,246,0.9)";
-          ctx.shadowBlur = 28;
-          ctx.fillStyle = "#3B82F6";
-        } else if (hv || rel) {
-          ctx.shadowColor = "rgba(59,130,246,0.6)";
-          ctx.shadowBlur = 15;
-          ctx.fillStyle = "#2f5fd0";
-        } else {
-          ctx.shadowColor = "rgba(59,130,246,0.3)";
-          ctx.shadowBlur = 8;
-          ctx.fillStyle = "#1e3a8a";
-        }
+        ctx.fillStyle = on ? C.accent : C.paperRaised;
         ctx.beginPath();
-        ctx.arc(s.x * W, s.y * H, r, 0, 7);
+        ctx.arc(s.x * W, s.y * H, r, 0, Math.PI * 2);
         ctx.fill();
-        ctx.shadowBlur = 0;
-        ctx.strokeStyle = on ? "#bfdbfe" : rel ? "rgba(147,197,253,0.7)" : "rgba(96,165,250,0.35)";
-        ctx.lineWidth = on ? 2 : 1;
+        ctx.strokeStyle = on ? C.accent : hv || rel ? C.inkSoft : C.line;
+        ctx.lineWidth = on ? 1.5 : 1;
         ctx.beginPath();
-        ctx.arc(s.x * W, s.y * H, r, 0, 7);
+        ctx.arc(s.x * W, s.y * H, r, 0, Math.PI * 2);
         ctx.stroke();
 
-        ctx.fillStyle = on ? "#ffffff" : sel && !on && !rel ? "#56657f" : "#cbd5e1";
-        ctx.font = `${on ? "700" : "600"} 12px Inter, ui-sans-serif`;
+        ctx.fillStyle = on ? C.ink : rel || hv ? C.ink : C.inkSoft;
+        ctx.font = `${on ? "600" : "400"} 12px ${CANVAS_FONT}`;
         ctx.textAlign = "center";
         ctx.fillText(s.name, s.x * W, s.y * H + r + 15);
         ctx.globalAlpha = 1;
@@ -203,17 +198,9 @@ export const SkillMap = () => {
 
     drawRef.current = draw;
 
-    const loop = () => {
-      draw();
-      raf = requestAnimationFrame(loop);
-    };
-
     resize();
     const ro = new ResizeObserver(resize);
     ro.observe(parent);
-
-    if (reduceRef.current) draw();
-    else raf = requestAnimationFrame(loop);
 
     const pick = (mx: number, my: number) => {
       for (const s of SKILLS) {
@@ -223,9 +210,12 @@ export const SkillMap = () => {
     };
     const onMove = (e: MouseEvent) => {
       const r = canvas.getBoundingClientRect();
-      stateRef.current.hover = pick(e.clientX - r.left, e.clientY - r.top);
-      canvas.style.cursor = stateRef.current.hover ? "pointer" : "default";
-      if (reduceRef.current) draw();
+      const hover = pick(e.clientX - r.left, e.clientY - r.top);
+      if (hover !== stateRef.current.hover) {
+        stateRef.current.hover = hover;
+        canvas.style.cursor = hover ? "pointer" : "default";
+        draw();
+      }
     };
     const onClick = (e: MouseEvent) => {
       const r = canvas.getBoundingClientRect();
@@ -235,7 +225,6 @@ export const SkillMap = () => {
     canvas.addEventListener("click", onClick);
 
     return () => {
-      cancelAnimationFrame(raf);
       ro.disconnect();
       canvas.removeEventListener("mousemove", onMove);
       canvas.removeEventListener("click", onClick);
@@ -248,116 +237,107 @@ export const SkillMap = () => {
   const certN = skill ? certCountForSkill(skill.id) : 0;
   const coursework = skill ? ai360ForSkill(skill.id) : [];
 
+  const tabs: { key: Tab; n: number; label: string }[] = [
+    { key: "proj", n: projects.length, label: "projects" },
+    { key: "course", n: coursework.length, label: "coursework" },
+    { key: "cert", n: certN, label: "certifications" },
+  ];
+
   return (
     <div id="skill-map">
       {/* Controls: domain filters + search */}
-      <div className="flex flex-wrap items-center gap-2 mb-5">
+      <div className="flex flex-wrap items-center gap-x-5 gap-y-3 mb-5">
         {FILTERS.map((f) => (
           <button
             key={f.key}
             onClick={() => setDomain(f.key)}
             aria-pressed={domain === f.key}
             aria-label={`Filter by ${f.label}`}
-            className={`rounded-full border px-4 py-2 text-xs font-semibold transition-colors ${
+            className={`font-sans text-sm pb-0.5 border-b-2 transition-colors duration-150 ${
               domain === f.key
-                ? "border-blue-500 text-blue-300 bg-blue-500/10"
-                : "border-slate-700 text-slate-400 hover:text-slate-200"
+                ? "border-accent text-accent"
+                : "border-transparent text-ink-soft hover:text-ink"
             }`}
           >
             {f.label}
           </button>
         ))}
-        <div className="relative ml-auto">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
-          <input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="search a skill, e.g. PyTorch"
-            aria-label="Search skills"
-            className="bg-slate-900/60 border border-slate-700 rounded-full text-sm text-slate-200 pl-9 pr-4 py-2 min-w-[210px] focus:outline-none focus:border-blue-500"
-          />
-        </div>
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="search a skill, e.g. PyTorch"
+          aria-label="Search skills"
+          className="ml-auto font-sans text-sm text-ink placeholder:text-muted bg-paper-raised border border-line rounded-md px-3 py-1.5 min-w-[200px] focus:outline-none focus:border-ink transition-colors duration-150"
+        />
       </div>
 
-      <div className="grid lg:grid-cols-[1.5fr_1fr] gap-4 items-stretch">
       {/* MAP */}
-      <div className="relative glass-card overflow-hidden h-[420px] lg:h-auto lg:min-h-[600px]">
-        <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" role="img" aria-label="Interactive skill map. An accessible list of skills follows below." />
-        <div className="absolute top-3 right-4 text-[11px] text-slate-500 pointer-events-none">
+      <div className="relative border border-line bg-paper-raised rounded-md overflow-hidden h-[420px] sm:h-[500px]">
+        <canvas
+          ref={canvasRef}
+          className="absolute inset-0 w-full h-full"
+          role="img"
+          aria-label="Interactive skill map. An accessible list of skills follows below."
+        />
+        <div className="absolute top-3 right-4 font-sans text-xs text-muted pointer-events-none">
           {selected ? "click another skill, or empty space to clear" : "click a skill node"}
         </div>
-        <div className="absolute left-4 bottom-3 flex flex-wrap gap-x-3.5 gap-y-1 text-[11px] text-slate-500 pointer-events-none max-w-[92%]">
-          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-blue-500" /> selected</span>
-          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full" style={{ background: "#2f5fd0" }} /> shares work</span>
-          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-blue-950" /> other skills</span>
-          <span className="text-slate-600">details on the right →</span>
+        <div className="absolute left-4 bottom-3 flex flex-wrap gap-x-3.5 gap-y-1 font-sans text-xs text-muted pointer-events-none max-w-[92%]">
+          <span className="flex items-center gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-accent" /> selected
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full border border-ink-soft" /> shares work
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full border border-line" /> other skills
+          </span>
+          <span>details appear below</span>
         </div>
       </div>
 
       {/* PANEL */}
-      <div className="glass-card p-6 lg:min-h-[600px] flex flex-col">
+      <div className="border border-line bg-paper-raised rounded-md p-5 sm:p-6 mt-4">
         {!skill ? (
-          <div className="m-auto text-center text-slate-500 px-4">
-            <div className="text-4xl text-blue-500 mb-3">◉</div>
-            <div className="text-slate-300 font-semibold text-[15px]">Select a skill on the map</div>
-            <div className="text-[13px] mt-1.5 leading-relaxed">
-              Its projects and certifications appear here, and light up in the graph.
-            </div>
+          <div className="text-center px-4 py-10">
+            <p className="font-sans text-sm text-ink">Select a skill on the map</p>
+            <p className="font-sans text-sm text-muted mt-1">
+              Its projects, coursework, and certifications appear here, and light up in the graph.
+            </p>
           </div>
         ) : (
-          <div className="flex flex-col h-full">
-            <div className="flex items-start justify-between gap-3">
+          <div>
+            <div className="flex items-baseline justify-between gap-3">
               <div>
-                <div className="text-[11px] font-bold uppercase tracking-[0.16em] text-blue-400 mb-1">
-                  {DOMAIN_LABELS[skill.domain]}
-                </div>
-                <div className="text-2xl font-bold text-slate-100 tracking-[-0.02em]">{skill.name}</div>
+                <p className="kicker">{DOMAIN_LABELS[skill.domain]}</p>
+                <h3 className="mt-1">{skill.name}</h3>
               </div>
-              <div className="text-right shrink-0">
-                <div className="text-2xl font-bold text-blue-400">{skill.years}+</div>
-                <div className="text-[10px] uppercase tracking-wider text-slate-500">years</div>
-              </div>
+              <p className="font-sans text-sm text-ink-soft shrink-0">
+                <span className="font-mono tabular-nums text-ink">{skill.years}+</span> years
+              </p>
             </div>
-            <p className="text-[11px] text-slate-500 mt-2">{YEARS_FOOTNOTE}</p>
+            <p className="font-sans text-xs text-muted mt-2">{YEARS_FOOTNOTE}</p>
 
             {/* tabs = counts only, no invented depth meter */}
-            <div className="flex gap-2 mt-5" role="tablist" aria-label="Evidence for this skill">
-              <button
-                onClick={() => setTab("proj")}
-                role="tab"
-                aria-selected={tab === "proj"}
-                className={`flex-1 rounded-lg border py-2 text-[11px] font-semibold transition-colors ${
-                  tab === "proj" ? "border-blue-500 text-blue-300 bg-blue-500/10" : "border-slate-700 text-slate-400 hover:text-slate-200"
-                }`}
-              >
-                <span className="block text-lg text-slate-100">{projects.length}</span>
-                projects
-              </button>
-              <button
-                onClick={() => setTab("course")}
-                role="tab"
-                aria-selected={tab === "course"}
-                className={`flex-1 rounded-lg border py-2 text-[11px] font-semibold transition-colors ${
-                  tab === "course" ? "border-blue-500 text-blue-300 bg-blue-500/10" : "border-slate-700 text-slate-400 hover:text-slate-200"
-                }`}
-              >
-                <span className="block text-lg text-slate-100">{coursework.length}</span>
-                coursework
-              </button>
-              <button
-                onClick={() => setTab("cert")}
-                role="tab"
-                aria-selected={tab === "cert"}
-                className={`flex-1 rounded-lg border py-2 text-[11px] font-semibold transition-colors ${
-                  tab === "cert" ? "border-blue-500 text-blue-300 bg-blue-500/10" : "border-slate-700 text-slate-400 hover:text-slate-200"
-                }`}
-              >
-                <span className="block text-lg text-slate-100">{certN}</span>
-                certs
-              </button>
+            <div className="flex gap-5 mt-5 border-b border-line" role="tablist" aria-label="Evidence for this skill">
+              {tabs.map((t) => (
+                <button
+                  key={t.key}
+                  onClick={() => setTab(t.key)}
+                  role="tab"
+                  aria-selected={tab === t.key}
+                  className={`pb-2 -mb-px border-b-2 font-sans text-sm transition-colors duration-150 ${
+                    tab === t.key
+                      ? "border-accent text-accent"
+                      : "border-transparent text-ink-soft hover:text-ink"
+                  }`}
+                >
+                  <span className="font-mono tabular-nums">{t.n}</span> {t.label}
+                </button>
+              ))}
             </div>
 
-            <div className="mt-3 overflow-y-auto scrollbar-thin flex-1 pr-1 min-h-[180px]">
+            <div className="max-h-[380px] overflow-y-auto">
               {tab === "proj" &&
                 (projects.length ? (
                   projects.map((p) => {
@@ -366,43 +346,55 @@ export const SkillMap = () => {
                     return (
                       <Tag
                         key={p.id}
-                        {...(p.href ? { href: p.href, ...(external ? { target: "_blank", rel: "noopener noreferrer" } : {}) } : {})}
-                        className={`block border border-slate-700 rounded-xl px-4 py-3 mb-2.5 bg-slate-900/40 transition-all ${
-                          p.href ? "hover:border-slate-500 hover:translate-x-0.5 cursor-pointer" : ""
-                        }`}
+                        {...(p.href
+                          ? { href: p.href, ...(external ? { target: "_blank", rel: "noopener noreferrer" } : {}) }
+                          : {})}
+                        className={`block border-b border-line last:border-b-0 py-3 ${p.href ? "group" : ""}`}
                       >
-                        <div className="flex items-start justify-between gap-3">
-                          <span className="text-[13px] font-semibold text-slate-200">{p.name}</span>
-                          {p.href && <ExternalLink size={13} className="text-slate-500 mt-0.5 shrink-0" />}
+                        <div className="flex items-baseline justify-between gap-3">
+                          <span
+                            className={`font-sans text-sm text-ink ${
+                              p.href ? "group-hover:text-accent transition-colors duration-150" : ""
+                            }`}
+                          >
+                            {p.name}
+                            {external && (
+                              <span className="text-xs text-muted ml-1.5" aria-hidden="true">
+                                &#8599;
+                              </span>
+                            )}
+                          </span>
                         </div>
-                        <div className="text-[11.5px] text-blue-300 font-semibold mt-1">{p.metric}</div>
+                        <div className="font-sans text-xs text-ink-soft mt-0.5">{p.metric}</div>
                       </Tag>
                     );
                   })
                 ) : (
-                  <div className="text-slate-500 text-[13px] px-1 py-3">No mapped projects.</div>
+                  <p className="font-sans text-sm text-muted py-3">No mapped projects.</p>
                 ))}
 
               {tab === "course" &&
                 (coursework.length ? (
                   coursework.map((c) => (
-                    <a
+                    <Link
                       key={c.id}
-                      href="/projects/ai360"
-                      className="block border border-slate-700 rounded-xl px-4 py-3 mb-2.5 bg-slate-900/40 transition-all hover:border-slate-500 hover:translate-x-0.5 cursor-pointer"
+                      to="/projects/ai360"
+                      className="group block border-b border-line last:border-b-0 py-3"
                     >
-                      <div className="flex items-start justify-between gap-3">
-                        <span className="text-[13px] font-semibold text-slate-200">{c.title}</span>
-                        <span className="text-[10px] font-bold text-sky-300 shrink-0 whitespace-nowrap">▲ AI 360</span>
+                      <div className="flex items-baseline justify-between gap-3">
+                        <span className="font-sans text-sm text-ink group-hover:text-accent transition-colors duration-150">
+                          {c.title}
+                        </span>
+                        <span className="font-sans text-xs text-muted shrink-0 whitespace-nowrap">AI 360</span>
                       </div>
-                      <div className="text-[11.5px] text-slate-500 mt-1">
+                      <div className="font-sans text-xs text-ink-soft mt-0.5">
                         {c.track}
                         {c.artifact || c.notebookLinks ? " · artifact available" : ""}
                       </div>
-                    </a>
+                    </Link>
                   ))
                 ) : (
-                  <div className="text-slate-500 text-[13px] px-1 py-3">No mapped coursework.</div>
+                  <p className="font-sans text-sm text-muted py-3">No mapped coursework.</p>
                 ))}
 
               {tab === "cert" &&
@@ -411,37 +403,39 @@ export const SkillMap = () => {
                     <a
                       key={c.id}
                       {...(c.pdf ? { href: c.pdf, target: "_blank", rel: "noopener noreferrer" } : {})}
-                      className={`block border rounded-xl px-4 py-3 mb-2.5 bg-slate-900/40 transition-all ${
-                        c.planned ? "border-dashed border-slate-600 opacity-80" : "border-slate-700"
-                      } ${c.pdf ? "hover:border-slate-500 hover:translate-x-0.5 cursor-pointer" : ""}`}
+                      className={`block border-b border-line last:border-b-0 py-3 ${c.pdf ? "group" : ""}`}
                     >
-                      <div className="flex items-start justify-between gap-3">
-                        <span className="text-[13px] font-semibold text-slate-200">
-                          {c.name}
+                      <div className="flex items-baseline justify-between gap-3">
+                        <span className="font-sans text-sm text-ink">
+                          <span className={c.pdf ? "group-hover:text-accent transition-colors duration-150" : ""}>
+                            {c.name}
+                          </span>
                           {c.count > 1 && (
-                            <span className="ml-2 align-middle text-[9.5px] font-bold text-emerald-300 bg-emerald-500/10 border border-emerald-500/30 rounded-full px-1.5 py-0.5">
-                              ×{c.count}
+                            <span className="font-mono tabular-nums text-xs text-muted ml-2">&times;{c.count}</span>
+                          )}
+                          {c.pdf && (
+                            <span className="text-xs text-muted ml-1.5" aria-hidden="true">
+                              &#8599;
                             </span>
                           )}
                         </span>
-                        <span className={`text-[11px] font-bold shrink-0 ${c.planned ? "text-slate-500" : "text-emerald-300"}`}>
-                          {c.planned ? "PLANNED" : c.year}
+                        <span
+                          className={`shrink-0 text-xs ${
+                            c.planned ? "font-sans text-muted" : "font-mono tabular-nums text-ink-soft"
+                          }`}
+                        >
+                          {c.year}
                         </span>
                       </div>
-                      <div className="flex items-center gap-1.5 text-[11.5px] text-slate-500 mt-1">
-                        {c.pdf && <FileText size={11} />}
-                        {c.issuer}
-                      </div>
+                      <div className="font-sans text-xs text-muted mt-0.5">{c.issuer}</div>
                     </a>
                   ))
                 ) : (
-                  <div className="text-slate-500 text-[13px] px-1 py-3">No mapped certifications.</div>
+                  <p className="font-sans text-sm text-muted py-3">No mapped certifications.</p>
                 ))}
             </div>
           </div>
         )}
-      </div>
-
       </div>
 
       {/* Accessible, keyboard-navigable mirror of the map data (screen readers + tab) */}

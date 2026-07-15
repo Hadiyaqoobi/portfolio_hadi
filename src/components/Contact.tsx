@@ -1,7 +1,15 @@
-import { motion } from "framer-motion";
-import { Mail, Linkedin, Send, CheckCircle, AlertCircle } from "lucide-react";
 import { portfolioData } from "@/data/portfolio-data";
 import { useState, FormEvent } from "react";
+
+// Set VITE_WEB3FORMS_ACCESS_KEY in Vercel (Project → Settings → Environment
+// Variables; key is free at web3forms.com). Until it is set, the form is
+// replaced by a direct-email block, never a silently failing form.
+const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY as string | undefined;
+
+const inputClasses =
+  "w-full font-sans text-sm text-ink bg-paper-raised border border-line rounded-md px-3 py-2 placeholder:text-muted focus:outline-none focus:border-ink transition-colors duration-150";
+
+const labelClasses = "block font-sans text-[0.8rem] text-muted mb-1.5";
 
 export const Contact = () => {
   const { personal } = portfolioData;
@@ -17,7 +25,7 @@ export const Contact = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          access_key: "YOUR_WEB3FORMS_ACCESS_KEY",
+          access_key: WEB3FORMS_KEY,
           name: formData.name,
           email: formData.email,
           message: formData.message,
@@ -38,158 +46,121 @@ export const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20 relative">
-      <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-14 max-w-4xl mx-auto"
-        >
-          <div className="accent-line mb-5" />
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-100 mb-3">
-            Get In Touch
-          </h2>
-          <p className="text-slate-400 text-base max-w-lg">
-            Looking for IT BSA, Product, or Data Analyst roles. Let's connect
+    <section id="contact" className="mx-auto w-full max-w-3xl px-5 sm:px-6 py-14 sm:py-16">
+      <h1 className="mb-5">Contact</h1>
+      <p className="prose-measure text-ink-soft mb-10">
+        I'm looking for IT BSA, product, and data analyst roles. Email me with
+        the role and I'll reply with the parts of my record most relevant to it.
+      </p>
+
+      <dl className="facts">
+        <dt>Email</dt>
+        <dd>
+          <a href={`mailto:${personal.email}`} className="link">
+            {personal.email}
+          </a>
+        </dd>
+        <dt>LinkedIn</dt>
+        <dd>
+          <a
+            href={personal.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link"
+          >
+            linkedin.com/in/m-hadi-y-509439215 <span aria-hidden="true">&#8599;</span>
+          </a>
+        </dd>
+        <dt>Location</dt>
+        <dd>Boston, MA</dd>
+        <dt>Work authorization</dt>
+        <dd>U.S. permanent resident (Green Card). No sponsorship needed, now or later.</dd>
+        <dt>Status</dt>
+        <dd>Open to opportunities</dd>
+      </dl>
+
+      <div className="rule" role="presentation" />
+
+      {!WEB3FORMS_KEY ? (
+        <div>
+          <h2 className="mb-4">Email me directly</h2>
+          <p className="prose-measure text-ink-soft mb-6">
+            The fastest way to reach me. I reply within a day.
           </p>
-        </motion.div>
-
-        <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
-          {/* Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="space-y-5"
-          >
-            <div className="glass-card p-7 overflow-hidden">
-              <h3 className="text-base font-bold text-slate-100 mb-6">Contact Information</h3>
-
-              <div className="space-y-4">
-                <a
-                  href={`mailto:${personal.email}`}
-                  className="flex items-center gap-4 group cursor-pointer"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center group-hover:bg-indigo-500/20 transition-colors">
-                    <Mail className="text-indigo-400" size={18} />
-                  </div>
-                  <div>
-                    <div className="text-xs text-slate-500">Email</div>
-                    <div className="text-sm text-slate-400 group-hover:text-indigo-400 transition-colors">
-                      {personal.email}
-                    </div>
-                  </div>
-                </a>
-
-                <a
-                  href={personal.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-4 group cursor-pointer"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center group-hover:bg-indigo-500/20 transition-colors">
-                    <Linkedin className="text-indigo-400" size={18} />
-                  </div>
-                  <div>
-                    <div className="text-xs text-slate-500">LinkedIn</div>
-                    <div className="text-sm text-slate-400 group-hover:text-indigo-400 transition-colors">
-                      Connect with me
-                    </div>
-                  </div>
-                </a>
-              </div>
-
-              <div className="mt-8 pt-5 border-t border-slate-700">
-                <div className="text-xs text-slate-500">
-                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse mr-2" />
-                  Available for opportunities
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
-            <form onSubmit={handleSubmit} className="glass-card p-7 space-y-4 overflow-hidden">
-              <div>
-                <label className="text-xs text-slate-500 mb-2 block">Name</label>
-                <input
-                  type="text"
-                  required
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  placeholder="Your name"
-                  className="w-full px-4 py-2.5 rounded-lg bg-slate-800/50 border border-slate-700 text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-slate-600 transition-colors"
-                />
-              </div>
-
-              <div>
-                <label className="text-xs text-slate-500 mb-2 block">Email</label>
-                <input
-                  type="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  placeholder="your.email@example.com"
-                  className="w-full px-4 py-2.5 rounded-lg bg-slate-800/50 border border-slate-700 text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-slate-600 transition-colors"
-                />
-              </div>
-
-              <div>
-                <label className="text-xs text-slate-500 mb-2 block">Message</label>
-                <textarea
-                  required
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  placeholder="Your message..."
-                  rows={5}
-                  className="w-full px-4 py-2.5 rounded-lg bg-slate-800/50 border border-slate-700 text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-slate-600 transition-colors resize-none"
-                />
-              </div>
-
-              {status === "success" && (
-                <div className="flex items-center gap-2 text-emerald-400 text-sm">
-                  <CheckCircle size={16} />
-                  Message sent. I'll get back to you soon.
-                </div>
-              )}
-
-              {status === "error" && (
-                <div className="flex items-center gap-2 text-red-400 text-sm">
-                  <AlertCircle size={16} />
-                  Something went wrong. Try emailing me directly.
-                </div>
-              )}
-
-              <button
-                type="submit"
-                disabled={status === "sending"}
-                className="btn-primary w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-medium text-sm disabled:opacity-50"
-              >
-                <Send size={14} />
-                {status === "sending" ? "Sending..." : "Send Message"}
-              </button>
-            </form>
-          </motion.div>
+          <a href={`mailto:${personal.email}?subject=Portfolio contact`} className="btn-quiet">
+            {personal.email}
+          </a>
         </div>
-      </div>
+      ) : (
+        <form onSubmit={handleSubmit} className="max-w-xl space-y-5">
+          <h2 className="mb-4">Send a message</h2>
 
-      {/* Footer */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        className="text-center mt-20 pt-8 border-t border-slate-700"
-      >
-        <p className="text-slate-500 text-sm">
-          © 2026 {personal.name}
-        </p>
-      </motion.div>
+          <div>
+            <label htmlFor="contact-name" className={labelClasses}>
+              Name
+            </label>
+            <input
+              id="contact-name"
+              type="text"
+              required
+              value={formData.name}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              placeholder="Your name"
+              className={inputClasses}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="contact-email" className={labelClasses}>
+              Email
+            </label>
+            <input
+              id="contact-email"
+              type="email"
+              required
+              value={formData.email}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              placeholder="your.email@example.com"
+              className={inputClasses}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="contact-message" className={labelClasses}>
+              Message
+            </label>
+            <textarea
+              id="contact-message"
+              required
+              value={formData.message}
+              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+              placeholder="Your message"
+              rows={6}
+              className={`${inputClasses} resize-none`}
+            />
+          </div>
+
+          {status === "success" && (
+            <p className="font-sans text-sm text-ok" role="status">
+              Message sent. I'll get back to you soon.
+            </p>
+          )}
+
+          {status === "error" && (
+            <p className="font-sans text-sm text-accent" role="status">
+              Something went wrong. Try emailing me directly.
+            </p>
+          )}
+
+          <button
+            type="submit"
+            disabled={status === "sending"}
+            className="btn-quiet disabled:opacity-50"
+          >
+            {status === "sending" ? "Sending..." : "Send message"}
+          </button>
+        </form>
+      )}
     </section>
   );
 };

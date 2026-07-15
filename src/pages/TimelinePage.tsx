@@ -1,16 +1,15 @@
-import { Background } from "@/components/Background";
 import { Navigation } from "@/components/Navigation";
-import { Timeline as TimelineComponent } from "@/components/Timeline";
+import { Timeline } from "@/components/Timeline";
+import Footer from "@/components/Footer";
 
 const TimelinePage = () => {
   return (
-    <div className="relative min-h-screen">
-      <Background />
+    <div className="min-h-screen bg-paper flex flex-col">
       <Navigation />
-      
-      <main className="relative z-10 pt-20">
-        <TimelineComponent />
+      <main className="flex-1">
+        <Timeline />
       </main>
+      <Footer />
     </div>
   );
 };

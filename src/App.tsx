@@ -1,10 +1,39 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Index from "./pages/Index";
+
+/** React Router doesn't reset scroll on navigation, and hash targets inside
+ *  lazy-loaded sections don't exist yet on arrival — handle both. */
+const ScrollManager = () => {
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => {
+    if (!hash) {
+      window.scrollTo(0, 0);
+      return;
+    }
+    // Retry briefly so lazy-loaded sections (e.g. #bug-hunt) can mount first.
+    const id = hash.slice(1);
+    let tries = 0;
+    const timer = window.setInterval(() => {
+      const el = document.getElementById(id);
+      tries += 1;
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        window.clearInterval(timer);
+      } else if (tries > 40) {
+        window.clearInterval(timer);
+      }
+    }, 100);
+    return () => window.clearInterval(timer);
+  }, [pathname, hash]);
+
+  return null;
+};
 
 // Code-split every non-landing route so the homepage ships a lean first bundle.
 const AboutPage = lazy(() => import("./pages/AboutPage"));
@@ -26,13 +55,16 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollManager />
+        {/* Graph-paper ground: faint 34px grid under the content. */}
+        <div className="sheet-grid" aria-hidden="true" data-noprint="" />
         <Suspense
           fallback={
             <div
-              className="min-h-screen bg-background flex items-center justify-center"
+              className="min-h-screen bg-paper flex items-center justify-center"
               aria-busy="true"
             >
-              <span className="text-slate-500 text-sm">Loading…</span>
+              <span className="text-muted text-sm">Loading…</span>
             </div>
           }
         >

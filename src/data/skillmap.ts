@@ -4,7 +4,6 @@
  * HONESTY RULES (brief Phase 3):
  *  - No invented percentages. The panel shows COUNTS and a years figure only.
  *  - Years are conservative, from FIRST PROFESSIONAL USE.
- *    TODO(hadi): confirm the years-per-skill table below before merge.
  *  - Cert clusters use real counts sourced from memory/18 (the 48 edX receipts)
  *    + the curated certificates.ts. The headline total is COMPUTED from this
  *    data (see certTotal), never hardcoded, so it always matches the itemized sum.
@@ -27,7 +26,7 @@ export interface Skill {
   id: string;
   name: string;
   domain: Domain;
-  /** Years from first professional use. TODO(hadi): confirm before merge. */
+  /** Years from first professional use. */
   years: number;
   /** normalized canvas position (0..1) */
   x: number;
@@ -59,7 +58,6 @@ export interface SkillCert {
 
 /* ============================================================
  * SKILLS  (years from brief Phase 3 §5.2 - first professional use)
- * TODO(hadi): confirm the years column before merge.
  * ============================================================ */
 export const SKILLS: Skill[] = [
   { id: "sql", name: "SQL / T-SQL", domain: "data", years: 6, x: 0.13, y: 0.26 },
@@ -87,7 +85,7 @@ export const YEARS_FOOTNOTE = "Years are from first professional use.";
 export const PROJECTS: SkillProject[] = [
   { id: "b2c", name: "Azure B2C Migration · 135K accounts", metric: "0 critical incidents", kind: "eqr", skills: ["az", "sql", "sec", "ba", "agile"], href: "/projects" },
   { id: "rubs", name: "RUBS Bug Hunt · dynamic SQL audit", metric: "80 combinations/property", kind: "eqr", skills: ["sql"], href: "/#bug-hunt" },
-  { id: "sproc", name: "Rent Reminder stored procedure", metric: "104 manual runs to 0", kind: "eqr", skills: ["sql"], href: "/projects" },
+  { id: "sproc", name: "Delinquency-campaign stored procedure", metric: "104 manual runs to 0", kind: "eqr", skills: ["sql"], href: "/projects" },
   { id: "fee", name: "Fee Transparency · 4 workstreams", metric: "multi-state compliance", kind: "eqr", skills: ["sql", "ba"], href: "/projects" },
   { id: "dash", name: "EQR Power BI dashboards", metric: "488,320+ records · 304 properties", kind: "eqr", skills: ["pbi", "sql"], href: "/projects" },
   { id: "agiletx", name: "Waterfall to Agile (CTO request)", metric: "one quarter", kind: "eqr", skills: ["agile", "ba"], href: "/projects" },
@@ -96,11 +94,11 @@ export const PROJECTS: SkillProject[] = [
   { id: "whisper", name: "ROE-WhisperDari (LoRA)", metric: "Afghan Dari ASR v1.0", kind: "model", skills: ["pt", "py", "nlp"], href: "/projects" },
   { id: "match", name: "ROE-Match (LightGBM)", metric: "calibrated + leakage gates", kind: "model", skills: ["ml", "py"], href: "/projects" },
   { id: "mirage", name: "Mirage Paper · Springer EMSE", metric: "90.3% FDR · under review", kind: "research", skills: ["py", "r", "ml", "llm", "nlp"], href: "/projects" },
-  { id: "alpha", name: "AlphaSeekers · live platform", metric: "190+ users · RAG 89% precision", kind: "live", skills: ["pg", "llm", "cloud", "py"], href: "https://alphaseekers.onrender.com/en" },
+  { id: "alpha", name: "AlphaSeekers · live platform", metric: "200 users · RAG assistant", kind: "live", skills: ["pg", "llm", "cloud", "py"], href: "https://alphaseekers.org/en" },
   { id: "makermind", name: "MakerMind · multi-agent pipeline", metric: "69K lines TypeScript", kind: "dev", skills: ["llm", "cloud"], href: "/projects/makermind" },
-  { id: "takvenops", name: "TakvenOps · agentic PM tool", metric: "spec + prototype", kind: "dev", skills: ["llm", "agile", "py"], href: "/projects" },
+  { id: "takvenops", name: "TakveenOps · agentic PM tool", metric: "spec + prototype", kind: "dev", skills: ["llm", "agile", "py"], href: "/projects" },
   { id: "ahrc", name: "AHRC architecture + infrastructure", metric: "$170K+/yr secured", kind: "dev", skills: ["llm", "cloud", "sec", "az", "ba"], href: "/projects" },
-  { id: "ch", name: "ConnectionHub platform · 5 web properties", metric: "1,182 students org-wide", kind: "eqr", skills: ["pg", "ba", "sql"], href: "/projects" },
+  { id: "ch", name: "ConnectionHub platform · 5 web properties", metric: "~200 users · 1,182 students org-wide", kind: "eqr", skills: ["pg", "ba", "sql"], href: "/projects" },
   { id: "vpl", name: "visual-python-learning (Pyodide)", metric: "30 chapters · in-browser Python", kind: "dev", skills: ["cs", "py"], href: "/projects" },
 ];
 
@@ -135,7 +133,7 @@ export const CERTS: SkillCert[] = [
   // Clusters (memory/18 §C)
   { id: "linux-cluster", name: "Cloud & DevOps cluster (Linux, Serverless, Kubernetes)", issuer: "The Linux Foundation", year: "2021", skills: ["cloud"], count: 10 },
   { id: "umd-cluster", name: "Project Management & Communication cluster", issuer: "USMx / Maryland", year: "2019", skills: ["ba", "agile"], count: 10 },
-  { id: "nyu-cluster", name: "CS MicroBachelor (Networking, OS, Programming)", issuer: "NYU", year: "2022", skills: ["cs"], count: 3 },
+  { id: "nyu-cluster", name: "CS MicroBachelors Certificate (Networking, OS, Programming)", issuer: "NYU (edX)", year: "2022", skills: ["cs"], count: 3 },
   { id: "ibm-cluster", name: "Cloud, Data Science & Python", issuer: "IBM", year: "2020", skills: ["cloud", "ml", "py"], count: 3 },
   { id: "uw-cyber", name: "Cybersecurity (2 courses)", issuer: "University of Washington", year: "2019", skills: ["sec"], count: 2 },
   // PLANNED - roadmap, not a claim

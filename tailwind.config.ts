@@ -13,68 +13,75 @@ export default {
     },
     extend: {
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+        // Redesign v4 tokens (see DESIGN_SPEC.md). Components use ONLY these.
+        paper: {
+          DEFAULT: "var(--paper)",
+          raised: "var(--paper-raised)",
         },
-        secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
+        line: {
+          DEFAULT: "var(--line)",
+          2: "var(--line-2)",
+          3: "var(--line-3)",
         },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
+        leader: "var(--leader)",
+        ink: {
+          DEFAULT: "var(--ink)",
+          soft: "var(--ink-soft)",
         },
         muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
+          DEFAULT: "var(--muted)",
+          foreground: "var(--muted)",
         },
         accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
+          DEFAULT: "var(--accent)",
+          soft: "var(--accent-soft)",
+          deep: "var(--accent-deep)",
+          foreground: "var(--paper)",
+        },
+        ok: "var(--ok)",
+        // shadcn compatibility aliases kept for the few ui/ components still mounted
+        border: "var(--line)",
+        input: "var(--line)",
+        ring: "var(--accent)",
+        background: "var(--paper)",
+        foreground: "var(--ink)",
+        primary: {
+          DEFAULT: "var(--ink)",
+          foreground: "var(--paper)",
+        },
+        secondary: {
+          DEFAULT: "var(--paper-raised)",
+          foreground: "var(--ink)",
+        },
+        destructive: {
+          DEFAULT: "var(--accent)",
+          foreground: "var(--paper)",
         },
         popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
+          DEFAULT: "var(--paper-raised)",
+          foreground: "var(--ink)",
         },
         card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
-        },
-        sidebar: {
-          DEFAULT: "hsl(var(--sidebar-background))",
-          foreground: "hsl(var(--sidebar-foreground))",
-          primary: "hsl(var(--sidebar-primary))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-          accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          border: "hsl(var(--sidebar-border))",
-          ring: "hsl(var(--sidebar-ring))",
+          DEFAULT: "var(--paper-raised)",
+          foreground: "var(--ink)",
         },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-        mono: ['Menlo', 'Monaco', 'monospace'],
+        display: ["IBM Plex Serif", "Iowan Old Style", "Georgia", "serif"],
+        serif: ["IBM Plex Serif", "Iowan Old Style", "Georgia", "serif"],
+        sans: ["IBM Plex Sans", "system-ui", "-apple-system", "sans-serif"],
+        mono: ["IBM Plex Mono", "ui-monospace", "SF Mono", "Menlo", "monospace"],
       },
       spacing: {
-        'section': '4rem',
-        'section-lg': '5rem',
-        'section-xl': '6rem',
+        section: "4rem",
+        "section-lg": "5rem",
+        "section-xl": "6rem",
       },
+      // Spec-document system: sharp corners everywhere; only circles are round.
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-      },
-      boxShadow: {
-        'card': '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
-        'card-hover': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-        'elevated': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+        lg: "0px",
+        md: "0px",
+        sm: "0px",
       },
       keyframes: {
         "accordion-down": {

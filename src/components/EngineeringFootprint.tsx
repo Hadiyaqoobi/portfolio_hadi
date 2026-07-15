@@ -15,7 +15,7 @@ const technicalCapabilities = [
   {
     icon: Database,
     domain: "SQL & Data Engineering",
-    proof: "960+ data points validated per property across 380+ properties",
+    proof: "960+ data points validated per property across ~300 properties",
     tools: "SQL Server, PostgreSQL, Snowflake, T-SQL Stored Procedures",
     context: "Built validation engines, ETL pipelines, and data migration scripts at enterprise scale. Authored stored procedures that catch every billing discrepancy before it reaches the resident.",
     accent: "emerald",

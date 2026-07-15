@@ -95,7 +95,7 @@ export const AI360_PROJECTS: AI360Project[] = [
     title: "Named Entity Recognition Tagger",
     track: "NLP",
     blurb:
-      "I trained a model to tag named entities inside raw text, in BIO format with a CRF. This is the coursework that fed directly into ROE-ResumeNER, my production XLM-RoBERTa NER model for multilingual resumes.",
+      "I trained a model to tag named entities inside raw text, in BIO format with a CRF. This is the coursework that fed directly into ROE-ResumeNER, the XLM-RoBERTa NER model I trained for multilingual resumes.",
     skills: ["nlp", "py"],
     notebookLinks: [{ label: "NER tagger notebook", href: `${NB}/ner_tagger.html` }],
     executed: true,
@@ -184,7 +184,7 @@ export const AI360_PROJECTS: AI360Project[] = [
     title: "Cross-Validation & Bias-Variance",
     track: "Machine Learning",
     blurb:
-      "I implemented k-fold cross-validation and grid search from scratch and computed the bias-variance decomposition empirically (estimating the average prediction, noise, and variance terms). This is the discipline behind the leakage gates in my production models.",
+      "I implemented k-fold cross-validation and grid search from scratch and computed the bias-variance decomposition empirically (estimating the average prediction, noise, and variance terms). This is the discipline behind the leakage gates in my trained models.",
     skills: ["ml", "py"],
     executed: false,
   },

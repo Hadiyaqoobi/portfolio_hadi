@@ -1,142 +1,100 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, FileDown } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 const navItems = [
-  { label: "Home", href: "/" },
+  { label: "Work", href: "/projects" },
   { label: "About", href: "/about" },
   { label: "Career", href: "/timeline" },
-  { label: "Projects", href: "/projects" },
-  { label: "Systems", href: "/systems" },
-  { label: "Skills", href: "/skills" },
-  { label: "Education", href: "/education" },
   { label: "Contact", href: "/contact" },
 ];
 
+/* The nav is the document control strip: mono, uppercase, ruled.
+   Backdrop blur so the drafting grid reads through it faintly. */
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [isOpen]);
-
-  useEffect(() => { setIsOpen(false); }, [location.pathname]);
+    setIsOpen(false);
+  }, [location.pathname]);
 
   return (
-    <>
-      <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
-          ? "bg-[#0F172A]/80 backdrop-blur-xl border-b border-slate-700/50 shadow-lg shadow-black/10"
-          : "bg-transparent"
-          }`}
-      >
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <Link to="/">
-              <span className="text-lg font-bold text-slate-100 tracking-tight">
-                M. Hadi Yaqoobi
-              </span>
-            </Link>
+    <nav className="sticky top-0 z-40 border-b border-line bg-paper/85 backdrop-blur-sm">
+      <div className="mx-auto w-full max-w-5xl px-5 sm:px-8">
+        <div className="flex h-12 items-center justify-between font-mono text-[0.72rem] tracking-[0.13em] uppercase">
+          <Link to="/" className="text-ink font-medium">
+            M. Hadi Yaqoobi
+          </Link>
 
-            {/* Desktop */}
-            <div className="hidden md:flex items-center gap-7">
-              {navItems.map((item) => (
-                <Link
-                  key={item.label}
-                  to={item.href}
-                  className={`text-sm transition-colors relative py-1 ${location.pathname === item.href
-                    ? "text-slate-100 font-medium"
-                    : "text-slate-400 hover:text-slate-200"
-                    }`}
-                >
-                  {item.label}
-                  {location.pathname === item.href && (
-                    <motion.div
-                      layoutId="nav-active"
-                      className="absolute -bottom-0.5 left-0 right-0 h-[2px] bg-[#3B82F6] rounded-full"
-                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    />
-                  )}
-                </Link>
-              ))}
+          {/* Desktop links */}
+          <div className="hidden md:flex items-center gap-6">
+            <span className="text-muted normal-case tracking-[0.06em]">
+              Boston, MA
+            </span>
+            <span className="text-muted/50" aria-hidden="true">
+              /
+            </span>
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                to={item.href}
+                aria-current={location.pathname === item.href ? "page" : undefined}
+                className={`transition-colors duration-150 ${
+                  location.pathname === item.href
+                    ? "text-accent"
+                    : "text-ink-soft hover:text-ink"
+                }`}
+              >
+                {item.label}
+              </Link>
+            ))}
+            <a href="/resume.pdf" download className="tag">
+              Resume
+            </a>
+          </div>
 
-              <div className="ml-2 pl-4 border-l border-slate-700">
-                <a
-                  href="/resume.pdf"
-                  download
-                  className="btn-outline text-xs px-3.5 py-1.5 rounded-lg flex items-center gap-1.5 font-medium"
-                >
-                  <FileDown size={14} />
-                  Resume
-                </a>
-              </div>
-            </div>
+          {/* Mobile toggle */}
+          <button
+            type="button"
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden -mr-2 p-2 text-ink"
+            aria-expanded={isOpen}
+            aria-controls="site-menu"
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+          >
+            {isOpen ? <X size={18} /> : <Menu size={18} />}
+          </button>
+        </div>
+      </div>
 
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden text-slate-200 p-2"
-              aria-label="Menu"
-            >
-              <Menu size={24} />
-            </button>
+      {/* Mobile disclosure menu */}
+      {isOpen && (
+        <div
+          id="site-menu"
+          className="md:hidden border-t border-line bg-paper-raised"
+        >
+          <div className="mx-auto w-full max-w-5xl px-5 sm:px-8 py-3 flex flex-col font-mono text-[0.75rem] tracking-[0.1em] uppercase">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                to={item.href}
+                aria-current={location.pathname === item.href ? "page" : undefined}
+                className={`py-2.5 border-b border-line transition-colors duration-150 ${
+                  location.pathname === item.href
+                    ? "text-accent"
+                    : "text-ink-soft hover:text-ink"
+                }`}
+              >
+                {item.label}
+              </Link>
+            ))}
+            <a href="/resume.pdf" download className="btn-quiet mt-3 mb-1 self-start">
+              Resume
+            </a>
           </div>
         </div>
-      </motion.nav>
-
-      {/* Mobile */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] md:hidden bg-[#0F172A]"
-          >
-            <button
-              onClick={() => setIsOpen(false)}
-              className="absolute top-6 right-6 text-slate-200 p-3"
-              aria-label="Close"
-            >
-              <X size={28} />
-            </button>
-
-            <div className="flex flex-col items-center justify-center h-full gap-3">
-              {navItems.map((item, index) => (
-                <motion.div
-                  key={item.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.07 }}
-                >
-                  <Link
-                    to={item.href}
-                    onClick={() => setIsOpen(false)}
-                    className={`block py-3 px-8 text-2xl font-medium ${location.pathname === item.href
-                      ? "text-slate-100"
-                      : "text-slate-400 hover:text-slate-200"
-                      }`}
-                  >
-                    {item.label}
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+      )}
+    </nav>
   );
 };

@@ -2,228 +2,405 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Soft Dark Theme — Vercel/Linear inspired
-   Not pitch black, not white. Warm slate foundation with blue accent.
-   Sources: Refactoring UI, Vercel dark mode, Linear, Raycast */
+/* Redesign v5 — "System Specification"
+   The site behaves like one engineering document: warm drafting paper,
+   didone display type, mono spec labels, one signal red. Evolved from v4
+   (same architecture, deeper commitment to the document conceit).
+   See DESIGN_SPEC.md. Light theme only, by choice. */
 
 @layer base {
   :root {
-    --background: 222 47% 11%;
-    --foreground: 214 32% 91%;
+    --paper: #efede4;
+    --paper-raised: #e8e5d8;
+    --line: #d6d1c2;
+    --line-2: #cfc9ba;
+    --line-3: #e6e0d2;
+    --leader: #b4ae9d;
+    --ink: #1a1813;
+    --ink-soft: #514e45;
+    --muted: #8c8779;
+    --accent: #cb3a24;
+    --accent-deep: #a32e1c;
+    --accent-soft: #f0ded6;
+    --ok: #1f8a5b;
+    --ok-border: #b4dec8;
+    --ok-bg: rgba(31, 138, 91, 0.08);
+    --code-bg: #16150f;
+    --code-border: #2a281f;
+    --code-text: #cbc5b5;
+    --code-comment: #7e7869;
+    --code-green: #93a98c;
 
-    --card: 217 33% 17%;
-    --card-foreground: 214 32% 91%;
-
-    --popover: 217 33% 17%;
-    --popover-foreground: 214 32% 91%;
-
-    --primary: 217 91% 60%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 214 32% 91%;
-
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 16% 47%;
-
-    --accent: 217 33% 17%;
-    --accent-foreground: 214 32% 91%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 217 19% 27%;
-    --input: 217 19% 27%;
-    --ring: 217 91% 60%;
-
-    --radius: 0.75rem;
-
-    --sidebar-background: 217 33% 17%;
-    --sidebar-foreground: 214 32% 91%;
-    --sidebar-primary: 217 91% 60%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 217 33% 17%;
-    --sidebar-accent-foreground: 214 32% 91%;
-    --sidebar-border: 217 19% 27%;
-    --sidebar-ring: 217 91% 60%;
+    --radius: 0px;
   }
-}
 
-@layer base {
   * {
-    @apply border-border;
+    border-color: var(--line);
+  }
+
+  html {
+    background: var(--paper);
+    scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+    font-size: 1rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
     overflow-x: hidden;
-    color: #E2E8F0;
-    background-color: #0F172A;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    @apply font-bold;
-    letter-spacing: -0.02em;
-    color: #E2E8F0;
-  }
-}
-
-@layer utilities {
-
-  /* ===== CARD — Soft dark, subtle border, slight glow on hover ===== */
-  .glass-card {
-    background: #1E293B;
-    border: 1px solid #334155;
-    border-radius: 12px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: "IBM Plex Serif", "Iowan Old Style", Georgia, serif;
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--ink);
+    text-wrap: balance;
+    letter-spacing: -0.01em;
   }
 
-  .glass-card:hover {
-    border-color: #475569;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(59, 130, 246, 0.05);
-  }
-
-  .glass-card-featured {
-    background: #1E293B;
-    border: 1px solid #475569;
-    border-radius: 12px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.3);
-  }
-
-  .glass-card-featured:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.4);
-  }
-
-  /* ===== HERO GRADIENT ===== */
-  .gradient-text {
-    background: linear-gradient(135deg, #60A5FA, #3B82F6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  /* ===== ACCENT LINE — Section headers ===== */
-  .accent-line {
-    width: 48px;
-    height: 3px;
-    background: #3B82F6;
-    border-radius: 2px;
-  }
-
-  /* ===== BUTTONS ===== */
-  .btn-primary {
-    background: #3B82F6;
-    color: white;
-    border: none;
-    transition: all 0.25s ease;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-  }
-
-  .btn-primary:hover {
-    background: #2563EB;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
-  }
-
-  .btn-outline {
-    background: transparent;
-    border: 1px solid #475569;
-    color: #E2E8F0;
-    transition: all 0.25s ease;
-  }
-
-  .btn-outline:hover {
-    border-color: #3B82F6;
-    color: #60A5FA;
-    background: rgba(59, 130, 246, 0.08);
-  }
-
-  /* ===== METRIC NUMBERS ===== */
-  .metric-number {
-    color: #E2E8F0;
+  h1 {
+    font-size: 3rem;
     font-weight: 700;
+    line-height: 0.94;
+    letter-spacing: -0.02em;
+  }
+  h2 {
+    font-size: clamp(20px, 2.6vw, 28px);
+  }
+  h3 {
+    font-size: 1.2rem;
   }
 
-  /* ===== SEMANTIC CATEGORY ACCENTS ===== */
-  .glow-enterprise {
-    border-color: #475569;
+  @media (max-width: 640px) {
+    h1 {
+      font-size: 2.3rem;
+    }
   }
 
-  .glow-rnd {
-    border-color: #475569;
+  ::selection {
+    background: rgba(203, 58, 36, 0.18);
+    color: var(--ink);
   }
 
-  .glow-consulting {
-    border-color: #475569;
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  /* Spec-document keyframes (per design handoff). */
+  @keyframes flowx {
+    from { background-position: -40% 0; }
+    to { background-position: 140% 0; }
+  }
+  @keyframes nodePulse {
+    0%, 100% {
+      border-color: var(--ink);
+      color: var(--ink);
+      box-shadow: none;
+    }
+    50% {
+      border-color: var(--accent);
+      color: var(--accent);
+      box-shadow: 0 0 0 6px rgba(203, 58, 36, 0.12);
+    }
+  }
+  @keyframes pulseDot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  @keyframes stampIn {
+    from { opacity: 0; transform: rotate(-9deg) scale(1.3); }
+    to { opacity: 1; transform: rotate(-9deg) scale(1); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Print: a clean one-page spec sheet. */
+  @media print {
+    [data-noprint] {
+      display: none !important;
+    }
+    [data-reveal] {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+    body,
+    html {
+      background: #fff;
+    }
+    figure,
+    section {
+      break-inside: avoid;
+    }
   }
 }
 
-/* ===== KEYFRAMES ===== */
-@keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ===== CODE HIGHLIGHTING — Soft dark theme ===== */
-.code-keyword { color: #60A5FA; }
-.code-string { color: #34D399; }
-.code-comment { color: #64748B; font-style: italic; }
-.code-number { color: #FBBF24; }
-.code-function { color: #A78BFA; }
-.code-type { color: #22D3EE; }
-.code-property { color: #60A5FA; }
-.code-decorator { color: #A78BFA; }
-.code-punctuation { color: #94A3B8; }
-
-/* ===== REDUCED MOTION — accessibility ===== */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
+@layer components {
+  /* Fixed graph-paper ground (34px). Mount once in App. */
+  .sheet-grid {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image: linear-gradient(rgba(26, 24, 19, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26, 24, 19, 0.05) 1px, transparent 1px);
+    background-size: 34px 34px;
   }
-}
 
-/* ===== ARCHITECTURE FLOW LINES (data flowing between stages) ===== */
-.flow-line-x {
-  background: linear-gradient(90deg, rgba(59,130,246,.12), rgba(59,130,246,.75), rgba(59,130,246,.12));
-  background-size: 200% 100%;
-  animation: flowx 1.6s linear infinite;
-}
-@keyframes flowx { to { background-position: -200% 0; } }
-.flow-line-y {
-  background: linear-gradient(180deg, rgba(59,130,246,.12), rgba(59,130,246,.75), rgba(59,130,246,.12));
-  background-size: 100% 200%;
-  animation: flowy 1.6s linear infinite;
-}
-@keyframes flowy { to { background-position: 0 -200%; } }
+  /* Section divider: one honest hairline. */
+  .rule {
+    border-top: 1px solid var(--line);
+    margin: 4rem 0;
+  }
 
-/* ===== SCROLLBAR ===== */
-.scrollbar-thin::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
+  /* Kicker: small mono spec label above a section. One per section, at most. */
+  .kicker {
+    font-family: theme("fontFamily.mono");
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
 
-.scrollbar-thin::-webkit-scrollbar-track {
-  background: transparent;
-}
+  /* Section marker for the dossier: red section number over a muted name. */
+  .sec-mark {
+    font-family: theme("fontFamily.mono");
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    line-height: 1.6;
+  }
+  .sec-mark span {
+    color: var(--muted);
+  }
 
-.scrollbar-thin::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 3px;
-}
+  /* Identity / spec facts as a ruled definition list. */
+  .facts {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    column-gap: 1.75rem;
+    align-items: baseline;
+    border-top: 1px solid var(--line);
+  }
+  .facts dt {
+    font-family: theme("fontFamily.mono");
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .facts dd {
+    font-family: theme("fontFamily.sans");
+    font-size: 0.92rem;
+    color: var(--ink);
+    margin: 0;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  @media (max-width: 480px) {
+    .facts {
+      grid-template-columns: 1fr;
+    }
+    .facts dt {
+      padding-bottom: 0.1rem;
+      border-bottom: none;
+    }
+    .facts dd {
+      padding-top: 0.1rem;
+    }
+  }
 
-.scrollbar-thin::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  /* Evidence table: plain, ruled, verifiable. */
+  .evidence-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: theme("fontFamily.sans");
+    font-size: 0.9rem;
+  }
+  .evidence-table th {
+    font-family: theme("fontFamily.mono");
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    text-align: left;
+    padding: 0.5rem 1rem 0.5rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .evidence-table td {
+    padding: 0.55rem 1rem 0.55rem 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-soft);
+    vertical-align: top;
+  }
+  .evidence-table tr:last-child td {
+    border-bottom: none;
+  }
+  .evidence-table .num {
+    font-family: theme("fontFamily.mono");
+    font-variant-numeric: tabular-nums;
+    font-size: 0.85em;
+    color: var(--ink);
+  }
+
+  /* Spec strip: the ruled Owner / Role / Stack / Outcome grid under a system. */
+  .spec-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1px solid var(--line);
+    font-size: 0.8rem;
+  }
+  .spec-strip > div {
+    padding: 0.7rem 0.85rem;
+    border-right: 1px solid var(--line);
+  }
+  .spec-strip > div:last-child {
+    border-right: none;
+  }
+  .spec-strip .spec-key {
+    font-family: theme("fontFamily.mono");
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.25rem;
+  }
+  .spec-strip .spec-val {
+    color: var(--ink);
+    line-height: 1.45;
+  }
+  @media (max-width: 640px) {
+    .spec-strip {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .spec-strip > div:nth-child(2) {
+      border-right: none;
+    }
+    .spec-strip > div:nth-child(-n + 2) {
+      border-bottom: 1px solid var(--line);
+    }
+  }
+
+  /* Status tag: mono chip, faintly rotated like a hand stamp. */
+  .tag {
+    font-family: theme("fontFamily.mono");
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 0.2rem 0.6rem;
+    display: inline-block;
+    white-space: nowrap;
+    transition: background-color 150ms ease, color 150ms ease;
+  }
+  .tag-tilt-l {
+    transform: rotate(-2deg);
+  }
+  .tag-tilt-r {
+    transform: rotate(2deg);
+  }
+  a.tag:hover {
+    background: var(--accent);
+    color: var(--paper);
+  }
+
+  /* Verified-outcome check label. */
+  .verified {
+    font-family: theme("fontFamily.mono");
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  /* Margin note: red-ruled aside in the section gutter. */
+  .margin-note {
+    font-family: theme("fontFamily.mono");
+    font-size: 0.72rem;
+    line-height: 1.7;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    color: var(--muted);
+    border-left: 2px solid var(--accent);
+    padding-left: 0.65rem;
+  }
+
+  /* Prose links. */
+  .link {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1.5px;
+    text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
+    transition: text-decoration-color 150ms ease, color 150ms ease;
+  }
+  .link:hover {
+    color: var(--accent-deep);
+    text-decoration-color: var(--accent-deep);
+  }
+
+  /* The one button style (Resume, Email). Quiet, ink-outlined. */
+  .btn-quiet {
+    font-family: theme("fontFamily.mono");
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    border: 1px solid var(--ink);
+    border-radius: var(--radius);
+    padding: 0.45rem 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 150ms ease, color 150ms ease;
+  }
+  .btn-quiet:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  /* Asterism divider for the Letter-voice About page. */
+  .asterism {
+    text-align: center;
+    color: var(--muted);
+    font-size: 1rem;
+    letter-spacing: 0.5em;
+    margin: 2.5rem 0;
+  }
+
+  /* Letter prose keeps the serif voice (IBM Plex Serif). */
+  .prose-letter {
+    font-family: theme("fontFamily.serif");
+    font-size: 1.0625rem;
+    line-height: 1.65;
+  }
+
+  /* Running prose measure. */
+  .prose-measure {
+    max-width: 68ch;
+  }
 }

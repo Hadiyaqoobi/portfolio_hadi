@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { Copy, Check } from "lucide-react";
 
 interface CodeBlockProps {
     code: string;
@@ -10,8 +8,9 @@ interface CodeBlockProps {
 }
 
 /**
- * Tokenize TypeScript/JSX code into syntax-highlighted spans.
- * Lightweight - no external dependencies.
+ * Tokenize TypeScript/JSX code into lightly typeset spans.
+ * Token colors only: comments muted, strings ink-soft, keywords bold ink.
+ * Everything else inherits the ink code color. No external dependencies.
  */
 function highlightLine(line: string): JSX.Element[] {
     const tokens: JSX.Element[] = [];
@@ -20,29 +19,17 @@ function highlightLine(line: string): JSX.Element[] {
 
     const patterns: [RegExp, string][] = [
         // Single-line comments
-        [/^(\/\/.*)/, "code-comment"],
+        [/^(\/\/.*)/, "text-muted"],
         // Multi-line comment content lines
-        [/^(\s*\*.*)/, "code-comment"],
+        [/^(\s*\*.*)/, "text-muted"],
         // Strings (double-quoted)
-        [/^("(?:[^"\\]|\\.)*")/, "code-string"],
+        [/^("(?:[^"\\]|\\.)*")/, "text-ink-soft"],
         // Strings (single-quoted)
-        [/^('(?:[^'\\]|\\.)*')/, "code-string"],
+        [/^('(?:[^'\\]|\\.)*')/, "text-ink-soft"],
         // Template literals
-        [/^(`(?:[^`\\]|\\.)*`)/, "code-string"],
+        [/^(`(?:[^`\\]|\\.)*`)/, "text-ink-soft"],
         // Keywords
-        [/^(import|export|from|class|interface|type|const|let|var|function|return|async|await|new|if|else|try|catch|finally|for|of|in|this|private|public|protected|readonly|extends|implements|typeof|instanceof|throw|switch|case|default|break|continue|void|null|undefined|true|false)\b/, "code-keyword"],
-        // Types / Capitalized words (likely types)
-        [/^(Promise|string|number|boolean|void|any|unknown|never|Map|Set|Record|Partial|Required|Readonly|Array)\b/, "code-type"],
-        // Decorators and special
-        [/^(@\w+)/, "code-decorator"],
-        // Numbers
-        [/^(\d+\.?\d*)/, "code-number"],
-        // Method calls (word followed by parenthesis)
-        [/^(\w+)(?=\()/, "code-function"],
-        // Properties after dot
-        [/^\.(\w+)/, "code-property"],
-        // Punctuation
-        [/^([{}()\[\];:,.<>+=\-*\/&|!?])/, "code-punctuation"],
+        [/^(import|export|from|class|interface|type|const|let|var|function|return|async|await|new|if|else|try|catch|finally|for|of|in|this|private|public|protected|readonly|extends|implements|typeof|instanceof|throw|switch|case|default|break|continue|void|null|undefined|true|false)\b/, "font-semibold text-ink"],
     ];
 
     while (remaining.length > 0) {
@@ -59,16 +46,8 @@ function highlightLine(line: string): JSX.Element[] {
         for (const [pattern, className] of patterns) {
             const m = remaining.match(pattern);
             if (m) {
-                const matchText = m[0];
-                // For property after dot, include the dot
-                if (className === "code-property") {
-                    tokens.push(<span key={key++} className="code-punctuation">.</span>);
-                    tokens.push(<span key={key++} className={className}>{m[1]}</span>);
-                    remaining = remaining.slice(matchText.length);
-                } else {
-                    tokens.push(<span key={key++} className={className}>{matchText}</span>);
-                    remaining = remaining.slice(matchText.length);
-                }
+                tokens.push(<span key={key++} className={className}>{m[0]}</span>);
+                remaining = remaining.slice(m[0].length);
                 matched = true;
                 break;
             }
@@ -95,66 +74,37 @@ export const CodeBlock = ({ code, language, filePath, startLine = 1 }: CodeBlock
     };
 
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="rounded-xl overflow-hidden border border-slate-700 bg-slate-800/50"
-        >
-            {/* Window chrome */}
-            <div className="flex items-center justify-between px-4 py-2.5 bg-slate-800/50 border-b border-slate-700">
-                <div className="flex items-center gap-3">
-                    {/* Traffic lights */}
-                    <div className="flex gap-1.5">
-                        <div className="w-2.5 h-2.5 rounded-full bg-slate-600" />
-                        <div className="w-2.5 h-2.5 rounded-full bg-slate-600" />
-                        <div className="w-2.5 h-2.5 rounded-full bg-slate-600" />
-                    </div>
-                    {/* File path */}
-                    <span className="text-[11px] text-slate-500 font-mono">{filePath}</span>
-                </div>
+        <div className="rounded-md overflow-hidden border border-line bg-paper-raised">
+            {/* Header: file path, language, copy */}
+            <div className="flex items-center justify-between gap-3 px-4 py-2 border-b border-line">
+                <span className="font-mono text-xs text-muted break-all">{filePath}</span>
 
-                <div className="flex items-center gap-3">
-                    {/* Language badge */}
-                    <span className="text-[10px] text-slate-500 uppercase tracking-wider font-medium">
+                <div className="flex items-center gap-3 shrink-0">
+                    <span className="font-sans text-xs uppercase tracking-wider text-muted">
                         {language}
                     </span>
-                    {/* Copy button */}
                     <button
                         onClick={handleCopy}
-                        className="flex items-center gap-1 text-[11px] text-slate-500 hover:text-slate-400 transition-colors"
+                        className="font-sans text-xs text-ink-soft hover:text-ink transition-colors duration-150"
                         title="Copy code"
                     >
-                        {copied ? (
-                            <>
-                                <Check size={12} className="text-green-600" />
-                                <span className="text-green-600">Copied</span>
-                            </>
-                        ) : (
-                            <>
-                                <Copy size={12} />
-                                <span>Copy</span>
-                            </>
-                        )}
+                        {copied ? "Copied" : "Copy"}
                     </button>
                 </div>
             </div>
 
             {/* Code area */}
-            <div className="overflow-x-auto overflow-y-auto max-h-[520px] scrollbar-thin">
+            <div className="overflow-x-auto overflow-y-auto max-h-[520px]">
                 <table className="w-full border-collapse">
                     <tbody>
                         {lines.map((line, i) => (
-                            <tr
-                                key={i}
-                                className="hover:bg-slate-700/30 transition-colors leading-relaxed"
-                            >
+                            <tr key={i} className="leading-relaxed">
                                 {/* Line number */}
-                                <td className="px-4 py-0 text-right text-[11px] text-slate-600 select-none align-top font-mono w-12 border-r border-slate-700">
+                                <td className="px-3 py-0 text-right text-xs text-muted select-none align-top font-mono tabular-nums w-10 border-r border-line">
                                     {startLine + i}
                                 </td>
                                 {/* Code */}
-                                <td className="px-4 py-0 text-[13px] font-mono whitespace-pre text-slate-300 align-top">
+                                <td className="px-4 py-0 text-[0.8rem] font-mono whitespace-pre text-ink align-top">
                                     {highlightLine(line)}
                                 </td>
                             </tr>
@@ -162,6 +112,6 @@ export const CodeBlock = ({ code, language, filePath, startLine = 1 }: CodeBlock
                     </tbody>
                 </table>
             </div>
-        </motion.div>
+        </div>
     );
 };

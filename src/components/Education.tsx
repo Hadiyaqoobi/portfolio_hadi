@@ -1,6 +1,4 @@
 import * as React from "react";
-import { motion } from "framer-motion";
-import { GraduationCap, ExternalLink, Award, Clock } from "lucide-react";
 import { portfolioData } from "@/data/portfolio-data";
 import {
   Dialog,
@@ -25,150 +23,108 @@ interface EducationEntry {
   credentials?: Credential[];
 }
 
-const accentByIndex: Record<number, { border: string; bg: string; text: string; dot: string }> = {
-  0: { border: "border-sky-500/30", bg: "bg-sky-500/10", text: "text-sky-400", dot: "bg-sky-400" },
-  1: { border: "border-violet-500/30", bg: "bg-violet-500/10", text: "text-violet-400", dot: "bg-violet-400" },
-  2: { border: "border-emerald-500/30", bg: "bg-emerald-500/10", text: "text-emerald-400", dot: "bg-emerald-400" },
-  3: { border: "border-amber-500/30", bg: "bg-amber-500/10", text: "text-amber-400", dot: "bg-amber-400" },
-};
-
 export const Education = () => {
   const [selectedEducation, setSelectedEducation] = React.useState<EducationEntry | null>(null);
 
   return (
-    <section id="education" className="relative py-24 overflow-hidden">
-      <div className="container mx-auto px-4">
-      {/* Section Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="max-w-6xl mx-auto mb-14"
-      >
-        <div className="accent-line mb-5" />
-        <h2 className="text-3xl md:text-4xl font-bold text-slate-100 mb-3">
-          Education
-        </h2>
-        <p className="text-slate-400 text-base max-w-2xl leading-relaxed">
-          Aviation Management taught me how complex organizations operate. Data Analytics
-          taught me how to measure what's broken. Cornell is teaching me how to build
-          what comes next.
-        </p>
-      </motion.div>
+    <section id="education" className="py-14 sm:py-16">
+      <div className="mx-auto w-full max-w-3xl px-5 sm:px-6">
+        <header className="mb-10">
+          <h1>Education</h1>
+          <p className="mt-4 prose-measure text-ink-soft">
+            Aviation Management taught me how complex organizations operate. Data Analytics
+            taught me how to measure what's broken. Cornell taught me how to build
+            what comes next.
+          </p>
+        </header>
 
-      {/* Education Cards */}
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-5">
-        {(portfolioData.education as EducationEntry[]).map((edu, index) => {
-          const accent = accentByIndex[index] || accentByIndex[0];
-          const isInProgress = edu.year.includes("Present");
+        <ol className="list-none border-t border-line divide-y divide-line">
+          {(portfolioData.education as EducationEntry[]).map((edu) => (
+            <li key={edu.degree} className="py-7">
+              <p className="font-mono text-[0.8rem] tabular-nums text-muted">{edu.year}</p>
 
-          return (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.08 }}
-              className={`glass-card p-6 border ${accent.border} ${accent.bg} transition-all duration-300 hover:border-slate-600`}
-            >
-              {/* Header: Logo + Degree */}
-              <div className="flex items-start gap-4 mb-4">
-                <div className="w-12 h-12 rounded-xl bg-slate-800/50 border border-slate-700 flex items-center justify-center flex-shrink-0 overflow-hidden p-1.5">
-                  <img
-                    src={edu.logo}
-                    alt={edu.institution}
-                    className="w-full h-full object-contain opacity-100"
-                  />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className={`text-xs font-mono font-medium ${accent.text}`}>{edu.year}</span>
-                    {isInProgress && (
-                      <span className={`inline-flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded-full ${accent.bg} ${accent.text} border ${accent.border}`}>
-                        <Clock className="w-2.5 h-2.5" />
-                        In Progress
-                      </span>
-                    )}
-                  </div>
-                  <h3 className="text-base font-semibold text-slate-100 leading-tight">{edu.degree}</h3>
-                  <p className="text-sm text-slate-500 mt-0.5">{edu.field}</p>
-                  <p className="text-xs text-slate-500 mt-0.5">{edu.institution}</p>
-                </div>
-              </div>
+              <h2 className="mt-1 font-sans text-base font-semibold text-ink leading-snug">
+                {edu.degree}
+              </h2>
 
-              {/* Description */}
-              <p className="text-xs text-slate-400 leading-relaxed mb-4">
+              <p className="mt-0.5 font-sans text-[0.9rem] text-ink-soft">
+                {edu.field} <span aria-hidden="true">&middot;</span> {edu.institution}
+              </p>
+
+              <p className="mt-3 prose-measure text-[0.95rem] text-ink-soft leading-relaxed">
                 {edu.description}
               </p>
 
-              {/* Honors */}
-              {edu.honors && edu.honors.length > 0 && (
-                <div className="space-y-1.5 mb-4">
-                  {edu.honors.map((honor, idx) => (
-                    <div key={idx} className="flex items-start gap-2">
-                      <Award className={`w-3 h-3 mt-0.5 flex-shrink-0 ${accent.text}`} />
-                      <span className="text-[11px] text-slate-500">{honor}</span>
-                    </div>
+              {edu.honors.length > 0 && (
+                <ul className="mt-3 space-y-1.5 list-disc pl-5 marker:text-muted">
+                  {edu.honors.map((honor) => (
+                    <li key={honor} className="font-sans text-sm text-ink-soft leading-relaxed">
+                      {honor}
+                    </li>
                   ))}
-                </div>
+                </ul>
               )}
 
-              {/* View Credentials */}
               {edu.credentials && edu.credentials.length > 0 && (
-                <button
-                  onClick={() => setSelectedEducation(edu)}
-                  className={`text-xs ${accent.text} opacity-70 hover:opacity-100 inline-flex items-center gap-1.5 transition-all`}
-                >
-                  View Credentials
-                  <ExternalLink className="w-3 h-3" />
-                </button>
-              )}
-            </motion.div>
-          );
-        })}
-      </div>
-
-      {/* Credentials Modal */}
-      <Dialog open={!!selectedEducation} onOpenChange={() => setSelectedEducation(null)}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-background border-border">
-          <DialogHeader>
-            <DialogTitle className="text-2xl font-bold text-foreground flex items-center gap-3">
-              <GraduationCap className="w-6 h-6 text-primary" />
-              {selectedEducation?.degree}
-            </DialogTitle>
-            <p className="text-muted-foreground">{selectedEducation?.institution}</p>
-          </DialogHeader>
-
-          <div className="space-y-6 mt-4">
-            {selectedEducation?.credentials?.map((credential, idx) => (
-              <div key={idx} className="border border-border/50 rounded-lg overflow-hidden bg-card/30">
-                <div className="p-4 border-b border-border/30 bg-card/50">
-                  <h3 className="font-semibold text-foreground">{credential.title}</h3>
-                </div>
-                <div className="aspect-[8.5/11] w-full">
-                  <iframe
-                    src={credential.url}
-                    className="w-full h-full"
-                    title={credential.title}
-                  />
-                </div>
-                <div className="p-3 border-t border-border/30 bg-card/50">
-                  <a
-                    href={credential.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-primary hover:text-primary/80 inline-flex items-center gap-1"
+                <p className="mt-3 font-sans text-sm">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedEducation(edu)}
+                    className="link"
                   >
-                    Open in New Tab
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
+                    View credentials
+                  </button>
+                </p>
+              )}
+            </li>
+          ))}
+        </ol>
+
+        {/* Credentials modal: plain raised surface */}
+        <Dialog
+          open={!!selectedEducation}
+          onOpenChange={(open) => {
+            if (!open) setSelectedEducation(null);
+          }}
+        >
+          <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto bg-paper-raised border-line rounded-md">
+            <DialogHeader>
+              <DialogTitle className="font-display text-xl font-semibold tracking-normal text-ink">
+                {selectedEducation?.degree}
+              </DialogTitle>
+              <p className="font-sans text-sm text-muted">{selectedEducation?.institution}</p>
+            </DialogHeader>
+
+            <div className="mt-2 space-y-6">
+              {selectedEducation?.credentials?.map((credential) => (
+                <div key={credential.title} className="border border-line rounded-md overflow-hidden">
+                  <div className="px-4 py-3 border-b border-line">
+                    <h3 className="font-sans text-sm font-semibold text-ink">
+                      {credential.title}
+                    </h3>
+                  </div>
+                  <div className="aspect-[8.5/11] w-full bg-paper">
+                    <iframe
+                      src={credential.url}
+                      className="w-full h-full"
+                      title={credential.title}
+                    />
+                  </div>
+                  <div className="px-4 py-3 border-t border-line">
+                    <a
+                      href={credential.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="link font-sans text-sm"
+                    >
+                      Open in new tab <span aria-hidden="true">&#8599;</span>
+                    </a>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </DialogContent>
-      </Dialog>
+              ))}
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </section>
   );

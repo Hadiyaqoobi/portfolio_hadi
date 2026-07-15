@@ -1,5 +1,5 @@
-import { Background } from "@/components/Background";
 import { Navigation } from "@/components/Navigation";
+import Footer from "@/components/Footer";
 import { SkillMap } from "@/components/SkillMap";
 import { SKILLS, PROJECTS, certTotal, institutionCount } from "@/data/skillmap";
 
@@ -11,38 +11,34 @@ const stats = [
 ];
 
 const SkillsPage = () => (
-  <div className="relative min-h-screen">
-    <Background />
+  <div className="min-h-screen bg-paper flex flex-col">
     <Navigation />
 
-    <main className="relative z-10 pt-20">
-      <section className="py-section relative">
-        <div className="container mx-auto px-4 max-w-7xl">
-          <div className="accent-line mb-5" />
-          <p className="text-xs uppercase tracking-[0.22em] text-slate-500 mb-2">
-            Interactive · every claim wired to its evidence
-          </p>
-          <h1 className="text-3xl md:text-5xl font-bold text-slate-100 tracking-[-0.02em]">
-            The <span className="gradient-text">Skill Map</span>
-          </h1>
-          <p className="text-slate-400 max-w-2xl mt-3 text-[15px] leading-relaxed">
-            Click any skill. The map lights up the projects I built with it and the
-            certifications behind it. Counts only, no invented scores.
-          </p>
+    <main className="flex-1 w-full">
+      <section className="mx-auto w-full max-w-3xl px-5 sm:px-6 py-10 sm:py-12">
+        <p className="kicker mb-3">Interactive · every claim wired to its evidence</p>
+        <h1>The skill map</h1>
+        <p className="prose-measure text-ink-soft mt-4">
+          Click any skill. The map lights up the projects I built with it and the
+          certifications behind it. Counts only, no invented scores.
+        </p>
 
-          <div className="flex flex-wrap gap-3 my-7">
-            {stats.map((s) => (
-              <div key={s.k} className="glass-card px-5 py-3 flex items-baseline gap-2.5">
-                <span className="text-2xl font-bold text-blue-400">{s.v}</span>
-                <span className="text-[11px] uppercase tracking-wider text-slate-500">{s.k}</span>
-              </div>
-            ))}
-          </div>
+        <p className="font-sans text-sm text-ink-soft mt-6">
+          {stats.map((s, i) => (
+            <span key={s.k}>
+              <span className="font-mono tabular-nums text-ink">{s.v}</span> {s.k}
+              {i < stats.length - 1 && <span aria-hidden="true"> · </span>}
+            </span>
+          ))}
+        </p>
 
+        <div className="mt-8">
           <SkillMap />
         </div>
       </section>
     </main>
+
+    <Footer />
   </div>
 );
 
