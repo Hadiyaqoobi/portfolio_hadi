@@ -62,7 +62,7 @@ export interface SkillCert {
 export const SKILLS: Skill[] = [
   { id: "sql", name: "SQL / T-SQL", domain: "data", years: 6, x: 0.13, y: 0.26 },
   { id: "pg", name: "PostgreSQL", domain: "data", years: 6, x: 0.1, y: 0.52 },
-  { id: "pbi", name: "Power BI", domain: "data", years: 2, x: 0.22, y: 0.76 },
+  { id: "pbi", name: "Reporting & dashboards", domain: "data", years: 2, x: 0.22, y: 0.76 },
   { id: "r", name: "R / Statistics", domain: "data", years: 2, x: 0.34, y: 0.9 },
   { id: "py", name: "Python", domain: "ai", years: 5, x: 0.38, y: 0.16 },
   { id: "pt", name: "PyTorch / DL", domain: "ai", years: 1.5, x: 0.55, y: 0.09 },
@@ -87,7 +87,7 @@ export const PROJECTS: SkillProject[] = [
   { id: "rubs", name: "Utility-billing reconciliation · dynamic T-SQL", metric: "960 checks · caught silent mis-billing", kind: "eqr", skills: ["sql"], href: "/#bug-hunt" },
   { id: "sproc", name: "Payment-reminder recipient query · compliance join", metric: "14 legal/compliance rules in SQL", kind: "eqr", skills: ["sql"], href: "/projects" },
   { id: "fee", name: "Fee Transparency · 4 workstreams", metric: "multi-state compliance", kind: "eqr", skills: ["sql", "ba"], href: "/projects" },
-  { id: "dash", name: "EQR Power BI dashboards", metric: "488,320+ records · 304 properties", kind: "eqr", skills: ["pbi", "sql"], href: "/projects" },
+  { id: "dash", name: "B2C migration readiness reporting", metric: "migrated · login-success · failures", kind: "eqr", skills: ["sql"], href: "/projects" },
   { id: "agiletx", name: "Waterfall to Agile (CTO request)", metric: "one quarter", kind: "eqr", skills: ["agile", "ba"], href: "/projects" },
   { id: "ner", name: "Résumé NER (XLM-RoBERTa)", metric: "F1 0.75 (synthetic)", kind: "model", skills: ["pt", "py", "nlp", "ml"], href: "/projects" },
   { id: "embed", name: "Matching bi-encoder (e5)", metric: "recall@5 0.956 (synthetic)", kind: "model", skills: ["pt", "py", "nlp", "llm"], href: "/projects" },
