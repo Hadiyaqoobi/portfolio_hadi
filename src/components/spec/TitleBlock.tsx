@@ -24,7 +24,7 @@ export const TitleBlock = ({ reduced }: { reduced: boolean }) => {
   // Rendered instantly (no scramble) — the job title is the most load-bearing
   // line in the 7-second scan and must be legible on first paint.
   const classification =
-    "Problem-solver — IT Business Systems Analyst · AI Solution Architect";
+    "IT Business Systems Analyst — Applied AI";
 
   const cells: { label: string; value: React.ReactNode }[] = [
     { label: "Experience", value: "Enterprise (S&P 500) + applied AI" },
@@ -80,7 +80,7 @@ export const TitleBlock = ({ reduced }: { reduced: boolean }) => {
       <p
         className="mt-3 font-mono uppercase tracking-[0.08em]"
         style={{ fontSize: "clamp(12px, 1.5vw, 15px)", color: "#4A473E" }}
-        aria-label="Problem-solver — IT Business Systems Analyst and AI Solution Architect"
+        aria-label="IT Business Systems Analyst, Applied AI"
       >
         {classification || " "}
       </p>
