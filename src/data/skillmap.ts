@@ -83,22 +83,22 @@ export const YEARS_FOOTNOTE = "Years are from first professional use.";
  * PROJECTS  (metrics match the verified record / Phase 1 truth-pass)
  * ============================================================ */
 export const PROJECTS: SkillProject[] = [
-  { id: "b2c", name: "Azure B2C Migration · 135K accounts", metric: "0 critical incidents", kind: "eqr", skills: ["az", "sql", "sec", "ba", "agile"], href: "/projects" },
-  { id: "rubs", name: "RUBS Bug Hunt · dynamic SQL audit", metric: "80 combinations/property", kind: "eqr", skills: ["sql"], href: "/#bug-hunt" },
-  { id: "sproc", name: "Delinquency-campaign stored procedure", metric: "104 manual runs to 0", kind: "eqr", skills: ["sql"], href: "/projects" },
+  { id: "b2c", name: "Azure B2C Migration · 135K accounts", metric: "owned validation + stabilization", kind: "eqr", skills: ["az", "sql", "sec", "ba", "agile"], href: "/projects" },
+  { id: "rubs", name: "Utility-billing reconciliation · dynamic T-SQL", metric: "960 checks · caught silent mis-billing", kind: "eqr", skills: ["sql"], href: "/#bug-hunt" },
+  { id: "sproc", name: "Payment-reminder recipient query · compliance join", metric: "14 legal/compliance rules in SQL", kind: "eqr", skills: ["sql"], href: "/projects" },
   { id: "fee", name: "Fee Transparency · 4 workstreams", metric: "multi-state compliance", kind: "eqr", skills: ["sql", "ba"], href: "/projects" },
   { id: "dash", name: "EQR Power BI dashboards", metric: "488,320+ records · 304 properties", kind: "eqr", skills: ["pbi", "sql"], href: "/projects" },
   { id: "agiletx", name: "Waterfall to Agile (CTO request)", metric: "one quarter", kind: "eqr", skills: ["agile", "ba"], href: "/projects" },
-  { id: "ner", name: "ROE-ResumeNER (XLM-RoBERTa)", metric: "F1 0.55 to 0.7476", kind: "model", skills: ["pt", "py", "nlp", "ml"], href: "/projects" },
-  { id: "embed", name: "ROE-Embed (multilingual-e5)", metric: "24/25 codes separated", kind: "model", skills: ["pt", "py", "nlp", "llm"], href: "/projects" },
-  { id: "whisper", name: "ROE-WhisperDari (LoRA)", metric: "Afghan Dari ASR v1.0", kind: "model", skills: ["pt", "py", "nlp"], href: "/projects" },
-  { id: "match", name: "ROE-Match (LightGBM)", metric: "calibrated + leakage gates", kind: "model", skills: ["ml", "py"], href: "/projects" },
+  { id: "ner", name: "Résumé NER (XLM-RoBERTa)", metric: "F1 0.75 (synthetic)", kind: "model", skills: ["pt", "py", "nlp", "ml"], href: "/projects" },
+  { id: "embed", name: "Matching bi-encoder (e5)", metric: "recall@5 0.956 (synthetic)", kind: "model", skills: ["pt", "py", "nlp", "llm"], href: "/projects" },
+  { id: "whisper", name: "Whisper-Dari (LoRA fine-tune)", metric: "WER 57.8% → 27.3% (synthetic eval)", kind: "model", skills: ["pt", "py", "nlp"], href: "/projects" },
+  { id: "match", name: "Retention model (LightGBM)", metric: "leakage-flagged in validation", kind: "model", skills: ["ml", "py"], href: "/projects" },
   { id: "mirage", name: "Mirage Paper · Springer EMSE", metric: "90.3% FDR · under review", kind: "research", skills: ["py", "r", "ml", "llm", "nlp"], href: "/projects" },
-  { id: "alpha", name: "AlphaSeekers · live platform", metric: "200 users · RAG assistant", kind: "live", skills: ["pg", "llm", "cloud", "py"], href: "https://alphaseekers.org/en" },
+  { id: "alpha", name: "AlphaSeekers · live platform", metric: "200 registered users · RAG assistant", kind: "live", skills: ["pg", "llm", "cloud", "py"], href: "https://alphaseekers.org/en" },
   { id: "makermind", name: "MakerMind · multi-agent pipeline", metric: "69K lines TypeScript", kind: "dev", skills: ["llm", "cloud"], href: "/projects/makermind" },
   { id: "takvenops", name: "TakveenOps · agentic PM tool", metric: "spec + prototype", kind: "dev", skills: ["llm", "agile", "py"], href: "/projects" },
-  { id: "ahrc", name: "AHRC architecture + infrastructure", metric: "$170K+/yr secured", kind: "dev", skills: ["llm", "cloud", "sec", "az", "ba"], href: "/projects" },
-  { id: "ch", name: "ConnectionHub platform · 5 web properties", metric: "~200 users · 1,182 students org-wide", kind: "eqr", skills: ["pg", "ba", "sql"], href: "/projects" },
+  { id: "ahrc", name: "AHRC incident-monitoring system", metric: "Claude cascade · human-in-the-loop · pre-launch", kind: "dev", skills: ["llm", "cloud", "sec", "az", "ba"], href: "/projects" },
+  { id: "ch", name: "ConnectionHub education platform", metric: "285 learners · 753 enrollments", kind: "eqr", skills: ["pg", "ba", "sql"], href: "/projects" },
   { id: "vpl", name: "visual-python-learning (Pyodide)", metric: "30 chapters · in-browser Python", kind: "dev", skills: ["cs", "py"], href: "/projects" },
 ];
 
@@ -110,7 +110,7 @@ export const PROJECTS: SkillProject[] = [
  * ============================================================ */
 export const CERTS: SkillCert[] = [
   // Cornell (completed 2026) - see memory/02, /10
-  { id: "cornell-ai360", name: "AI 360 Certificate", issuer: "Cornell University", year: "2026", skills: ["ml", "pt", "llm", "py"], count: 1 },
+  { id: "cornell-ai360", name: "AI & Machine Learning 360 Certificate", issuer: "Cornell University", year: "2026", skills: ["ml", "pt", "llm", "py"], count: 1 },
   { id: "cornell-aisol", name: "Designing & Building AI Solutions", issuer: "Cornell University", year: "2026", skills: ["llm", "ml"], count: 1 },
   { id: "cornell-nlp", name: "Natural Language Processing With Python", issuer: "Cornell University", year: "2026", skills: ["nlp", "py"], count: 1 },
   { id: "cornell-ds", name: "Data Science Certificate", issuer: "Cornell University", year: "2026", skills: ["r", "ml"], count: 1 },

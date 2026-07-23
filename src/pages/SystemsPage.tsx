@@ -11,7 +11,7 @@ const SystemsPage = () => (
         <p className="kicker mb-3">The systems, not the sentences</p>
         <h1>Under the hood</h1>
         <p className="prose-measure text-ink-soft mt-4">
-          How my flagship builds actually work, stage by stage. Click any step to see what it
+          How my four main systems actually work, stage by stage — MakerMind, AlphaSeekers, the ROE model engine, and the AHRC incident monitor I architected. Click any step to see what it
           does and the real code behind it. Each system is labeled with its honest status.
         </p>
 

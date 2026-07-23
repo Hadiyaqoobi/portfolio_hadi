@@ -18,9 +18,9 @@ const STAGES = [
   },
   {
     num: "03",
-    title: "Deploy AI",
-    body: "Put AI on top only where it earns its place, with humans over every decision that matters.",
-    artifacts: "5 models · RAG · multi-agent",
+    title: "Add AI",
+    body: "Put AI on top only where it earns its place, with a person over every decision that matters.",
+    artifacts: "fine-tuned models · human-in-the-loop · evals",
   },
 ];
 
@@ -94,7 +94,7 @@ export const OperatingModel = ({ reduced }: { reduced: boolean }) => {
 
       <figcaption className="flex flex-wrap justify-between gap-2 border-t border-line px-4 py-2 font-mono text-[10px] uppercase tracking-[0.1em] text-muted">
         <span className="text-accent">Fig. 00 &mdash; Operating model</span>
-        <span>Analyze &rarr; Automate &rarr; Deploy AI</span>
+        <span>Analyze &rarr; Automate &rarr; Add AI</span>
       </figcaption>
     </figure>
   );

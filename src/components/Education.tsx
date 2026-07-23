@@ -30,14 +30,44 @@ export const Education = () => {
     <section id="education" className="py-14 sm:py-16">
       <div className="mx-auto w-full max-w-3xl px-5 sm:px-6">
         <header className="mb-10">
-          <h1>Education</h1>
-          <p className="mt-4 prose-measure text-ink-soft">
-            Aviation Management taught me how complex organizations operate. Data Analytics
-            taught me how to measure what's broken. Cornell taught me how to build
-            what comes next.
-          </p>
+          <p className="kicker mb-2">Education</p>
+          <h1>I learned my way here — on purpose.</h1>
+          <div className="mt-5 prose-measure space-y-4 text-ink-soft">
+            <p>
+              Over the years I've earned 57 certificates on edX and nine
+              specializations on Coursera. They aren't a collection —
+              they're a curriculum I built for myself, one
+              problem at a time, because I couldn't afford to wait for permission
+              to learn the next thing.
+            </p>
+            <p>
+              It started with a bachelor's I earned as a refugee, on scholarships
+              that take fewer than one in five applicants. My thesis mapped the
+              digital maturity of airport systems — as-is versus to-be, gap
+              analysis — the exact work I'd do years later as a systems analyst.
+              From there I taught myself the foundation I hadn't been handed:
+              computer science from Harvard and Stanford, data science from
+              Columbia and HarvardX, Python and automation from Google. Not for
+              the certificates. For the specific gap in front of me each time.
+            </p>
+            <p>
+              The data thread came together in a STEM master's from Boston
+              University. Then I chose AI, and I chose it deliberately: Cornell's
+              AI and Machine Learning 360, the algorithms built from scratch in
+              NumPy, while I was already
+              fine-tuning models and architecting AI systems. Learning and
+              shipping at the same time.
+            </p>
+            <p>
+              Put together, it isn't a pile of credentials. It's one line: I
+              learned my way from the end user of systems, to the analyst who
+              delivers them, to the architect who builds the AI ones. And I'm not
+              done — the next one is already in progress.
+            </p>
+          </div>
         </header>
 
+        <p className="kicker mb-3">Degrees</p>
         <ol className="list-none border-t border-line divide-y divide-line">
           {(portfolioData.education as EducationEntry[]).map((edu) => (
             <li key={edu.degree} className="py-7">

@@ -18,7 +18,7 @@ export const SignOff = ({ reduced }: { reduced: boolean }) => {
       className="mt-[clamp(44px,6vw,72px)] scroll-mt-6"
       style={revealStyle(shown)}
     >
-      <SectionHeader num="05" title="Sign-off" tag="Contact" />
+      <SectionHeader num="05" title="Contact" tag="Sign-off" />
 
       <div className="mt-6 flex flex-wrap items-end justify-between gap-8">
         <div className="max-w-md">
@@ -29,7 +29,7 @@ export const SignOff = ({ reduced }: { reduced: boolean }) => {
             className="mt-1.5 font-serif text-ink"
             style={{ fontSize: "clamp(19px, 2.4vw, 26px)", lineHeight: 1.3 }}
           >
-            Full-lifecycle ownership, requirements to production.
+            Full-lifecycle BSA work, requirements to production.
           </p>
           <div className="mt-5 flex flex-wrap gap-3">
             <a

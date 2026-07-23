@@ -237,7 +237,7 @@ const codeTabs = [
     id: "architect",
     label: "Hardware Architect",
     filePath: "services/architecture/hardwareArchitect.ts",
-    description: "Transforms natural language into hardware specifications with component detection",
+    description: "Turns a plain-English request into a hardware spec by keyword-matching against a component registry",
     code: ARCHITECT_CODE,
   },
 ];
@@ -295,9 +295,10 @@ const MakerMindCaseStudy = () => {
             <p className="kicker mt-10 mb-3">Case study</p>
             <h1 className="mb-5">MakerMind</h1>
             <p className="prose-measure text-ink-soft">
-              An AI-powered platform that generates microcontroller firmware,
-              auto-wiring diagrams, and hardware specifications from plain
-              English.
+              I built MakerMind to turn plain English into compiled
+              microcontroller firmware, wiring diagrams, and hardware specs.
+              Three LLMs split the work: Claude plans, GPT-4 writes the code,
+              Gemini checks it.
             </p>
             <p className="mt-4 font-sans text-sm text-muted">
               {headerTech.join(" · ")}
@@ -310,8 +311,10 @@ const MakerMindCaseStudy = () => {
           <section>
             <h2 className="mb-3">System architecture</h2>
             <p className="prose-measure text-ink-soft mb-8">
-              A multi-agent LLM pipeline that turns natural language into
-              compiled Arduino firmware, checked before it reaches hardware.
+              A multi-agent pipeline that turns natural language into compiled
+              Arduino firmware. I didn't trust one model to check its own work,
+              so Gemini validates every patch GPT-4 writes before anything
+              reaches hardware.
             </p>
 
             <ol className="max-w-xl">
@@ -340,8 +343,7 @@ const MakerMindCaseStudy = () => {
           <section>
             <h2 className="mb-3">Under the hood</h2>
             <p className="prose-measure text-ink-soft mb-8">
-              Real code from the project. Each module represents a distinct
-              engineering challenge.
+              Real code from the project.
             </p>
 
             {/* Quiet underline tabs */}
@@ -393,7 +395,12 @@ const MakerMindCaseStudy = () => {
 
           {/* Stats, rendered static */}
           <section>
-            <h2 className="mb-6">By the numbers</h2>
+            <h2 className="mb-3">By the numbers</h2>
+            <p className="prose-measure text-ink-soft mb-6">
+              One honest limit: the hardware architect isn't an LLM. It's
+              keyword matching against a component registry, so it only finds
+              parts I taught it to look for.
+            </p>
 
             <table className="evidence-table">
               <thead>

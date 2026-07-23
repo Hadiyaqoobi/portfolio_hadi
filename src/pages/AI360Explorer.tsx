@@ -34,13 +34,14 @@ const AI360Explorer = () => {
             </p>
 
             <header className="mb-8">
-              <p className="kicker mb-2">Cornell AI 360 coursework</p>
-              <h1>The AI 360 work, in the open</h1>
+              <p className="kicker mb-2">Cornell AI &amp; Machine Learning 360 coursework</p>
+              <h1>The AI &amp; Machine Learning 360 work, in the open</h1>
               <p className="mt-4 prose-measure text-ink-soft">
-                Cornell's AI 360 ran across three tracks: NLP in Python, machine learning
+                Cornell's AI and Machine Learning 360 certificate (formerly AI 360) ran
+                across three tracks: NLP in Python, machine learning
                 implemented from scratch, and data science in R. Here is what I built in each,
                 in my own words. Where I have a write-up or paper, it is linked. The rest are
-                described honestly as coursework.
+                just coursework.
               </p>
             </header>
 

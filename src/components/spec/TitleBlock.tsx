@@ -1,10 +1,14 @@
+import { Link } from "react-router-dom";
 import { portfolioData } from "@/data/portfolio-data";
-import { useDecode } from "./hooks";
 
 const { personal } = portfolioData;
 
-/* Running head + drawing title block. Copy follows the truth ledger where the
-   handoff's reference text was stale (title order, experience line). */
+/* Running head + drawing title block. The hero now LEADS with a five-second
+   hook (problem-solver, in his voice) and pulls the EQR + AHRC proof above the
+   fold, instead of opening on a dry "Subject of specification" kicker. Copy is
+   honesty-checked: architected/owned (not built/led), fine-tuned (not trained),
+   under review (not published); the 5 fine-tuned models are kept separate from
+   the AHRC cascade. */
 
 export const RunningHead = () => (
   <div>
@@ -17,14 +21,14 @@ export const RunningHead = () => (
 );
 
 export const TitleBlock = ({ reduced }: { reduced: boolean }) => {
-  const classification = useDecode(
-    "IT Business Systems Analyst / Applied AI",
-    reduced
-  );
+  // Rendered instantly (no scramble) — the job title is the most load-bearing
+  // line in the 7-second scan and must be legible on first paint.
+  const classification =
+    "Problem-solver — IT Business Systems Analyst · AI Solution Architect";
 
   const cells: { label: string; value: React.ReactNode }[] = [
-    { label: "Prepared by", value: personal.name },
     { label: "Experience", value: "Enterprise (S&P 500) + applied AI" },
+    { label: "Education", value: "Boston University (STEM MS) · Cornell AI & ML 360 certificate" },
     {
       label: "Status",
       value: (
@@ -55,21 +59,55 @@ export const TitleBlock = ({ reduced }: { reduced: boolean }) => {
 
   return (
     <header id="sec-top" className="scroll-mt-6 pt-9">
-      <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-accent">
-        Subject of specification
-      </p>
-      <h1 className="mt-3 text-[clamp(48px,8.5vw,104px)]">{personal.name}</h1>
+      {/* Hook — the 5-second punch, leads above the name */}
       <p
-        className="mt-4 font-mono uppercase tracking-[0.08em]"
-        style={{ fontSize: "clamp(12px, 1.5vw, 15px)", color: "#4A473E" }}
-        aria-label="IT Business Systems Analyst / Applied AI"
+        className="font-serif font-bold text-ink"
+        style={{ fontSize: "clamp(21px, 3vw, 33px)", lineHeight: 1.28 }}
       >
-        {classification || " "}
+        I've always sat between the business side and the engineers
+        &mdash; the place where an idea either ships or quietly dies.
       </p>
-      <p className="mt-3 font-mono text-[11px] tracking-[0.06em] text-muted">
-        Est. read 3 min &middot; 6 sections &middot; Scroll to begin &darr;
-        &middot; Press J / K or 1&ndash;6 to jump
+      <p
+        className="mt-2 font-serif text-ink-soft"
+        style={{ fontSize: "clamp(16px, 2vw, 21px)", lineHeight: 1.42 }}
+      >
+        My whole career has been making sure it ships. First in data. Now in AI
+        and automation.
       </p>
+
+      <h1 className="mt-6 text-[clamp(44px,7.5vw,92px)]">{personal.name}</h1>
+
+      <p
+        className="mt-3 font-mono uppercase tracking-[0.08em]"
+        style={{ fontSize: "clamp(12px, 1.5vw, 15px)", color: "#4A473E" }}
+        aria-label="Problem-solver — IT Business Systems Analyst and AI Solution Architect"
+      >
+        {classification || " "}
+      </p>
+
+      <p className="mt-5 max-w-[72ch] text-[15.5px] leading-[1.62] text-ink-soft">
+        I've spent my career as the analyst between business teams and
+        engineering &mdash; most recently at Equity Residential, an S&amp;P 500
+        company, where SQL was part of the daily job: pulling data for business
+        partners, building dashboards, validating a 135,000-account Azure AD B2C migration.
+        On my own I went deep on AI. I fine-tuned five machine-learning models
+        in Python. One cut Dari transcription error from 57.8% to 27.3%. I
+        architected the incident-monitoring system at the Afghan Human Right
+        Center, and wrote a sole-author paper now under review at Springer. Underneath it: a STEM master's from Boston University and
+        Cornell's AI and Machine Learning 360 certificate.
+      </p>
+
+      <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
+        <Link
+          to="/projects"
+          className="border border-ink bg-ink px-4 py-2 font-mono text-[12px] uppercase tracking-[0.08em] text-paper transition-colors duration-150 hover:border-accent hover:bg-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
+        >
+          See what I fixed &rarr;
+        </Link>
+        <span className="font-mono text-[10.5px] tracking-[0.06em] text-muted">
+          Est. read 3 min &middot; Scroll to begin &darr;
+        </span>
+      </div>
 
       <div
         className="mt-7 grid gap-px border-2 border-ink bg-line-2"

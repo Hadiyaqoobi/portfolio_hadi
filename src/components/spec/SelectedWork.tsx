@@ -1,11 +1,14 @@
 import { useRef, useState } from "react";
 import { WORK } from "@/data/work";
 import type { CodePeek } from "@/data/work";
+import { Link } from "react-router-dom";
 import { SectionHeader } from "./Chrome";
 import { useReveal, revealStyle } from "./hooks";
 
 /* §03 Selected work: four entries, Problem/Approach/Result rows, progressive-
-   disclosure code exhibits sourced from work.ts (real, sanitized peeks). */
+   disclosure code exhibits sourced from work.ts (real, sanitized peeks).
+   Anchored on the two identities: EQR (BSA) + AHRC (AI), with the model core
+   and AlphaSeekers as supporting depth. Every claim honesty-checked. */
 
 const peekFor = (needle: string): CodePeek | undefined =>
   WORK.find((w) => w.title.toLowerCase().includes(needle))?.peek;
@@ -23,7 +26,7 @@ const CodeExhibit = ({
   const panelRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="mt-4">
+    <div className="mt-4 min-w-0 max-w-full">
       <button
         type="button"
         onClick={() => setOpen(!open)}
@@ -72,7 +75,7 @@ const CodeExhibit = ({
   );
 };
 
-const PARRow = ({ label, text, result }: { label: string; text: string; result?: boolean }) => (
+const PARRow = ({ label, text, result }: { label: string; text: React.ReactNode; result?: boolean }) => (
   <div className="flex flex-col gap-1 py-1.5 sm:flex-row sm:gap-0">
     <span className="w-[84px] shrink-0 font-mono text-[10.5px] uppercase tracking-[0.06em] text-accent">
       {label}
@@ -104,13 +107,14 @@ const Tag = ({ children, live }: { children: React.ReactNode; live?: boolean }) 
   </span>
 );
 
-/* Fig 3.2 — the MakerMind pipeline as a smaller flow figure. */
-const PipelineFigure = ({ reduced }: { reduced: boolean }) => {
+/* Fig 3.2 — the AHRC cascade: cheap model triages, stronger one classifies,
+   strongest handles low-confidence, and a person reviews every case. */
+const CascadeFigure = ({ reduced }: { reduced: boolean }) => {
   const nodes = [
-    { model: "Claude", role: "plan" },
-    { model: "GPT-4", role: "code" },
-    { model: "Gemini", role: "validate" },
-    { model: "Guardian", role: "guard · 5,531 LOC" },
+    { model: "Haiku", role: "triage" },
+    { model: "Sonnet", role: "classify" },
+    { model: "Opus", role: "escalation only" },
+    { model: "Human", role: "reviews every case" },
   ];
   return (
     <figure className="mx-0 mt-4 border border-line">
@@ -138,27 +142,27 @@ const PipelineFigure = ({ reduced }: { reduced: boolean }) => {
         ))}
       </div>
       <figcaption className="border-t border-line px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.1em] text-muted">
-        <span className="text-accent">Fig. 3.2</span> &mdash; Four stages, three
-        models checking each other
+        <span className="text-accent">Fig. 3.2</span> &mdash; Cost-tiered cascade,
+        a person over every decision
       </figcaption>
     </figure>
   );
 };
 
-/* Fig 3.4 — TakveenUp NER F1 progress as bars, animated on the figure's own
-   reveal so the motion happens in view. */
-const F1Figure = ({ reduced }: { reduced: boolean }) => {
+/* Fig 3.4 — Dari speech recognition: word-error rate before and after LoRA
+   fine-tuning. Shorter bar is better; measured on synthetic held-out data. */
+const WerFigure = ({ reduced }: { reduced: boolean }) => {
   const { ref, revealed } = useReveal<HTMLElement>();
   const active = reduced ? true : revealed;
   const bars = [
-    { v: "v1", w: 55, label: "0.55", accent: false },
-    { v: "v5", w: 74.76, label: "0.7476", accent: true },
+    { v: "zero-shot", w: 57.8, label: "57.8%", accent: false },
+    { v: "fine-tuned", w: 27.3, label: "27.3%", accent: true },
   ];
   return (
     <figure ref={ref} className="mx-0 mt-4 border border-line px-4 py-3.5">
       {bars.map((b, i) => (
         <div key={b.v} className="flex items-center gap-3 py-1.5">
-          <span className="w-6 font-mono text-[11px] text-muted">{b.v}</span>
+          <span className="w-20 font-mono text-[11px] text-muted">{b.v}</span>
           <div className="h-[14px] flex-1 bg-line-3">
             <div
               className="h-full"
@@ -182,8 +186,8 @@ const F1Figure = ({ reduced }: { reduced: boolean }) => {
         </div>
       ))}
       <figcaption className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.1em] text-muted">
-        <span className="text-accent">Fig. 3.4</span> &mdash; +36% F1 over 5
-        training cycles
+        <span className="text-accent">Fig. 3.4</span> &mdash; Dari word-error rate,
+        cut from 57.8% to 27.3% (synthetic eval)
       </figcaption>
     </figure>
   );
@@ -194,7 +198,6 @@ export const SelectedWork = ({ reduced }: { reduced: boolean }) => {
   const shown = reduced ? true : revealed;
 
   const sqlPeek = peekFor("regulatory compliance");
-  const makerPeek = peekFor("makermind");
   const alphaPeek = peekFor("alphaseekers");
   const nerPeek = peekFor("takveenup");
 
@@ -209,59 +212,54 @@ export const SelectedWork = ({ reduced }: { reduced: boolean }) => {
       <SectionHeader
         num="03"
         title="Selected work"
-        tag="Specifications · 04 — tap to expand"
+        tag="Four projects · tap to expand"
       />
 
-      {/* 3.1 */}
+      {/* 3.1 — EQR reconciliation (BSA flagship) */}
       <article className="border-b border-line py-6">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
           <div className="flex items-baseline gap-3">
             <span className="font-mono text-[12px] text-accent">3.1</span>
             <h3 className="font-serif font-bold" style={{ fontSize: "clamp(20px,2.4vw,26px)" }}>
-              Zero-Critical-Incident Cloud Migration
+              Utility-billing reconciliation
             </h3>
           </div>
-          <Tag>Enterprise · S&amp;P 500 · Confidential</Tag>
+          <Tag>Enterprise · S&amp;P 500</Tag>
         </div>
         <div className="mt-3">
-          <PARRow label="Problem" text="The authentication migration had stalled for months across six teams with no single owner." />
-          <PARRow label="Approach" text="Took ownership of the full SDLC: dependency mapping, BRDs, and coordination of CloudOps, Infrastructure, SecOps, AppOps, and DevOps across four phases." />
-          <PARRow result label="Result" text="135,000+ resident accounts on Azure B2C with zero critical incidents." />
+          <PARRow label="Problem" text="Resident utility charges are split by a formula, and I didn't trust that the numbers posting to the ledger matched what the formula said." />
+          <PARRow label="Approach" text="I wrote a T-SQL harness that recomputes every average from the raw data and diffs it against the system of record — 80 charge-code and bedroom combinations across 12 months, 960 checks in all." />
+          <PARRow result label="Result" text={<>It caught two silent errors that were mis-billing residents: a key stored as <code className="font-mono text-[13px]">ru</code> in one table and <code className="font-mono text-[13px]">RU</code> in another, and a unit number with a trailing space. Run on QA copies only.</>} />
         </div>
         {sqlPeek && <CodeExhibit peek={sqlPeek} exhibitNum="3.1" reduced={reduced} />}
       </article>
 
-      {/* 3.2 */}
+      {/* 3.2 — AHRC (AI architecture anchor) */}
       <article className="border-b border-line py-6">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
           <div className="flex items-baseline gap-3">
             <span className="font-mono text-[12px] text-accent">3.2</span>
             <h3 className="font-serif font-bold" style={{ fontSize: "clamp(20px,2.4vw,26px)" }}>
-              MakerMind
+              AHRC incident-monitoring system
             </h3>
           </div>
-          <Tag>AI Architecture · Independent R&amp;D</Tag>
+          <Tag>AI architecture · Contract</Tag>
         </div>
         <div className="mt-3">
-          <PARRow label="Problem" text="No single LLM reliably plans, codes, and validates microcontroller firmware." />
-          <PARRow label="Approach" text="A 4-stage multi-agent pipeline: Claude plans, GPT-4 codes, Gemini validates, and a patch engine applies changes." />
-          <PARRow result label="Result" text="A 5,531-line Guardian safety engine checks every output before it reaches hardware." />
+          <PARRow label="Problem" text="Human-rights reports arrive in three languages and have to be classified the same way every time, without ever leaking a detail that could identify a source." />
+          <PARRow label="Approach" text="I designed a cost-tiered Claude cascade — a cheap model triages, a stronger one classifies, the strongest only handles low-confidence cases — with a person reviewing every result before it's published, against a UN-treaty taxonomy across 34 provinces." />
+          <PARRow result label="Result" text="Built and close to launch. I own the architecture; my team writes the code. It's designed so it can't retain the PII that would put a source at risk." />
         </div>
-        <PipelineFigure reduced={reduced} />
-        <div className="flex flex-wrap items-center gap-3">
-          {makerPeek && <CodeExhibit peek={makerPeek} exhibitNum="3.2" reduced={reduced} />}
-          <a
-            href="https://github.com/Hadiyaqoobi"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="link mt-4 font-mono text-[11px] uppercase tracking-[0.1em]"
-          >
-            GitHub &#8599;
-          </a>
-        </div>
+        <CascadeFigure reduced={reduced} />
+        <Link
+          to="/systems"
+          className="link mt-4 inline-block font-mono text-[11px] uppercase tracking-[0.1em]"
+        >
+          See architecture &rarr;
+        </Link>
       </article>
 
-      {/* 3.3 */}
+      {/* 3.3 — AlphaSeekers (live product, supporting) */}
       <article className="border-b border-line py-6">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
           <div className="flex items-baseline gap-3">
@@ -273,9 +271,9 @@ export const SelectedWork = ({ reduced }: { reduced: boolean }) => {
           <Tag live>Live · Product</Tag>
         </div>
         <div className="mt-3">
-          <PARRow label="Problem" text="Learners on 2G networks where data costs $5 per gigabyte, with a near-zero budget." />
-          <PARRow label="Approach" text="Dual data store with in-memory fallback, circuit-breaker notifications, RAG on pgvector plus Groq." />
-          <PARRow result label="Result" text="Live with 200 registered users at $0/month infrastructure." />
+          <PARRow label="Problem" text="Learners on 2G networks, where a gigabyte of data costs about $5, and a near-zero budget to work with." />
+          <PARRow label="Approach" text="A retrieval-augmented study assistant on pgvector, with an in-memory fallback and circuit-breaker notifications so it degrades instead of going down." />
+          <PARRow result label="Result" text="Live for a refugee-education organization. 200 registered users, all on free-tier infrastructure." />
         </div>
         <div className="flex flex-wrap items-center gap-3">
           {alphaPeek && <CodeExhibit peek={alphaPeek} exhibitNum="3.3" reduced={reduced} />}
@@ -290,24 +288,34 @@ export const SelectedWork = ({ reduced }: { reduced: boolean }) => {
         </div>
       </article>
 
-      {/* 3.4 */}
+      {/* 3.4 — Fine-tuned model core (hands-on AI, supporting) */}
       <article className="py-6">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
           <div className="flex items-baseline gap-3">
             <span className="font-mono text-[12px] text-accent">3.4</span>
             <h3 className="font-serif font-bold" style={{ fontSize: "clamp(20px,2.4vw,26px)" }}>
-              TakveenUp
+              Fine-tuned model core
             </h3>
           </div>
-          <Tag>ML Systems · In development</Tag>
+          <Tag>Applied ML · Research</Tag>
         </div>
         <div className="mt-3">
-          <PARRow label="Problem" text="Skilled multilingual workers get filtered out by keyword-matching ATS systems." />
-          <PARRow label="Approach" text="Trained 5 models from scratch (XLM-RoBERTa NER, e5 embeddings, LoRA Whisper for Dari, LightGBM), each with a 3-level fallback chain." />
-          <PARRow result label="Result" text="NER F1 0.7476; embeddings correctly separate 24 of 25 occupational codes." />
+          <PARRow label="Problem" text="Skilled multilingual workers get filtered out by keyword-matching applicant systems. And Dari has almost no speech or language data to build on." />
+          <PARRow label="Approach" text="I fine-tuned five models — a LoRA Whisper for Dari speech, an XLM-RoBERTa skill classifier, an e5 bi-encoder for matching, and two calibrated gradient-boosted models — after generating the synthetic data to train them." />
+          <PARRow result label="Result" text="Dari speech-recognition error fell from 57.8% to 27.3%, and the skill classifier reached F1 0.95. Both measured on synthetic held-out data — real-world accuracy is still unmeasured, and I say so." />
         </div>
-        <F1Figure reduced={reduced} />
-        {nerPeek && <CodeExhibit peek={nerPeek} exhibitNum="3.4" reduced={reduced} />}
+        <WerFigure reduced={reduced} />
+        <div className="flex flex-wrap items-center gap-3">
+          {nerPeek && <CodeExhibit peek={nerPeek} exhibitNum="3.4" reduced={reduced} />}
+          <a
+            href="https://github.com/Hadiyaqoobi"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link mt-4 font-mono text-[11px] uppercase tracking-[0.1em]"
+          >
+            GitHub &#8599;
+          </a>
+        </div>
       </article>
     </section>
   );

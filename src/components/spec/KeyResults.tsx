@@ -20,14 +20,17 @@ export const Summary = ({ reduced }: { reduced: boolean }) => {
     >
       <SectionHeader num="01" title="Summary" tag="Abstract" />
       <p
-        className="mt-6 max-w-[24ch] font-serif font-bold text-ink"
+        className="mt-6 max-w-[30ch] font-serif font-bold text-ink"
         style={{ fontSize: "clamp(21px, 3vw, 31px)", lineHeight: 1.32 }}
       >
-        I analyze enterprise systems, automate them, and put{" "}
-        <span className="text-accent">working AI</span> on top.
+        The rare part isn't the data or the AI. It's{" "}
+        <span className="text-accent">both</span>.
       </p>
       <p className="mt-5 max-w-[66ch] text-[16px] leading-[1.65] text-ink-soft">
-        {personal.subtitle}
+        I've spent years deep in enterprise data at S&amp;P 500 scale, and the
+        last few building and fine-tuning AI models myself. Most people work one
+        side. I bring the same discipline to both: I build
+        for the version that survives real use.
       </p>
     </section>
   );
@@ -64,29 +67,29 @@ const RESULTS: {
 }[] = [
   {
     n: "2.1",
-    label: "Cloud migration, Azure AD B2C",
-    value: (a, r) => <CountValue target={135000} comma active={a} reduced={r} suffix="+" />,
-    clarifier: "· zero critical incidents",
+    label: "Azure AD B2C migration — I owned validation & stabilization",
+    value: (a, r) => <CountValue target={135000} comma active={a} reduced={r} />,
+    clarifier: "· accounts, six teams",
     accent: true,
   },
   {
     n: "2.2",
-    label: "ML models trained from scratch (PyTorch, LightGBM)",
+    label: "ML models I built (LoRA fine-tunes + gradient boosting)",
     value: (a, r) => <CountValue target={5} active={a} reduced={r} />,
-    clarifier: "",
+    clarifier: "· on synthetic data",
   },
   {
     n: "2.3",
-    label: "LLM-annotator reliability, sole-author study · found 90.3% FDR",
+    label: "LLM-annotator reliability — sole-author study, 90.3% false-discovery rate",
     value: () => "Springer",
     clarifier: "· under review",
     accent: true,
   },
   {
     n: "2.4",
-    label: "Live product on $0/mo infrastructure",
-    value: (a, r) => <CountValue target={200} active={a} reduced={r} />,
-    clarifier: "· registered users",
+    label: "Learners on a platform I shipped for a refugee-education org",
+    value: (a, r) => <CountValue target={285} active={a} reduced={r} />,
+    clarifier: "· ConnectionHub",
   },
 ];
 

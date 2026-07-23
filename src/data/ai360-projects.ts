@@ -95,7 +95,7 @@ export const AI360_PROJECTS: AI360Project[] = [
     title: "Named Entity Recognition Tagger",
     track: "NLP",
     blurb:
-      "I trained a model to tag named entities inside raw text, in BIO format with a CRF. This is the coursework that fed directly into ROE-ResumeNER, the XLM-RoBERTa NER model I trained for multilingual resumes.",
+      "I trained a model to tag named entities inside raw text, in BIO format with a CRF. This is the coursework that fed directly into my multilingual résumé NER model — an XLM-RoBERTa model I fine-tuned for English, Dari, and Pashto.",
     skills: ["nlp", "py"],
     notebookLinks: [{ label: "NER tagger notebook", href: `${NB}/ner_tagger.html` }],
     executed: true,
@@ -105,7 +105,7 @@ export const AI360_PROJECTS: AI360Project[] = [
     title: "Supervised Text Classification",
     track: "NLP",
     blurb:
-      "I built classifiers that assign categories to documents, prepared the supervised dataset, and evaluated the model end to end with the standard classification metrics.",
+      "Supervised text classification end to end: I prepped the labeled dataset, trained the classifiers, and evaluated them properly. All three notebooks are published — if you want the actual numbers, they're in there.",
     skills: ["nlp", "ml", "py"],
     notebookLinks: [
       { label: "Text categorization", href: `${NB}/text_classification.html` },
@@ -130,7 +130,7 @@ export const AI360_PROJECTS: AI360Project[] = [
     title: "k-Nearest Neighbors Facial Recognition",
     track: "Machine Learning",
     blurb:
-      "I built a k-NN facial recognition system with fully vectorized Euclidean distance, computing the distance matrix as a Gram matrix with no Python loops. The exercise was as much about NumPy vectorization as it was about k-NN.",
+      "k-NN facial recognition, fully vectorized: the whole Euclidean distance matrix computed from one Gram matrix, no Python loops. The exercise was as much about NumPy vectorization as it was about k-NN.",
     skills: ["ml", "py"],
     executed: false,
   },
@@ -166,7 +166,7 @@ export const AI360_PROJECTS: AI360Project[] = [
     title: "Bagging, Random Forests & Gradient Boosting",
     track: "Machine Learning",
     blurb:
-      "I built bagging, random forests, and gradient-boosted trees from scratch and reasoned through which reduces variance and which reduces bias. That intuition is exactly what I tuned later in ROE-Match (LightGBM).",
+      "I built bagging, random forests, and gradient-boosted trees from scratch and reasoned through which reduces variance and which reduces bias. That intuition is exactly what I tuned later in my LightGBM retention model.",
     skills: ["ml", "py"],
     executed: false,
   },
@@ -175,7 +175,7 @@ export const AI360_PROJECTS: AI360Project[] = [
     title: "Kernel Machines: Linear & Kernelized SVM",
     track: "Machine Learning",
     blurb:
-      "I worked through support vector machines and the kernel trick, building non-linear decision boundaries out of linear classifiers and seeing where each kernel helps.",
+      "I worked through support vector machines and the kernel trick, building non-linear decision boundaries out of linear classifiers.",
     skills: ["ml", "py"],
     executed: false,
   },
@@ -184,7 +184,7 @@ export const AI360_PROJECTS: AI360Project[] = [
     title: "Cross-Validation & Bias-Variance",
     track: "Machine Learning",
     blurb:
-      "I implemented k-fold cross-validation and grid search from scratch and computed the bias-variance decomposition empirically (estimating the average prediction, noise, and variance terms). This is the discipline behind the leakage gates in my trained models.",
+      "I implemented k-fold cross-validation and grid search from scratch and computed the bias-variance decomposition empirically (estimating the average prediction, noise, and variance terms). This is the discipline that later caught the leakage in my retention model.",
     skills: ["ml", "py"],
     executed: false,
   },
@@ -193,7 +193,7 @@ export const AI360_PROJECTS: AI360Project[] = [
     title: "Convolutional Neural Networks on MNIST",
     track: "Machine Learning",
     blurb:
-      "I built a full CNN workflow in Keras: class-balance checks with SMOTE, normalization and resizing, a Conv2D plus dense network trained for 200 epochs to roughly 0.97 to 0.99 per-class accuracy, then extracted and visualized the learned convolution filters and ran Sobel and sharpening preprocessing experiments.",
+      "I built a full CNN workflow in Keras: class-balance checks with SMOTE, normalization and resizing, a Conv2D plus dense network trained for 200 epochs to roughly 0.97 to 0.99 per-class accuracy. Afterwards I pulled out the learned convolution filters to see what the network actually looks at, and ran Sobel and sharpening preprocessing experiments.",
     skills: ["ml", "pt", "py"],
     executed: false,
   },
@@ -203,7 +203,7 @@ export const AI360_PROJECTS: AI360Project[] = [
     title: "DC Housing Price Prediction (H2O + LIME)",
     track: "Data Science (R)",
     blurb:
-      "My applied AI 360 paper, in IEEE format. I cleaned 10,617 Washington D.C. property transactions down to 108 features, trained a 3-hidden-layer neural network in H2O (in R), reached validation R-squared 0.811 (MAE around $73,644), and used LIME to explain individual predictions to non-technical readers.",
+      "My applied AI & Machine Learning 360 paper, in IEEE format. I cleaned 10,617 Washington D.C. property transactions down to 108 features, trained a 3-hidden-layer neural network in H2O (in R), reached validation R-squared 0.811 (MAE around $73,644), and used LIME to explain individual predictions to non-technical readers.",
     skills: ["r", "ml"],
     artifact: { label: "Read the paper (PDF)", href: "/projects/neural_network_dc_housing.pdf" },
   },
@@ -212,7 +212,7 @@ export const AI360_PROJECTS: AI360Project[] = [
     title: "Urban Traffic Congestion Clustering",
     track: "Data Science (R)",
     blurb:
-      "I clustered 101 U.S. urban areas on 14 congestion variables with agglomerative hierarchical clustering (Ward's method) and found 4 well-separated groups along a congestion-severity spectrum, with clear infrastructure-priority implications.",
+      "I clustered 101 U.S. urban areas on 14 congestion variables with agglomerative hierarchical clustering (Ward's method) and found 4 well-separated groups along a congestion-severity spectrum.",
     skills: ["r"],
     artifact: { label: "Read the write-up (PDF)", href: "/projects/TTI_Cluster_Analysis_Portfolio.pdf" },
   },
@@ -221,7 +221,7 @@ export const AI360_PROJECTS: AI360Project[] = [
     title: "COVID-19 Vaccine Hotspot Analysis",
     track: "Data Science (R)",
     blurb:
-      "I ran Getis-Ord Gi* hotspot analysis across continental U.S. counties and found significant spatial clustering: the Deep South as a dominant coldspot (z down to -6.67) and the Northeast as a strong hotspot (+5.18), with direct public-health policy implications.",
+      "I ran Getis-Ord Gi* hotspot analysis across continental U.S. counties and found significant spatial clustering: the Deep South as a dominant coldspot (z down to -6.67) and the Northeast as a strong hotspot (+5.18).",
     skills: ["r"],
     artifact: { label: "Read the write-up (PDF)", href: "/projects/TTI_Hotspot_Analysis_Portfolio.pdf" },
   },
@@ -230,7 +230,7 @@ export const AI360_PROJECTS: AI360Project[] = [
     title: "Association Rules, PCA & Factor Analysis",
     track: "Data Science (R)",
     blurb:
-      "Across the analytics track I mined market-basket association rules, reduced dimensionality with PCA, and used factor analysis to understand smart-meter adoption, all in R on real datasets.",
+      "Across the analytics track I mined market-basket association rules, reduced dimensionality with PCA, and used factor analysis on smart-meter adoption data. All of it in R.",
     skills: ["r", "ml"],
     artifact: { label: "Read the data-analytics portfolio (PDF)", href: "/projects/cornell_data_analytics.pdf" },
   },

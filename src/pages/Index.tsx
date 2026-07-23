@@ -23,7 +23,7 @@ const SECTIONS = [
   { id: "sec-summary", num: "01", label: "Summary" },
   { id: "sec-results", num: "02", label: "Key results" },
   { id: "sec-work", num: "03", label: "Selected work" },
-  { id: "sec-provenance", num: "04", label: "Provenance" },
+  { id: "sec-provenance", num: "04", label: "Experience" },
   { id: "sec-signoff", num: "05", label: "Sign-off" },
 ];
 const SECTION_IDS = SECTIONS.map((s) => s.id);

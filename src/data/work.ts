@@ -16,7 +16,7 @@ export const STATUS_META: Record<WorkStatus, { label: string }> = {
   dev: { label: "In development" },
   research: { label: "Research" },
   enterprise: { label: "Shipped (enterprise)" },
-  coursework: { label: "Cornell AI 360" },
+  coursework: { label: "Cornell AI & ML 360" },
 };
 export const STATUS_ORDER: WorkStatus[] = ["live", "dev", "research", "enterprise", "coursework"];
 
@@ -55,10 +55,10 @@ function deriveStatus(p: any): WorkStatus {
   if (
     t.includes("real estate valuations") ||
     t.includes("predictive real estate") ||
-    t.includes("resumener") ||
-    t.includes("roe-embed") ||
-    t.includes("whisperdari") ||
-    t.includes("roe-match") ||
+    t.includes("entity extraction") ||
+    t.includes("matching engine") ||
+    t.includes("whisper-dari") ||
+    t.includes("retention model") ||
     t.includes("wage prediction")
   )
     return "research";
@@ -107,7 +107,7 @@ async processRequest(request, context) {
     peek: {
       language: "python",
       filePath: "train_ner.py",
-      code: `# fine-tune NER to extract SKILL / CERT / TITLE spans
+      code: `# spaCy NER pipeline: SKILL / CERT / TITLE spans from raw resume text
 nlp = spacy.blank("en")
 ner = nlp.add_pipe("ner")
 for label in entity_types:
@@ -168,7 +168,7 @@ function deriveLinks(p: any, status: WorkStatus): WorkLink[] {
     const external = p.demo.startsWith("http");
     const isPdf = p.demo.endsWith(".pdf");
     links.push({
-      label: isPdf ? "Read the paper" : external ? "Live demo" : "Case study",
+      label: isPdf ? "Read the write-up (PDF)" : external ? "Live demo" : "Case study",
       href: p.demo,
       // PDFs are static documents — render as hard <a> navigations, never SPA links.
       external: external || isPdf,
@@ -182,7 +182,7 @@ function deriveLinks(p: any, status: WorkStatus): WorkLink[] {
     t.includes("ai monitoring")
   )
     links.push({ label: "See architecture", href: "/systems" });
-  if (status === "coursework") links.push({ label: "Open in AI 360 explorer", href: "/projects/ai360" });
+  if (status === "coursework") links.push({ label: "Open in AI & ML 360 explorer", href: "/projects/ai360" });
   return links;
 }
 

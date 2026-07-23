@@ -2,21 +2,28 @@ import { Navigation } from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { portfolioData } from "@/data/portfolio-data";
 
+/* The About page as a letter — the part a resume can't hold. Content is
+   honesty-checked against the master files: no "zero critical incidents,"
+   no "co-authored the BRD/5 FRDs," documented 285 learners (not 1,182),
+   fine-tuned (not trained from scratch), paper "under review" (not published).
+   The refugee background is framed as a differentiator, competence-forward,
+   never a bid for sympathy. */
+
 const pillars = [
   {
     title: "Systems Thinker Who's Been the End User",
     description:
-      "I've been the Leasing Consultant using the CRM at 9 PM during a renovation, the refugee navigating a broken education process, the BSA writing SQL four hours a day to validate what the vendor said was correct. I don't analyze systems from a distance. I've operated at every layer, which is why I catch what others miss.",
+      "I've been the leasing consultant using the CRM at 9 PM during a renovation, the refugee working through a broken education process, the analyst writing SQL for hours to check whether the vendor's numbers were actually right. I've stood at every layer of them.",
   },
   {
     title: "Builder, Not Advisor",
     description:
-      "I don't recommend solutions and wait for someone else to build them. 5 production websites built on free-tier infrastructure. A SQL validation engine checking 960+ data points per property. An Azure migration across six teams with zero critical incidents. VBA automation because no vendor product existed. When something needs to exist, I make it exist.",
+      "I don't hand over a recommendation and wait for someone else to build it. Web platforms shipped on free-tier tools. A SQL reconciliation harness checking 960 data points to catch mis-billing. An Azure migration across six teams where I owned the validation and the stabilization. Automation I wrote myself because no product existed for it. When something needs to exist, I make it exist.",
   },
   {
     title: "Constraint-Driven Design",
     description:
-      "Volunteer teams, 2G connections, construction-disrupted properties, six time zones. My best work happens under real constraints. They forced me to identify what actually matters, and that discipline transfers everywhere: from refugee education platforms to S&P 500 enterprise systems to AI product architecture.",
+      "Volunteer teams, 2G connections, construction-disrupted properties, six time zones, near-zero budgets. My best work happens under real constraints — they force me to find what actually matters and cut the rest.",
   },
 ];
 
@@ -24,12 +31,12 @@ const facts = [
   {
     term: "3 countries, 2 continents",
     detail:
-      "Afghanistan, Turkey, and the United States. Each context taught me how constraints look different depending on who's facing them.",
+      "Afghanistan, Turkey, and the United States. Each one taught me that constraints look different depending on who's facing them.",
   },
   {
     term: "5 languages",
     detail:
-      "Dari (native), Hazaragi, Turkish, Pashto, English. Enough German to order coffee. Each one reshaped how I think about requirements and communication.",
+      "Dari (native), Hazaragi, Turkish, Pashto, English. Enough German to order coffee. Every new one changed how I hear a requirement.",
   },
   {
     term: "Based in Boston",
@@ -52,77 +59,107 @@ const AboutPage = () => {
       <main className="mx-auto w-full max-w-3xl px-5 sm:px-6 pt-10 sm:pt-14 pb-16 prose-letter">
         {/* Letterhead */}
         <header className="border-b border-line pb-6">
-          <h1>About Me</h1>
+          <h1>Background</h1>
         </header>
 
         <p className="mt-6 mb-8 text-right font-serif italic text-ink-soft">
-          Boston, July 2026
+          Boston, 2026
         </p>
 
         {/* The letter */}
         <section aria-label="Introduction" className="prose-measure space-y-5">
           <p>
-            If you're reading this, you most likely have my resume open in
-            another tab. This page is the part a resume can't hold.
-          </p>
-          <p className="font-serif italic text-ink-soft">
-            Every system I've built started with a constraint I couldn't
-            ignore.
+            If you're reading this, my resume is probably open in another tab.
+            This is the part it can't hold.
           </p>
           <p>
-            I left Afghanistan at 17. Won two scholarships that fund fewer than
-            1 in 5 applicants: UNHCR's DAFI and Turkey's YTB Burslari (~4%
-            acceptance). Studied Aviation Management at Kocaeli University,
-            wrote my thesis mapping digital maturity across 10+ airport
-            systems, and graduated with High Honors. That thesis taught me
-            as-is vs. to-be analysis, gap identification, and stakeholder
-            alignment. It turned out to be the same work I'd do years later as
-            a Business Systems Analyst at an S&amp;P 500 REIT.
+            I find where a system is failing, dig into why, and build the fix.
+            That's shown up as business systems analysis at an S&amp;P 500
+            company, and now as AI systems I architect from
+            the requirements up — data and AI are just the two tools I reach for
+            most. But the instinct behind it started long before either.
           </p>
           <p>
-            Before I left Turkey, the CEO of ConnectionHub recruited me to
-            build education technology for refugees. I led a 14-person team
-            plus 13 city coordinators and owned 5 web properties, shipping a
-            greenfield platform to about 200 students inside an organization
-            that reached 1,182 students and 9,447 learning hours across 5
-            countries, all on a 15-tool free-tier stack. Every requirements
-            document, every database schema, every deployment. I authored it,
-            built it, or shipped it. That's where I learned that constraints
-            don't limit design. They clarify it.
+            I left Afghanistan at seventeen and rebuilt from zero, in a country
+            that wasn't mine and a language I didn't have yet. I won two
+            scholarships — the UN's
+            DAFI and Turkey's YTB — and studied Aviation Management at Kocaeli
+            University, where my thesis mapped digital maturity across a dozen
+            airport systems. That thesis was as-is versus to-be analysis, gap
+            finding, stakeholder alignment. The same work I'd do years later as a
+            business systems analyst at an S&amp;P 500 company. I just didn't
+            know it yet.
           </p>
           <p>
-            In the U.S., I joined Equity Residential as a Leasing Consultant. At
-            a 400-unit property during a major renovation, I lived inside the
-            systems I'd later be asked to fix. I felt every friction point,
-            tracked every data discrepancy, and built VBA automation because
-            no vendor tool existed for what I needed. I won Leasing Consultant
-            of the Year. Not because I was the best salesperson, but because I
-            understood the systems better than anyone selling with them.
+            Before I left Turkey, I built the technology behind an education
+            platform for refugees — a Salesforce data model, a localized site,
+            the whole curriculum operation, all on free-tier tools. It reached
+            285 learners across 753 enrollments. That's where I learned the thing
+            I still believe: constraints don't limit design. They clarify it.
           </p>
           <p>
-            After my Master's at BU Questrom (Director's Honors List, three
-            times), Equity brought me back into the corporate technology
-            organization as an IT Business Systems Analyst. I managed an Azure
-            B2C authentication migration across six teams and 135,000+
-            accounts, co-authored the BRD and 5 FRDs with the senior BSA for
-            multi-state fee transparency compliance, and wrote SQL four hours
-            a day across 9 API
-            integrations. I didn't just document requirements. I validated
-            them in the data, tested them in production, and owned them
-            through deployment.{" "}
-            <strong className="font-medium text-ink">
-              Zero critical incidents when it went live.
-            </strong>
+            In the U.S. I started at Equity Residential on the front line, as a
+            leasing consultant, inside a 400-unit property in the middle of a
+            renovation. I lived inside the systems I'd later be asked to fix. I
+            felt every broken workflow, tracked every data discrepancy, and built
+            my own automation when no tool existed for what I needed. I won
+            Leasing Consultant of the Year — not for selling, but for
+            understanding the systems better than anyone selling with them.
           </p>
           <p>
-            Now I'm the Business Systems Manager (contract) at the Afghan
-            Human Right Center, and I build applied AI products independently:
-            one product live, three in active development, five ML models I
-            trained myself, and research on LLM reliability under peer review
-            at Springer's Empirical Software Engineering. I completed
-            Cornell's AI 360 certificate in 2026. The thread through all of
-            it: I notice where systems fail, I dig into why, and I build
-            what's needed to fix them.
+            After my master's at Boston University, Equity brought me back, a
+            boomerang rehire, this time into corporate IT as an IT Business
+            Systems Analyst on the Marketing Technology team. I was the analyst
+            for the customer-facing platforms: the resident portal and its iOS and
+            Android apps, the online application and leasing system, the resident
+            payment integrations, and the Azure AD B2C identity layer behind them.
+            On each project I ran the full lifecycle — gathering requirements,
+            writing the BRDs and FRDs, coordinating the build with the
+            developers, and supporting each system in production after launch.
+            SQL filled hours of every day: reconciling utility billing to catch
+            mis-billing (a harness I built checks 80 charge-code and bedroom
+            combinations across 12 months against the ledger, 960 points in
+            all), pulling the data business partners needed, validating
+            requirements in the data itself. When 135,000 resident accounts moved
+            onto Azure AD B2C across six teams, I owned the validation, the
+            readiness reporting, and the stabilization after go-live.
+          </p>
+          <p>
+            Now I'm the Business Systems Manager, on contract, at the Afghan
+            Human Right Center, where I architected an AI system that classifies
+            human-rights reports — built and close to launch. I own the design;
+            my team writes the code. Alongside it I fine-tuned five models, one of
+            which cut Dari speech-recognition word error rate from 57.8% to
+            27.3% (measured on held-out synthetic data), and wrote
+            a paper — under review at Springer's Empirical Software Engineering —
+            about a failure I ran into head-on: a small model handed me a result
+            that looked statistically airtight and was completely fabricated.
+            These were my own models, and I learned to distrust their numbers.
+            I finished Cornell's AI and Machine Learning 360 certificate the
+            same year.
+          </p>
+
+          <p className="font-serif italic text-ink-soft pt-2">
+            Here's the thread that runs through all of it.
+          </p>
+          <p>
+            You'll see strong candidates for any role I apply to, and I'm one of
+            them — a STEM master's from Boston University, applied AI from
+            Cornell, an NYU computer-science MicroBachelors certificate through edX, real systems shipped.
+            What I bring on top of that is something no transcript shows. I spent
+            my most formative years making high-stakes, irreversible decisions
+            with no safety net, and building anyway. It taught me to own the
+            whole problem, and to make things work with far less than everyone
+            said I needed.
+          </p>
+          <p>
+            I used to point that mind at one question: how do I get through the
+            next uncertain week? I point it at a different one now — how does this
+            system hold, how does this ship, how does this company come out ahead
+            when the ground is moving. Same instinct, bigger arena. I won't
+            oversell it: hardship isn't a superpower, and I'm not going to tell
+            you it made me smarter. It's what surviving it built in me — and the
+            work above is the proof it transferred.
           </p>
         </section>
 
@@ -130,10 +167,10 @@ const AboutPage = () => {
           &#8258;
         </div>
 
-        {/* Three pillars, as ruled prose */}
-        <section aria-labelledby="about-different">
-          <h2 id="about-different" className="mb-6">
-            What makes me different
+        {/* How I work — three operating principles */}
+        <section aria-labelledby="about-how">
+          <h2 id="about-how" className="mb-6">
+            How I work
           </h2>
           <div className="prose-measure">
             {pillars.map((pillar, index) => (
@@ -176,8 +213,8 @@ const AboutPage = () => {
         {/* Sign-off */}
         <section aria-label="Sign-off" className="prose-measure">
           <p>
-            If the problem you're hiring for sounds anything like the work
-            above, email is the fastest way to reach me:{" "}
+            If the problem you're hiring for sounds anything like the work above,
+            email is the fastest way to reach me:{" "}
             <a href={`mailto:${email}`} className="link">
               {email}
             </a>

@@ -11,21 +11,21 @@ const ROWS = [
     period: "2019–2021",
     entry: "ConnectionHub",
     detail:
-      "Greenfield education platform for about 200 refugee students; the organization reached 1,182 students and 9,447 learning hours across 5 countries. 14-person team plus 13 city coordinators, free-tier stack.",
+      "Systems and analysis for a refugee-education nonprofit: a Salesforce CRM data model, a localized (Farsi) WordPress site, and curriculum operations — 285 learners across 753 enrollments, on a free-tier stack.",
   },
   {
     rev: "0.2",
     period: "2024–2025",
     entry: "Equity Residential · S&P 500",
     detail:
-      "135,000-account Azure B2C migration with zero critical incidents; co-authored the BRD and 5 FRDs with the senior BSA; production SQL shipped.",
+      "IT Business Systems Analyst. Daily T-SQL — reconciliation and business-partner data pulls. On a 135,000-account Azure AD B2C migration run across six teams, I owned the validation, the go/no-go reporting, and the stabilization after launch.",
   },
   {
     rev: "1.0",
     period: "2025–now",
-    entry: "AHRC + Independent R&D",
+    entry: "AHRC + applied AI",
     detail:
-      "Business Systems Manager (contract); board-approved AI monitoring system in build; 5 ML models trained; one live product; Springer research under review.",
+      "Business Systems Manager (contract). Architected an AI incident-monitoring system — built and close to launch. Fine-tuned five ML models; a sole-author paper under review at Springer's Empirical Software Engineering.",
   },
 ];
 
@@ -39,7 +39,7 @@ export const Provenance = ({ reduced }: { reduced: boolean }) => {
       className="mt-[clamp(44px,6vw,72px)] scroll-mt-6"
       style={revealStyle(reduced ? true : revealed)}
     >
-      <SectionHeader num="04" title="Provenance" tag="Revision history" />
+      <SectionHeader num="04" title="Experience" tag="Provenance · revision history" />
 
       <div className="mt-5 overflow-x-auto">
         <div
@@ -77,9 +77,10 @@ export const Provenance = ({ reduced }: { reduced: boolean }) => {
       </div>
 
       <p className="mt-4 font-mono text-[10.5px] uppercase tracking-[0.1em] leading-relaxed text-muted">
-        References &mdash; Equity Residential &middot; Cornell (AI 360) &middot;
+        References &mdash; Equity Residential &middot; Cornell (AI &amp; Machine
+        Learning 360) &middot;
         Boston University (Questrom, STEM MS) &middot; Harvard (CS50) &middot;
-        Stanford (Algorithms) &middot; Springer &middot; NYU (edX
+        Stanford (Algorithms) &middot; Springer (under review) &middot; NYU (edX
         MicroBachelors) &middot;{" "}
         <Link to="/timeline" className="link normal-case">
           full record

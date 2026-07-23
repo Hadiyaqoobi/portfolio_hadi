@@ -41,7 +41,7 @@ export const certificates: Certificate[] = [
   // ============================================
   {
     id: "cornell-ai360",
-    title: "AI 360 Certificate: Artificial Intelligence & Machine Learning",
+    title: "AI and Machine Learning 360 Certificate (formerly AI 360)",
     provider: "Cornell University",
     providerLogo: "/logos/cornell.png",
     skills: ["Machine Learning", "Neural Networks", "NLP", "Prompt Engineering", "Python"],

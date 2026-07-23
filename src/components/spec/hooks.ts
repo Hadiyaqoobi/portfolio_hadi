@@ -184,8 +184,9 @@ export function useKeyboardNav(sectionIds: string[], activeIndex: number) {
       } else if (e.key === "k" || e.key === "K") {
         jump(Math.max(0, activeIndex - 1));
       } else {
+        // Digit d jumps to §0d, so the printed section number and the key match.
         const n = parseInt(e.key, 10);
-        if (n >= 1 && n <= sectionIds.length) jump(n - 1);
+        if (!isNaN(n) && n >= 0 && n < sectionIds.length) jump(n);
       }
     };
     window.addEventListener("keydown", onKey);

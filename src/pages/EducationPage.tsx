@@ -38,9 +38,10 @@ const EducationPage = () => {
               <p className="kicker mb-2">Certificates</p>
               <h2>Professional certificates</h2>
               <p className="mt-4 prose-measure text-ink-soft">
-                Each certificate was chosen to close a specific skill gap. Harvard CS50 for
+                I chose each certificate to close a specific skill gap. Harvard CS50 for
                 foundations. Stanford Algorithms for algorithmic thinking. Google BI for
-                dashboard delivery. Cornell AI 360 for machine learning and NLP.
+                dashboard delivery. Cornell's AI &amp; Machine Learning 360 for the ML
+                and NLP foundations.
               </p>
               <p className="mt-3 font-sans text-sm">
                 <a

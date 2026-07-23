@@ -385,7 +385,7 @@ export const SkillMap = () => {
                         <span className="font-sans text-sm text-ink group-hover:text-accent transition-colors duration-150">
                           {c.title}
                         </span>
-                        <span className="font-sans text-xs text-muted shrink-0 whitespace-nowrap">AI 360</span>
+                        <span className="font-sans text-xs text-muted shrink-0 whitespace-nowrap">Cornell AI &amp; ML 360</span>
                       </div>
                       <div className="font-sans text-xs text-ink-soft mt-0.5">
                         {c.track}

@@ -207,8 +207,9 @@ export default function Certificates() {
             className="mb-12 p-6 rounded-lg bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 border border-primary/20"
           >
             <p className="text-center text-muted-foreground italic">
-              "This is not random online learning. This is a coherent, degree-level technical
-              education path aligned with IT Business & Systems Analysis, Data Science, and Product roles."
+              "I picked each certificate to close a specific gap: CS50 for programming
+              foundations, Google BI for dashboard delivery, Cornell's AI & Machine
+              Learning 360 for ML and NLP."
             </p>
           </motion.div>
 
@@ -225,10 +226,10 @@ export default function Certificates() {
                 </div>
                 <div>
                   <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-                    Core Certifications
+                    Core Certificates
                   </h2>
                   <p className="text-sm text-muted-foreground">
-                    Foundation credentials that define my technical expertise
+                    The ones I'd show a hiring manager first.
                   </p>
                 </div>
               </div>
