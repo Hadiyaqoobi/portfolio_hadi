@@ -123,7 +123,7 @@ export const portfolioData = {
       title: "IT Business Systems Analyst",
       company: "Equity Residential (S&P 500)",
       location: "Boston, MA",
-      skills: ["T-SQL", "Azure B2C", "Data Reconciliation", "Azure DevOps", "Agile"],
+      skills: ["T-SQL", "Azure B2C", "Power BI", "Data Reconciliation", "Azure DevOps", "Agile"],
       highlights: [
         "On a 135,000-account Azure AD B2C migration run across 6 teams and 4 phases, owned the migration-completeness validation, the go/no-go reporting, and the post-launch stabilization — found 4 of 5 production defects and executed 5 QA sign-offs in ~2 weeks",
         "Owned delivery, validation, and QA on the Fee Transparency program (4 workstreams), translating multi-state fee-disclosure laws (CA SB 478, VA HB 967, CO HB25-1090) into a tested data architecture that met every regulatory deadline",
@@ -280,7 +280,7 @@ export const portfolioData = {
     {
       title: "Multi-State Regulatory Compliance Delivered Ahead of Every Deadline",
       description: "Three states passed fee-disclosure laws (CA SB 478, VA HB 967, CO HB25-1090) with hard deadlines and no tolerance for error. I owned delivery through deployment: I facilitated requirements workshops with Marketing, Legal, and Finance, validated the spec against the actual data, and built a T-SQL reconciliation harness that re-derived each utility average straight from the accounting ledger and diffed it against the system's own audit table — 80 charge-code and bedroom combinations across 12 months, 960 cells, with tolerance bands so a defect surfaced deterministically instead of by eye. It caught a charge code stored lowercase in one table and uppercase in another, which fails silently as missing data.",
-      tech: ["SQL Server", "Dynamic T-SQL", "Azure DevOps"],
+      tech: ["SQL Server", "Dynamic T-SQL", "Power BI", "Azure DevOps"],
       tags: ["IT BSA", "SQL Development", "Data Validation", "Regulatory Compliance"],
       highlights: [],
       github: null,
