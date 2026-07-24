@@ -86,19 +86,7 @@ export const TitleBlock = ({ reduced }: { reduced: boolean }) => {
       </p>
 
       <p className="mt-5 max-w-[72ch] text-[15.5px] leading-[1.62] text-ink-soft">
-        I've spent my career as the analyst between business teams and
-        engineering &mdash; most recently at Equity Residential, an S&amp;P 500
-        company, where SQL was the job, not a side skill: ad-hoc pulls for
-        business partners, a reconciliation harness I wrote to check a fee
-        engine against its own ledger, monthly checks on a vendor billing feed,
-        and the reporting the business used to call go/no-go on a
-        135,000-account Azure AD B2C migration. On my own I went deep on AI. I
-        fine-tuned five machine-learning models in Python. One cut Dari
-        transcription error from 57.8% to 27.3%. I architected the
-        incident-monitoring system at the Afghan Human Right Center, and wrote a
-        sole-author paper now under review at Springer. Underneath it: a STEM
-        master's from Boston University and Cornell's AI and Machine Learning
-        360 certificate.
+        {personal.subtitle}
       </p>
 
       <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
